@@ -59,6 +59,10 @@ const studentSchema = new Schema({
     type: Object,
     required: true,
   },
+  favoriteTeacher: { 
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Teacher' 
+  },
 });
 
 // Compile the schema into a model

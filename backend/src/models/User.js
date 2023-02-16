@@ -1,5 +1,23 @@
 const mongoose = require('mongoose');
 
+
+// define roles for User model
+const userRoles = {
+  STUDENT: 'student',
+  TEACHER: 'teacher',
+  PARENT: 'parent',
+  STAFF: 'staff',
+  LIBRARIAN: 'librarian',
+  ACCOUNTANT: 'accountant',
+  TRANSPORT_MANAGER: 'transport manager',
+  MAINTENANCE: 'maintenance',
+  FOOD_SERVICE: 'food service',
+  HEALTH: 'health',
+  ONLINE_LEARNING: 'online learning',
+  SPORT: 'sport',
+  STUDENT_TRACKING: 'student tracking',
+  PARENT_COMMUNICATION: 'parent communication'
+};
 const userSchema = new mongoose.Schema({
   userID: {
     type: String,
@@ -47,6 +65,11 @@ const userSchema = new mongoose.Schema({
   accountStatus: {
     type: String,
     required: true
+  },
+  role: {
+    type: String,
+    enum: Object.values(userRoles),
+    default: userRoles.STUDENT
   }
 });
 

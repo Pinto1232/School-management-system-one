@@ -62,6 +62,10 @@ const teacherSchema = new Schema({
     type: Object,
     required: true,
   },
+  students: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Student'
+  }]
 });
 
 const Teacher = mongoose.model('Teacher', teacherSchema);
