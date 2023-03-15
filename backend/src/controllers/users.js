@@ -39,6 +39,9 @@ exports.login = asyncHandler(async (req, res) => {
         role: user.role,
     };
 
+    // Set the token to expire in 1 hour (or any desired duration)
+    const expiresIn = '4h';
+
     const token = jwt.sign(payload, jwtSecret, { expiresIn: jwtExpiresIn });
 
     res.status(200).json({ token, message: 'User logged in successfully' });

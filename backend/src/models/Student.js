@@ -1,105 +1,46 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const validator = require('validator');
 
-// Define the schema for the Student model
-const studentSchema = new Schema({
+const studentSchema = new mongoose.Schema({
   firstName: {
     type: String,
-    required: true,
+    required: [true, 'First name is required'],
+    trim: true,
   },
   lastName: {
     type: String,
-    required: true,
+    required: [true, 'Last name is required'],
+    trim: true,
+  },
+  email: {
+    type: String,
+    required: [true, 'Email is required'],
+    unique: true,
+    lowercase: true,
+    trim: true,
+    validate: [validator.isEmail, 'Please provide a valid email'],
   },
   dateOfBirth: {
     type: Date,
-    required: true,
+    required: [true, 'Date of birth is required'],
   },
-  gender: {
+  phoneNumber: {
     type: String,
-    required: true,
+    required: [true, 'Phone number is required'],
+    trim: true,
+    validate: {
+      validator: function (v) {
+        return /^[0-9\s]+$/.test(v);
+      },
+      message: (props) => `${props.value} is not a valid phone number.`,
+    },
   },
   address: {
     type: String,
-    required: true,
-  },
-  contactNumber: {
-    type: String,
-    required: true,
-  },
-  parentName: {
-    type: String,
-    required: true,
-  },
-  parentContactNumber: {
-    type: String,
-    required: true,
-  },
-  academicYear: {
-    type: String,
-    required: true,
-  },
-  class: {
-    type: String,
-    required: true,
-  },
-  section: {
-    type: String,
-    required: true,
-  },
-  rollNumber: {
-    type: Number,
-    required: true,
-  },
-  attendancePercentage: {
-    type: Number,
-    required: true,
-  },
-  reportCard: {
-    type: Object,
-    required: true,
-  },
-  favoriteTeacher: { 
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Teacher' 
+    required: [true, 'Address is required'],
+    trim: true,
   },
 });
 
-// Compile the schema into a model
 const Student = mongoose.model('Student', studentSchema);
-
-// Function to create a new instance of the Student model and save it to the database
-const createStudent = async () => {
-  try {
-    const newStudent = new Student({
-      firstName: 'John',
-      lastName: 'Doe',
-      dateOfBirth: new Date('2000-01-01'),
-      gender: 'Male',
-      address: '123 Main St, Anytown USA 12345',
-      contactNumber: '555-555-5555',
-      parentName: 'Jane Doe',
-      parentContactNumber: '555-555-5556',
-      academicYear: '2022-2023',
-      class: '10th Grade',
-      section: 'A',
-      rollNumber: 1,
-      attendancePercentage: 95,
-      reportCard: {
-        'English': 'A',
-        'Math': 'B',
-        'Science': 'A',
-        'History': 'C',
-        'Physical Education': 'A'
-      },
-    });
-  
-    await newStudent.save();
-    console.log('Student saved successfully');
-  } catch (error) {
-    console.log('Error saving student:', error);
-  }
-};
-
-// Export the createStudent function
-module.exports = createStudent;
+module.exports = Student;
