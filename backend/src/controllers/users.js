@@ -14,6 +14,7 @@ exports.register = asyncHandler(async (req, res) => {
 
     const user = new User({ email, password, firstName, lastName, role });
     await user.save();
+    console.log('Registered user:', user);
 
     res.status(201).json({ message: 'User registered successfully' });
 });
@@ -43,6 +44,7 @@ exports.login = asyncHandler(async (req, res) => {
     const expiresIn = '4h';
 
     const token = jwt.sign(payload, jwtSecret, { expiresIn: jwtExpiresIn });
-
+    console.log('Logged-in user:', user); // Move this line here
+    console.log('Generated token:', token); // Move this line here
     res.status(200).json({ token, message: 'User logged in successfully' });
 });

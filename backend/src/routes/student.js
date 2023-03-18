@@ -4,7 +4,7 @@ const studentController = require('../controllers/student');
 const authenticate = require('../middlewares/authenticate');
 const authorize = require('../middlewares/authorize');
 
-const allowedRoles = ['admin', 'teacher'];
+const allowedRoles = ['admin', 'teacher', 'student'];
 
 router.route('/')
     .post(authenticate, authorize(allowedRoles), studentController.createStudent)

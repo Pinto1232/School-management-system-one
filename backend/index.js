@@ -3,11 +3,14 @@ const connectDB = require('./src/config/db');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const { port } = require('./src/config/env');
-const attendanceRoutes = require('./src/routes/attendance');
 
 // Import user routes
+const attendanceRoutes = require('./src/routes/attendance');
 const userRoutes = require('./src/routes/users');
 const studentRoutes = require('./src/routes/student');
+const teacherRoutes = require('./src/routes/teachers');
+const adminRoutes = require('./src/routes/admin');
+
 
 
 const app = express();
@@ -28,6 +31,13 @@ app.use('/api/attendances', attendanceRoutes);
 
 // Use student routes
 app.use('/api/students', studentRoutes);
+
+// Use teacher routes
+app.use('/api/teachers', teacherRoutes);
+
+// Use admin  routes
+app.use('/api/admins', adminRoutes);
+
 
 // Start the server
 app.listen(port, () => {
