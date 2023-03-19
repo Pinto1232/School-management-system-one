@@ -14,7 +14,8 @@ module.exports = asyncHandler(async (req, res, next) => {
     const token = authHeader.split(' ')[1];
     try {
         const decoded = jwt.verify(token, jwtSecret);
-        const user = await Admin.findById(decoded.userId);
+        /* This code will check both User and Admin model */
+        const user = await User.findById(decoded.userId) || await Admin.findById(decoded.userId);
         if (!user) {
             console.log('User not found with decoded userId');
             return res.status(401).json({ message: 'Invalid token, access denied.' });

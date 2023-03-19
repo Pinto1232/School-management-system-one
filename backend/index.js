@@ -10,6 +10,7 @@ const userRoutes = require('./src/routes/users');
 const studentRoutes = require('./src/routes/student');
 const teacherRoutes = require('./src/routes/teachers');
 const adminRoutes = require('./src/routes/admin');
+const courseRoutes = require('./src/routes/course');
 
 
 
@@ -37,6 +38,9 @@ app.use('/api/teachers', teacherRoutes);
 
 // Use admin  routes
 app.use('/api/admins', adminRoutes);
+
+// Use course routes
+app.use('/api/courses', courseRoutes);
 
 
 // Start the server
