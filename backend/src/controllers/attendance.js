@@ -16,7 +16,8 @@ const validateAttendanceData = (student, date, status, course) => {
 // Create a new attendance record
 const createAttendance = async (req, res) => {
     try {
-        const { student, date, status, course } = req.body;
+        const { studentId: student, date, status, courseId: course } = req.body;
+
 
         const errors = validateAttendanceData(student, date, status, course);
         if (errors.length > 0) return res.status(400).json({ errors });

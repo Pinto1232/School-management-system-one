@@ -11,7 +11,9 @@ const studentRoutes = require('./src/routes/student');
 const teacherRoutes = require('./src/routes/teachers');
 const adminRoutes = require('./src/routes/admin');
 const courseRoutes = require('./src/routes/course');
-
+const classroomRoutes = require('./src/routes/classroom');
+const campusSafetyRoutes = require('./src/routes/campussafety');
+const enrollmentRoutes = require('./src/routes/enrollment');
 
 
 const app = express();
@@ -41,6 +43,15 @@ app.use('/api/admins', adminRoutes);
 
 // Use course routes
 app.use('/api/courses', courseRoutes);
+
+// Use classroom routes
+app.use('/api/classrooms', classroomRoutes)
+
+// Use campusSafety routes
+app.use('/api/campusSafety', campusSafetyRoutes)
+
+// Use enrollment routes
+app.use('/api/enrollments', enrollmentRoutes)
 
 
 // Start the server
