@@ -14,7 +14,7 @@ const courseRoutes = require('./src/routes/course');
 const classroomRoutes = require('./src/routes/classroom');
 const campusSafetyRoutes = require('./src/routes/campussafety');
 const enrollmentRoutes = require('./src/routes/enrollment');
-
+const eventRoutes = require('./src/routes/event')
 
 const app = express();
 
@@ -52,6 +52,9 @@ app.use('/api/campusSafety', campusSafetyRoutes)
 
 // Use enrollment routes
 app.use('/api/enrollments', enrollmentRoutes)
+
+// Use event routes
+app.use('/api/events', eventRoutes)
 
 
 // Start the server
