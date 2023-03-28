@@ -62,8 +62,7 @@ app.use('/api/events', eventRoutes)
 app.use('/api/finances', financeRoutes)
 
 // Use gradebook routes
-app.use('/api/grades', gradebookRoutes)
-
+app.use('/api/gradebook', gradebookRoutes);
 
 // Start the server
 app.listen(port, () => {
