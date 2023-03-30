@@ -1,5 +1,5 @@
 const Student = require('../models/Student');
-/* const Faculty = require('../models/Faculty'); */ 
+const Faculty = require('../models/Faculty');
 const Finance = require('../models/Finance')
 
 
@@ -39,23 +39,37 @@ const createFinance = async (req, res) => {
 // Get all finance records
 const getAllFinances = async (req, res) => {
     try {
-        const financeRecords = await Finance.find().populate('student faculty');
-        res.status(200).json({ finances: financeRecords });
+        const financeRecords = await Finance.find().lean();
+        console.log('Before populating:', financeRecords);
+
+        const populatedFinanceRecords = await Finance.find()
+            .populate({ path: 'student', model: 'Student', select: 'firstName lastName email' })
+            .populate({ path: 'faculty', model: 'Faculty', select: 'firstName lastName email' })
+            .lean();
+        console.log('After populating:', populatedFinanceRecords);
+
+        res.status(200).json({ finances: populatedFinanceRecords });
     } catch (error) {
-        res.status(400).json({ message: 'Error fetching finance records', error });
+        console.error(error); // Log the error to the console
+        res.status(400).json({ message: 'Error fetching finance records', error: error.message });
     }
 };
+
+
+
+
+
 
 // Get a finance record by ID
 const getFinanceById = async (req, res) => {
     try {
         const { id } = req.params;
         const financeRecord = await Finance.findById(id).populate('student faculty');
-        
+
         if (!financeRecord) {
             return res.status(404).json({ message: 'Finance record not found' });
         }
-        
+
         res.status(200).json({ finance: financeRecord });
     } catch (error) {
         res.status(400).json({ message: 'Error fetching finance record', error });

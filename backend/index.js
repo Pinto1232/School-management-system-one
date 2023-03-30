@@ -17,6 +17,10 @@ const enrollmentRoutes = require('./src/routes/enrollment');
 const eventRoutes = require('./src/routes/event')
 const financeRoutes = require('./src/routes/financial')
 const gradebookRoutes = require('./src/routes/gradebook');
+const humanresourceRoutes = require('./src/routes/humanresource');
+const facultyRoutes = require('./src/routes/faculty');
+const paymentRoutes = require('./src/routes/payment');
+
 
 const app = express();
 
@@ -63,6 +67,15 @@ app.use('/api/finances', financeRoutes)
 
 // Use gradebook routes
 app.use('/api/gradebook', gradebookRoutes);
+
+// Use humanresource routes
+app.use('/api/humanresources', humanresourceRoutes)
+
+// Use faculties routes
+app.use('/api/faculties', facultyRoutes);
+
+// Use payments routes
+app.use('/api/payments', paymentRoutes)
 
 // Start the server
 app.listen(port, () => {
