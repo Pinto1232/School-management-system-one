@@ -22,6 +22,8 @@ const facultyRoutes = require('./src/routes/faculty');
 const paymentRoutes = require('./src/routes/payment');
 const libraryRoutes = require('./src/routes/library');
 const bookRoutes = require('./src/routes/book');
+const sportRoutes = require('./src/routes/sports');
+const studentTrackingRoutes = require('./src/routes/studenttracking');
 
 
 const app = express();
@@ -84,6 +86,12 @@ app.use('/api/libraries', libraryRoutes)
 
 // Use book routes
 app.use('/api/books', bookRoutes)
+
+// Use sport routes
+app.use('/api/sports', sportRoutes)
+
+// Use studentTracking routes
+app.use('/api', studentTrackingRoutes)
 
 // Start the server
 app.listen(port, () => {
