@@ -20,6 +20,8 @@ const gradebookRoutes = require('./src/routes/gradebook');
 const humanresourceRoutes = require('./src/routes/humanresource');
 const facultyRoutes = require('./src/routes/faculty');
 const paymentRoutes = require('./src/routes/payment');
+const libraryRoutes = require('./src/routes/library');
+const bookRoutes = require('./src/routes/book');
 
 
 const app = express();
@@ -76,6 +78,12 @@ app.use('/api/faculties', facultyRoutes);
 
 // Use payments routes
 app.use('/api/payments', paymentRoutes)
+
+// Use payments routes
+app.use('/api/libraries', libraryRoutes)
+
+// Use book routes
+app.use('/api/books', bookRoutes)
 
 // Start the server
 app.listen(port, () => {

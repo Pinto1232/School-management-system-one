@@ -49,7 +49,7 @@ const humanResourceSchema = new Schema({
         phoneNumber: String,
     },
     vacationDays: {
-        totalDays: Number,
+        totalDays2q12: Number,
         usedDays: Number,
         remainingDays: Number,
     },
