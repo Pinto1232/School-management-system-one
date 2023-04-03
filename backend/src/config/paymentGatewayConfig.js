@@ -5,10 +5,17 @@ module.exports = stripe;
  */
 
 // Paypal payment gateway connection 
-const paypal = require('paypal-rest-sdk');
-paypal.configure({
-  mode: 'sandbox', // Change this to 'live' when you're ready to go live
-  client_id: 'your_paypal_client_id',
-  client_secret: 'your_paypal_client_secret',
-});
-module.exports = paypal;
+const checkoutNodeJssdk = require('@paypal/checkout-server-sdk');
+const paypal = require('@paypal/payouts-sdk');
+
+const clientId = process.env.PAYPAL_CLIENT_ID;
+const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
+
+const environment = new checkoutNodeJssdk.core.LiveEnvironment(clientId, clientSecret);
+const client = new checkoutNodeJssdk.core.PayPalHttpClient(environment);
+
+module.exports = {
+    client: () => client,
+    orders: checkoutNodeJssdk.orders,
+    payouts: paypal.payouts,
+};

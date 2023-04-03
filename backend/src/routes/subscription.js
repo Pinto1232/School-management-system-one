@@ -1,16 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const subscriptionController = require('../controllers/subscription');
+const {
+    getAllSubscriptions,
+    getSubscriptionById,
+    createSubscriptionWithPayment,
+    updateSubscription,
+    deleteSubscription,
+} = require('../controllers/subscription');
 
 router
-    .route('/subscriptions')
-    .get(subscriptionController.getAllSubscriptions)
-    .post(subscriptionController.createSubscription);
+    .route('/')
+    .get(getAllSubscriptions)
+    .post(createSubscriptionWithPayment);
 
 router
-    .route('/subscriptions/:id')
-    .get(subscriptionController.getSubscriptionById)
-    .put(subscriptionController.updateSubscription)
-    .delete(subscriptionController.deleteSubscription);
+    .route('/:id')
+    .get(getSubscriptionById)
+    .put(updateSubscription)
+    .delete(deleteSubscription);
 
 module.exports = router;

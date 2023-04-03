@@ -27,6 +27,7 @@ const studentTrackingRoutes = require('./src/routes/studenttracking');
 const subscriptionRoutes = require('./src/routes/subscription');
 
 
+
 const app = express();
 
 // Connect to MongoDB
@@ -95,7 +96,8 @@ app.use('/api/sports', sportRoutes)
 app.use('/api', studentTrackingRoutes)
 
 // Use subscription routes
-app.use('/api', subscriptionRoutes)
+app.use('/api/subscriptions', subscriptionRoutes);
+
 
 // Start the server
 app.listen(port, () => {

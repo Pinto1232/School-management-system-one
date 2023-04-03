@@ -9,4 +9,6 @@ async function hashPassword(password) {
   return hash;
 }
 
-module.exports = { hashPassword };
+module.exports = { 
+  hashPassword 
+};

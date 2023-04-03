@@ -13,7 +13,7 @@ const SubscriptionSchema = new mongoose.Schema({
     },
     subscriptionType: {
         type: String,
-        enum: ['basic', 'premium', 'enterprise'],
+        enum: ['Free', 'basic', 'premium', 'enterprise'],
         required: true,
     },
     subscribedModules: [

@@ -23,5 +23,6 @@ const authorize = (roles) => {
   };
 };
 
-
-module.exports = authorize;
+module.exports = {
+  authorize, // Add this line to export the authorize middleware
+};

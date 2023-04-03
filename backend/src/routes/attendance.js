@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const attendanceController = require('../controllers/attendance');
 const authenticate = require('../middlewares/authenticate');
-const authorize = require('../middlewares/authorize');
+const { authorize } = require('../middlewares/authorize');
+
 
 const allowedRoles = ['admin', 'teacher'];
 
