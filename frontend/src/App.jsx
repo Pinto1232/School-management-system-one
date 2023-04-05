@@ -1,28 +1,21 @@
-import 'react'
-import './App.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'jquery/dist/jquery.min.js';
-import 'popper.js/dist/popper.min.js';
-import 'bootstrap/dist/js/bootstrap.min.js';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import React from 'react'
+import { Routes, Route } from "react-router-dom"
+import Home from "../.././frontend/src/pages/Home"
+import Login from "../.././frontend/src/pages/Login"
+import Signup from "../.././frontend/src/pages/Signup"
+import Navbar from "../src/components/specific/Navbar"
+import AuthForm from './components/specific/AuthForm'
 
-
-
-function App() {
- 
-
+const App = () => {
   return (
-    <div className="App">
-    <i className="fas fa-check"></i>
-    <div className="card">
-    <div className="card-body">
-      <h5 className="card-title">Card title</h5>
-      <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" className="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
-  
+    <div>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/login" element={<Login />} /> */}
+        <Route path="/register" element={<AuthForm />} />
+        {/* <Route path="/register" element={<AuthForm />} /> */}
+      </Routes>
     </div>
   )
 }
