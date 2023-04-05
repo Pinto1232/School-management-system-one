@@ -28,5 +28,5 @@ const Navbar = () => {
     </Box>
   );
 };
-// This is a test
+
 export default Navbar;
