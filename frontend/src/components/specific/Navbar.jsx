@@ -11,15 +11,14 @@ const Navbar = () => {
 
   return (
     <Box bg={colorMode === 'light' ? 'gray.100' : 'gray.700'} p={4}>
-      <Flex>
+      <Flex alignItems="center">
         <Link as={RouterLink} to="/" mr={4} style={{ textDecoration: 'none' }}>
           Home
         </Link>
-         {/* Comment test */}
+        <Spacer />
         <Link as={RouterLink} to="/register" mr={4} style={{ textDecoration: 'none' }}>
           Sign Up
         </Link>
-        <Spacer />
         <IconButton
           onClick={toggleColorMode}
           icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
