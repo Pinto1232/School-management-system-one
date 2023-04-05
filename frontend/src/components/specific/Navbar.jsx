@@ -15,7 +15,7 @@ const Navbar = () => {
         <Link as={RouterLink} to="/" mr={4} style={{ textDecoration: 'none' }}>
           Home
         </Link>
-
+         {/* Comment test */}
         <Link as={RouterLink} to="/register" mr={4} style={{ textDecoration: 'none' }}>
           Sign Up
         </Link>
