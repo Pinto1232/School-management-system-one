@@ -15,11 +15,11 @@ const validate = (values) => {
     const errors = {};
 
     if (!/^[a-zA-Z]+$/i.test(values.firstName)) {
-        errors.firstName = 'First name is required and should only contain letters';
+        errors.firstName = 'Name is required and should only contain letters';
     }
 
     if (!/^[a-zA-Z]+$/i.test(values.lastName)) {
-        errors.lastName = 'Last name is required and should only contain letters';
+        errors.lastName = 'Surname is required and should only contain letters';
     }
 
     if (!/\S+@\S+\.\S+/.test(values.email)) {
@@ -81,7 +81,7 @@ const AuthForm = ({ mode, onToggleMode }) => {
                 });
 
                 // Redirect to the login page
-                navigate('/login');
+                navigate('/Login');
             } catch (error) {
                 console.error('Error during registration:', error.message);
 
@@ -190,7 +190,7 @@ const AuthForm = ({ mode, onToggleMode }) => {
                         {!isLogin && (
                             <>
                                 <FormControl id="firstName">
-                                    <FormLabel>First Name</FormLabel>
+                                    <FormLabel>Name</FormLabel>
                                     <Input
                                         type="text"
                                         name="firstName"
@@ -204,7 +204,7 @@ const AuthForm = ({ mode, onToggleMode }) => {
                                     {errors.firstName && <Text color="red.500">{errors.firstName}</Text>}
                                 </FormControl>
                                 <FormControl id="lastName">
-                                    <FormLabel>Last Name</FormLabel>
+                                    <FormLabel>Surname</FormLabel>
                                     <Input
                                         type="text"
                                         name="lastName"
@@ -252,11 +252,11 @@ const AuthForm = ({ mode, onToggleMode }) => {
                         </Button>
                     </Stack>
                 </form>
-                {/* {!isLogin && (
-                    <Button colorScheme="teal" mt={4} onClick={onToggleMode} w="100%">
+                 {!isLogin && (
+                    <Button colorScheme="teal" mt={4}  onClick={() => navigate('/login')}  w="100%">
                         Switch to Login
                     </Button>
-                )} */}
+                )} 
             </Box>
         </>
     );

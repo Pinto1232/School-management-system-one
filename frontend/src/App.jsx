@@ -5,6 +5,7 @@ import Login from "../.././frontend/src/pages/Login"
 import Signup from "../.././frontend/src/pages/Signup"
 import Navbar from "../src/components/specific/Navbar"
 import AuthForm from './components/specific/AuthForm'
+import Dashboard from './pages/Dashboard'
 
 const App = () => {
   return (
@@ -12,8 +13,9 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/login" element={<Login />} /> */}
+        <Route path="/login" element={<Login />} /> 
         <Route path="/register" element={<AuthForm />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         {/* <Route path="/register" element={<AuthForm />} /> */}
       </Routes>
     </div>
