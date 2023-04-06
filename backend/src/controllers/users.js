@@ -46,5 +46,5 @@ exports.login = asyncHandler(async (req, res) => {
     const token = jwt.sign(payload, jwtSecret, { expiresIn: jwtExpiresIn });
     console.log('Logged-in user:', user); // Move this line here
     console.log('Generated token:', token); // Move this line here
-    res.status(200).json({ token, message: 'User logged in successfully' });
+    res.status(200).json({ token, message: 'User logged in successfully', user: { id: user._id, name: user.firstName + ' ' + user.lastName } });
 });
