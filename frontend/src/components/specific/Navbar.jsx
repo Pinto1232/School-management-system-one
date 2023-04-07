@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
-import { Box, Flex, Spacer, Link, IconButton, Text } from '@chakra-ui/react';
+import { Box, Flex, VStack, Spacer, Link, IconButton, Text} from '@chakra-ui/react';
 import { useColorMode } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
@@ -21,13 +21,13 @@ const Navbar = () => {
         )}
 
         {!isLoggedIn && (
-          <Link as={RouterLink} to="/" mr={8} style={{ textDecoration: 'none' }}>
+          <Link as={RouterLink} to="/about" mr={8} style={{ textDecoration: 'none' }}>
             <Text>About</Text>
           </Link>
         )}
 
         {!isLoggedIn && (
-          <Link as={RouterLink} to="/" mr={8} style={{ textDecoration: 'none' }}>
+          <Link as={RouterLink} to="/faq" mr={8} style={{ textDecoration: 'none' }}>
             <Text>FAQs</Text>
           </Link>
         )}

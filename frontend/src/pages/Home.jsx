@@ -16,7 +16,7 @@ const Home = () => {
             <Jumbotron
                 title="Welcome to the Jumbotron"
                 subtitle="This is a simple Jumbotron-like component built using Chakra UI."
-                buttonText="Learn more"
+                buttonText="learn more"
                 bgImage={bgImage}
                 buttonOnClick={handleButtonClick}
             />

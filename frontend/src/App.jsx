@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route } from "react-router-dom"
 import Home from "../.././frontend/src/pages/Home"
 import Login from "../.././frontend/src/pages/Login"
-import Signup from "../.././frontend/src/pages/Signup"
 import Navbar from "../src/components/specific/Navbar"
 import AuthForm from './components/specific/AuthForm'
 import Dashboard from './pages/Dashboard'
 import UserContext from './contexts/UserContext';
+import Faq from './pages/Faq';
+import About from './pages/About';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -50,6 +51,8 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<AuthForm />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/faq" element={<Faq/>} />
+            <Route path="/about" element={<About />} />
           </Routes>
         </div>
       </UserContext.Provider>
