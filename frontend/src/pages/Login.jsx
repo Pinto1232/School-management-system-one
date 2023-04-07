@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Box, Button, Checkbox, FormControl, FormLabel, Input, Stack, Text, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import useFormValidation from '../hooks/useFormValidation';
 import api from '../services/api';
-
+import UserContext from '../contexts/UserContext';
 
 const initialValues = {
   email: '',
@@ -28,9 +28,9 @@ const validate = (values) => {
 const Login = () => {
   const navigate = useNavigate();
   const toast = useToast();
+  const { setUser, setIsLoggedIn } = useContext(UserContext);
 
-  const handleFormSubmit = async (values, setIsSubmitting) => {
-    /* setIsSubmitting(true) */
+  const handleFormSubmit = async (values, setIsSubmitting, setErrors) => {
     try {
       const response = await api.post('/users/login', {
         email: values.email,
@@ -40,15 +40,15 @@ const Login = () => {
       const data = response.data;
       console.log('Login successful', data);
 
-      // Add a delay before redirecting
       setTimeout(() => {
         if (values.keepMeLogin) {
           localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
         } else {
           sessionStorage.setItem('token', data.token);
+          sessionStorage.setItem('user', JSON.stringify(data.user));
         }
 
-        // Show a toast message
         toast({
           title: 'Logged in successfully',
           description: 'Welcome to the dashboard',
@@ -58,14 +58,33 @@ const Login = () => {
           position: 'top-right',
         });
 
-        // Redirect to the dashboard
         navigate('/dashboard');
-      }, 3000); // Adjust the delay time as needed (in milliseconds)
-    } catch (error) {
-      console.error('Error during login:', error.message);
-    } 
-  };
+      }, 3000);
 
+      setUser(data.user);
+      console.log('User data:', data.user);
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.error('Error during login:', error);
+
+      if (error.response && error.response.status === 400) {
+        const serverError = error.response.data.error;
+
+        if (serverError === 'Invalid email or password') {
+          setErrors((prevErrors) => ({ ...prevErrors, serverError }));
+        } else {
+          setErrors((prevErrors) => ({ ...prevErrors, serverError }));
+        }
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          serverError: 'An unexpected error occurred. Please try again.',
+        }));
+      }
+
+      setIsSubmitting(false);
+    }
+  };
 
 
   const {
@@ -75,12 +94,11 @@ const Login = () => {
     values,
     errors,
     isSubmitting,
-  } = useFormValidation(initialValues, validate, () => handleFormSubmit(values));
-
-
+    setErrors,
+  } = useFormValidation(initialValues, validate, handleFormSubmit);
 
   return (
-    <Box maxWidth="400px" mx="auto" p={8} marginTop={10} boxShadow="md" rounded="md">
+    <Box maxWidth="400px" mx="auto" p={8} marginTop={20} boxShadow="md" rounded="md">
       <Text fontSize="3xl" textAlign="center" mb={6}>
         Login
       </Text>

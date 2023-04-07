@@ -86,13 +86,13 @@ const AuthForm = ({ mode, onToggleMode }) => {
                 console.error('Error during registration:', error.message);
 
                 // Show error toast
-                toast({
+                /* toast({
                     title: 'Error',
                     description: 'Data was not successfully submitted',
                     status: 'error',
                     duration: 3000,
                     isClosable: true,
-                });
+                }); */
             }
         }
         setIsLoading(false); // Set isLoading back to false after the API call is completed

@@ -10,7 +10,7 @@ const useFormValidation = (initialState, validate, onSubmit) => {
     if (isSubmitting) {
       const noErrors = Object.keys(errors).length === 0;
       if (noErrors) {
-        onSubmit(values, setIsSubmitting); // Pass setIsSubmitting as a second argument
+        onSubmit(values, setIsSubmitting, setErrors); // Pass setErrors as the third argument
       } else {
         setIsSubmitting(false);
       }
