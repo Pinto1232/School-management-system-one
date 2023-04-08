@@ -4,6 +4,8 @@ import { SearchIcon } from '@chakra-ui/icons';
 
 const SearchBar = () => {
   const [showInput, setShowInput] = useState(false);
+  
+  
 
   const toggleSearchInput = () => {
     setShowInput(!showInput);
@@ -15,6 +17,7 @@ const SearchBar = () => {
         <Input
           placeholder="Search..."
           borderRadius="md"
+          w="100%"
         />
       )}
       <InputRightElement>

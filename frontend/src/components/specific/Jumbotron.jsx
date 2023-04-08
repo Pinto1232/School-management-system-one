@@ -11,7 +11,7 @@ const Jumbotron = ({
     minHeight = '70vh',
     titleSize = '2xl',
     subtitleSize = 'xl',
-    bgGradient = 'linear(to-r, rgba(0, 123, 255, 0.6), rgba(0, 123, 255, 0.9))',
+    bgGradient = 'linear(to-r, rgba(0, 50, 200, 0.8), rgba(0, 0, 100, 0.9))',
     textColor = 'white',
     bgImage,
 }) => {
@@ -53,10 +53,10 @@ const Jumbotron = ({
                 zIndex={-1}
                 opacity={0.5}
             />
-            <Heading size={titleSize} mb={4}>
+            <Heading size={titleSize} mb={4} whiteSpace="normal" w="900px" textAlign="center" >
                 {title}
             </Heading>
-            <Text fontSize={subtitleSize} mb={6}>
+            <Text fontSize={subtitleSize} mb={6} w="700px" textAlign="center" >
                 {subtitle}
             </Text>
             <CustomButton w="200px" onClick={buttonOnClick}>

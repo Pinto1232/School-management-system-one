@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
-import { Box, Flex, VStack, Spacer, Link, IconButton, Text} from '@chakra-ui/react';
+import { Box, Flex, VStack, Spacer, Link, IconButton, Text, useBreakpointValue } from '@chakra-ui/react';
 import { useColorMode } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
@@ -11,9 +11,20 @@ const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isLoggedIn } = useContext(UserContext);
 
+  const flexDirection = useBreakpointValue({ base: 'column', md: 'row' });
+  const alignItems = useBreakpointValue({ base: 'center', md: 'flex-start' });
+
+
   return (
-    <Box bg={colorMode === 'light' ? 'gray.100' : 'gray.700'} p={4}>
-      <Flex alignItems="center">
+    <Box
+      bg={colorMode === 'light' ? 'gray.100' : 'gray.700'}
+      p={4}
+      position="sticky"
+      top={0}
+      zIndex={1000}
+      boxShadow="sm"
+    >
+      <Flex direction={flexDirection} alignItems={alignItems}>
         {!isLoggedIn && (
           <Link as={RouterLink} to="/" ml={10} mr={8} style={{ textDecoration: 'none' }}>
             <Text>Home</Text>
@@ -32,12 +43,12 @@ const Navbar = () => {
           </Link>
         )}
         <Spacer />
-        <Flex alignItems="flex-start" spacing={0}>
+        <Flex alignItems={alignItems} spacing={0}>
           {/* Seachbar */}
           <SearchBar />
           {/* Sign Up */}
           {!isLoggedIn && (
-            <Link as={RouterLink} to="/register"  ml={4} style={{ textDecoration: 'none' }}>
+            <Link as={RouterLink} to="/register" ml={4} style={{ textDecoration: 'none' }}>
               <Text mr={4} whiteSpace="nowrap">
                 Sign Up
               </Text>
@@ -51,7 +62,6 @@ const Navbar = () => {
             mr={10}
           />
         </Flex>
-
       </Flex>
     </Box>
   );

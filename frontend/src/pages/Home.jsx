@@ -16,12 +16,11 @@ const Home = () => {
     };
 
 
-
     return (
         <div>
             <Jumbotron
-                title="Welcome to the Jumbotron"
-                subtitle="This is a simple Jumbotron-like component built using Chakra UI."
+                title="Elevate Education, Simplify School Management!"
+                subtitle="Streamlines processes, fosters collaboration, and enhances learning outcomes for a seamless educational experience"
                 buttonText="learn more"
                 bgImage={bgImage}
                 buttonOnClick={handleButtonClick}
