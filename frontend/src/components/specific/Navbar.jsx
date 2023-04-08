@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
-import { Box, Flex, VStack, Spacer, Link, IconButton, Text, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Flex, VStack, Spacer, Link, IconButton, Text, useBreakpointValue, useColorModeValue } from '@chakra-ui/react';
 import { useColorMode } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
@@ -14,10 +14,12 @@ const Navbar = () => {
   const flexDirection = useBreakpointValue({ base: 'column', md: 'row' });
   const alignItems = useBreakpointValue({ base: 'center', md: 'flex-start' });
 
+  const textColor = useColorModeValue('black', 'white');
+  const backgroundColor = useColorModeValue('gray.100', 'gray.700');
 
   return (
     <Box
-      bg={colorMode === 'light' ? 'gray.100' : 'gray.700'}
+      bg={backgroundColor}
       p={4}
       position="sticky"
       top={0}
@@ -27,19 +29,19 @@ const Navbar = () => {
       <Flex direction={flexDirection} alignItems={alignItems}>
         {!isLoggedIn && (
           <Link as={RouterLink} to="/" ml={10} mr={8} style={{ textDecoration: 'none' }}>
-            <Text>Home</Text>
+            <Text color={textColor}>Home</Text>
           </Link>
         )}
 
         {!isLoggedIn && (
           <Link as={RouterLink} to="/about" mr={8} style={{ textDecoration: 'none' }}>
-            <Text>About</Text>
+            <Text color={textColor}>About</Text>
           </Link>
         )}
 
         {!isLoggedIn && (
           <Link as={RouterLink} to="/faq" mr={8} style={{ textDecoration: 'none' }}>
-            <Text>FAQs</Text>
+            <Text color={textColor}>FAQs</Text>
           </Link>
         )}
         <Spacer />
@@ -49,7 +51,7 @@ const Navbar = () => {
           {/* Sign Up */}
           {!isLoggedIn && (
             <Link as={RouterLink} to="/register" ml={4} style={{ textDecoration: 'none' }}>
-              <Text mr={4} whiteSpace="nowrap">
+              <Text color={textColor} mr={4} whiteSpace="nowrap">
                 Sign Up
               </Text>
             </Link>

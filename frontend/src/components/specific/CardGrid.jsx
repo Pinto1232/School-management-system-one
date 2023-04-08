@@ -8,7 +8,7 @@ const CardGrid = () => {
     return (
         <div>
             <Text fontSize="4xl" fontWeight="bold" textAlign="center" mt={8} mb={6}>
-                Our Plans
+                Our Packages Plans
             </Text>
 
             <Grid

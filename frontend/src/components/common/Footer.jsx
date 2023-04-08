@@ -78,7 +78,7 @@ const Footer = () => {
                 ))}
             </Flex>
             <Divider />
-            <Box bg="white" textAlign="center">
+            <Box bg="white" textAlign="center" maxW="100%" border="none">
                 <Text color="black" fontSize="sm" whiteSpace="nowrap">
                     &copy; {new Date().getFullYear()} PintoEd Management
                 </Text>
