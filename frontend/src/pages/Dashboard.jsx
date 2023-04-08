@@ -109,6 +109,14 @@ const Dashboard = () => {
             <Text fontSize="xl">Tasks</Text>
             {/* Add content here */}
           </Box>
+          <Box bg="white" boxShadow="base" p={6} borderRadius="md">
+            <Text fontSize="xl">Tasks</Text>
+            {/* Add content here */}
+          </Box>
+          <Box bg="white" boxShadow="base" p={6} borderRadius="md">
+            <Text fontSize="xl">Tasks</Text>
+            {/* Add content here */}
+          </Box>
         </VStack>
       </Flex>
 
@@ -137,7 +145,6 @@ const Dashboard = () => {
               <Button colorScheme="red" onClick={handleLogout} isLoading={isLoading} leftIcon={<IoLogOut />} alignItems="center">
                 Log out
               </Button>
-
             </VStack>
           </DrawerBody>
         </DrawerContent>

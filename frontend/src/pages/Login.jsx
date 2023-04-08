@@ -111,9 +111,9 @@ const Login = () => {
   };
 
   return (
-    <Box maxWidth="400px" mx="auto" p={8}  boxShadow="md" rounded="md">
+    <Box maxWidth="400px" mx="auto" p={8} boxShadow="md" rounded="md">
       <Center marginBottom={4}>
-        <Image src={logo} alt="Your Logo" width="100px" height="100px"/>
+        <Image src={logo} alt="Your Logo" width="100px" height="100px" />
       </Center>
       <Text fontSize="3xl" textAlign="center" mb={6}>
         Login

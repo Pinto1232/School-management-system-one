@@ -41,12 +41,12 @@ const App = () => {
       console.log("No stored user data found or stored data is 'undefined'");
     }
   }, []);
-  
+
 
 
   return (
     <div>
-      <UserContext.Provider  value={{ isLoggedIn, setIsLoggedIn, user, setUser }}>
+      <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn, user, setUser }}>
         <div>
           <Navbar />
           <Routes>
@@ -54,7 +54,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<AuthForm />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/faq" element={<Faq/>} />
+            <Route path="/faq" element={<Faq />} />
             <Route path="/about" element={<About />} />
             <Route path="/forgetPassword" element={<ForgetPassowrd />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
