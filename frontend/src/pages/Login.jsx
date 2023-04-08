@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { Box, Button, Link as ChakraLink, Checkbox, Flex, FormControl, FormLabel, Input, Spacer, Stack, Text, useToast } from '@chakra-ui/react';
+import { Box, Button, Center, Link as ChakraLink, Checkbox, Flex, FormControl, FormLabel, Image, Input, Spacer, Stack, Text, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import useFormValidation from '../hooks/useFormValidation';
 import api from '../services/api';
 import UserContext from '../contexts/UserContext';
+import logo from '../assets/images/logo.png';
 
 const initialValues = {
   email: '',
@@ -111,6 +112,9 @@ const Login = () => {
 
   return (
     <Box maxWidth="400px" mx="auto" p={8} marginTop={20} boxShadow="md" rounded="md">
+      <Center marginBottom={4}>
+        <Image src={logo} alt="Your Logo" width="100px" height="100px"/>
+      </Center>
       <Text fontSize="3xl" textAlign="center" mb={6}>
         Login
       </Text>
