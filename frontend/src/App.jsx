@@ -10,6 +10,7 @@ import Faq from './pages/Faq';
 import About from './pages/About';
 import ForgetPassowrd from './pages/ForgetPassowrd';
 import Footer from './components/common/Footer';
+import ResetPassword from './pages/ResetPassword';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -56,6 +57,7 @@ const App = () => {
             <Route path="/faq" element={<Faq/>} />
             <Route path="/about" element={<About />} />
             <Route path="/forgetPassword" element={<ForgetPassowrd />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
           </Routes>
           <Footer />
         </div>
