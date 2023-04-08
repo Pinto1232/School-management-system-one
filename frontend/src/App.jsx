@@ -8,6 +8,8 @@ import Dashboard from './pages/Dashboard'
 import UserContext from './contexts/UserContext';
 import Faq from './pages/Faq';
 import About from './pages/About';
+import ForgetPassowrd from './pages/ForgetPassowrd';
+import Footer from './components/common/Footer';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -53,7 +55,9 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/faq" element={<Faq/>} />
             <Route path="/about" element={<About />} />
+            <Route path="/forgetPassword" element={<ForgetPassowrd />} />
           </Routes>
+          <Footer />
         </div>
       </UserContext.Provider>
     </div>

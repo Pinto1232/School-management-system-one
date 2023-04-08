@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Box, Button, Checkbox, FormControl, FormLabel, Input, Stack, Text, useToast } from '@chakra-ui/react';
+import { Box, Button, Link as ChakraLink, Checkbox, Flex, FormControl, FormLabel, Input, Link, Spacer, Stack, Text, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import useFormValidation from '../hooks/useFormValidation';
 import api from '../services/api';
@@ -97,6 +97,10 @@ const Login = () => {
     setErrors,
   } = useFormValidation(initialValues, validate, handleFormSubmit);
 
+  const handleForgotPasswordClick = () => {
+    navigate('/forgetPassword');
+  };
+
   return (
     <Box maxWidth="400px" mx="auto" p={8} marginTop={20} boxShadow="md" rounded="md">
       <Text fontSize="3xl" textAlign="center" mb={6}>
@@ -136,16 +140,22 @@ const Login = () => {
           <Button type="submit" colorScheme="teal" isLoading={isSubmitting} width="100%">
             Login
           </Button>
-          <FormControl id="keepMeLogin">
-            <Checkbox
-              name="keepMeLogin"
-              isChecked={values.keepMeLogin}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            >
-              Keep me logged in
-            </Checkbox>
-          </FormControl>
+          <Flex alignItems="center">
+            <FormControl id="keepMeLogin">
+              <Checkbox
+                name="keepMeLogin"
+                isChecked={values.keepMeLogin}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              >
+                Keep me logged in
+              </Checkbox>
+            </FormControl>
+            <Spacer />
+            <ChakraLink color="blue.500" onClick={handleForgotPasswordClick} whiteSpace="nowrap">
+              Forgot Password?
+            </ChakraLink>
+          </Flex>
         </Stack>
       </form>
     </Box>
