@@ -65,9 +65,9 @@ const Footer = () => {
                 ].map(({ title, subLinks }, index) => (
                     <Box key={index} textAlign="center" p={{ base: 4, sm: 6, md: 12 }}>
                         <VStack spacing={2} alignItems="start">
-                                <Text whiteSpace="nowrap" fontSize={19} textTransform="uppercase">
-                                    {title}
-                                </Text>
+                            <Text whiteSpace="nowrap" fontSize={19} textTransform="uppercase">
+                                {title}
+                            </Text>
                             {subLinks.map((link, i) => (
                                 <Link key={i} fontSize="sm" whiteSpace="nowrap">
                                     {link}

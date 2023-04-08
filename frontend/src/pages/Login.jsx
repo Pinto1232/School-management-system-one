@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Box, Button, Link as ChakraLink, Checkbox, Flex, FormControl, FormLabel, Input, Link, Spacer, Stack, Text, useToast } from '@chakra-ui/react';
+import { Box, Button, Link as ChakraLink, Checkbox, Flex, FormControl, FormLabel, Input, Spacer, Stack, Text, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import useFormValidation from '../hooks/useFormValidation';
 import api from '../services/api';
@@ -8,7 +8,6 @@ import UserContext from '../contexts/UserContext';
 const initialValues = {
   email: '',
   password: '',
-  keepMeLogin: false,
 };
 
 const validate = (values) => {
@@ -29,6 +28,8 @@ const Login = () => {
   const navigate = useNavigate();
   const toast = useToast();
   const { setUser, setIsLoggedIn } = useContext(UserContext);
+  const [keepMeLogin, setKeepMeLogin] = useState(false);
+  const [toastVisible, setToastVisible] = useState(false);
 
   const handleFormSubmit = async (values, setIsSubmitting, setErrors) => {
     try {
@@ -49,14 +50,18 @@ const Login = () => {
           sessionStorage.setItem('user', JSON.stringify(data.user));
         }
 
-        toast({
-          title: 'Logged in successfully',
-          description: 'Welcome to the dashboard',
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
-          position: 'top-right',
-        });
+        if (!toastVisible) {
+          toast({
+            title: 'Logged in successfully',
+            description: 'Welcome to the dashboard',
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+            position: 'top-right',
+            onCloseComplete: () => setToastVisible(false),
+          });
+          setToastVisible(true);
+        }
 
         navigate('/dashboard');
       }, 3000);
@@ -86,7 +91,6 @@ const Login = () => {
     }
   };
 
-
   const {
     handleChange,
     handleBlur,
@@ -99,6 +103,10 @@ const Login = () => {
 
   const handleForgotPasswordClick = () => {
     navigate('/forgetPassword');
+  };
+
+  const handleKeepMeLoginChange = (e) => {
+    setKeepMeLogin(e.target.checked);
   };
 
   return (
@@ -144,8 +152,8 @@ const Login = () => {
             <FormControl id="keepMeLogin">
               <Checkbox
                 name="keepMeLogin"
-                isChecked={values.keepMeLogin}
-                onChange={handleChange}
+                isChecked={keepMeLogin}
+                onChange={handleKeepMeLoginChange}
                 onBlur={handleBlur}
               >
                 Keep me logged in
