@@ -28,6 +28,11 @@ const SubscriptionCard = ({ title, price, features, buttonText, onSubscribe, ima
                 <Text fontSize="4xl" fontWeight="bold" color="black">
                     ${price}
                 </Text>
+                <Flex w='100%'>
+                <Button  onClick={onSubscribe} colorScheme="blue"  width="100%">
+                    {buttonText}
+                </Button>
+                </Flex>
                 <Text fontSize="lg" fontWeight="semibold" color="black">
                     Features
                 </Text>
@@ -38,11 +43,6 @@ const SubscriptionCard = ({ title, price, features, buttonText, onSubscribe, ima
                         </Text>
                     ))}
                 </VStack>
-                <Flex w='100%'>
-                <Button  onClick={onSubscribe} colorScheme="blue"  width="100%">
-                    {buttonText}
-                </Button>
-                </Flex>
             </VStack>
         </Box>
     );

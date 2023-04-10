@@ -8,7 +8,7 @@ const Faq = () => {
     return (
         <div>
             <Jumbotron
-                title="About Us"
+                title="Frequent asked questions"
                 subtitle="This is a simple Jumbotron-like component built using Chakra UI."
                 buttonText="learn more"
                 bgImage={bgImage}
