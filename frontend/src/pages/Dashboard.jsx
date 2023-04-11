@@ -72,8 +72,7 @@ const Dashboard = () => {
     { label: 'Task', path: '/tasks', icon: FaTasks },
     { label: 'User Permissions and Roles', path: '/user-permissions-roles', icon: FaUnlockAlt },
   ];
-
-
+  
   const handleNavigation = (path) => {
     navigate(path);
     onClose();
@@ -125,7 +124,7 @@ const Dashboard = () => {
         <DrawerContent>
           <DrawerHeader borderBottomWidth="1px">Dashboard Menu</DrawerHeader>
           <DrawerBody>
-            <VStack spacing={4} align="stretch">
+            <VStack spac ing={4} align="stretch">
               {menuItems.map((item) => (
                 <Flex
                   key={item.label}
@@ -135,7 +134,20 @@ const Dashboard = () => {
                 >
                   <Box as="span" display="inline-flex" alignItems="center" spacing="12" gap={4}>
                     <item.icon boxSize="6" />
-                    <Link textDecoration="none" _hover={{ textDecoration: 'none' }}>
+                    <Link
+                      textDecoration="none"
+                      _hover={{
+                        textDecoration: 'none',
+                        backgroundColor: 'gray.100',
+                        paddingTop: "1",
+                        paddingBottom: "1",
+                        paddingLeft: "2",
+                        paddingRight: "4",
+                        transition: "all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)",
+                        width: "230px",
+                        whiteSpace: "nowrap",
+                        borderRadius: "8",
+                      }}>
                       <span>{item.label}</span>
                     </Link>
                   </Box>
