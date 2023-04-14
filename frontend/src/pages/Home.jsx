@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Jumbotron from '../components/specific/Jumbotron';
 import bgImage from '../assets/images/background-01.jpg';
 import CardGrid from '../components/specific/CardGrid';
 import IconColumns from '../components/common/IconColumns';
 import { FaHome, FaUserAlt, FaBell, FaCog } from "react-icons/fa";
+import InputField from '../components/common/InputField';
+import { EmailIcon, LockIcon } from '@chakra-ui/icons';
 
 
 const iconsData = [
@@ -12,10 +14,30 @@ const iconsData = [
     { id: 3, icon: FaBell, title: "Real Time Environment" },
     { id: 4, icon: FaCog, title: "24/7 Support" },
 ];
-  
+
 
 
 const Home = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+
+
+
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    };
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Handle form submission
+    };
+
+
     const handleButtonClick = () => {
         console.log('Button clicked');
     };
@@ -23,6 +45,8 @@ const Home = () => {
     const handleSubscribe = () => {
         // handle subscription logic here
     };
+
+
 
 
     return (
@@ -37,8 +61,8 @@ const Home = () => {
             <CardGrid />
 
             {/* Icon component */}
-            <IconColumns 
-               iconsData={iconsData} 
+            <IconColumns
+                iconsData={iconsData}
             />
         </div>
     )
