@@ -4,8 +4,8 @@ import bgImage from '../assets/images/background-01.jpg';
 import CardGrid from '../components/specific/CardGrid';
 import IconColumns from '../components/common/IconColumns';
 import { FaHome, FaUserAlt, FaBell, FaCog } from "react-icons/fa";
-import InputField from '../components/common/InputField';
-import { EmailIcon, LockIcon } from '@chakra-ui/icons';
+import { Grid } from '@chakra-ui/react';
+
 
 
 const iconsData = [
@@ -18,39 +18,13 @@ const iconsData = [
 
 
 const Home = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
-
-
-
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
-
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission
-    };
-
 
     const handleButtonClick = () => {
-        console.log('Button clicked');
-    };
 
-    const handleSubscribe = () => {
-        // handle subscription logic here
-    };
-
-
-
-
+    }
+  
     return (
-        <div>
+        <Grid>
             <Jumbotron
                 title="Elevate Education, Simplify School Management!"
                 subtitle="Streamlines processes, fosters collaboration, and enhances learning outcomes for a seamless educational experience"
@@ -64,7 +38,7 @@ const Home = () => {
             <IconColumns
                 iconsData={iconsData}
             />
-        </div>
+        </Grid>
     )
 };
 

@@ -53,15 +53,28 @@ const Jumbotron = ({
                 zIndex={-1}
                 opacity={0.5}
             />
-            <Heading size={titleSize} mb={4} whiteSpace="normal" w="900px" textAlign="center" >
+            <Heading
+                size={titleSize}
+                mb={4} whiteSpace="normal"
+                w="900px"
+                textAlign="center" >
                 {title}
             </Heading>
-            <Text fontSize={subtitleSize} mb={6} w="700px" textAlign="center" >
+            <Text
+                fontSize={subtitleSize}
+                mb={6} w="700px"
+                textAlign="center" >
                 {subtitle}
             </Text>
-            <CustomButton w="200px" onClick={buttonOnClick}>
-                {buttonText}
-            </CustomButton>
+           <CustomButton 
+           style={{
+            backgroundColor: "#3182CE",
+            width: "300px",
+            color: "white"
+        }}
+        >
+          Learn More
+        </CustomButton>
         </Box>
     );
 };

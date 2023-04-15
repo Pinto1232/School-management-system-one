@@ -1,12 +1,12 @@
-import React from 'react';
 import { Button } from '@chakra-ui/react';
+import React from 'react';
 
-const CustomButton = ({ children, onClick, colorScheme = 'blue', ...rest }) => {
-    return (
-        <Button colorScheme={colorScheme} onClick={onClick} {...rest}>
-            {children}
-        </Button>
-    );
+const CustomButton = (props) => {
+  return (
+    <Button {...props} sx={{ ...props.sx, color: 'red' }}>
+      {props.children}
+    </Button>
+  );
 };
 
 export default CustomButton;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, FormControl, FormLabel, Input, Stack, Text, useToast, Spinner, Flex } from '@chakra-ui/react';
+import { Box, Button, FormControl, FormLabel, Input, Stack, Text, useToast, Spinner, Flex, useColorModeValue } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 import useFormValidation from '../../hooks/useFormValidation';
@@ -38,6 +38,11 @@ const AuthForm = ({ mode, onToggleMode }) => {
     const navigate = useNavigate();
     const toast = useToast();
     const [isLoading, setIsLoading] = useState(false);
+    const textColor = useColorModeValue('#4A5568', '#fff');
+    const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
+    const buttonTextColor = useColorModeValue('#fff', '#fff');
+    const textFieldBackgroundColor = useColorModeValue('#E2E8F0', '#4A5568');
+    const textFieldColor = useColorModeValue('#4A5568', '#fff');
 
 
 
@@ -84,15 +89,6 @@ const AuthForm = ({ mode, onToggleMode }) => {
                 navigate('/Login');
             } catch (error) {
                 console.error('Error during registration:', error.message);
-
-                // Show error toast
-                /* toast({
-                    title: 'Error',
-                    description: 'Data was not successfully submitted',
-                    status: 'error',
-                    duration: 3000,
-                    isClosable: true,
-                }); */
             }
         }
         setIsLoading(false); // Set isLoading back to false after the API call is completed
@@ -158,7 +154,7 @@ const AuthForm = ({ mode, onToggleMode }) => {
 
     return (
         <>
-            <Box maxWidth="400px" mx="auto" p={8} marginTop={10} boxShadow="md" rounded="md">
+            <Box bg={backgroundColor} maxWidth="400px" mx="auto" p={8} marginTop={10} boxShadow="md" rounded="md">
                 <Text fontSize="3xl" textAlign="center" mb={6}>
                     {isLogin ? 'Login' : 'Sign Up'}
                 </Text>
@@ -188,9 +184,8 @@ const AuthForm = ({ mode, onToggleMode }) => {
                 <form onSubmit={onSubmit}>
                     <Stack spacing={4}>
                         {!isLogin && (
-                            <>
+                            <FormControl>
                                 <FormControl id="firstName">
-                                    <FormLabel>Name</FormLabel>
                                     <Input
                                         type="text"
                                         name="firstName"
@@ -200,11 +195,14 @@ const AuthForm = ({ mode, onToggleMode }) => {
                                         isInvalid={!!errors.firstName}
                                         errorBorderColor="red.300"
                                         focusBorderColor={errors.firstName ? 'red.300' : 'green.300'}
+                                        color={textFieldColor}
+                                        bg={textFieldBackgroundColor}
+                                        placeholder='Name'
                                     />
                                     {errors.firstName && <Text color="red.500">{errors.firstName}</Text>}
                                 </FormControl>
+                                <br/>
                                 <FormControl id="lastName">
-                                    <FormLabel>Surname</FormLabel>
                                     <Input
                                         type="text"
                                         name="lastName"
@@ -214,13 +212,15 @@ const AuthForm = ({ mode, onToggleMode }) => {
                                         isInvalid={!!errors.lastName}
                                         errorBorderColor="red.300"
                                         focusBorderColor={errors.lastName ? 'red.300' : 'green.300'}
+                                        color={textFieldColor}
+                                        bg={textFieldBackgroundColor}
+                                        placeholder='Surname'
                                     />
                                     {errors.lastName && <Text color="red.500">{errors.lastName}</Text>}
                                 </FormControl>
-                            </>
+                            </FormControl>
                         )}
                         <FormControl id="email">
-                            <FormLabel>Email</FormLabel>
                             <Input
                                 type="email"
                                 name="email"
@@ -230,11 +230,13 @@ const AuthForm = ({ mode, onToggleMode }) => {
                                 isInvalid={!!errors.email}
                                 errorBorderColor="red.300"
                                 focusBorderColor={errors.email ? 'red.300' : 'green.300'}
+                                color={textFieldColor}
+                                bg={textFieldBackgroundColor}
+                                placeholder='Email'
                             />
                             {errors.email && <Text color="red.500">{errors.email}</Text>}
                         </FormControl>
                         <FormControl id="password">
-                            <FormLabel>Password</FormLabel>
                             <Input
                                 type="password"
                                 name="password"
@@ -244,6 +246,9 @@ const AuthForm = ({ mode, onToggleMode }) => {
                                 isInvalid={!!errors.password}
                                 errorBorderColor="red.300"
                                 focusBorderColor={errors.password ? 'red.300' : 'green.300'}
+                                color={textFieldColor}
+                                bg={textFieldBackgroundColor}
+                                placeholder='Password'
                             />
                             {errors.password && <Text color="red.500">{errors.password}</Text>}
                         </FormControl>
@@ -252,11 +257,11 @@ const AuthForm = ({ mode, onToggleMode }) => {
                         </Button>
                     </Stack>
                 </form>
-                 {!isLogin && (
-                    <Button colorScheme="teal" mt={4}  onClick={() => navigate('/login')}  w="100%">
+                {!isLogin && (
+                    <Button colorScheme="teal" mt={4} onClick={() => navigate('/login')} w="100%">
                         Switch to Login
                     </Button>
-                )} 
+                )}
             </Box>
         </>
     );

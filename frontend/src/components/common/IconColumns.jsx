@@ -1,13 +1,37 @@
 import * as React from "react";
-import { SimpleGrid } from "@chakra-ui/react";
+import { Center, Grid, GridItem, SimpleGrid } from "@chakra-ui/react";
 import IconColumn from "./IconColumn";
+import CustomButton from "./CustomButton";
+import { useColorModeValue, } from '@chakra-ui/react';
+
 
 const IconColumns = ({ iconsData }) => {
+  const textColor = useColorModeValue('#4A5568', '#fff');
+  const backgroundColor = useColorModeValue('#E2E8F0', 'gray.700');
+  const backgroundButton = useColorModeValue('#3182CE', '#2C5282');
+
+
   return (
-    <SimpleGrid bg="#3182ce" padding={40} columns={4} spacing={10}>
+    <SimpleGrid bg={backgroundColor} padding={40} columns={4} spacing={10}>
       {iconsData.map((iconData) => (
-        <IconColumn key={iconData.id} icon={iconData.icon} title={iconData.title} />
+        <IconColumn
+          key={iconData.id}
+          icon={iconData.icon}
+          title={iconData.title}
+          style={iconData.style}
+        />
       ))}
+      <GridItem colSpan={4} textAlign="center">
+        <CustomButton
+          bg={backgroundButton}
+          style={{
+            width: "300px",
+            color: "#fff"
+          }}
+        >
+          learn more
+        </CustomButton>
+      </GridItem>
     </SimpleGrid>
   );
 };

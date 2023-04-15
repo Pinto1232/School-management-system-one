@@ -1,11 +1,15 @@
 import React from 'react';
-import { Box, VStack, Text, Button, useColorModeValue, Image, Flex } from '@chakra-ui/react';
+import { Box, VStack, Text, Image, Flex } from '@chakra-ui/react';
+import CustomButton from './CustomButton';
+import { useColorModeValue } from '@chakra-ui/react'
 
 
-const SubscriptionCard = ({ title, price, features, buttonText, onSubscribe, imageUrl }) => {
-    const bg = useColorModeValue('gray.50', 'gray.800');
-    const borderColor = useColorModeValue('gray.200', 'gray.600');
-    const color = useColorModeValue('gray.800', 'gray.200');
+const SubscriptionCard = ({ title, price, features, imageUrl }) => {
+
+    {/* TODO: */}
+    const textColor = useColorModeValue('#4A5568', '#fff');
+    const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
+
 
     return (
         <Box
@@ -29,9 +33,15 @@ const SubscriptionCard = ({ title, price, features, buttonText, onSubscribe, ima
                     ${price}
                 </Text>
                 <Flex w='100%'>
-                <Button  onClick={onSubscribe} colorScheme="blue"  width="100%">
-                    {buttonText}
-                </Button>
+                    <CustomButton
+                        style={{
+                            backgroundColor: "#3182CE",
+                            width: "300px",
+                            color: "white"
+                        }}
+                    >
+                        Subscribe Now
+                    </CustomButton>
                 </Flex>
                 <Text fontSize="lg" fontWeight="semibold" color="black">
                     Features

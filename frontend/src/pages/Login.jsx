@@ -5,6 +5,7 @@ import useFormValidation from '../hooks/useFormValidation';
 import api from '../services/api';
 import UserContext from '../contexts/UserContext';
 import logo from '../assets/images/logo.png';
+import { useColorModeValue } from '@chakra-ui/react'
 
 const initialValues = {
   email: '',
@@ -31,6 +32,11 @@ const Login = () => {
   const { setUser, setIsLoggedIn } = useContext(UserContext);
   const [keepMeLogin, setKeepMeLogin] = useState(false);
   const [toastVisible, setToastVisible] = useState(false);
+  const textColor = useColorModeValue('#4A5568', '#fff');
+  const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
+  const buttonTextColor = useColorModeValue('#fff', '#fff');
+  const textFieldBackgroundColor = useColorModeValue('#E2E8F0', '#4A5568');
+  const textFieldColor = useColorModeValue('#4A5568', '#fff');
 
   const handleFormSubmit = async (values, setIsSubmitting, setErrors) => {
     try {
@@ -99,7 +105,6 @@ const Login = () => {
     values,
     errors,
     isSubmitting,
-    setErrors,
   } = useFormValidation(initialValues, validate, handleFormSubmit);
 
   const handleForgotPasswordClick = () => {
@@ -111,45 +116,49 @@ const Login = () => {
   };
 
   return (
-    <Box maxWidth="400px" mx="auto" p={8} marginTop={10} boxShadow="md" rounded="md">
+    <Box bg={backgroundColor} maxWidth="400px" mx="auto" p={8} marginTop={10} boxShadow="md" rounded="md">
       <Center marginBottom={4}>
         <Image src={logo} alt="Your Logo" width="100px" height="100px" />
       </Center>
-      <Text fontSize="3xl" textAlign="center" mb={6}>
+      <Text color={textColor} fontSize="3xl" textAlign="center" mb={6}>
         Login
       </Text>
       <form onSubmit={handleSubmit}>
         <Stack spacing={4}>
           <FormControl id="email">
-            <FormLabel>Email</FormLabel>
             <Input
               type="email"
               name="email"
+              placeholder="Email"
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
               isInvalid={!!errors.email}
               errorBorderColor="red.300"
               focusBorderColor={errors.email ? 'red.300' : 'green.300'}
+              bg={textFieldBackgroundColor}
+              color={textFieldColor}
             />
             {errors.email && <Text color="red.500">{errors.email}</Text>}
           </FormControl>
           <FormControl id="password">
-            <FormLabel>Password</FormLabel>
             <Input
               type="password"
               name="password"
+              placeholder='Password'
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
               isInvalid={!!errors.password}
               errorBorderColor="red.300"
               focusBorderColor={errors.password ? 'red.300' : 'green.300'}
+              bg={textFieldBackgroundColor}
+              color={textFieldColor}
             />
             {errors.password && <Text color="red.500">{errors.password}</Text>}
           </FormControl>
           {errors.serverError && <Text color="red.500">{errors.serverError}</Text>}
-          <Button type="submit" colorScheme="teal" isLoading={isSubmitting} width="100%">
+          <Button color={buttonTextColor} type="submit" colorScheme="teal" isLoading={isSubmitting} width="100%">
             Login
           </Button>
           <Flex alignItems="center">

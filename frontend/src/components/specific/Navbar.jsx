@@ -22,8 +22,9 @@ const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isLoggedIn } = useContext(UserContext);
 
-  const textColor = useColorModeValue('black', 'white');
-  const backgroundColor = useColorModeValue('gray.100', 'gray.700');
+  const textColor = useColorModeValue('#4A5568', '#fff');
+  const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
+  const iconBg = useColorModeValue('#fff', 'red')
 
   return (
     <Box

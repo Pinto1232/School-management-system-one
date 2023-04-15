@@ -1,9 +1,17 @@
 import React from 'react';
 import { Box, Text, VStack, Flex, Divider, Link } from '@chakra-ui/react';
+import { useColorModeValue, } from '@chakra-ui/react';
+
 
 const Footer = () => {
+
+    const textColor = useColorModeValue('#4A5568', '#fff');
+    const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
+    
+
+
     return (
-        <Box bg="gray.700" color="white" p={4} mt={8}>
+        <Box bg={backgroundColor} color="#4A5568" p={4} mt={8}>
             <Flex
                 direction={{ base: 'column', sm: 'row', md: 'row' }}
                 wrap="wrap"
@@ -65,11 +73,11 @@ const Footer = () => {
                 ].map(({ title, subLinks }, index) => (
                     <Box key={index} textAlign="center" p={{ base: 4, sm: 6, md: 12 }}>
                         <VStack spacing={2} alignItems="start">
-                            <Text whiteSpace="nowrap" fontSize={19} textTransform="uppercase">
+                            <Text whiteSpace="nowrap" color={textColor} fontSize={19} textTransform="uppercase">
                                 {title}
                             </Text>
                             {subLinks.map((link, i) => (
-                                <Link key={i} fontSize="sm" whiteSpace="nowrap">
+                                <Link key={i} fontSize="sm" color={textColor} whiteSpace="nowrap">
                                     {link}
                                 </Link>
                             ))}
@@ -78,8 +86,8 @@ const Footer = () => {
                 ))}
             </Flex>
             <Divider />
-            <Box bg="white" textAlign="center" maxW="100%" border="none">
-                <Text color="black" fontSize="sm" whiteSpace="nowrap">
+            <Box bg={backgroundColor} textAlign="center" maxW="100%" border="none">
+                <Text color={textColor} fontSize="sm" py={3} whiteSpace="nowrap">
                     &copy; {new Date().getFullYear()} PintoEd Management
                 </Text>
             </Box>
