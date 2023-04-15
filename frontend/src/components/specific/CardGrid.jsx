@@ -1,13 +1,18 @@
-import { Grid } from '@chakra-ui/react'
+import { Grid, useColorModeValue } from '@chakra-ui/react'
 import React from 'react'
 import SubscriptionCard from '../common/SubscriptionCard'
-import bgImageCard from '../../assets/images/basic-plan.jpg'
+import bgImageCardBasic from '../../assets/images/basic.jpg'
+import bgImageCardPro from '../../assets/images/pro.jpg'
+import bgImageCardPremium from '../../assets/images/Premium.jpg'
 import { Text } from '@chakra-ui/react';
 
 const CardGrid = () => {
+    const textColor = useColorModeValue('#4A5568', '#fff');
+
+
     return (
         <div>
-            <Text fontSize="4xl" fontWeight="bold" textAlign="center" mt={8} mb={6}>
+            <Text color={textColor} fontSize="4xl" fontWeight="bold" textAlign="center" mt={8} mb={6}>
                 Our Packages Plans
             </Text>
 
@@ -30,7 +35,7 @@ const CardGrid = () => {
                     features={["Feature 1", "Feature 2", "Feature 3"]}
                     buttonText="Subscribe"
                     onSubscribe={() => console.log("Basic Plan subscribed")}
-                    imageUrl={bgImageCard}
+                    imageUrl={bgImageCardBasic}
                 />
                 <SubscriptionCard
                     title="Pro Plan"
@@ -38,7 +43,7 @@ const CardGrid = () => {
                     features={["Feature 1", "Feature 2", "Feature 3", "Feature 4"]}
                     buttonText="Subscribe"
                     onSubscribe={() => console.log("Pro Plan subscribed")}
-                    imageUrl={bgImageCard}
+                    imageUrl={bgImageCardPro}
                 />
                 <SubscriptionCard
                     title="Premium Plan"
@@ -46,7 +51,7 @@ const CardGrid = () => {
                     features={["Feature 1", "Feature 2", "Feature 3", "Feature 4", "Feature 5"]}
                     buttonText="Subscribe"
                     onSubscribe={() => console.log("Premium Plan subscribed")}
-                    imageUrl={bgImageCard}
+                    imageUrl={bgImageCardPremium}
                 />
             </Grid>
         </div >

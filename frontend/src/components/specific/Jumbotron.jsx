@@ -57,6 +57,7 @@ const Jumbotron = ({
                 size={titleSize}
                 mb={4} whiteSpace="normal"
                 w="900px"
+                fontSize="4rem"
                 textAlign="center" >
                 {title}
             </Heading>
@@ -66,15 +67,15 @@ const Jumbotron = ({
                 textAlign="center" >
                 {subtitle}
             </Text>
-           <CustomButton 
-           style={{
-            backgroundColor: "#3182CE",
-            width: "300px",
-            color: "white"
-        }}
-        >
-          Learn More
-        </CustomButton>
+            <CustomButton
+                style={{
+                    backgroundColor: "#3182CE",
+                    width: "200px",
+                    color: "white"
+                }}
+            >
+                Learn More
+            </CustomButton>
         </Box>
     );
 };

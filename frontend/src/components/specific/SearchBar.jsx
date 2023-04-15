@@ -5,21 +5,23 @@ import { SearchIcon } from '@chakra-ui/icons';
 const SearchBar = () => {
   const [showInput, setShowInput] = useState(false);
   const textFieldBackgroundColor = useColorModeValue('#E2E8F0', '#4A5568');
-  
-  
+
+
 
   const toggleSearchInput = () => {
     setShowInput(!showInput);
   };
 
   return (
-    <InputGroup>
+    <InputGroup maxW='100%'>
       {showInput && (
         <Input
           placeholder="Search..."
           borderRadius="md"
-          w="100%"
+          minW="100%"
+          w='400px'
           bg={textFieldBackgroundColor}
+          
         />
       )}
       <InputRightElement>

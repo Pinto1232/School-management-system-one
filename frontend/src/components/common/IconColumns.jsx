@@ -6,8 +6,7 @@ import { useColorModeValue, } from '@chakra-ui/react';
 
 
 const IconColumns = ({ iconsData }) => {
-  const textColor = useColorModeValue('#4A5568', '#fff');
-  const backgroundColor = useColorModeValue('#E2E8F0', 'gray.700');
+  const backgroundColor = useColorModeValue('#E2E8F0', '#718096');
   const backgroundButton = useColorModeValue('#3182CE', '#2C5282');
 
 
@@ -25,7 +24,7 @@ const IconColumns = ({ iconsData }) => {
         <CustomButton
           bg={backgroundButton}
           style={{
-            width: "300px",
+            width: "200px",
             color: "#fff"
           }}
         >

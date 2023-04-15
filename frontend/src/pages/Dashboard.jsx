@@ -32,6 +32,9 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
+  const textColor = useColorModeValue('#4A5568', '#fff');
+  const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
+  const backgroundBorder = useColorModeValue('', '1px solid');
 
 
   /* console.log('User from context:', user); */
@@ -96,24 +99,24 @@ const Dashboard = () => {
           />
         </Flex>
         <VStack spacing={4} align="stretch">
-          <Box bg="white" boxShadow="base" p={6} borderRadius="md">
-            <Text fontSize="xl">Announcements</Text>
+          <Box border={backgroundBorder} bg={backgroundColor} boxShadow="base" p={6} borderRadius="md">
+            <Text color={textColor}  fontSize="xl">Announcements</Text>
             {/* Add content here */}
           </Box>
-          <Box bg="white" boxShadow="base" p={6} borderRadius="md">
-            <Text fontSize="xl">Events</Text>
+          <Box border={backgroundBorder} bg={backgroundColor} boxShadow="base" p={6} borderRadius="md">
+            <Text color={textColor} fontSize="xl">Events</Text>
             {/* Add content here */}
           </Box>
-          <Box bg="white" boxShadow="base" p={6} borderRadius="md">
-            <Text fontSize="xl">Tasks</Text>
+          <Box border={backgroundBorder} bg={backgroundColor} boxShadow="base" p={6} borderRadius="md">
+            <Text color={textColor}  fontSize="xl">Tasks</Text>
             {/* Add content here */}
           </Box>
-          <Box bg="white" boxShadow="base" p={6} borderRadius="md">
-            <Text fontSize="xl">Tasks</Text>
+          <Box border={backgroundBorder} bg={backgroundColor} boxShadow="base" p={6} borderRadius="md">
+            <Text color={textColor} fontSize="xl">Tasks</Text>
             {/* Add content here */}
           </Box>
-          <Box bg="white" boxShadow="base" p={6} borderRadius="md">
-            <Text fontSize="xl">Tasks</Text>
+          <Box border={backgroundBorder} bg={backgroundColor} boxShadow="base" p={6} borderRadius="md">
+            <Text color={textColor} fontSize="xl">Tasks</Text>
             {/* Add content here */}
           </Box>
         </VStack>

@@ -6,16 +6,14 @@ import { useColorModeValue } from '@chakra-ui/react'
 
 const SubscriptionCard = ({ title, price, features, imageUrl }) => {
 
-    {/* TODO: */}
+    {/* TODO: */ }
     const textColor = useColorModeValue('#4A5568', '#fff');
     const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
 
 
     return (
         <Box
-            bg="white"
-            borderWidth="1px"
-            borderColor="gray.200"
+            bg={backgroundColor}
             borderRadius="lg"
             overflow="hidden"
             p={6}
@@ -24,12 +22,12 @@ const SubscriptionCard = ({ title, price, features, imageUrl }) => {
             height="655px"
             maxW="350px"
         >
-            <Image src={imageUrl} alt={title} w="100%" objectFit="cover" />
+            <Image src={imageUrl} alt={title} maxW="100%" width="300px" height="200px" objectFit="cover" />
             <VStack alignItems="start" spacing={6} mt={4}>
-                <Text fontSize="2xl" fontWeight="bold" color="black">
+                <Text fontSize="2xl" fontWeight="bold" color={textColor}>
                     {title}
                 </Text>
-                <Text fontSize="4xl" fontWeight="bold" color="black">
+                <Text fontSize="4xl" fontWeight="bold" color={textColor}>
                     ${price}
                 </Text>
                 <Flex w='100%'>
@@ -43,12 +41,12 @@ const SubscriptionCard = ({ title, price, features, imageUrl }) => {
                         Subscribe Now
                     </CustomButton>
                 </Flex>
-                <Text fontSize="lg" fontWeight="semibold" color="black">
+                <Text fontSize="lg" fontWeight="semibold" color={textColor}>
                     Features
                 </Text>
                 <VStack alignItems="start" spacing={2} >
                     {features.map((feature, index) => (
-                        <Text key={index} fontSize="md" color="black">
+                        <Text key={index} fontSize="md" color={textColor}>
                             {feature}
                         </Text>
                     ))}

@@ -38,9 +38,7 @@ const AuthForm = ({ mode, onToggleMode }) => {
     const navigate = useNavigate();
     const toast = useToast();
     const [isLoading, setIsLoading] = useState(false);
-    const textColor = useColorModeValue('#4A5568', '#fff');
     const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
-    const buttonTextColor = useColorModeValue('#fff', '#fff');
     const textFieldBackgroundColor = useColorModeValue('#E2E8F0', '#4A5568');
     const textFieldColor = useColorModeValue('#4A5568', '#fff');
 
@@ -201,7 +199,7 @@ const AuthForm = ({ mode, onToggleMode }) => {
                                     />
                                     {errors.firstName && <Text color="red.500">{errors.firstName}</Text>}
                                 </FormControl>
-                                <br/>
+                                <br />
                                 <FormControl id="lastName">
                                     <Input
                                         type="text"
