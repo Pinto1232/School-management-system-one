@@ -7,8 +7,10 @@ import { useColorModeValue, } from '@chakra-ui/react';
 
 const IconColumns = ({ iconsData }) => {
   const backgroundColor = useColorModeValue('#E2E8F0', '#718096');
-  const backgroundButton = useColorModeValue('#3182CE', '#2C5282');
+  const backgroundButton = useColorModeValue('#319795', '#3182ce');
 
+
+  
 
   return (
     <SimpleGrid bg={backgroundColor} padding={40} columns={4} spacing={10}>

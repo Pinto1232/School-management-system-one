@@ -7,15 +7,21 @@ import {
     Input,
     Stack,
     Text,
+    useColorModeValue,
     useToast,
 } from '@chakra-ui/react';
 import api from '../services/api';
+
 
 const ForgetPassword = () => {
     const [email, setEmail] = useState('');
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const toast = useToast();
+    const textFieldBackgroundColor = useColorModeValue('#E2E8F0', '#4A5568');
+    const textFieldColor = useColorModeValue('#4A5568', '#fff');
+    const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
+
 
     const validateEmail = (email) => {
         if (!/\S+@\S+\.\S+/.test(email)) {
@@ -70,10 +76,7 @@ const ForgetPassword = () => {
     };
 
     return (
-        <Box maxWidth="400px" mx="auto" p={8} marginTop={20} boxShadow="md" rounded="md">
-            <Text fontSize="3xl" textAlign="center" mb={6}>
-                Forgot Password
-            </Text>
+        <Box bg={backgroundColor} maxWidth="400px" mx="auto" p={8} marginTop={20} boxShadow="md" rounded="md">
             <form onSubmit={handleSubmit}>
                 <Stack spacing={4}>
                     <FormControl id="email" isInvalid={!!errors.email}>
@@ -81,9 +84,12 @@ const ForgetPassword = () => {
                         <Input
                             type="email"
                             value={email}
+                            placeholder='Forgot Password'
                             onChange={(e) => setEmail(e.target.value)}
                             onBlur={() => setErrors({ email: validateEmail(email) })}
                             required
+                            bg={textFieldBackgroundColor}
+                            color={textFieldColor}
                         />
                         {errors.email && <Text color="red.500">{errors.email}</Text>}
                     </FormControl>

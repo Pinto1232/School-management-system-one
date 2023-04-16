@@ -6,8 +6,10 @@ import { useColorModeValue, } from '@chakra-ui/react';
 
 const IconColumn = ({ icon, title, style }) => {
     const textColor = useColorModeValue('#fff', '#3182ce');
-    const backgroundColor = useColorModeValue('#3182ce', '#fff');
-    const backgroundButton = useColorModeValue('#3182CE', '#2C5282');
+    const IncosBgColor = useColorModeValue('#319795', '#fff');
+
+
+
 
     return (
         <Box textAlign="center">
@@ -16,7 +18,7 @@ const IconColumn = ({ icon, title, style }) => {
                 border="2px solid white"
                 as={icon}
                 boxSize={16}
-                bg={backgroundColor}
+                bg={IncosBgColor}
                 color={textColor}
                 p={2}
             />

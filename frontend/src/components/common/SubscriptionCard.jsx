@@ -9,6 +9,8 @@ const SubscriptionCard = ({ title, price, features, imageUrl }) => {
     {/* TODO: */ }
     const textColor = useColorModeValue('#4A5568', '#fff');
     const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
+    const buttonColor = useColorModeValue('#319795', '#3182ce');
+    const textButton = useColorModeValue('#4A5568', '#fff')
 
 
     return (
@@ -32,8 +34,10 @@ const SubscriptionCard = ({ title, price, features, imageUrl }) => {
                 </Text>
                 <Flex w='100%'>
                     <CustomButton
+                        bg={buttonColor}
+                        color={textButton}
+                        _hover={buttonColor}
                         style={{
-                            backgroundColor: "#3182CE",
                             width: "300px",
                             color: "white"
                         }}

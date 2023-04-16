@@ -1,24 +1,24 @@
 // src/components/Jumbotron.js
 import React from 'react';
-import { Box, Heading, Text, Button } from '@chakra-ui/react';
+import { Box, Heading, Text, useColorModeValue, useTheme } from '@chakra-ui/react';
 import CustomButton from '../common/CustomButton';
 
-const Jumbotron = ({
-    title,
-    subtitle,
-    buttonText,
-    buttonOnClick,
-    minHeight = '70vh',
-    titleSize = '2xl',
-    subtitleSize = 'xl',
+const Jumbotron = ({ title, subtitle, minHeight = '70vh', titleSize = '2xl', subtitleSize = 'xl',
     bgGradient = 'linear(to-r, rgba(0, 50, 200, 0.8), rgba(0, 0, 100, 0.9))',
     textColor = 'white',
     bgImage,
 }) => {
+    const buttonColor = useColorModeValue('#319795', '#3182ce');
+    const textButton = useColorModeValue('#4A5568', '#fff')
+    const theme = useTheme()
 
+
+    // handleClick function for the button event
     const handleClick = () => {
         console.log('Button clicked');
     };
+
+
 
     return (
         <Box
@@ -58,7 +58,9 @@ const Jumbotron = ({
                 mb={4} whiteSpace="normal"
                 w="900px"
                 fontSize="4rem"
-                textAlign="center" >
+                textAlign="center"
+                style={{ fontSize: `${theme.breakpoints.sm}px` }}
+            >
                 {title}
             </Heading>
             <Text
@@ -68,10 +70,12 @@ const Jumbotron = ({
                 {subtitle}
             </Text>
             <CustomButton
+                bg={buttonColor}
+                color={textButton}
+                _hover={buttonColor}
                 style={{
-                    backgroundColor: "#3182CE",
                     width: "200px",
-                    color: "white"
+                    color: "#fff"
                 }}
             >
                 Learn More

@@ -6,7 +6,7 @@ const ResetPassword = () => {
     const [isValidToken, setIsValidToken] = useState(false);
     const [userEmail, setUserEmail] = useState(null);
     const { token } = useParams(); // Assuming you have set up React Router to provide the token as a route parameter
-
+     
     useEffect(() => {
         const validateToken = async () => {
             try {

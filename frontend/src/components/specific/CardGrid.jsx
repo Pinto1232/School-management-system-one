@@ -1,10 +1,11 @@
-import { Grid, useColorModeValue } from '@chakra-ui/react'
+import { Grid, useColorModeValue, Text } from '@chakra-ui/react'
 import React from 'react'
 import SubscriptionCard from '../common/SubscriptionCard'
 import bgImageCardBasic from '../../assets/images/basic.jpg'
 import bgImageCardPro from '../../assets/images/pro.jpg'
 import bgImageCardPremium from '../../assets/images/Premium.jpg'
-import { Text } from '@chakra-ui/react';
+import CustomButton from '../common/CustomButton'
+
 
 const CardGrid = () => {
     const textColor = useColorModeValue('#4A5568', '#fff');
