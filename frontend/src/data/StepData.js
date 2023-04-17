@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 const steps = [
     {
         label: '1',
-        initialValues: { name: '', surname: '', age: '', email: '' },
+        initialValues: { name: '', surname: '', email: '' },
         validationSchema: Yup.object({
             name: Yup.string().required('Required'),
             surname: Yup.string().required('Required'),
@@ -21,11 +21,6 @@ const steps = [
                 label: 'Surname',
                 name: 'surname',
                 type: 'text',
-            },
-            {
-                label: 'Age',
-                name: 'age',
-                type: 'number',
             },
             {
                 label: 'Email',
@@ -57,20 +52,20 @@ const steps = [
 
     {
         label: '3',
-        initialValues: { age: '', occupation: '' },
+        initialValues: { salary: '', experience: '' },
         validationSchema: Yup.object({
-            age: Yup.number().required('Required'),
-            occupation: Yup.string().required('Required'),
+            salary: Yup.number().required('Required'),
+            experience: Yup.string().required('Required'),
         }),
         fields: [
             {
-                label: 'Age',
-                name: 'age',
+                label: 'Salary',
+                name: 'salary',
                 type: 'number',
             },
             {
-                label: 'Occupation',
-                name: 'occupation',
+                label: 'Experience',
+                name: 'experience',
                 type: 'text',
             },
         ],

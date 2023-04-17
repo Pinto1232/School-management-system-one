@@ -36,13 +36,14 @@ const FormMultiStep = ({ values, isSubmitting, setFieldValue }) => {
         <Box bg={backgroundColor} borderWidth={1} borderRadius={8} p={8}>
             <StepBar steps={steps} currentStep={currentStep} />
             <Formik
-                initialValues={steps[currentStep].initialValues}
-                validationSchema={steps[currentStep].validationSchema}
+                initialValues={steps[currentStep]?.initialValues}
+                validationSchema={steps[currentStep]?.validationSchema}
                 onSubmit={(values, actions) => {
-                    handleSubmit(values, actions);
                     console.log('Formik onSubmit function called');
+                    handleSubmit(values, actions);
                 }}
             >
+
                 {({ values, isSubmitting, setFieldValue }) => (
                     <Form>
                         <Box bg={backgroundColor} borderRadius={4} gap={10} w='full' color={textFieldColor} mb={10}>
