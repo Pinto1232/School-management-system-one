@@ -11,6 +11,7 @@ const FormMultiStep = ({ values, isSubmitting, setFieldValue }) => {
 
     const [currentStep, setCurrentStep] = useState(0);
     const currentStepObject = steps[currentStep];
+    const [totalSteps, setTotalSteps] = useState(3);
 
     const textFieldBackgroundColor = useColorModeValue('#E2E8F0', '#EDF2F7');
     const textFieldColor = useColorModeValue('#4A5568', '#fff');
@@ -66,12 +67,17 @@ const FormMultiStep = ({ values, isSubmitting, setFieldValue }) => {
                             {currentStep > 0 && (
                                 <Button onClick={() => setCurrentStep(currentStep - 1)}>Back</Button>
                             )}
-                            <Button onClick={() => {
-                                setCurrentStep(currentStep + 1);
-                                console.log("Current Step:", currentStep);
-                            }}>
+                            <Button
+                                onClick={() => {
+                                    if (currentStep < steps.length - 1) {
+                                        setCurrentStep(currentStep + 1);
+                                    }
+                                }}
+                                disabled={currentStep === steps.length - 1}
+                            >
                                 Next
                             </Button>
+
                         </Flex>
                     </Form>
                 )}

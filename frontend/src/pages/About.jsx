@@ -17,7 +17,7 @@ const About = () => {
                 bgImage={bgImage}
             />
 
-            <Box maxW="3xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 {/* <MultistepForm steps={steps} /> */}
                 <FormMultiStep />
             </Box> 
