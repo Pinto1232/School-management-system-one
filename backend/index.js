@@ -26,7 +26,7 @@ const sportRoutes = require('./src/routes/sports');
 const studentTrackingRoutes = require('./src/routes/studenttracking');
 const subscriptionRoutes = require('./src/routes/subscription');
 const resetPasswordRoutes = require('./src/routes/resetPasswordRoutes')
-
+const packagesRoutes = require('./src/routes/packages')
 
 
 const app = express();
@@ -102,6 +102,9 @@ app.use('/api/subscriptions', subscriptionRoutes);
 // Use resetPassword routes
 app.use('/api/request-password-reset', resetPasswordRoutes);
 app.use('/api/reset-password', resetPasswordRoutes);
+
+// Use packages routes
+app.use('/api/packages', packagesRoutes);
 
 
 

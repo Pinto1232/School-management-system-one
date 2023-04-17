@@ -44,8 +44,8 @@ const getPackageById = async (req, res) => {
     }
 };
 
-// Update a package by id
 
+// Update a package by id
 const updatePackage = async (req, res) => {
     try {
         const package = await Packages.findById(req.params.id);
