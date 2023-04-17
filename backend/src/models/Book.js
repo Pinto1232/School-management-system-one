@@ -35,7 +35,7 @@ const bookSchema = new mongoose.Schema({
     },
     coverImage: {
         type: String,
-        /* required: [true, 'Cover image is required'], */
+         required: [true, 'Cover image is required'], 
         trim: true,
     },
     createdAt: {
