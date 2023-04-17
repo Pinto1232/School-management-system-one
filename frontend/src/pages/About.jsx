@@ -3,6 +3,9 @@ import bgImage from '../assets/images/about-us.jpg';
 import Jumbotron from '../components/specific/Jumbotron';
 import { Box } from '@chakra-ui/react';
 import FormMultiStep from '../components/specific/MultiStepForm/FormMultiStep';
+import FormToogle from '../components/specific/FormToogle';
+import MultiToggleForm from '../components/specific/MultiToggleForm';
+import ReusableForm from '../components/specific/FormPanel/ReusableForm';
 
 const About = () => {
 
@@ -16,9 +19,18 @@ const About = () => {
             />
 
             <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
-                {/* <MultistepForm steps={steps} /> */}
                 <FormMultiStep />
-            </Box> 
+            </Box>
+            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <FormToogle />
+            </Box>
+            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <MultiToggleForm/>
+            </Box>
+
+            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <ReusableForm />
+            </Box>
 
         </Box>
     )

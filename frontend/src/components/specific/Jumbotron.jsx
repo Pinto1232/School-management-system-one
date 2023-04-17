@@ -56,17 +56,19 @@ const Jumbotron = ({ title, subtitle, minHeight = '70vh', titleSize = '2xl', sub
             <Heading
                 size={titleSize}
                 mb={4} whiteSpace="normal"
+                fontSize={{ base: "2rem", sm: "4rem" }}
                 w="900px"
-                fontSize="4rem"
                 textAlign="center"
-                style={{ fontSize: `${theme.breakpoints.sm}px` }}
+
             >
                 {title}
             </Heading>
             <Text
                 fontSize={subtitleSize}
-                mb={6} w="700px"
-                textAlign="center" >
+                mb={6}
+                textAlign="center"
+                maxW={{ base: "90%", sm: "700px" }}
+            >
                 {subtitle}
             </Text>
             <CustomButton
@@ -74,8 +76,8 @@ const Jumbotron = ({ title, subtitle, minHeight = '70vh', titleSize = '2xl', sub
                 color={textButton}
                 hover={buttonColor}
                 style={{
-                    width: "200px",
-                    color: "#fff"
+                    width: { base: "150px", sm: "200px" },
+                    color: "#fff",
                 }}
             >
                 Learn More

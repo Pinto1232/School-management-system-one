@@ -17,6 +17,7 @@ import { SunIcon, MoonIcon, HamburgerIcon } from '@chakra-ui/icons';
 import UserContext from '../../contexts/UserContext';
 import SearchBar from './SearchBar';
 
+
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isLoggedIn } = useContext(UserContext);
@@ -43,10 +44,6 @@ const Navbar = () => {
             icon={<HamburgerIcon />}
           />
           <MenuList>
-            <Link as={RouterLink} to="/" ml={2} style={{ textDecoration: 'none' }}>
-              <img src="path_to_your_image" alt="Logo" height={30} />
-            </Link>
-
             {!isLoggedIn && (
               <MenuItem as={RouterLink} to="/">
                 Home

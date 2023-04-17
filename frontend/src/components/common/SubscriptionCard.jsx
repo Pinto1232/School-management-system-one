@@ -30,7 +30,7 @@ const SubscriptionCard = ({ title, price, features, imageUrl }) => {
                     {title}
                 </Text>
                 <Text fontSize="4xl" fontWeight="bold" color={textColor}>
-                    ${price}
+                    R{price}
                 </Text>
                 <Flex w='100%'>
                     <CustomButton
