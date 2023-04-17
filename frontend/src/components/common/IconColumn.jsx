@@ -4,7 +4,7 @@ import { Box, Icon, Text } from "@chakra-ui/react";
 import { useColorModeValue, } from '@chakra-ui/react';
 
 
-const IconColumn = ({ icon, title, style }) => {
+const IconColumn = ({ icon, title }) => {
     const textColor = useColorModeValue('#fff', '#3182ce');
     const IncosBgColor = useColorModeValue('#319795', '#fff');
 

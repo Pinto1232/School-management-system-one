@@ -4,7 +4,6 @@ import SubscriptionCard from '../common/SubscriptionCard'
 import bgImageCardBasic from '../../assets/images/basic.jpg'
 import bgImageCardPro from '../../assets/images/pro.jpg'
 import bgImageCardPremium from '../../assets/images/Premium.jpg'
-import CustomButton from '../common/CustomButton'
 
 
 const CardGrid = () => {
@@ -12,16 +11,27 @@ const CardGrid = () => {
 
 
     return (
-        <div>
-            <Text color={textColor} fontSize="4xl" fontWeight="bold" textAlign="center" mt={8} mb={6}>
+        <Grid>
+            <Text
+                color={textColor}
+                fontSize="4xl"
+                fontWeight="bold"
+                textAlign="center"
+                mt={8} mb={6}
+                templateColumns={{
+                    base: "repeat(1, 1fr)",
+                    md: "repeat(2, 1fr)",
+                    lg: "repeat(3, 1fr)"
+                }}
+            >
                 Our Packages Plans
             </Text>
 
             <Grid
                 templateColumns={{
-                    base: 'repeat(1, 1fr)',
-                    sm: 'repeat(2, 1fr)',
-                    md: 'repeat(3, 1fr)',
+                    base: "repeat(1, 1fr)",
+                    md: "repeat(2, 1fr)",
+                    lg: "repeat(3, 1fr)"
                 }}
                 gap={4}
                 px={{ base: 4, md: 'auto' }}
@@ -55,7 +65,7 @@ const CardGrid = () => {
                     imageUrl={bgImageCardPremium}
                 />
             </Grid>
-        </div >
+        </Grid >
     )
 }
 

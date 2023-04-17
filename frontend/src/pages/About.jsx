@@ -1,7 +1,10 @@
-import { Text } from '@chakra-ui/react'
 import React from 'react'
 import bgImage from '../assets/images/about-us.jpg';
 import Jumbotron from '../components/specific/Jumbotron';
+import steps from '../utils/MultiStepFormData';
+import MultistepForm from '../components/specific/MultiStepForm/MultiStepForm'; 
+import { Box } from '@chakra-ui/react';
+import FormMultiStep from '../components/specific/MultiStepForm/FormMultiStep';
 
 const About = () => {
 
@@ -13,6 +16,12 @@ const About = () => {
                 buttonText="learn more"
                 bgImage={bgImage}
             />
+
+            <Box maxW="3xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                {/* <MultistepForm steps={steps} /> */}
+                <FormMultiStep />
+            </Box> 
+
         </div>
     )
 }

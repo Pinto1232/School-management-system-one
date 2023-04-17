@@ -139,7 +139,7 @@ const Dashboard = () => {
                     <item.icon boxSize="6" />
                     <Link
                       textDecoration="none"
-                      _hover={{
+                      hover={{
                         textDecoration: 'none',
                         backgroundColor: 'gray.100',
                         paddingTop: "1",

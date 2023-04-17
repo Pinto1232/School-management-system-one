@@ -3,6 +3,7 @@ import { extendTheme } from "@chakra-ui/react";
 
 
 const theme = extendTheme({
+    // Define breakpoints for different screen sizes
     breakpoints: {
         base: "0px",
         sm: "480px",
@@ -10,6 +11,15 @@ const theme = extendTheme({
         lg: "992px",
         xl: "1200px",
         "2xl": "1600px",
+    },
+    // Define the number of columns for different breakpoints
+    grid: {
+        templatesColumns: {
+            sm: "repeat(1, 1fr)",
+            md: "repeat(2, 1fr)",
+            lg: "repeat(3, 1fr)",
+            xl: "repeat(4, 1fr)",
+        },
     },
     colors: {
         primary: "#2D3748",

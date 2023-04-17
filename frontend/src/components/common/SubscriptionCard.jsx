@@ -36,7 +36,7 @@ const SubscriptionCard = ({ title, price, features, imageUrl }) => {
                     <CustomButton
                         bg={buttonColor}
                         color={textButton}
-                        _hover={buttonColor}
+                        hover={buttonColor}
                         style={{
                             width: "300px",
                             color: "white"

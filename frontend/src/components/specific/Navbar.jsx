@@ -24,7 +24,7 @@ const Navbar = () => {
 
   const textColor = useColorModeValue('#4A5568', '#fff');
   const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
-  const iconBg = useColorModeValue('#fff', 'red')
+ 
 
   return (
     <Box

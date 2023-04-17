@@ -13,7 +13,7 @@ const IconColumns = ({ iconsData }) => {
   
 
   return (
-    <SimpleGrid bg={backgroundColor} padding={40} columns={4} spacing={10}>
+    <SimpleGrid  bg={backgroundColor} padding={40} columns={4} spacing={10}>
       {iconsData.map((iconData) => (
         <IconColumn
           key={iconData.id}
