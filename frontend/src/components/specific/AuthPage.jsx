@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AuthForm from './AuthForm';
+import { Box } from '@chakra-ui/react';
 
 const AuthPage = () => {
     const [mode, setMode] = useState('signup');
@@ -9,9 +10,9 @@ const AuthPage = () => {
     };
 
     return (
-        <div>
+        <Box>
             <AuthForm mode={mode} onToggleMode={toggleMode} />
-        </div>
+        </Box>
     );
 };
 

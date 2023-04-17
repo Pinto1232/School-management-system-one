@@ -5,7 +5,6 @@ import {
   Link,
   IconButton,
   Text,
-  useBreakpointValue,
   useColorModeValue,
   Menu,
   MenuButton,
@@ -24,7 +23,7 @@ const Navbar = () => {
 
   const textColor = useColorModeValue('#4A5568', '#fff');
   const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
- 
+
 
   return (
     <Box
@@ -44,6 +43,10 @@ const Navbar = () => {
             icon={<HamburgerIcon />}
           />
           <MenuList>
+            <Link as={RouterLink} to="/" ml={2} style={{ textDecoration: 'none' }}>
+              <img src="path_to_your_image" alt="Logo" height={30} />
+            </Link>
+
             {!isLoggedIn && (
               <MenuItem as={RouterLink} to="/">
                 Home

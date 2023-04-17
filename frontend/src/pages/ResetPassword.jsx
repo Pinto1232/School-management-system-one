@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../services/api';
+import { Box } from '@chakra-ui/react';
 
 const ResetPassword = () => {
     const [isValidToken, setIsValidToken] = useState(false);
@@ -33,9 +34,9 @@ const ResetPassword = () => {
     }, [token]);
 
     if (isValidToken) {
-        return <div>Token is valid. Show the form to reset the password for {userEmail}.</div>;
+        return <Box>Token is valid. Show the form to reset the password for {userEmail}.</Box>;
     } else {
-        return <div>{userEmail}</div>;
+        return <Box>{userEmail}</Box>;
     }
 };
 
