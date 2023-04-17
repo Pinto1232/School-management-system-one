@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import {
-    Button, VStack, FormControl, FormLabel, Input, Textarea, Flex,
+    Button, FormControl, FormLabel, Input, Textarea, Flex, Box,
 } from "@chakra-ui/react";
+
 import FormPanel from './FormPanel'
 
 const ReusableForm = () => {
@@ -12,7 +13,7 @@ const ReusableForm = () => {
     };
 
     return (
-        <VStack spacing={4} >
+        <Box spacing={4}>
             <Flex gap={4}>
                 <Button onClick={() => handleButtonClick(1)}>Items1</Button>
                 <Button onClick={() => handleButtonClick(2)}>Items2</Button>
@@ -50,7 +51,7 @@ const ReusableForm = () => {
                     <Textarea placeholder="Enter item description" />
                 </FormControl>
             </FormPanel>
-        </VStack>
+        </Box>
     );
 };
 
