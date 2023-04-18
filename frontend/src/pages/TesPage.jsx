@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Flex, Grid } from '@chakra-ui/react';
+import { Box, Button, Flex, Grid, InputGroup } from '@chakra-ui/react';
 import FormMultiStep from '../components/specific/MultiStepForm/FormMultiStep';
 import FormToogle from '../components/specific/FormToogle';
 import MultiToggleForm from '../components/specific/MultiToggleForm';
@@ -16,6 +16,18 @@ import { FaSearch } from "react-icons/fa";
 import Accordion from '../components/specific/Accordion';
 import ProductCardTwo from '../components/specific/productCardTwo/ProductCardTwo ';
 import Navibar from '../components/specific/NavigationBar/Navibar';
+import TableWithIcons from '../components/specific/tableImage/TableWithIcons';
+import SearchBar from '../components/specific/searchbar/SearchBar';
+import { EmailIcon, LockIcon, SearchIcon } from '@chakra-ui/icons';
+import Calendar from '../components/specific/calendar/Calendar';
+import SocialMedia from '../components/specific/socialIcons/SocialMediaIcons';
+import FourColumnLayout from '../components/specific/fourcolumns/FourColumnLayout';
+import AdjustableColumnLayout from '../components/specific/twocolumns/AdjustableColumnLayout';
+import Header from '../components/specific/compHeader/Header';
+/* import TodoList from '../components/specific/TodoListComponent/TodoList'; */
+import CTAButton from '../components/common/CTAButton';
+import InputFieldComponent from '../components/common/InputFieldComponent';
+
 
 
 
@@ -115,8 +127,93 @@ const productsTwo = [
 ];
 
 
+
+//Table with Icons
+const productsImages = [
+    {
+        id: 1,
+        image: "https://t3.ftcdn.net/jpg/01/97/11/64/360_F_197116416_hpfTtXSoJMvMqU99n6hGP4xX0ejYa4M7.jpg",
+        name: "Product 1",
+        idNumber: "123456",
+        year: 2022,
+        marks: 95,
+        rank: 1,
+    },
+    {
+        id: 2,
+        image: "https://www.thestatesman.com/wp-content/uploads/2017/08/1493458748-beauty-face-517.jpg",
+        name: "Product 2",
+        idNumber: "234567",
+        year: 2022,
+        marks: 90,
+        rank: 2,
+    },
+
+    {
+        id: 3,
+        image: "https://media.istockphoto.com/id/1335941248/photo/shot-of-a-handsome-young-man-standing-against-a-grey-background.jpg?b=1&s=170667a&w=0&k=20&c=Dl9uxPY_Xn159JiazEj0bknMkLxFdY7f4tK1GtOGmis=",
+        name: "Product 2",
+        idNumber: "234567",
+        year: 2022,
+        marks: 90,
+        rank: 2,
+    },
+
+    {
+        id: 4,
+        image: "https://media.istockphoto.com/id/1372641621/photo/portrait-of-a-businessman-on-gray-background.jpg?b=1&s=170667a&w=0&k=20&c=Yyi5slaeNpq_HPcfgy1305VpJSwerPm_s7mTz_bBk6c=",
+        name: "Product 2",
+        idNumber: "234567",
+        year: 2022,
+        marks: 90,
+        rank: 2,
+    },
+
+    {
+        id: 5,
+        image: "https://img.freepik.com/free-photo/worldface-ugandan-man-white-background_53876-14474.jpg",
+        name: "Product 2",
+        idNumber: "234567",
+        year: 2022,
+        marks: 90,
+        rank: 2,
+    },
+];
+
+
+// Calendar data
+const monthOptions = [
+    { value: 1, label: "January" },
+    { value: 2, label: "February" },
+    { value: 3, label: "March" },
+    { value: 4, label: "April" },
+    { value: 5, label: "May" },
+    { value: 6, label: "June" },
+    { value: 7, label: "July" },
+    { value: 8, label: "August" },
+    { value: 9, label: "September" },
+    { value: 10, label: "October" },
+    { value: 11, label: "November" },
+    { value: 12, label: "December" },
+];
+
+
+// Header
+const navLinks = ["Home", "About", "Contact"];
+
+
+
 const TesPage = () => {
     const [selectedOption, setSelectedOption] = useState("");
+
+    // Calendar
+    const [selectedDate, setSelectedDate] = useState(null);
+
+    const handleDateClick = (date) => {
+        setSelectedDate(date);
+        // Do something with the selected date
+    };
+    // Calendar
 
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
@@ -131,6 +228,31 @@ const TesPage = () => {
         setSelectedProduct(product);
         setShowModal(true);
     };
+
+
+    //TodoList
+    /* const [todos, setTodos] = useState([
+        { id: 1, title: "Task 1", completed: false },
+        { id: 2, title: "Task 2", completed: true },
+        { id: 3, title: "Task 3", completed: false },
+    ]);
+
+    const handleAddTodo = () => {
+        const newTodo = {
+            id: Math.random(),
+            title: "New Task",
+            completed: false,
+        };
+        setTodos([...todos, newTodo]);
+    };
+
+
+    const handleRemoveTodo = (id) => {
+        const updatedTodos = todos.filter((todo) => todo.id !== id);
+        setTodos(updatedTodos);
+    }; */
+
+
     return (
         <Box>
             <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
@@ -251,6 +373,109 @@ const TesPage = () => {
                     </Grid>
                     {showModal && <ProductModal product={selectedProduct} onClose={() => setShowModal(false)} />}
                 </Box>
+            </Box>
+
+
+            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <TableWithIcons
+                    productsImages={productsImages}
+                />
+            </Box>
+
+            <Box border={0} maxW="xs" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <SearchBar
+                    placeholder="Search"
+                    icon={<SearchIcon />}
+                    style={{
+                        borderRadius: '4px',
+                    }}
+                />
+            </Box>
+
+
+            <Box maxW="7xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <Calendar
+                    initialDate={new Date()}
+                    onDateClick={handleDateClick}
+                    monthOptions={monthOptions}
+                    minYear={2010}
+                    maxYear={2030}
+                />
+                <Box mt={4}>
+                    Selected date: {selectedDate instanceof Date ? selectedDate.toLocaleDateString() : "None"}
+                </Box>
+            </Box>
+
+            <Box maxW="xs" border={0} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <SocialMedia
+                    size="lg"
+                    color="gray.500"
+                    align="center"
+                />
+            </Box>
+
+            <Box maxW="7xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <FourColumnLayout>
+                    <Box p={4} bg="red.200">
+                        Column 1
+                    </Box>
+                    <Box p={4} bg="blue.200">
+                        Column 2
+                    </Box>
+                    <Box p={4} bg="green.200">
+                        Column 3
+                    </Box>
+                    <Box p={4} bg="yellow.200">
+                        Column 4
+                    </Box>
+                </FourColumnLayout>
+            </Box>
+
+            <Box maxW="7xl" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <AdjustableColumnLayout columns={5} >
+                    <Box bg={'bisque'} color={'black'}>Column 1 content</Box>
+                    <Box bg={'InfoText'} color={'black'}>Column 2 content</Box>
+                    <Box bg={'aliceblue'} color={'black'}>Column 3 content</Box>
+                    <Box bg={'InfoText'} color={'black'}>Column 2 content</Box>
+                    <Box bg={'aliceblue'} color={'black'}>Column 3 content</Box>
+                </AdjustableColumnLayout>
+            </Box>
+
+
+            <Box border={0} textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <Header
+                    title="My Website"
+                    navLinks={navLinks}
+                />
+            </Box>
+
+            {/* <Box border={0} textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <Button onClick={handleAddTodo}>Add Todo</Button>
+                <TodoList todos={todos} onChange={handleRemoveTodo} />
+            </Box> */}
+
+            <Box maxW="xs" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <CTAButton
+                    label="Click me!"
+                    colorScheme="blue"
+                    onClick={() => console.log('Button clicked!')}
+                    text="CTAButton"
+                />
+            </Box>
+
+            <Box maxW="4xl" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <Grid gap={3}>
+                    <InputFieldComponent
+                        type="email"
+                        placeholder="Email"
+                        icon={EmailIcon}
+                    />
+                    <InputFieldComponent
+                        type="password"
+                        placeholder="Password"
+                        icon={LockIcon}
+                    />
+                </Grid>
             </Box>
         </Box>
     )
