@@ -7,8 +7,7 @@ const CTAButton = ({ text, colorScheme, size, variant, onClick, style }) => {
             size={size}
             variant={variant}
             onClick={onClick}
-            style={style}
-        >
+            style={style}>
             {text}
         </Button>
     );

@@ -32,6 +32,15 @@ import ServicesSection from '../components/common/ServicesSection';
 import ProductsSection from '../components/common/ProductsSection';
 import PricingTables from '../components/specific/pricingtable/PricingTable';
 import FaqSection from '../components/specific/Faq/FaqSection';
+import ContactForm from '../components/common/ContactForm';
+import ImageGallery from '../components/specific/imagegallery/ImageGallery';
+import VideoPlayer from '../components/common/VideoPlayer';
+import VideoPlayers from '../components/common/VideoPlayers';
+import AudioPlayer from '../components/common/AudioPlayer';
+import BlogPost from '../components/common/BlogPost';
+import NewsletterForm from '../components/common/NewsletterForm';
+import { useForm } from "react-hook-form";
+
 
 
 
@@ -297,13 +306,60 @@ const monthOptions = [
 ];
 
 
-// Header
-const navLinks = ["Home", "About", "Contact"];
+// Image Gallary
+const images = [
+    {
+        src: 'https://i0.wp.com/thatrandomagency.com/wp-content/uploads/2022/10/lauren_headshot2022.png?resize=640%2C640&ssl=1',
+        alt: 'Image 1',
+        caption: 'Caption 1',
+    },
+    {
+        src: 'https://grid-is.imgix.net/hjalli/65af50e0-8b67-4422-81f2-fcd4c7fe2f70-HG-profile.jpg',
+        alt: 'Image 2',
+        caption: 'Caption 2',
+    },
+    {
+        src: 'https://grid-is.imgix.net/hjalli/65af50e0-8b67-4422-81f2-fcd4c7fe2f70-HG-profile.jpg',
+        alt: 'Image 3',
+        caption: 'Caption 3',
+    },
+];
+
+
+
+const blogPosts = [
+    {
+        title: "How to Build a React App",
+        author: "John Doe",
+        date: "April 15, 2023",
+        imageSrc: "https://grid-is.imgix.net/hjalli/65af50e0-8b67-4422-81f2-fcd4c7fe2f70-HG-profile.jpg",
+        excerpt: "Learn how to build a React app from scratch in this tutorial.",
+        link: "https://example.com/blog/how-to-build-a-react-app",
+    },
+    {
+        title: "10 Tips for Better Productivity",
+        author: "Jane Smith",
+        date: "April 10, 2023",
+        imageSrc: "https://grid-is.imgix.net/hjalli/65af50e0-8b67-4422-81f2-fcd4c7fe2f70-HG-profile.jpg",
+        excerpt: "Increase your productivity with these 10 tips and tricks.",
+        link: "https://example.com/blog/10-tips-for-better-productivity",
+    },
+];
 
 
 
 const TesPage = () => {
+    //Data calendar
     const [selectedOption, setSelectedOption] = useState("");
+    const audioSrc = "https://example.com/audio.mp3";
+
+    // News letter form
+    const { register, handleSubmit } = useForm();
+    const onSubmit = (data) => {
+        console.log(data);
+        // handle form submission
+    };
+    //end news letter form
 
     // Calendar
     const [selectedDate, setSelectedDate] = useState(null);
@@ -626,6 +682,85 @@ const TesPage = () => {
             <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <FaqSection
                     faqs={faqs}
+                />
+            </Box>
+
+            <Box maxW="4xl" border={0} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <ContactForm />
+            </Box>
+
+            <Box maxW="7xl" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <ImageGallery
+                    images={images}
+                />
+            </Box>
+
+
+            <Box maxW="7xl" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <ImageGallery
+                    images={[
+                        {
+                            id: 1,
+                            src: "https://i1.wp.com/img.phonandroid.com/2021/11/comment-reduire-taille-poids-image.jpg",
+                            alt: "Image 1",
+                        },
+                        {
+                            id: 2,
+                            src: "https://i1.wp.com/img.phonandroid.com/2021/11/comment-reduire-taille-poids-image.jpg",
+                            alt: "Image 2",
+                        },
+                        {
+                            id: 3,
+                            src: "https://i1.wp.com/img.phonandroid.com/2021/11/comment-reduire-taille-poids-image.jpg",
+                            alt: "Image 3",
+                        },
+                        // add more images here...
+                    ]}
+                />
+            </Box>
+
+
+            <Box maxW="4xl" mx="auto" border={0} mt={10} p={6} borderWidth={1} rounded="md">
+                <VideoPlayer
+                    videoUrl="https://www.youtube.com/watch?v=u1y17E4mYgc"
+                    title="Ninja Turtle"
+                    description="This is a brief description"
+                />
+
+                <VideoPlayer
+                    videoUrl="https://www.youtube.com/watch?v=u1y17E4mYgc"
+                    title="Ninja Turtle"
+                    description="This is a brief description"
+                />
+            </Box>
+
+            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <VideoPlayers
+                    src=""
+                    controls autoplay
+                />
+            </Box>
+
+            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <AudioPlayer
+                    src={audioSrc}
+                />
+            </Box>
+
+            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <Grid templateColumns="repeat(auto-fit, minmax(300px, 1fr))" gap={4}>
+                    {blogPosts.map((post) => (
+                        <BlogPost key={post.title} {...post} />
+                    ))}
+                </Grid>
+            </Box>
+
+            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <NewsletterForm
+                    namePlaceholder="Enter your name"
+                    emailPlaceholder="Enter your email"
+                    buttonText="Subscribe"
+                    onSubmit={handleSubmit(onSubmit)}
                 />
             </Box>
         </Box>
