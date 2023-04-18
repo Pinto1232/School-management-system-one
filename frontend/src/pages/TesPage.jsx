@@ -12,7 +12,7 @@ import DropdownMenu from '../components/specific/DropdownMenu';
 import ReusableModal from '../components/specific/ReusableModal';
 import CustomSelect from '../components/specific/customSelect/CustomSelect';
 import { Select, Icon } from "@chakra-ui/react";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import Accordion from '../components/specific/Accordion';
 import ProductCardTwo from '../components/specific/productCardTwo/ProductCardTwo ';
 import Navibar from '../components/specific/NavigationBar/Navibar';
@@ -43,6 +43,7 @@ import { useForm } from "react-hook-form";
 import CommentSection from '../components/common/CommentSection';
 import BlogPostSection from '../components/common/BlogPostSection';
 import UserProfilePage from '../components/common/UserProfilePage';
+import ShoppingCart from '../components/common/ShoppingCart';
 
 
 
@@ -360,11 +361,45 @@ const user = {
 };
 
 
+// Shooping cart
+const cartItems = [
+    {
+        id: 1,
+        name: "Product 1",
+        price: 10.0,
+        quantity: 2,
+    },
+    {
+        id: 2,
+        name: "Product 2",
+        price: 5.0,
+        quantity: 1,
+    },
+    {
+        id: 3,
+        name: "Product 3",
+        price: 15.0,
+        quantity: 3,
+    },
+];
+
+
 
 const TesPage = () => {
     //Data calendar
     const [selectedOption, setSelectedOption] = useState("");
     const audioSrc = "https://example.com/audio.mp3";
+
+    //User Profile
+    const handleSubmitUserProfile = (values) => {
+        // handle form submission here
+    };
+
+    const initialValues = {
+        email: "",
+        password: "",
+        confirmPassword: "",
+    };
 
     // News letter form
     const { register, handleSubmit } = useForm();
@@ -811,13 +846,35 @@ const TesPage = () => {
             </Box>
 
 
-            <Box maxW="xl"  mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+            <Box maxW="xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <UserProfilePage
                     username={user.username}
                     fullName={user.fullName}
                     profilePicture={user.profilePicture}
                     bio={user.bio}
                 />
+            </Box>
+
+            <Box maxW="xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <UserProfilePage
+                    initialValues={initialValues}
+                    onSubmit={handleSubmit}
+                    fullName="Pinto Manuel"
+                    username="Pinto"
+                    bio="Pinto is Software dev for more then 5 years of expirience"
+                />
+            </Box>
+
+
+            <Box maxW="xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <ShoppingCart
+                    cartItems={cartItems}
+                    src={FaShoppingCart}
+                />
+            </Box>
+
+            <Box maxW="xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                
             </Box>
         </Box>
     )
