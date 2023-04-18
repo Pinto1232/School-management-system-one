@@ -11,6 +11,8 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import DropdownMenu from '../DropdownMenu'
+import SocialMedia from '../socialIcons/SocialMediaIcons';
+import CTAButton from '../../common/CTAButton';
 
 const Navibar = () => {
     const { isOpen, onToggle } = useDisclosure();
@@ -49,7 +51,7 @@ const Navibar = () => {
                 />
             </Box>
             <Box display={{ base: 'none', md: 'block' }}>
-                <Stack direction="row" spacing={4}>
+                {/* <Stack direction="row" spacing={4}>
                     {menuItems.map((item) => (
                         <Box
                             key={item.label}
@@ -60,7 +62,7 @@ const Navibar = () => {
                             {item.label}
                         </Box>
                     ))}
-                </Stack>
+                </Stack> */}
             </Box>
             <Box
                 display={{ base: isOpen ? 'block' : 'none', md: 'block' }}
@@ -74,7 +76,7 @@ const Navibar = () => {
                     direction={['column', 'row', 'row', 'row']}
                     pt={[4, 4, 0, 0]}
                 >
-                    {menuItems.map((item) => (
+                    {/* {menuItems.map((item) => (
                         <Box
                             key={item.label}
                             as="button"
@@ -83,9 +85,10 @@ const Navibar = () => {
                         >
                             {item.label}
                         </Box>
-                    ))}
+                    ))} */}
+                    <SocialMedia />
                     <GridItem
-                      zIndex={1200}
+                        zIndex={1200}
                     >
                         <DropdownMenu />
                     </GridItem>

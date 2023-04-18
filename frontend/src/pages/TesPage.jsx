@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Button, Flex, Grid, InputGroup } from '@chakra-ui/react';
+import { Box, Button, Flex, Grid, InputGroup, Text } from '@chakra-ui/react';
 import FormMultiStep from '../components/specific/MultiStepForm/FormMultiStep';
 import FormToogle from '../components/specific/FormToogle';
 import MultiToggleForm from '../components/specific/MultiToggleForm';
@@ -23,10 +23,15 @@ import Calendar from '../components/specific/calendar/Calendar';
 import SocialMedia from '../components/specific/socialIcons/SocialMediaIcons';
 import FourColumnLayout from '../components/specific/fourcolumns/FourColumnLayout';
 import AdjustableColumnLayout from '../components/specific/twocolumns/AdjustableColumnLayout';
-import Header from '../components/specific/compHeader/Header';
-/* import TodoList from '../components/specific/TodoListComponent/TodoList'; */
+import TodoList from '../components/specific/TodoListComponent/TodoList';
 import CTAButton from '../components/common/CTAButton';
 import InputFieldComponent from '../components/common/InputFieldComponent';
+import Testimonials from '../components/common/Testimonials ';
+import AboutUsSection from '../components/common/AboutUsSection';
+import ServicesSection from '../components/common/ServicesSection';
+import ProductsSection from '../components/common/ProductsSection';
+import PricingTables from '../components/specific/pricingtable/PricingTable';
+import FaqSection from '../components/specific/Faq/FaqSection';
 
 
 
@@ -181,6 +186,100 @@ const productsImages = [
 ];
 
 
+//Product 2
+const products = [
+    {
+        id: 1,
+        name: "Product 1",
+        description: "This is a description of product 1",
+        price: 10.99,
+        category: "Category 1",
+        image: "https://media.istockphoto.com/id/1402604850/photo/the-word-about-us-on-wooden-cubes-business-communication-and-information.jpg?b=1&s=170667a&w=0&k=20&c=M1zgL2pGwZ_g3cwmOvdMtzz92PlTLdihv6_wgaW1QZc=",
+    },
+    {
+        id: 2,
+        name: "Product 2",
+        description: "This is a description of product 2",
+        price: 15.99,
+        category: "Category 2",
+        image: "https://media.istockphoto.com/id/1402604850/photo/the-word-about-us-on-wooden-cubes-business-communication-and-information.jpg?b=1&s=170667a&w=0&k=20&c=M1zgL2pGwZ_g3cwmOvdMtzz92PlTLdihv6_wgaW1QZc=",
+    },
+
+    {
+        id: 3,
+        name: "Product 2",
+        description: "This is a description of product 2",
+        price: 15.99,
+        category: "Category 2",
+        image: "https://media.istockphoto.com/id/1402604850/photo/the-word-about-us-on-wooden-cubes-business-communication-and-information.jpg?b=1&s=170667a&w=0&k=20&c=M1zgL2pGwZ_g3cwmOvdMtzz92PlTLdihv6_wgaW1QZc=",
+    },
+    {
+        id: 4,
+        name: "Product 2",
+        description: "This is a description of product 2",
+        price: 15.99,
+        category: "Category 2",
+        image: "https://media.istockphoto.com/id/1402604850/photo/the-word-about-us-on-wooden-cubes-business-communication-and-information.jpg?b=1&s=170667a&w=0&k=20&c=M1zgL2pGwZ_g3cwmOvdMtzz92PlTLdihv6_wgaW1QZc=",
+    },
+    {
+        id: 5,
+        name: "Product 2",
+        description: "This is a description of product 2",
+        price: 15.99,
+        category: "Category 2",
+        image: "https://media.istockphoto.com/id/1402604850/photo/the-word-about-us-on-wooden-cubes-business-communication-and-information.jpg?b=1&s=170667a&w=0&k=20&c=M1zgL2pGwZ_g3cwmOvdMtzz92PlTLdihv6_wgaW1QZc=",
+    },
+    {
+        id: 6,
+        name: "Product 2",
+        description: "This is a description of product 2",
+        price: 15.99,
+        category: "Category 2",
+        image: "https://media.istockphoto.com/id/1402604850/photo/the-word-about-us-on-wooden-cubes-business-communication-and-information.jpg?b=1&s=170667a&w=0&k=20&c=M1zgL2pGwZ_g3cwmOvdMtzz92PlTLdihv6_wgaW1QZc=",
+    },
+];
+
+
+const faqs = [
+    {
+        question: "What is Lorem Ipsum?",
+        answer:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+    },
+    {
+        question: "Why do we use it?",
+        answer:
+            "It is a long established fact"
+    }
+]
+
+
+// Testimonial
+const testimonials = [
+    {
+        id: 1,
+        name: "John Doe",
+        text:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel lorem vel felis pharetra cursus. Mauris consequat nibh mauris, id feugiat velit bibendum vitae.",
+        avatarUrl: "https://i.pravatar.cc/150?img=1",
+    },
+    {
+        id: 2,
+        name: "Jane Smith",
+        text:
+            "Vestibulum eu felis eget nunc pulvinar pretium. Integer ut eros dui. Ut nec turpis tellus. Donec egestas consequat sem sit amet malesuada.",
+        avatarUrl: "https://i.pravatar.cc/150?img=2",
+    },
+    {
+        id: 3,
+        name: "Bob Johnson",
+        text:
+            "Fusce vel consectetur arcu. Curabitur in bibendum nunc. Duis sed vestibulum risus. Donec viverra, nibh vitae luctus tincidunt, sem turpis porttitor ex, non congue justo magna vitae libero.",
+        avatarUrl: "https://i.pravatar.cc/150?img=3",
+    },
+];
+
+
 // Calendar data
 const monthOptions = [
     { value: 1, label: "January" },
@@ -231,7 +330,7 @@ const TesPage = () => {
 
 
     //TodoList
-    /* const [todos, setTodos] = useState([
+    const [todos, setTodos] = useState([
         { id: 1, title: "Task 1", completed: false },
         { id: 2, title: "Task 2", completed: true },
         { id: 3, title: "Task 3", completed: false },
@@ -250,7 +349,7 @@ const TesPage = () => {
     const handleRemoveTodo = (id) => {
         const updatedTodos = todos.filter((todo) => todo.id !== id);
         setTodos(updatedTodos);
-    }; */
+    };
 
 
     return (
@@ -441,18 +540,10 @@ const TesPage = () => {
                 </AdjustableColumnLayout>
             </Box>
 
-
-            <Box border={0} textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
-                <Header
-                    title="My Website"
-                    navLinks={navLinks}
-                />
-            </Box>
-
-            {/* <Box border={0} textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+            <Box maxW="3xl" bg={'gray.700'} border={0} textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <Button onClick={handleAddTodo}>Add Todo</Button>
                 <TodoList todos={todos} onChange={handleRemoveTodo} />
-            </Box> */}
+            </Box>
 
             <Box maxW="xs" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <CTAButton
@@ -466,6 +557,16 @@ const TesPage = () => {
             <Box maxW="4xl" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <Grid gap={3}>
                     <InputFieldComponent
+                        type="text"
+                        placeholder="Name"
+                        icon={EmailIcon}
+                    />
+                    <InputFieldComponent
+                        type="text"
+                        placeholder="Surname"
+                        icon={LockIcon}
+                    />
+                    <InputFieldComponent
                         type="email"
                         placeholder="Email"
                         icon={EmailIcon}
@@ -476,6 +577,56 @@ const TesPage = () => {
                         icon={LockIcon}
                     />
                 </Grid>
+            </Box>
+
+            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <Testimonials
+                    testimonials={testimonials}
+                />
+            </Box>
+
+            <Box maxW="7xl" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <AboutUsSection
+                    heading="Our Story"
+                    subheading="Learn more about our company and mission"
+                    image="https://media.istockphoto.com/id/1402604850/photo/the-word-about-us-on-wooden-cubes-business-communication-and-information.jpg?b=1&s=170667a&w=0&k=20&c=M1zgL2pGwZ_g3cwmOvdMtzz92PlTLdihv6_wgaW1QZc="
+                    altText="About us image"
+                >
+                    <Grid>
+                        <Text fontSize="lg" mb={4}>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce euismod aliquam commodo.
+                            Vestibulum pharetra semper urna, ac dapibus felis ultricies ut. Duis pharetra
+                            sapien non magna ullamcorper, ut scelerisque enim sagittis.
+                        </Text>
+                        <Text fontSize="lg">
+                            Nullam at ipsum quis nibh posuere ultrices. Nam posuere, purus sed finibus venenatis,
+                            enim urna commodo mauris, at aliquet metus lorem vitae mauris.
+                        </Text>
+                    </Grid>
+                </AboutUsSection>
+            </Box>
+
+            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <ServicesSection />
+            </Box>
+
+
+            <Grid maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <ProductsSection
+                    heading="Our Products"
+                    subheading="Check out our latest offerings"
+                    products={products}
+                />
+            </Grid>
+
+            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <PricingTables />
+            </Box>
+
+            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <FaqSection
+                    faqs={faqs}
+                />
             </Box>
         </Box>
     )
