@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Button, Flex, Grid, InputGroup, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Grid, InputGroup, Stack, Text } from '@chakra-ui/react';
 import FormMultiStep from '../components/specific/MultiStepForm/FormMultiStep';
 import FormToogle from '../components/specific/FormToogle';
 import MultiToggleForm from '../components/specific/MultiToggleForm';
@@ -40,6 +40,9 @@ import AudioPlayer from '../components/common/AudioPlayer';
 import BlogPost from '../components/common/BlogPost';
 import NewsletterForm from '../components/common/NewsletterForm';
 import { useForm } from "react-hook-form";
+import CommentSection from '../components/common/CommentSection';
+import BlogPostSection from '../components/common/BlogPostSection';
+import UserProfilePage from '../components/common/UserProfilePage';
 
 
 
@@ -347,6 +350,16 @@ const blogPosts = [
 ];
 
 
+// User profile
+
+const user = {
+    username: "johndoe",
+    fullName: "John Doe",
+    profilePicture: "https://img.freepik.com/free-photo/worldface-ugandan-man-white-background_53876-14474.jpg",
+    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+};
+
+
 
 const TesPage = () => {
     //Data calendar
@@ -385,6 +398,12 @@ const TesPage = () => {
     };
 
 
+    // Comment section component
+    const handleCommentSubmit = (data) => {
+        console.log(data.comment); // do something with the comment data
+    };
+
+
     //TodoList
     const [todos, setTodos] = useState([
         { id: 1, title: "Task 1", completed: false },
@@ -406,6 +425,8 @@ const TesPage = () => {
         const updatedTodos = todos.filter((todo) => todo.id !== id);
         setTodos(updatedTodos);
     };
+
+
 
 
     return (
@@ -761,6 +782,41 @@ const TesPage = () => {
                     emailPlaceholder="Enter your email"
                     buttonText="Subscribe"
                     onSubmit={handleSubmit(onSubmit)}
+                />
+            </Box>
+
+            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <Stack spacing={4} direction="column">
+                    <CommentSection
+                        onSubmit={handleCommentSubmit}
+                    />
+                </Stack>
+            </Box>
+
+            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <BlogPostSection
+                    title="My First Blog Post"
+                    author="John Doe"
+                    date="April 20, 2023"
+                    excerpt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent blandit justo eget sem blandit, in rutrum purus interdum. Fusce aliquam, est sit amet dapibus pellentesque, lorem neque dictum mi, vel rutrum nisi urna in lectus."
+                    imageUrl="https://picsum.photos/600/400"
+                />
+                <BlogPostSection
+                    title="My First Blog Post"
+                    author="John Doe"
+                    date="April 20, 2023"
+                    excerpt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent blandit justo eget sem blandit, in rutrum purus interdum. Fusce aliquam, est sit amet dapibus pellentesque, lorem neque dictum mi, vel rutrum nisi urna in lectus."
+                    imageUrl="https://picsum.photos/600/400"
+                />
+            </Box>
+
+
+            <Box maxW="xl"  mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <UserProfilePage
+                    username={user.username}
+                    fullName={user.fullName}
+                    profilePicture={user.profilePicture}
+                    bio={user.bio}
                 />
             </Box>
         </Box>
