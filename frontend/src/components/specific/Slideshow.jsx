@@ -32,14 +32,14 @@ const Slideshow = ({ slides }) => {
     return (
         <div>
             <Slider {...settings}>
-                {slides.map((slide) => (
+                {slides.map((slid, index) => (
                     <Box
-                        key={slide.id}
+                        key={slid.id}
                         position="relative"
                         onClick={onOpen}
                         _hover={{ cursor: "pointer" }}
                     >
-                        <Image src={slide.imageUrl} alt={slide.altText} />
+                        <Image src={slid.imageUrl} alt={slid.altText} />
                         <Box
                             position="absolute"
                             bottom="0"
@@ -49,7 +49,7 @@ const Slideshow = ({ slides }) => {
                             bg="blackAlpha.600"
                             color="white"
                         >
-                            <Text fontSize="lg">{slide.title}</Text>
+                            <Text fontSize="lg">{slid.title}</Text>
                         </Box>
                     </Box>
                 ))}
@@ -68,17 +68,17 @@ const Slideshow = ({ slides }) => {
                 <Box p="4" maxW="6xl" mx="auto">
                     <Box>
                         <Slider {...settings}>
-                            {slides.map((slide) => (
-                                <Box key={slide.id}>
+                            {slides.map((slides, index) => (
+                                <Box key={slides.id}>
                                     <Image
-                                        src={slide.imageUrl}
-                                        alt={slide.altText}
+                                        src={slides.imageUrl}
+                                        alt={slides.altText}
                                         maxH="600px"
                                         mx="auto"
                                     />
                                     <Box mt="4">
-                                        <Text fontSize="lg">{slide.title}</Text>
-                                        <Text>{slide.description}</Text>
+                                        <Text fontSize="lg">{slides.title}</Text>
+                                        <Text>{slides.description}</Text>
                                     </Box>
                                 </Box>
                             ))}

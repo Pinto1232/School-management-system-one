@@ -12,6 +12,7 @@ import ForgetPassowrd from './pages/ForgetPassowrd';
 import Footer from './components/common/Footer';
 import ResetPassword from './pages/ResetPassword';
 import { Box } from '@chakra-ui/react';
+import TesPage from './pages/TesPage';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -59,6 +60,7 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/forgetPassword" element={<ForgetPassowrd />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
+            <Route path="/test" element={<TesPage />} />
           </Routes>
           <Footer />
         </Box>
