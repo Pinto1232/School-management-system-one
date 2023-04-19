@@ -45,9 +45,10 @@ import UserProfilePage from '../components/common/UserProfilePage';
 import ShoppingCart from '../components/common/ShoppingCart';
 import ProgressBar from '../components/common/ProgressBar';
 import { FaHome, FaHeart, FaEnvelope } from "react-icons/fa";
-import EventCalendar from '../components/common/EventCalendar';
 import EventsCalendar from '../components/common/EventCalendar';
 import Timeline from '../components/common/Timeline';
+import BigCalendar from '../components/common/BigCalendar';
+import events from '../data/BigCalendarEventData'
 
 
 
@@ -398,13 +399,14 @@ const TesPage = () => {
     const audioSrc = "https://example.com/audio.mp3";
 
 
-
     // Event calendar 2 function
+
+
+
+
     const handleEventClick = (event) => {
-        console.log(`Clicked on event "${event.name}" on ${event.date}`);
+        console.log(`Event ${event.name} clicked on ${event.date}`);
     };
-
-
 
 
     //User Profile
@@ -526,13 +528,13 @@ const TesPage = () => {
                 />
             </Box> */}
 
-            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+            {/* <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <Slideshow
                     slides={slides}
                     speed={5000}
                     stopOnHover={true}
                 />
-            </Box>
+            </Box> */}
 
             <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <PaginationTable
@@ -650,13 +652,13 @@ const TesPage = () => {
                 </Box>
             </Box>
 
-            <Box maxW="xs" border={0} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+            {/* <Box maxW="xs" border={0} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <SocialMedia
                     size="lg"
                     color="gray.500"
                     align="center"
                 />
-            </Box>
+            </Box> */}
 
             <Box maxW="7xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <FourColumnLayout>
@@ -807,7 +809,7 @@ const TesPage = () => {
                 />
             </Box>
 
-
+            {/* 
             <Box maxW="4xl" mx="auto" border={0} mt={10} p={6} borderWidth={1} rounded="md">
                 <VideoPlayer
                     videoUrl="https://www.youtube.com/watch?v=u1y17E4mYgc"
@@ -820,14 +822,14 @@ const TesPage = () => {
                     title="Ninja Turtle"
                     description="This is a brief description"
                 />
-            </Box>
+            </Box> */}
 
 
-            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+            {/*  <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <AudioPlayer
                     src={audioSrc}
                 />
-            </Box>
+            </Box> */}
 
             <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <Grid templateColumns="repeat(auto-fit, minmax(300px, 1fr))" gap={4}>
@@ -905,15 +907,18 @@ const TesPage = () => {
                 />
             </Box>
 
-            <Box maxW="4xl" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
-                <EventsCalendar
-                    eventsCalendar={eventsCalendar}
-                    onEventClick={handleEventClick}
-                />
+            <Box maxW="4xl" textAlign={"center"} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <EventsCalendar eventsCalendar={eventsCalendar} onEventClick={handleEventClick} />
             </Box>
 
             <Box maxW="4xl" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <Timeline />
+            </Box>
+
+            <Box maxW="6xl" border={0}  mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <BigCalendar
+                    events={events}
+                />
             </Box>
         </Box>
     )

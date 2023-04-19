@@ -11,7 +11,8 @@ import {
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
 
-const EventsCalendar = ({ eventsCalendar, onEventClick }) => {
+
+const EventsCalendar = ({ eventsCalendar, onEventClick, handleEventClick }) => {
     const { colorMode } = useColorMode();
     const isDark = colorMode === "dark";
 
@@ -19,8 +20,32 @@ const EventsCalendar = ({ eventsCalendar, onEventClick }) => {
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
     const [clickedEvent, setClickedEvent] = useState(null);
     const [showPopover, setShowPopover] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState(null);
 
-    
+
+
+    const handleDayClick = (day) => {
+        // Find the event for the clicked day, if it exists
+        const event = eventsCalendar.find((e) => e.date === day.toLocaleDateString());
+
+        // If an event was found, show a popover with its details
+        if (event) {
+            const popover = (
+                <Popover>
+                    <PopoverHeader>{event.name}</PopoverHeader>
+                    <PopoverBody>
+                        Date: {event.date}
+                    </PopoverBody>
+                </Popover>
+            );
+
+            setPopoverContent(popover);
+            setPopoverTarget(day);
+            setIsPopoverOpen(true);
+        }
+    };
+
+
 
     const monthNames = [
         "January",
@@ -46,6 +71,7 @@ const EventsCalendar = ({ eventsCalendar, onEventClick }) => {
 
     const getFirstDayOfMonth = (month, year) =>
         new Date(year, month, 1).getDay();
+
 
     const renderHeader = () => (
         <Box>
@@ -88,6 +114,13 @@ const EventsCalendar = ({ eventsCalendar, onEventClick }) => {
         </Box>
     );
 
+    /*  const handleEventClick = (event) => {
+         console.log("Event click 1");
+         setSelectedEvent(event);
+         setClickedEvent(event);
+         setShowPopover(true);
+     }; */
+
     const renderDays = () => {
         const daysInMonth = getDaysInMonth(currentMonth, currentYear);
         const firstDayOfMonth = getFirstDayOfMonth(currentMonth, currentYear);
@@ -112,7 +145,7 @@ const EventsCalendar = ({ eventsCalendar, onEventClick }) => {
                 cursor: eventsForDay.length > 0 ? "pointer" : "default",
                 opacity: eventsForDay.length > 0 ? 1 : 0.5,
             };
-
+            /* Days */
             days.push(
                 <Popover key={`day-${i}`}>
                     <PopoverTrigger>
@@ -139,6 +172,8 @@ const EventsCalendar = ({ eventsCalendar, onEventClick }) => {
                 </Popover>
             );
         }
+
+
 
         const gridTemplateColumns =
             "repeat(7, minmax(0, " + 1 / 7 + "fr))";
