@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Box, Button, Flex, Grid, InputGroup, Stack, Text } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react'
+import { Box, Button, Center, Flex, Grid, Heading, InputGroup, Stack, Text, VStack } from '@chakra-ui/react';
 import FormMultiStep from '../components/specific/MultiStepForm/FormMultiStep';
 import FormToogle from '../components/specific/FormToogle';
 import MultiToggleForm from '../components/specific/MultiToggleForm';
@@ -35,7 +35,6 @@ import FaqSection from '../components/specific/Faq/FaqSection';
 import ContactForm from '../components/common/ContactForm';
 import ImageGallery from '../components/specific/imagegallery/ImageGallery';
 import VideoPlayer from '../components/common/VideoPlayer';
-import VideoPlayers from '../components/common/VideoPlayers';
 import AudioPlayer from '../components/common/AudioPlayer';
 import BlogPost from '../components/common/BlogPost';
 import NewsletterForm from '../components/common/NewsletterForm';
@@ -44,6 +43,12 @@ import CommentSection from '../components/common/CommentSection';
 import BlogPostSection from '../components/common/BlogPostSection';
 import UserProfilePage from '../components/common/UserProfilePage';
 import ShoppingCart from '../components/common/ShoppingCart';
+import ProgressBar from '../components/common/ProgressBar';
+import { FaHome, FaHeart, FaEnvelope } from "react-icons/fa";
+import EventCalendar from '../components/common/EventCalendar';
+import EventsCalendar from '../components/common/EventCalendar';
+import Timeline from '../components/common/Timeline';
+
 
 
 
@@ -56,7 +61,6 @@ const data = [
     { id: 2, Name: 'Jane', Age: 30, Email: 'jane@example.com' },
     { id: 3, Name: 'Bob', Age: 40, Email: 'bob@example.com' },
 ]; */
-
 
 
 const slides = [
@@ -79,7 +83,6 @@ const slides = [
         description: 'Slide 3 Description',
     },
 ];
-
 
 // Pagination table
 const data = [
@@ -143,8 +146,6 @@ const productsTwo = [
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },
 ];
-
-
 
 //Table with Icons
 const productsImages = [
@@ -352,7 +353,6 @@ const blogPosts = [
 
 
 // User profile
-
 const user = {
     username: "johndoe",
     fullName: "John Doe",
@@ -383,18 +383,50 @@ const cartItems = [
     },
 ];
 
-
+// Event calendar 2
+const eventsCalendar = [
+    { name: "Event 1", date: "2022-05-15" },
+    { name: "Event 2", date: "2022-05-20" },
+    { name: "Event 3", date: "2022-06-05" },
+    { name: "Event 4", date: "2022-06-15" },
+];
 
 const TesPage = () => {
     //Data calendar
     const [selectedOption, setSelectedOption] = useState("");
+    const [progress, setProgress] = useState(0);
     const audioSrc = "https://example.com/audio.mp3";
+
+
+
+    // Event calendar 2 function
+    const handleEventClick = (event) => {
+        console.log(`Clicked on event "${event.name}" on ${event.date}`);
+    };
+
+
+
 
     //User Profile
     const handleSubmitUserProfile = (values) => {
         // handle form submission here
     };
 
+    //progress bar
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setProgress((prevProgress) => {
+                const nextProgress = prevProgress + 10;
+                if (nextProgress === 100) {
+                    clearInterval(interval);
+                }
+                return nextProgress;
+            });
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
+    // reusable input
     const initialValues = {
         email: "",
         password: "",
@@ -569,6 +601,7 @@ const TesPage = () => {
             </Box>
 
 
+            {/* Accordion two rendering */}
             <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <Accordion
                     items={items}
@@ -722,7 +755,6 @@ const TesPage = () => {
                 <ServicesSection />
             </Box>
 
-
             <Grid maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <ProductsSection
                     heading="Our Products"
@@ -790,12 +822,6 @@ const TesPage = () => {
                 />
             </Box>
 
-            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
-                <VideoPlayers
-                    src=""
-                    controls autoplay
-                />
-            </Box>
 
             <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <AudioPlayer
@@ -845,7 +871,6 @@ const TesPage = () => {
                 />
             </Box>
 
-
             <Box maxW="xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <UserProfilePage
                     username={user.username}
@@ -865,16 +890,30 @@ const TesPage = () => {
                 />
             </Box>
 
-
-            <Box maxW="xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+            <Box maxW="xl" border={0} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <ShoppingCart
                     cartItems={cartItems}
                     src={FaShoppingCart}
                 />
             </Box>
 
-            <Box maxW="xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
-                
+            <Box maxW="xl" mx="auto" p={6} borderWidth={1} rounded="md">
+                <h1>My Progress Bar</h1>
+                <ProgressBar
+                    value={progress}
+                    color="blue"
+                />
+            </Box>
+
+            <Box maxW="4xl" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <EventsCalendar
+                    eventsCalendar={eventsCalendar}
+                    onEventClick={handleEventClick}
+                />
+            </Box>
+
+            <Box maxW="4xl" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <Timeline />
             </Box>
         </Box>
     )

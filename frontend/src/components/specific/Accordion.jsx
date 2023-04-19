@@ -1,18 +1,19 @@
 import { useState } from 'react';
-import { Accordion as ChakraAccordion, AccordionItem, AccordionButton, AccordionPanel, Box, Icon, Heading } from '@chakra-ui/react';
+import { Accordion as ChakraAccordion, AccordionItem, AccordionButton, AccordionPanel, Box, Icon, Heading, Text } from '@chakra-ui/react';
 import { FaChevronDown } from "react-icons/fa";
 
 
 const Accordion = ({ items }) => {
-    const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(null);
 
-    const toggleAccordion = (index) => {
-      setActiveIndex(activeIndex === index ? null : index);
-    };
-  
+  const toggleAccordion = (index) => {
+    setActiveIndex(activeIndex === index ? null : index);
+};
 
-    return (
-        <ChakraAccordion allowMultiple>
+
+  return (
+    <Box>
+      <ChakraAccordion allowMultiple>
         {items.map((item, index) => (
           <AccordionItem key={index}>
             <h2>
@@ -33,8 +34,8 @@ const Accordion = ({ items }) => {
           </AccordionItem>
         ))}
       </ChakraAccordion>
-      
-    );
+    </Box>
+  );
 };
 
 export default Accordion;

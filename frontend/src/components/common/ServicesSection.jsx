@@ -31,7 +31,7 @@ const ServicesSection = () => {
             <Heading as="h2" size="xl" textAlign="center" mb={8}>
                 Our Services
             </Heading>
-            <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={8}>
+            <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={10}>
                 {servicesData.map((service, index) => (
                     <GridItem key={index}>
                         <Flex alignItems="center" mb={4}>
