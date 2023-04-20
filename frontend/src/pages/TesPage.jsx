@@ -59,6 +59,10 @@ import AccountSettings from '../components/common/AccountSettings';
 import currentUser from '../data/AccountSettingData';
 import itemsPaypalCheckout from '../data/PaypalCheckoutData'
 import PaypalCheckout from '../components/common/PaypalCheckout';
+import ProductCategory from '../components/common/ProductCategory';
+import productCategoryData from '../data/productCategoryData'
+import TeamMembersSection from '../components/common/TeamMembersSection';
+import teamMembersData from '../data/teamMembersData'
 
 
 
@@ -1098,13 +1102,27 @@ const TesPage = () => {
                 <ShoppingCart title="My Shopping Cart" emptyMessage="Your cart is empty." />
             </Box>
 
-            <Box  maxW="7xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+            <Box maxW="7xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <Heading as="h2">Paypal checkout</Heading>
                 <PaypalCheckout
-                items={itemsPaypalCheckout}
+                    items={itemsPaypalCheckout}
                     total={items.reduce((total, item) => total + item.price * item.quantity, 0)}
                     onSuccess={handlePayment}
                     onCancel={handleCheckoutCancel}
+                />
+            </Box>
+
+            <Box maxW="5xl" textAlign="start" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <ProductCategory
+                    title="Featured Products"
+                    productCategoryData={productCategoryData}
+                />
+            </Box>
+
+            <Box maxW="2xl" shadow="lg" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <TeamMembersSection
+                    title="Team Member"
+                    teamMembersData={teamMembersData}
                 />
             </Box>
         </Box>
