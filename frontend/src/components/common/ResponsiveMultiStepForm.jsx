@@ -76,8 +76,8 @@ const ResponsiveMultiStep = ({
                         stepClassName="multi-step"
                         {...activeStepProps}
                     >
-                        {steps.map(({ component: StepContent }) => (
-                            <StepWrapper>
+                        {steps.map(({ component: StepContent }, index) => (
+                            <StepWrapper key={index}>
                                 <StepContent />
                             </StepWrapper>
                         ))}

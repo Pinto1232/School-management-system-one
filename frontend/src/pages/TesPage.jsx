@@ -1082,15 +1082,10 @@ const TesPage = () => {
                 />
             </Flex>
 
-            
-
-            <AccountSettings
-                user={currentUser}
-                onSave={handleSave}
-                onCancel={handleCancel}
-            />
-            
-
+            <Box shadow={'md'} maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                 <Heading as="h2">Add to Cart</Heading>
+                <ShoppingCart title="My Shopping Cart" emptyMessage="Your cart is empty." />
+            </Box>
         </Box>
     )
 }
