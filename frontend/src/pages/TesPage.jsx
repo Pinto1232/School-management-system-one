@@ -57,6 +57,8 @@ import UserProfileForm from '../components/common/UserProfileForm';
 import UserProfile from '../components/common/UserProfilePage';
 import AccountSettings from '../components/common/AccountSettings';
 import currentUser from '../data/AccountSettingData';
+import itemsPaypalCheckout from '../data/PaypalCheckoutData'
+import PaypalCheckout from '../components/common/PaypalCheckout';
 
 
 
@@ -404,6 +406,15 @@ const TesPage = () => {
     const [selectedOption, setSelectedOption] = useState("");
     const [progress, setProgress] = useState(0);
     const audioSrc = "https://example.com/audio.mp3";
+
+    // Function for paypal check
+    const handlePayment = (payment) => {
+        console.log("Payment successful!", payment);
+    };
+
+    const handleCheckoutCancel = (data) => {
+        console.log("Payment cancelled!", data);
+    };
 
     // Account settings
     const handleSave = (formData) => {
@@ -1083,8 +1094,18 @@ const TesPage = () => {
             </Flex>
 
             <Box shadow={'md'} maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
-                 <Heading as="h2">Add to Cart</Heading>
+                <Heading as="h2">Add to Cart</Heading>
                 <ShoppingCart title="My Shopping Cart" emptyMessage="Your cart is empty." />
+            </Box>
+
+            <Box  maxW="7xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <Heading as="h2">Paypal checkout</Heading>
+                <PaypalCheckout
+                items={itemsPaypalCheckout}
+                    total={items.reduce((total, item) => total + item.price * item.quantity, 0)}
+                    onSuccess={handlePayment}
+                    onCancel={handleCheckoutCancel}
+                />
             </Box>
         </Box>
     )
