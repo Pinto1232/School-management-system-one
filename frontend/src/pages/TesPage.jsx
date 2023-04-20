@@ -53,7 +53,10 @@ import fullcalendarevent from '../data/FullCalendarData'
 import FCalendar from '../components/common/FCalendar';
 import ResponsiveCalendar from '../components/common/ReactCalendar';
 import ResponsiveMultiStep from '../components/common/ResponsiveMultiStepForm';
-
+import UserProfileForm from '../components/common/UserProfileForm';
+import UserProfile from '../components/common/UserProfilePage';
+import AccountSettings from '../components/common/AccountSettings';
+import currentUser from '../data/AccountSettingData';
 
 
 
@@ -401,6 +404,29 @@ const TesPage = () => {
     const [selectedOption, setSelectedOption] = useState("");
     const [progress, setProgress] = useState(0);
     const audioSrc = "https://example.com/audio.mp3";
+
+    // Account settings
+    const handleSave = (formData) => {
+        // Handle saving form data here
+    };
+
+    const handleCancel = () => {
+        // Handle cancelling changes here
+    };
+
+
+    // User profile
+    const initialValuesProfile = {
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+    };
+
+    const handleSubmitProfile = (values) => {
+        // Handle form submission
+    };
+
 
 
     // React calendar
@@ -937,7 +963,7 @@ const TesPage = () => {
                 <ResponsiveCalendar value={value} onChange={onChange} />
             </Box>
 
-            <Box maxW="4xl" mx="auto"  p={6} borderWidth={2} rounded="md" shadow={'lg'}>
+            <Box maxW="4xl" mx="auto" p={6} borderWidth={2} rounded="md" shadow={'lg'}>
                 <ResponsiveMultiStep
                     steps={[
                         {
@@ -1032,7 +1058,39 @@ const TesPage = () => {
                     activeStep={0}
                 />
             </Box>
+
+            <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <UserProfileForm
+                    onSubmit={handleSubmitProfile}
+                    initialValuesProfile={initialValuesProfile}
+                />
+            </Box>
+
+
+            <Flex shadow={'md'} maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <UserProfile
+                    name="John Doe"
+                    username="johndoe"
+                    email="johndoe@example.com"
+                    avatarSrc="https://example.com/avatar.png"
+                />
+                <UserProfile
+                    name="Pinto Manuel"
+                    username="johndoe"
+                    email="johndoe@example.com"
+                    avatarSrc="https://example.com/avatar.png"
+                />
+            </Flex>
+
             
+
+            <AccountSettings
+                user={currentUser}
+                onSave={handleSave}
+                onCancel={handleCancel}
+            />
+            
+
         </Box>
     )
 }

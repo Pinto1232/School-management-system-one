@@ -1,25 +1,33 @@
-import React from "react";
-import { Avatar, Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Flex, Heading, Text, Stack, Avatar, Box } from "@chakra-ui/react";
 
-const UserProfilePage = ({ username, fullName, profilePicture, bio }) => {
-    return (
-        <Flex direction="column" align="center" w="100%" maxW="900px" m="auto">
-            <Box w="100%" p="4">
-                <Avatar size="2xl" name={fullName} src={profilePicture} />
-            </Box>
-            <Box w="100%" p="4">
-                <Heading as="h1" fontSize="4xl">
-                    {username}
-                </Heading>
-                <Text fontSize="xl" fontWeight="bold">
-                    {fullName}
-                </Text>
-                <Text fontSize="md" my="4">
-                    {bio}
-                </Text>
-            </Box>
-        </Flex>
-    );
-};
+function UserProfile({ name, username, email, avatarSrc }) {
+  return (
+    <Flex
+      direction={{ base: "column", md: "row" }}
+      maxW={{ base: "100%", md: "900px" }}
+      mx="auto"
+      my={8}
+      px={4}
+    >
+      <Avatar
+        size={{ base: "xl", md: "2xl" }}
+        name={name}
+        src={avatarSrc}
+        mr={{ base: 0, md: 8 }}
+        mb={{ base: 4, md: 0 }}
+      />
+      <Stack spacing={4} flex={1}>
+        <Heading as="h1" size="xl">
+          {name}
+        </Heading>
+        <Text fontSize="xl">@{username}</Text>
+        <Text fontSize="xl">{email}</Text>
+        <Box>
+          {/* User profile information or components can be added here */}
+        </Box>
+      </Stack>
+    </Flex>
+  );
+}
 
-export default UserProfilePage;
+export default UserProfile;
