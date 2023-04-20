@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Center, Flex, Grid, Heading, InputGroup, Stack, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Center, Flex, Grid, Heading, InputGroup, Spacer, Stack, Text, VStack } from '@chakra-ui/react';
 import FormMultiStep from '../components/specific/MultiStepForm/FormMultiStep';
 import FormToogle from '../components/specific/FormToogle';
 import MultiToggleForm from '../components/specific/MultiToggleForm';
@@ -49,6 +49,10 @@ import EventsCalendar from '../components/common/EventCalendar';
 import Timeline from '../components/common/Timeline';
 import BigCalendar from '../components/common/BigCalendar';
 import events from '../data/BigCalendarEventData'
+import fullcalendarevent from '../data/FullCalendarData'
+import FCalendar from '../components/common/FCalendar';
+import ResponsiveCalendar from '../components/common/ReactCalendar';
+import ResponsiveMultiStep from '../components/common/ResponsiveMultiStepForm';
 
 
 
@@ -56,7 +60,7 @@ import events from '../data/BigCalendarEventData'
 
 
 
-/* const columns = ['Name', 'Age', 'Email'];
+/*const columns = ['Name', 'Age', 'Email'];
 const data = [
     { id: 1, Name: 'John', Age: 25, Email: 'john@example.com' },
     { id: 2, Name: 'Jane', Age: 30, Email: 'jane@example.com' },
@@ -399,7 +403,8 @@ const TesPage = () => {
     const audioSrc = "https://example.com/audio.mp3";
 
 
-    // Event calendar 2 function
+    // React calendar
+    const [value, onChange] = useState(new Date());
 
 
 
@@ -915,11 +920,119 @@ const TesPage = () => {
                 <Timeline />
             </Box>
 
-            <Box maxW="6xl" border={0}  mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+            <Box maxW="6xl" border={0} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <BigCalendar
                     events={events}
                 />
             </Box>
+
+            <Box maxW="6xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <FCalendar
+                    fullcalendarevent={fullcalendarevent}
+                    initialView="dayGridMonth"
+                />
+            </Box>
+
+            <Box maxW="4xl" border={0} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <ResponsiveCalendar value={value} onChange={onChange} />
+            </Box>
+
+            <Box maxW="4xl" mx="auto"  p={6} borderWidth={2} rounded="md" shadow={'lg'}>
+                <ResponsiveMultiStep
+                    steps={[
+                        {
+                            component: () => (
+                                <Flex gap={4}>
+                                    <InputFieldComponent
+                                        type="text"
+                                        placeholder="Name"
+                                        icon={EmailIcon}
+                                    />
+                                    <InputFieldComponent
+                                        type="email"
+                                        placeholder="Email"
+                                        icon={EmailIcon}
+                                    />
+
+                                    <InputFieldComponent
+                                        type="email"
+                                        placeholder="Email"
+                                        icon={EmailIcon}
+                                    />
+                                </Flex>
+                            ),
+                            description: "This is step 1",
+                        },
+                        {
+                            component: () => (
+                                <Flex gap={4}>
+                                    <InputFieldComponent
+                                        type="text"
+                                        placeholder="Name"
+                                        icon={EmailIcon}
+                                    />
+                                    <InputFieldComponent
+                                        type="email"
+                                        placeholder="Email"
+                                        icon={EmailIcon}
+                                    />
+
+                                    <InputFieldComponent
+                                        type="email"
+                                        placeholder="Email"
+                                        icon={EmailIcon}
+                                    />
+                                </Flex>
+                            ),
+                            description: "This is step 2",
+                        },
+                        {
+                            component: () => <div>Step 3</div>,
+                            description: "This is step 3",
+                        },
+                        {
+                            component: () => <div>Step 3</div>,
+                            description: "This is step 3",
+                        },
+                        {
+                            component: () => <div>Step 3</div>,
+                            description: "This is step 3",
+                        },
+
+                        {
+                            component: () => <div>Step 3</div>,
+                            description: "This is step 3",
+                        },
+                        {
+                            component: () => <div>Step 3</div>,
+                            description: "This is step 3",
+                        },
+                        {
+                            component: () => <div>Step 3</div>,
+                            description: "This is step 3",
+                        },
+                        {
+                            component: () => <div>Step 3</div>,
+                            description: "This is step 3",
+                        },
+                    ]}
+                    title={"My Multi-Step Form"}
+                    style={{
+                        bgColor: "white",
+                        textColor: "gray.800",
+                        buttonBgColor: "gray.100",
+                        buttonTextColor: "gray.800",
+                        buttonBorderColor: "gray.300",
+                    }}
+                    showTitles={true}
+                    showNavigation={true}
+                    prevButton="Prev"
+                    nextButton="Next"
+                    direction="horizontal"
+                    activeStep={0}
+                />
+            </Box>
+            
         </Box>
     )
 }
