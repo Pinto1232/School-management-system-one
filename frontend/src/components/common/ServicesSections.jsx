@@ -7,27 +7,33 @@ const ServiceCard = ({ title, description, icon }) => {
             borderRadius="lg"
             overflow="hidden"
             p={4}
-            bg="white"
             boxShadow="base"
+            height="100%"
         >
-            <Box as={icon} fontSize="4xl" color="blue.500" mb={4} />
-            <Heading as="h3" size="md" mb={4}>
+            <Box 
+                as={icon}
+                fontSize={{ base: "3xl", md: "4xl" }}
+                color="blue.500"
+                mb={{ base: 2, md: 4 }}
+            />
+            <Heading as="h3" size="md" mb={{ base: 2, md: 4 }}>
                 {title}
             </Heading>
-            <Text fontSize="md">{description}</Text>
+            <Text fontSize={{ base: "md", md: "lg" }}>{description}</Text>
         </Box>
     );
 };
 
-const ServicesSection = ({ title, services }) => {
+
+const ServicesSections = ({ title, services }) => {
     return (
-        <Box py={16}>
-            <Heading as="h2" size="xl" mb={8} textAlign="center">
+        <Box py={{ base: 8, md: 16 }}>
+            <Heading as="h2" size={{ base: "xl", md: "2xl" }} mb={{ base: 4, md: 8 }} textAlign="center">
                 {title}
             </Heading>
             <Flex flexWrap="wrap" justifyContent="center">
                 {services.map((service) => (
-                    <Box key={service.id} flexBasis={{ base: "100%", md: "45%", xl: "30%" }} m={4}>
+                    <Box key={service.id} flexBasis={{ base: "100%", md: "45%", lg: "30%" }} m={{ base: 2, md: 4 }}>
                         <ServiceCard
                             title={service.title}
                             description={service.description}
@@ -40,4 +46,4 @@ const ServicesSection = ({ title, services }) => {
     );
 };
 
-export default ServicesSection;
+export default ServicesSections;

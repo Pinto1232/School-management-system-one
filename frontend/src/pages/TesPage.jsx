@@ -63,7 +63,10 @@ import ProductCategory from '../components/common/ProductCategory';
 import productCategoryData from '../data/productCategoryData'
 import TeamMembersSection from '../components/common/TeamMembersSection';
 import teamMembersData from '../data/teamMembersData'
-
+import ServicesSections from '../components/common/ServicesSections';
+import services from '../data/ServicesSectionsData'
+import DashboardHeader from '../components/specific/DashboardHeader';
+import breadcrumbs from '../data/breadcrumbsData'
 
 
 
@@ -410,6 +413,16 @@ const TesPage = () => {
     const [selectedOption, setSelectedOption] = useState("");
     const [progress, setProgress] = useState(0);
     const audioSrc = "https://example.com/audio.mp3";
+
+    //Dashboard header
+    const toggleColorMode = () => {
+        // functionality here
+    }
+
+    const isDarkMode = () => {
+        // functinality here
+    }
+
 
     // Function for paypal check
     const handlePayment = (payment) => {
@@ -1123,6 +1136,25 @@ const TesPage = () => {
                 <TeamMembersSection
                     title="Team Member"
                     teamMembersData={teamMembersData}
+                />
+            </Box>
+
+            <Box maxW="6xl" shadow="lg" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <ServicesSections
+                    title="Our Services"
+                    services={services}
+                />
+            </Box>
+
+
+            <Box  border={0}  mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <DashboardHeader
+                    title="My Dashboard"
+                    subtitle="Welcome to my dashboard"
+                    breadcrumbItems={breadcrumbs}
+                    actionButtonLabel="Create New Item"
+                    isDarkMode={isDarkMode}
+                    onToggle={toggleColorMode}
                 />
             </Box>
         </Box>
