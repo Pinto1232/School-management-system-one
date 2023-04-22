@@ -81,6 +81,7 @@ import productsData from '../data/productsData';
 import faqsData from '../data/faqsData';
 import HeroSection from '../components/common/HeroSection';
 import TablePagination from '../components/specific/TablePagination';
+import bgImageHero from '../assets/images/Premium.jpg'
 
 
 
@@ -147,15 +148,14 @@ const items = [
     },
 ];
 
-
-
-
+// Table Pagination
 const columnsPagination = [
     { key: 'id', title: 'ID' },
     { key: 'name', title: 'Name' },
     { key: 'email', title: 'Email' },
 ];
 
+// Table Pagination
 const dataPagination = [
     { id: 1, name: 'John Doe', email: 'john.doe@example.com' },
     { id: 2, name: 'Jane Doe', email: 'jane.doe@example.com' },
@@ -921,11 +921,18 @@ const TesPage = () => {
             <HeroSection
                 title="Welcome to My Website"
                 subtitle="Explore the world with us"
-                backgroundImageUrl="https://example.com/background-image.jpg"
+                bgColor="#333"
+                bgImage={bgImageHero}
+                textAlign="center"
+                titleColor="white"
+                subtitleColor="gray.300"
+                gradient="linear-gradient(to bottom, #0074D9 0%, #0074D9 70%, #001f3f 100%)"
             />
 
 
-            <Box maxW="7xl" shadow="lg"  mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+
+
+            <Box maxW="7xl" shadow="lg" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <TablePagination
                     columnsPagination={columnsPagination}
                     dataPagination={dataPagination}
