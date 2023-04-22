@@ -29,6 +29,7 @@
     "framer-motion": "^10.10.0",
     "fusioncharts": "^3.20.0",
     "jquery": "^3.6.3",
+    "openai": "^3.2.1",
     "popper.js": "^1.16.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
