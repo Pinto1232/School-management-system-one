@@ -1,13 +1,16 @@
 import React from 'react';
 import { Box, Text, VStack, Flex, Divider, Link } from '@chakra-ui/react';
 import { useColorModeValue, } from '@chakra-ui/react';
+import SocialMedia from '../specific/socialIcons/SocialMediaIcons';
+import InputFieldComponent from './InputFieldComponent';
+import { EmailIcon } from '@chakra-ui/icons';
 
 
 const Footer = () => {
 
     const textColor = useColorModeValue('#4A5568', '#fff');
     const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
-    
+
 
 
     return (
@@ -84,6 +87,31 @@ const Footer = () => {
                         </VStack>
                     </Box>
                 ))}
+            </Flex>
+
+            <Flex
+                gap={30}
+                maxW="5xl"
+                border={0}
+                textAlign={'center'}
+                mx="auto"
+                mb={4} p={2}
+                borderWidth={1}
+                rounded="md"
+            >
+                <SocialMedia
+                    size={30}
+                    color="gray.500"
+                    align="center"
+                />
+                <InputFieldComponent
+                    type="email"
+                    placeholder="Subscribe to our newsletter"
+                    icon={EmailIcon}
+                    style="#F2F2F2"
+                    placeholderTextColor="#000"
+
+                />
             </Flex>
             <Divider />
             <Box bg={backgroundColor} textAlign="center" maxW="100%" border="none">

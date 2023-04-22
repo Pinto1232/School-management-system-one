@@ -6,6 +6,8 @@ import IconColumns from '../components/common/IconColumns';
 import { Box, Flex, Grid } from '@chakra-ui/react';
 import iconsData from '../data/IconsData';
 import AboutUsSection from '../components/common/AboutUsSection';
+import ProductsSection from '../components/common/ProductsSection';
+import productsData from '../data/productsData';
 
 
 
@@ -17,6 +19,7 @@ const Home = () => {
 
     return (
         <Grid>
+            {/* Jumbotron */}
             <Jumbotron
                 title="Elevate Education, Simplify School Management!"
                 subtitle="Streamlines processes, fosters collaboration, and enhances learning outcomes for a seamless educational experience"
@@ -24,14 +27,22 @@ const Home = () => {
                 bgImage={bgImage}
                 buttonOnClick={handleButtonClick}
             />
-            <CardGrid />
+
+            {/* Product section */}
+            <Grid maxW="6xl" mx="auto" border={0} mt={10} p={6} borderWidth={1} rounded="md">
+                <ProductsSection
+                    heading="Check Our Packages"
+                    subheading="Check out our latest offerings"
+                    products={productsData}
+                />
+            </Grid>
 
             {/* Icon component */}
             <IconColumns
                 iconsData={iconsData}
             />
 
-            <Box maxW="6xl" border={0} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+            {<Box maxW="6xl" border={0} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <AboutUsSection
                     style={{
                         padding: '16px',
@@ -51,7 +62,7 @@ const Home = () => {
                     image="https://media.istockphoto.com/id/1402604850/photo/the-word-about-us-on-wooden-cubes-business-communication-and-information.jpg?b=1&s=170667a&w=0&k=20&c=M1zgL2pGwZ_g3cwmOvdMtzz92PlTLdihv6_wgaW1QZc="
                     altText="About us image"
                 />
-            </Box>
+            </Box>}
         </Grid>
     )
 };

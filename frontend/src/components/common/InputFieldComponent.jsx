@@ -6,7 +6,7 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 
-const InputFieldComponent = ({ type = "text", placeholder, icon, style }) => {
+const InputFieldComponent = ({ type = "text", placeholder, icon, style, placeholderTextColor }) => {
   return (
     <InputGroup>
       {icon && (
@@ -14,7 +14,7 @@ const InputFieldComponent = ({ type = "text", placeholder, icon, style }) => {
           {React.createElement(icon)}
         </InputLeftElement>
       )}
-      <Input {...style} type={type} placeholder={placeholder} />
+      <Input style={{ backgroundColor: style }} type={type} placeholder={placeholder} _placeholder={{color: placeholderTextColor}} />
     </InputGroup>
   );
 };

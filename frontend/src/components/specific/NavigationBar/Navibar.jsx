@@ -13,6 +13,7 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import DropdownMenu from '../DropdownMenu'
 import SocialMedia from '../socialIcons/SocialMediaIcons';
 import CTAButton from '../../common/CTAButton';
+import NewsletterPopup from '../../common/NewsletterPopup';
 
 const Navibar = () => {
     const { isOpen, onToggle } = useDisclosure();
@@ -29,6 +30,17 @@ const Navibar = () => {
 
     const [activeItem, setActiveItem] = useState(menuItems[0].label);
 
+    // Newsletter PopUp
+    const [email, setEmail] = useState("");
+
+    //Newsletter Popup
+    const handleSubmitNewsletter = async (submittedEmail) => {
+        // handle submitting the email to the server
+        console.log(`Submitting email ${submittedEmail}`);
+        // clear the email input
+        setEmail("");
+    };
+
     return (
         <Flex
             as="nav"
@@ -38,7 +50,7 @@ const Navibar = () => {
             w="100%"
             bg={backgroundColor}
             color="white"
-            px={{ base: 4, md: 8 }}
+            px={{ base: 4, md: 16 }}
             py={{ base: 2, md: 3 }}
         >
             <Box display={{ base: 'block', md: 'none' }}>
@@ -51,6 +63,13 @@ const Navibar = () => {
                 />
             </Box>
             <Box display={{ base: 'none', md: 'block' }}>
+                <Box maxW="xs" textAlign={'center'} justify="space-around" mx="auto" p={1} borderWidth={1} rounded="md">
+                    <NewsletterPopup
+                        onSubmit={handleSubmitNewsletter}
+                        placeholder="Enter your email"
+                        buttonText="Subscribe for news"
+                    />
+                </Box>
                 {/* <Stack direction="row" spacing={4}>
                     {menuItems.map((item) => (
                         <Box

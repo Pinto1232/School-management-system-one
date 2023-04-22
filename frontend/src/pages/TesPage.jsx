@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Box, Button, Center, Flex, Grid, Heading, InputGroup, ModalBody, ModalCloseButton, ModalFooter, ModalHeader, Spacer, Stack, Text, VStack } from '@chakra-ui/react';
 import FormMultiStep from '../components/specific/MultiStepForm/FormMultiStep';
 import FormToogle from '../components/specific/FormToogle';
@@ -92,6 +92,7 @@ import SpecificValueCounter from '../components/specific/counterComp/SpecificVal
 import NewsletterPopup from '../components/common/NewsletterPopup';
 import Maps from '../components/common/Maps';
 import Chatbot from '../components/specific/chatbot/Chatbot';
+import SortFunction from '../components/specific/SortFunction';
 
 
 
@@ -396,6 +397,36 @@ const TesPage = () => {
         // Call your Botonic API to get the bot's response
         // and add it to the chat history
     }
+
+
+
+    //Sort Function data
+    const myData = [
+        { name: 'John', age: 30 },
+        { name: 'Peter', age: 25 },
+        { name: 'Sarah', age: 40 },
+    ];
+
+    const [data, setData] = useState(myData);
+    const [sortType, setSortType] = useState('name');
+    const [sortDirection, setSortDirection] = useState('asc');
+
+    const handleSort = (type, direction) => {
+        setSortType(type);
+        setSortDirection(direction);
+    };
+
+    const sortedData = useMemo(() => {
+        const sorted = [...data].sort((a, b) => {
+            if (sortDirection === 'asc') {
+                return a[sortType] > b[sortType] ? 1 : -1;
+            } else {
+                return a[sortType] < b[sortType] ? 1 : -1;
+            }
+        });
+        return sorted;
+    }, [data, sortType, sortDirection]);
+
 
 
 
@@ -1194,6 +1225,18 @@ const TesPage = () => {
                     onSendMessage={handleSendMessage}
                 />
                 <Text>Hello! How can I help you?</Text>
+            </Box>
+
+            <Box maxW="4xl" textAlign={'start'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+            <SortFunction onSort={handleSort} />
+            <Box mt={4}>
+                {sortedData.map((item) => (
+                    <Box color="black" key={item.name} bg="blue.100" p={4} borderRadius="md" mt={2}>
+                        <Box>Name: {item.name}</Box>
+                        <Box>Age: {item.age}</Box>
+                    </Box>
+                ))}
+            </Box>
             </Box>
         </Box>
     )

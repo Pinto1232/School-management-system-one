@@ -2,6 +2,8 @@ import { Box } from '@chakra-ui/react'
 import React from 'react'
 import bgImage from '../assets/images/faqs.jpg';
 import Jumbotron from '../components/specific/Jumbotron';
+import FaqSection from '../components/specific/Faq/FaqSection';
+import faqsData from '../data/faqsData';
 
 
 const Faq = () => {
@@ -13,6 +15,15 @@ const Faq = () => {
                 buttonText="learn more"
                 bgImage={bgImage}
             />
+
+
+
+            <Box maxW="6xl" border={0} textAlign={'start'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <FaqSection
+                    faqs={faqsData}
+                />
+            </Box>
+
         </Box>
     )
 }
