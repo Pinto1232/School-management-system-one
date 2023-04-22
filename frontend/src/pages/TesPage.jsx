@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Center, Flex, Grid, Heading, InputGroup, Spacer, Stack, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Center, Flex, Grid, Heading, InputGroup, ModalBody, ModalCloseButton, ModalFooter, ModalHeader, Spacer, Stack, Text, VStack } from '@chakra-ui/react';
 import FormMultiStep from '../components/specific/MultiStepForm/FormMultiStep';
 import FormToogle from '../components/specific/FormToogle';
 import MultiToggleForm from '../components/specific/MultiToggleForm';
@@ -12,7 +12,7 @@ import DropdownMenu from '../components/specific/DropdownMenu';
 import ReusableModal from '../components/specific/ReusableModal';
 import CustomSelect from '../components/specific/customSelect/CustomSelect';
 import { Select, Icon } from "@chakra-ui/react";
-import { FaSearch, FaShoppingCart } from "react-icons/fa";
+import { FaRegCalendarAlt, FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
 import Accordion from '../components/specific/Accordion';
 import ProductCardTwo from '../components/specific/productCardTwo/ProductCardTwo ';
 import Navibar from '../components/specific/NavigationBar/Navibar';
@@ -82,6 +82,16 @@ import faqsData from '../data/faqsData';
 import HeroSection from '../components/common/HeroSection';
 import TablePagination from '../components/specific/TablePagination';
 import bgImageHero from '../assets/images/Premium.jpg'
+import CalloutBox from '../components/common/CalloutBox';
+import Tooltip from '../components/common/Tooltip';
+import PopupModal from '../components/common/PopUpModal'
+import Statistics from '../components/common/Statistics';
+import Counters from '../components/specific/counterComp/Counter';
+import RandomCounterTwo from '../components/specific/counterComp/RandomCounter';
+import SpecificValueCounter from '../components/specific/counterComp/SpecificValueCounter';
+import NewsletterPopup from '../components/common/NewsletterPopup';
+import Maps from '../components/common/Maps';
+import Chatbot from '../components/specific/chatbot/Chatbot';
 
 
 
@@ -170,6 +180,8 @@ const dataPagination = [
     { id: 11, name: 'Bob Smith', email: 'bob.smith@example.com' },
     // more data...
 ];
+
+
 
 
 const TesPage = () => {
@@ -305,11 +317,87 @@ const TesPage = () => {
         setTodos([...todos, newTodo]);
     };
 
-
     const handleRemoveTodo = (id) => {
         const updatedTodos = todos.filter((todo) => todo.id !== id);
         setTodos(updatedTodos);
     };
+
+
+    // PopModal
+    const [isOpenTwo, setIsOpenTwo] = useState(false);
+    const handleOpenModal = () => {
+        setIsOpenTwo(true);
+    };
+    const handleCloseModal = () => {
+        setIsOpenTwo(false);
+    };
+
+    // Counters
+    const [counters, setCounters] = useState([
+        { title: "Customers", count: 500, color: "blue.500" },
+        { title: "Sales", count: 2000, color: "green.500" },
+        { title: "Orders", count: 1000, color: "purple.500" },
+    ]);
+
+    const handleClick = () => {
+        setCounters([
+            { title: "Customers", count: 800, color: "blue.500" },
+            { title: "Sales", count: 3000, color: "green.500" },
+            { title: "Orders", count: 1500, color: "purple.500" },
+        ]);
+    };
+
+
+    // Random Counter
+    const [countersTwo, setCountersTwo] = useState([
+        { title: "Total Users", count: 0, color: "purple.500" },
+        { title: "Total Orders", count: 0, color: "teal.500" },
+        { title: "Total Sales", count: 0, color: "orange.500" }
+    ]);
+
+
+    setInterval(() => {
+        const updatedCounters = countersTwo.map(counter => {
+            return {
+                ...counter,
+                count: Math.floor(Math.random() * 1000) // Randomly generate a new count
+            };
+        });
+        setCountersTwo(updatedCounters);
+    }, 50);
+
+
+    // Specific counter
+    const [SpecificCountersTwo, setSpecificCountersTwo] = useState([
+        { title: "Total Users", count: 0, color: "purple.500", maxCount: 10 },
+        { title: "Total Orders", count: 0, color: "teal.500", maxCount: 20 },
+        { title: "Total Sales", count: 0, color: "orange.500", maxCount: 5 }
+    ]);
+
+
+    // Newsletter PopUp
+    const [email, setEmail] = useState("");
+
+    const handleSubmitNewsletter = async (submittedEmail) => {
+        // handle submitting the email to the server
+        console.log(`Submitting email ${submittedEmail}`);
+        // clear the email input
+        setEmail("");
+    };
+
+
+    // Chatbot
+    const [chatHistory, setChatHistory] = useState([])
+
+    const handleSendMessage = text => {
+        const newMessage = { type: 'text', text, user: true }
+        setChatHistory([...chatHistory, newMessage])
+
+        // Call your Botonic API to get the bot's response
+        // and add it to the chat history
+    }
+
+
 
 
 
@@ -570,7 +658,16 @@ const TesPage = () => {
             </Box>
 
             <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
-                <ServicesSection />
+                {services.map((service) => (
+                    <Box key={service.id} flexBasis={{ base: "100%", md: "45%", lg: "30%" }} m={{ base: 2, md: 4 }}>
+                        <ServicesSection
+                            title={service.title}
+                            description={service.description}
+                            icon={service.icon}
+                        />
+                    </Box>
+                ))}
+
             </Box>
 
             <Grid maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
@@ -950,6 +1047,153 @@ const TesPage = () => {
                     paginationHoverColor="blue.100"
                     paginationSize="md"
                 />
+            </Box>
+
+
+
+
+            <Box textAlign="center" maxW="7xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <FourColumnLayout>
+
+                    <CalloutBox
+                        title="My Title"
+                        subtitle="Get 20% off on your first purchase. Use code WELCOME20."
+                        bg="blue.100" color="white"
+                    />
+
+
+                    <CalloutBox
+                        title="Special Offer"
+                        subtitle="Get 20% off on your first purchase. Use code WELCOME20."
+                        bg="#F6E05E"
+                    />
+
+
+                    <CalloutBox
+                        title="Special Offer"
+                        subtitle="Get 20% off on your first purchase. Use code WELCOME20."
+                        bg="#F6E05E"
+                    />
+
+                    <CalloutBox
+                        title="Special Offer"
+                        subtitle="Get 20% off on your first purchase. Use code WELCOME20."
+                        bg="red"
+                        color="#fff"
+                    />
+
+                </FourColumnLayout>
+            </Box>
+
+            <Box maxW="xs" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <Tooltip
+                    label="This is a tooltip"
+                    bg="blue.500"
+                    color="white"
+                    placement="right"
+                >
+                    <button>Hover me Pinto!</button>
+                </Tooltip>
+
+                <Tooltip
+                    label="This is a tooltip"
+                >
+                    <button>Hover me!</button>
+                </Tooltip>
+            </Box>
+
+
+            <Box maxW="xs" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <PopupModal
+                    triggerText="Open Modal"
+                    headerText="Modal Title"
+                    bodyText="Modal Content"
+                    confirmText="Save"
+                    cancelText="Close"
+                />
+            </Box>
+
+            <Box maxW="xs" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <Flex justifyContent="space-around">
+                    <Statistics
+                        title="Users"
+                        value="10,000"
+                        color="blue.500"
+                        icon={FaUser} />
+
+                    <Statistics
+                        title="Events"
+                        value="500"
+                        color="green.500"
+                        icon={FaRegCalendarAlt}
+                    />
+                </Flex>
+            </Box>
+
+
+            <Box maxW="xs" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <Counters counters={counters} />
+                <Button onClick={handleClick}>Update Counts</Button>
+            </Box>
+
+            {/*   <Flex maxW="md" gap={8} shadow="dark-lg" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                {countersTwo.map((counter, index) => (
+                    <RandomCounterTwo
+                        key={index}
+                        title={counter.title}
+                        initialCount={counter.count}
+                        color={counter.color}
+                    />
+                ))}
+            </Flex> */}
+
+
+            {<Flex maxW="md" gap={8} shadow="dark-lg" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <SpecificValueCounter
+                    title={SpecificCountersTwo[0].title}
+                    initialCount={0}
+                    maxCount={SpecificCountersTwo[0].maxCount}
+                    color={SpecificCountersTwo[0].color}
+                />
+                <SpecificValueCounter
+                    title={SpecificCountersTwo[1].title}
+                    initialCount={0}
+                    maxCount={SpecificCountersTwo[1].maxCount}
+                    color={SpecificCountersTwo[1].color}
+                />
+
+                <SpecificValueCounter
+                    title={SpecificCountersTwo[2].title}
+                    initialCount={0}
+                    maxCount={SpecificCountersTwo[2].maxCount}
+                    color={SpecificCountersTwo[2].color}
+                />
+            </Flex>}
+
+            <Box maxW="xs" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <h1>My App</h1>
+                <NewsletterPopup
+                    onSubmit={handleSubmitNewsletter}
+                    placeholder="Enter your email"
+                    buttonText="Subscribe"
+                />
+            </Box>
+
+            <Box maxW="3xl" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <h1>My Map</h1>
+                <Maps
+                    latitude={40.7128}
+                    longitude={-74.0060}
+                    zoom={12}
+                />
+            </Box>
+
+            <Box maxW="md" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <Chatbot
+                    messages={chatHistory}
+                    onSendMessage={handleSendMessage}
+                />
+                <Text>Hello! How can I help you?</Text>
             </Box>
         </Box>
     )

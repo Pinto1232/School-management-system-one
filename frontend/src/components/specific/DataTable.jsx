@@ -48,7 +48,7 @@ const DataTable = (props) => {
             </Thead>
             <Tbody>
                 {slicedData.map((row, index) => (
-                    <Tr key={row.id} bg={index % 2 === 0 ? evenRowColor : oddRowColor} color={rowTextColor}>
+                    <Tr key={index} bg={index % 2 === 0 ? evenRowColor : oddRowColor} color={rowTextColor}>
                         {columns.map((column) => (
                             <Td key={`${row.id}-${column.title}`}>{row[column.key]}</Td>
                         ))}
