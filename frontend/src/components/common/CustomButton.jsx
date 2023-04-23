@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/react';
 import React from 'react';
 
-const CustomButton = ({ children, bgColor, size, textColor, fontSize, width, margin, padding, ...rest }) => {
+const CustomButton = ({ children, bgColor, textColor, fontSize, width, margin, padding, btnHover, ...rest }) => {
 
   const buttonStyle = {
     backgroundColor: bgColor,
@@ -10,10 +10,11 @@ const CustomButton = ({ children, bgColor, size, textColor, fontSize, width, mar
     width: width,
     margin: margin,
     padding: padding,
+    _hover: btnHover,
   };
 
   return (
-    <Button {...rest} sx={{ ...rest.sx, ...buttonStyle }} size={size}>
+    <Button {...rest} sx={buttonStyle}>
       {children}
     </Button>
   );

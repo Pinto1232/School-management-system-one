@@ -1,5 +1,6 @@
 import { Box, Card, Button, Image, Text, Flex, Grid } from "@chakra-ui/react";
 import CustomButton from "../../common/CustomButton";
+import { FaCartPlus } from "react-icons/fa";
 
 
 const WishlistBootstrap = ({ items, onAddToCart, title, description }) => {
@@ -16,13 +17,17 @@ const WishlistBootstrap = ({ items, onAddToCart, title, description }) => {
 
                         <Grid mb={10} mt={10}>
                             <CustomButton
-                                bgButton="blue"
-                                textStyle={{ fontSize: "16px", color: "red" }}
+                                bgColor="blue.500"
+                                textColor="white"
+                                fontSize="16px"
                                 onClick={() => onAddToCart(item)}
-                                width="100%"
-                                textColor="red"
+                                btnHover={{
+                                    backgroundColor: "red"
+                                }}
                             >
-                                Add to cart
+                                <Flex gap={2} justify="center" alignItems="center">
+                                    <FaCartPlus /> Add to cart
+                                </Flex>
                             </CustomButton>
                         </Grid>
                     </Card>

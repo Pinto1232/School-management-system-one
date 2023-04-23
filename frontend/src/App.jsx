@@ -8,13 +8,15 @@ import Dashboard from './pages/Dashboard'
 import UserContext from './contexts/UserContext';
 import Faq from './pages/Faq';
 import About from './pages/About';
-import ForgetPassowrd from './pages/ForgetPassowrd';
 import Footer from './components/common/Footer';
 import ResetPassword from './pages/ResetPassword';
 import { Box } from '@chakra-ui/react';
+import ForgetPassword from './pages/ForgetPassowrd';
 import TesPage from './pages/TesPage';
 
 const App = () => {
+
+  // All this block of get the user details when loged on the dashboard
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const storedUser = localStorage.getItem('user');
   let parsedUser = null;
@@ -30,7 +32,7 @@ const App = () => {
   const [user, setUser] = useState(parsedUser);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user') || sessionStorage.getItem('user');
+    const storedUser = localStorage.getItem('user');
     if (storedUser && storedUser !== 'undefined') {
       try {
         const parsedUser = JSON.parse(storedUser);
@@ -44,7 +46,9 @@ const App = () => {
     }
   }, []);
 
-
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(user));
+  }, [user]);
 
   return (
     <Box>
@@ -58,7 +62,7 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/faq" element={<Faq />} />
             <Route path="/about" element={<About />} />
-            <Route path="/forgetPassword" element={<ForgetPassowrd />} />
+            <Route path="/forgetPassword" element={<ForgetPassword />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/test" element={<TesPage />} />
           </Routes>

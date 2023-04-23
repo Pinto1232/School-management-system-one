@@ -99,6 +99,7 @@ import Wishlist from '../components/specific/Wishlist';
 import WishData from '../data/WishData';
 import WishlistBootstrap from '../components/specific/wishlistBootstrap/WishlistBootstrap';
 import WishListBootstrapData from '../data/WishListBootstrapData';
+import CookieConsentBanner from '../components/specific/cookieBanner/CustomCookieBanner';
 
 
 
@@ -443,6 +444,27 @@ const TesPage = () => {
     const handleAddToCart = (item) => {
         console.log(`Adding ${item.title} to cart...`);
     };
+
+
+    // Custom cookie banner
+    const [showBanner, setShowBanner] = useState(false);
+
+    useEffect(() => {
+        const cookieExists = document.cookie.split(';').some((item) => item.trim().startsWith('cookieConsent='));
+        setShowBanner(!cookieExists);
+        console.log("Cookie exists",cookieExists);
+    }, []);
+    
+
+    const handleAccept = () => {
+        setShowBanner(false);
+        const date = new Date();
+        date.setTime(date.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days in milliseconds
+        const expires = "; expires=" + date.toGMTString();
+        document.cookie = "cookieConsent=true" + expires + "; path=/";
+    };
+
+
 
 
 
@@ -1284,12 +1306,18 @@ const TesPage = () => {
             </Box>
 
 
-            <Box maxW="lg"  textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+            <Box maxW="lg" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <WishlistBootstrap
                     items={WishListBootstrapData}
                     onAddToCart={handleAddToCart}
                 />
             </Box>
+
+            {showBanner && (
+                <CookieConsentBanner
+                    onAccept={handleAccept}
+                />
+            )}
         </Box>
     )
 }

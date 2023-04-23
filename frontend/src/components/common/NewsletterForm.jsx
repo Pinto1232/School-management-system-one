@@ -1,5 +1,6 @@
 import React from "react";
 import { Flex, Box, Heading, FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
+import CustomButton from "./CustomButton";
 
 const NewsletterForm = ({ namePlaceholder, emailPlaceholder, buttonText, onSubmit }) => {
     const handleSubmit = (event) => {
@@ -24,7 +25,10 @@ const NewsletterForm = ({ namePlaceholder, emailPlaceholder, buttonText, onSubmi
                         <FormLabel>Email</FormLabel>
                         <Input type="email" placeholder={emailPlaceholder} name="email" />
                     </FormControl>
-                    <Button type="submit" mt={4}>{buttonText}</Button>
+                    {/* <Button type="submit" mt={4}></Button> */}
+                    <CustomButton type="submit" mt={4}>
+                        {buttonText}
+                    </CustomButton>
                 </Flex>
             </form>
         </Box>
