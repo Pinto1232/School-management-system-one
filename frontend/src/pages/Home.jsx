@@ -39,7 +39,18 @@ const Home = () => {
 
             {/* Icon component */}
             <IconColumns
-                iconsData={iconsData}
+                backgroundColor="gray.600"
+                iconSize="24px"
+                textSize="16px"
+                textColor="#000000"
+                buttonStyle={{
+                    color: "#fff",
+                    width: "200px",
+                    maxW: "100%",
+                    padding: "20px",
+                    mt: "20px",
+                    backgroundColor: "#3182ce"
+                }}
             />
 
             {<Box maxW="6xl" border={0} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">

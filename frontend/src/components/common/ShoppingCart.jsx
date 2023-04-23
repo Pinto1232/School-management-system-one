@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const ShoppingCart = () => {
     const cartItems = useSelector(state => state.cart.cartItems);
-    console.log("Items in the cart", cartItems);
+    /* console.log("Items in the cart", cartItems); */
     const dispatch = useDispatch();
 
     const handleAdd = (item) => {

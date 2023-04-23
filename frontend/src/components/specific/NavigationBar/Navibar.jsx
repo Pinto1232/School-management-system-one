@@ -12,13 +12,13 @@ import {
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import DropdownMenu from '../DropdownMenu'
 import SocialMedia from '../socialIcons/SocialMediaIcons';
-import CTAButton from '../../common/CTAButton';
 import NewsletterPopup from '../../common/NewsletterPopup';
 
 const Navibar = () => {
     const { isOpen, onToggle } = useDisclosure();
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
-    const backgroundColor = useColorModeValue('#F7FAFC', 'gray.800');
+    const backgroundColor = useColorModeValue("#171923", "#2D3748");
+    const textColor = useColorModeValue("gray.800", "white");;
 
 
     const menuItems = [
@@ -53,7 +53,7 @@ const Navibar = () => {
             px={{ base: 4, md: 16 }}
             py={{ base: 2, md: 3 }}
         >
-            <Box display={{ base: 'block', md: 'none' }}>
+            <Box display={{ base: 'none' }}>
                 <IconButton
                     onClick={onToggle}
                     icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -62,26 +62,24 @@ const Navibar = () => {
                     aria-label="Toggle Navigation"
                 />
             </Box>
-            <Box display={{ base: 'none', md: 'block' }}>
-                <Box maxW="xs" textAlign={'center'} justify="space-around" mx="auto" p={1} borderWidth={1} rounded="md">
-                    <NewsletterPopup
-                        onSubmit={handleSubmitNewsletter}
-                        placeholder="Enter your email"
-                        buttonText="Subscribe for news"
-                    />
-                </Box>
-                {/* <Stack direction="row" spacing={4}>
-                    {menuItems.map((item) => (
-                        <Box
-                            key={item.label}
-                            as="button"
-                            color={item.label === activeItem ? 'teal.500' : 'white'}
-                            onClick={() => setActiveItem(item.label)}
-                        >
-                            {item.label}
-                        </Box>
-                    ))}
-                </Stack> */}
+
+
+            <Box
+                maxW={{ base: 'xs', md: 'sm' }}
+                w={{ base: 'full', md: 'auto' }}
+                textAlign={{ base: 'center', md: 'left' }}
+                justify={{ base: 'space-around', md: 'space-between' }}
+                mx={{ base: 'auto', md: 0 }}
+                p={{ base: 1, md: 0 }}
+                borderWidth={{ base: 1, md: 0 }}
+                rounded={{ base: 'md', md: 'none' }}
+                display={{ base: isOpen ? 'block' : 'none', md: 'block' }}
+            >
+                <NewsletterPopup
+                    onSubmit={handleSubmitNewsletter}
+                    placeholder="Enter your email"
+                    buttonText="Subscribe for news"
+                />
             </Box>
             <Box
                 display={{ base: isOpen ? 'block' : 'none', md: 'block' }}
@@ -95,20 +93,16 @@ const Navibar = () => {
                     direction={['column', 'row', 'row', 'row']}
                     pt={[4, 4, 0, 0]}
                 >
-                    {/* {menuItems.map((item) => (
-                        <Box
-                            key={item.label}
-                            as="button"
-                            color={item.label === activeItem ? 'teal.500' : 'gray.300'}
-                            onClick={() => setActiveItem(item.label)}
-                        >
-                            {item.label}
-                        </Box>
-                    ))} */}
-                    <SocialMedia />
-                    <GridItem
-                        zIndex={1200}
-                    >
+                    {/* Social media component */}
+                    <SocialMedia
+                        display={{
+                            base: 'none',
+                            md: 'flex'
+                        }}
+                        size={20}
+                    />
+                    {/* Drop menu component */}
+                    <GridItem zIndex={1200}>
                         <DropdownMenu />
                     </GridItem>
                 </Stack>

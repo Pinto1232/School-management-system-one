@@ -1,19 +1,17 @@
 import * as React from "react";
-import { Center, Grid, GridItem, SimpleGrid } from "@chakra-ui/react";
+import { GridItem, SimpleGrid } from "@chakra-ui/react";
 import IconColumn from "./IconColumn";
 import CustomButton from "./CustomButton";
-import { useColorModeValue, } from '@chakra-ui/react';
+import iconsData from "../../data/IconsData"; // import the iconsData array
 
-
-const IconColumns = ({ iconsData }) => {
-  const backgroundColor = useColorModeValue('#E2E8F0', '#718096');
-  const backgroundButton = useColorModeValue('#319795', '#3182ce');
-
-
-  
-
+const IconColumns = ({ backgroundColor, backgroundButton, buttonStyle }) => {
   return (
-    <SimpleGrid  bg={backgroundColor} padding={40} columns={4} spacing={10}>
+    <SimpleGrid
+      bg={backgroundColor}
+      padding={40}
+      columns={[1, 2, 3, 4]}
+      spacing={10}
+    >
       {iconsData.map((iconData) => (
         <IconColumn
           key={iconData.id}
@@ -22,13 +20,10 @@ const IconColumns = ({ iconsData }) => {
           style={iconData.style}
         />
       ))}
-      <GridItem colSpan={4} textAlign="center">
+      <GridItem colSpan={[1, 2, 4]} textAlign="center">
         <CustomButton
           bg={backgroundButton}
-          style={{
-            width: "200px",
-            color: "#fff"
-          }}
+          style={buttonStyle}
         >
           learn more
         </CustomButton>
@@ -36,5 +31,4 @@ const IconColumns = ({ iconsData }) => {
     </SimpleGrid>
   );
 };
-
 export default IconColumns;

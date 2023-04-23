@@ -93,6 +93,12 @@ import NewsletterPopup from '../components/common/NewsletterPopup';
 import Maps from '../components/common/Maps';
 import Chatbot from '../components/specific/chatbot/Chatbot';
 import SortFunction from '../components/specific/SortFunction';
+import ShippingStepData from '../data/ShippingStepData';
+import ShippingInfoPage from '../components/common/ShippingInfoPage';
+import Wishlist from '../components/specific/Wishlist';
+import WishData from '../data/WishData';
+import WishlistBootstrap from '../components/specific/wishlistBootstrap/WishlistBootstrap';
+import WishListBootstrapData from '../data/WishListBootstrapData';
 
 
 
@@ -428,6 +434,18 @@ const TesPage = () => {
     }, [data, sortType, sortDirection]);
 
 
+    // Shipping
+    const shippingInfo = "123 Main St. Anytown, USA 12345";
+    const contactInfo = "Email: example@example.com\nPhone: 123-456-7890";
+
+
+    // Wishlist bootstrap
+    const handleAddToCart = (item) => {
+        console.log(`Adding ${item.title} to cart...`);
+    };
+
+
+
 
 
 
@@ -753,7 +771,7 @@ const TesPage = () => {
                 />
             </Box>
 
-            {/* 
+
             <Box maxW="4xl" mx="auto" border={0} mt={10} p={6} borderWidth={1} rounded="md">
                 <VideoPlayer
                     videoUrl="https://www.youtube.com/watch?v=u1y17E4mYgc"
@@ -766,7 +784,7 @@ const TesPage = () => {
                     title="Ninja Turtle"
                     description="This is a brief description"
                 />
-            </Box> */}
+            </Box>
 
 
             {/*  <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
@@ -1228,15 +1246,49 @@ const TesPage = () => {
             </Box>
 
             <Box maxW="4xl" textAlign={'start'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
-            <SortFunction onSort={handleSort} />
-            <Box mt={4}>
-                {sortedData.map((item) => (
-                    <Box color="black" key={item.name} bg="blue.100" p={4} borderRadius="md" mt={2}>
-                        <Box>Name: {item.name}</Box>
-                        <Box>Age: {item.age}</Box>
-                    </Box>
-                ))}
+                <SortFunction onSort={handleSort} />
+                <Box mt={4}>
+                    {sortedData.map((item) => (
+                        <Box color="black" key={item.name} bg="blue.100" p={4} borderRadius="md" mt={2}>
+                            <Box>Name: {item.name}</Box>
+                            <Box>Age: {item.age}</Box>
+                        </Box>
+                    ))}
+                </Box>
             </Box>
+
+
+            <Flex maxW="4xl" border={0} shadow="lg" textAlign={'start'} mx="auto" mt={10} mb={30} p={6} borderWidth={1} rounded="md">
+                <ShippingInfoPage
+                    title="Shipping Information"
+                    subtitle="Please review the following information before placing your order"
+                    steps={ShippingStepData}
+                    shippingInfo={shippingInfo}
+                    contactInfo={contactInfo}
+                />
+            </Flex>
+
+
+            <Box
+                shadow="lg"
+                maxW="4xl"
+                textAlign={'center'}
+                mx="auto"
+                mt={10}
+                p={6}
+                borderWidth={1}
+                rounded="md"
+            >
+                <Text as="h2" fontFamily={12}>Wishlist</Text>
+                <Wishlist items={WishData} />
+            </Box>
+
+
+            <Box maxW="lg"  textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <WishlistBootstrap
+                    items={WishListBootstrapData}
+                    onAddToCart={handleAddToCart}
+                />
             </Box>
         </Box>
     )
