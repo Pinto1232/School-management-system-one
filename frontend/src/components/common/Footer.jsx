@@ -1,15 +1,48 @@
-import React from 'react';
-import { Box, Text, VStack, Flex, Divider, Link } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
+import { Box, Text, VStack, Flex, Divider, Link, FormControl } from '@chakra-ui/react';
 import { useColorModeValue, } from '@chakra-ui/react';
 import SocialMedia from '../specific/socialIcons/SocialMediaIcons';
 import InputFieldComponent from './InputFieldComponent';
 import { EmailIcon } from '@chakra-ui/icons';
+import CustomButton from './CustomButton';
+import CookieConsentBanner from '../specific/cookieBanner/CustomCookieBanner';
+import { Form } from 'formik';
 
 
-const Footer = () => {
+const Footer = ({ SubmitNewsletter, handleNewsLetterTexfield }) => {
 
     const textColor = useColorModeValue('#4A5568', '#fff');
     const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
+
+
+    // Custom cookie banner
+    const [showBanner, setShowBanner] = useState(false);
+
+    useEffect(() => {
+        const cookieExists = document.cookie.split(';').some((item) => item.trim().startsWith('cookieConsent='));
+        setShowBanner(!cookieExists);
+        console.log("Cookie exists", cookieExists);
+    }, []);
+
+
+    const handleAccept = () => {
+        setShowBanner(false);
+        const date = new Date();
+        date.setTime(date.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days in milliseconds
+        const expires = "; expires=" + date.toGMTString();
+        document.cookie = "cookieConsent=true" + expires + "; path=/";
+    };
+
+    const bgButtonColor = useColorModeValue('#319795', '#3182ce')
+
+    {/* Form submit fuction */ }
+    const handleFormSubmit = (e) => {
+        e.preventDefault()
+        SubmitNewsletter()
+        // Add functionality here for btn from the footer component
+        console.log("News letter sent")
+    }
+
 
 
 
@@ -90,7 +123,7 @@ const Footer = () => {
             </Flex>
 
             <Flex
-                gap={30}
+                gap={1}
                 maxW="5xl"
                 border={0}
                 textAlign={'center'}
@@ -98,26 +131,54 @@ const Footer = () => {
                 mb={4} p={2}
                 borderWidth={1}
                 rounded="md"
+                justify="center"
+                alignItems="center"
             >
                 <SocialMedia
                     size={30}
                     color="gray.500"
                     align="center"
+                    iconPadding={2}
                 />
-                <InputFieldComponent
-                    type="email"
-                    placeholder="Subscribe to our newsletter"
-                    icon={EmailIcon}
-                    style="#F2F2F2"
-                    placeholderTextColor="#000"
-
-                />
+                <FormControl>
+                    <form onSubmit={handleFormSubmit}>
+                        <Flex>
+                            <InputFieldComponent
+                                type="email"
+                                placeholder="Subscribe to our newsletter"
+                                icon={EmailIcon}
+                                style="#F2F2F2"
+                                placeholderTextColor="#000"
+                                maxW="100%"
+                                inpuFieldWidth={768}
+                                onChange={handleNewsLetterTexfield}
+                            />
+                            <CustomButton
+                                width={300}
+                                maxW="100%"
+                                bgColor={bgButtonColor}
+                                textColor="#fff"
+                                onClick={SubmitNewsletter}
+                            >
+                                Sign Up
+                            </CustomButton>
+                        </Flex>
+                    </form>
+                </FormControl>
             </Flex>
             <Divider />
             <Box bg={backgroundColor} textAlign="center" maxW="100%" border="none">
                 <Text color={textColor} fontSize="sm" py={3} whiteSpace="nowrap">
                     &copy; {new Date().getFullYear()} PintoEd Management
                 </Text>
+
+                {/* Cookie Banner */}
+                {showBanner && (
+                    <CookieConsentBanner
+                        onAccept={handleAccept}
+                        CookieWidth="100%"
+                    />
+                )}
             </Box>
         </Box>
     );

@@ -72,13 +72,10 @@ const Jumbotron = ({ title, subtitle, minHeight = '70vh', titleSize = '2xl', sub
                 {subtitle}
             </Text>
             <CustomButton
-                bg={buttonColor}
+                bgColor={buttonColor}
                 color={textButton}
                 hover={buttonColor}
-                style={{
-                    width: { base: "150px", sm: "200px" },
-                    color: "#fff",
-                }}
+                width={200}
             >
                 Learn More
             </CustomButton>

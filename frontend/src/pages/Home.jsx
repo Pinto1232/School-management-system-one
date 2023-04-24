@@ -23,7 +23,7 @@ const Home = () => {
             <Jumbotron
                 title="Elevate Education, Simplify School Management!"
                 subtitle="Streamlines processes, fosters collaboration, and enhances learning outcomes for a seamless educational experience"
-                buttonText="learn more"
+                /* buttonText="learn more" */
                 bgImage={bgImage}
                 buttonOnClick={handleButtonClick}
             />
@@ -53,7 +53,7 @@ const Home = () => {
                 }}
             />
 
-            {<Box maxW="6xl" border={0} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+            <Box maxW="6xl" border={0} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <AboutUsSection
                     style={{
                         padding: '16px',
@@ -73,7 +73,7 @@ const Home = () => {
                     image="https://media.istockphoto.com/id/1402604850/photo/the-word-about-us-on-wooden-cubes-business-communication-and-information.jpg?b=1&s=170667a&w=0&k=20&c=M1zgL2pGwZ_g3cwmOvdMtzz92PlTLdihv6_wgaW1QZc="
                     altText="About us image"
                 />
-            </Box>}
+            </Box>
         </Grid>
     )
 };

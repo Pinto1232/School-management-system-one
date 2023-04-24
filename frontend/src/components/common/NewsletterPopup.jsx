@@ -8,8 +8,10 @@ import {
     useDisclosure,
     useMediaQuery,
     useToast,
-    Spinner
+    Spinner,
+    useColorModeValue
 } from "@chakra-ui/react";
+import CustomButton from "./CustomButton";
 
 const NewsletterPopup = ({
     onSubmit,
@@ -29,43 +31,46 @@ const NewsletterPopup = ({
         setIsButtonDisabled(event.target.value === "");
     };
 
-    const handleSubmit =  (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setIsLoading(true);
         setTimeout(() => {
-          // code to submit email goes here
-          try {
-            onSubmit(email);
-            setEmail("");
-            toast({
-                title: "Success!",
-                description: "You've successfully subscribed to our newsletter.",
-                status: "success",
-                duration: 5000,
-                isClosable: true
-            });
+            // code to submit email goes here
+            try {
+                onSubmit(email);
+                setEmail("");
+                toast({
+                    title: "Success!",
+                    description: "You've successfully subscribed to our newsletter.",
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true
+                });
+                setIsLoading(false);
+                onClose();
+            } catch (error) {
+                toast({
+                    title: "Error!",
+                    description: error.message,
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true
+                });
+            }
             setIsLoading(false);
-            onClose();
-          } catch (error) {
-            toast({
-                title: "Error!",
-                description: error.message,
-                status: "error",
-                duration: 5000,
-                isClosable: true
-            });
-          }
-          setIsLoading(false);
         }, 2000);
-      };
+    };
 
- 
+    const bgButtonColor = useColorModeValue('#319795', '#3182ce')
+    const iconsTextColor = useColorModeValue('#fff', '#fff')
+
+
 
     return (
         <Box>
-            <Button onClick={onOpen} {...rest}>
+            <CustomButton onClick={onOpen} {...rest}>
                 {isLargerThan768 ? buttonText : "Subscribe"}
-            </Button>
+            </CustomButton>
             {isOpen && (
                 <Box
                     bg="gray.100"
@@ -89,9 +94,9 @@ const NewsletterPopup = ({
                             <Text fontSize="2xl" fontWeight="bold">
                                 {buttonText}
                             </Text>
-                            <Button onClick={onClose} variant="ghost">
+                            <CustomButton onClick={onClose} variant="ghost">
                                 Close
-                            </Button>
+                            </CustomButton>
                         </Flex>
                         <form onSubmit={handleSubmit}>
                             <Input
@@ -102,9 +107,9 @@ const NewsletterPopup = ({
                                 mb={4}
                                 isRequired
                             />
-                            <Button
+                            <CustomButton
                                 type="submit"
-                                colorScheme="blue"
+                                bgColor={bgButtonColor}
                                 isFullWidth
                                 isLoading={isLoading}
                                 isDisabled={isButtonDisabled}
@@ -113,7 +118,7 @@ const NewsletterPopup = ({
                                 _hover={{ transform: "scale(1.05)" }}
                             >
                                 {isLoading ? <Spinner size="sm" /> : buttonText}
-                            </Button>
+                            </CustomButton>
                         </form>
                     </Box>
                 </Box>

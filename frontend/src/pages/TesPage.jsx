@@ -100,7 +100,12 @@ import WishData from '../data/WishData';
 import WishlistBootstrap from '../components/specific/wishlistBootstrap/WishlistBootstrap';
 import WishListBootstrapData from '../data/WishListBootstrapData';
 import CookieConsentBanner from '../components/specific/cookieBanner/CustomCookieBanner';
-
+import ExitIntentPopup from '../components/specific/exitIntentpopup/ExitIntentPopup';
+import ShareButtons from '../components/specific/sharebuttons/ShareButtons';
+import tabContentData from '../data/TabbedContentData'
+import TabbedContent from '../components/common/TabbedContent';
+import ToggleButton from '../components/common/ToggleButton';
+import Toggle from '../components/common/Toggle';
 
 
 
@@ -447,14 +452,14 @@ const TesPage = () => {
 
 
     // Custom cookie banner
-    const [showBanner, setShowBanner] = useState(false);
+    {/* const [showBanner, setShowBanner] = useState(false);
 
     useEffect(() => {
         const cookieExists = document.cookie.split(';').some((item) => item.trim().startsWith('cookieConsent='));
         setShowBanner(!cookieExists);
-        console.log("Cookie exists",cookieExists);
+        console.log("Cookie exists", cookieExists);
     }, []);
-    
+
 
     const handleAccept = () => {
         setShowBanner(false);
@@ -462,15 +467,27 @@ const TesPage = () => {
         date.setTime(date.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days in milliseconds
         const expires = "; expires=" + date.toGMTString();
         document.cookie = "cookieConsent=true" + expires + "; path=/";
+    }; */}
+
+
+    // Exit intent Popup
+    const handleCloseExitIntent = () => {
+        console.log("Popup closed");
     };
 
 
+    // Toggle button
+    const handleToggle = (isOn) => {
+        console.log("Toggle button is now", isOn ? "on" : "off");
+    };
 
 
+    // Toogle two
+    const [isOnTwo, setIsOnTwo] = useState(false);
 
-
-
-
+    const handleToggleTwo = () => {
+        setIsOnTwo(!isOnTwo);
+    };
 
 
     return (
@@ -1313,11 +1330,95 @@ const TesPage = () => {
                 />
             </Box>
 
-            {showBanner && (
+            {/* {showBanner && (
                 <CookieConsentBanner
                     onAccept={handleAccept}
                 />
-            )}
+            )} */}
+
+            <Box border={0} maxW="md" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <ExitIntentPopup
+                    bg="rgba(255, 255, 255, 0.8)"
+                    headingSize="2xl"
+                    textSize="lg"
+                    cardWidth="700px"
+                    cardHeight={200}
+                    cardPadding={10}
+                    content={{
+                        title: "Don't go yet!",
+                        message: "Enter your email to get updates on our latest products.",
+                    }}
+                    onClose={handleCloseExitIntent}
+                />
+            </Box>
+
+
+            {/* <Box maxW="md" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                <ShareButtons
+                    platforms={['twitter', 'facebook', 'linkedin', 'email']}
+                    buttonStyles={{
+                        color: 'white',
+                        bg: 'purple.500',
+                        _hover: {
+                            bg: 'purple.600',
+                        },
+                    }}
+                />
+            </Box> */}
+
+            <Box border={0} maxW="4xl" textAlign={'center'} mx="auto" p={6} borderWidth={1} rounded="md">
+                <TabbedContent
+                    tabs={tabContentData}
+                />
+            </Box>
+
+            <Flex maxW="2xl" justify="center" gap={2} alignItems="center" textAlign={'center'} mx="auto" p={6} borderWidth={1} rounded="md">
+                <ToggleButton
+                    defaultIsOn={true}
+                    onText="Enabled"
+                    offText="Disabled"
+                    onToggle={handleToggle}
+                />
+                <ToggleButton
+                    defaultIsOn={true}
+                    onText="Enabled"
+                    offText="Disabled"
+                    onToggle={handleToggle}
+                />
+                <ToggleButton
+                    defaultIsOn={true}
+                    onText="Enabled"
+                    offText="Disabled"
+                    onToggle={handleToggle}
+                />
+
+
+            </Flex>
+
+            <Flex maxW="2xl" justify="center" mt={10} gap={2} alignItems="center" textAlign={'center'} mx="auto" p={6} borderWidth={1} rounded="md">
+                <Toggle
+                    isOnTwo={isOnTwo}
+                    handleToggleTwo={handleToggleTwo}
+                    label="Toggle me!"
+                />
+
+                <Toggle
+                    isOn={isOnTwo}
+                    handleToggle={handleToggleTwo}
+                    label="Toggle Button"
+                    onColor="green"
+                    offColor="gray"
+                    buttonSize="lg"
+                    labelColor="white"
+                />
+
+
+            </Flex>
+
+
+
+
+
         </Box>
     )
 }

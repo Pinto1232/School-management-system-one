@@ -4,8 +4,8 @@ import { Box, Icon, Text } from "@chakra-ui/react";
 import { useColorModeValue, } from '@chakra-ui/react';
 
 
-const IconColumn = ({ icon, title }) => {
-    const textColor = useColorModeValue('#fff', '#3182ce');
+const IconColumn = ({ icon, title, textColor }) => {
+    const IconColor = useColorModeValue('#fff', '#3182ce');
     const IncosBgColor = useColorModeValue('#319795', '#fff');
 
 
@@ -19,10 +19,15 @@ const IconColumn = ({ icon, title }) => {
                 as={icon}
                 boxSize={16}
                 bg={IncosBgColor}
-                color={textColor}
+                color={IconColor}
                 p={2}
             />
-            <Text mt={2}>{title}</Text>
+            <Text
+                mt={2}
+                color={textColor}
+            >
+                {title}
+            </Text>
         </Box>
     );
 };

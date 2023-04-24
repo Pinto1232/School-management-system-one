@@ -1,9 +1,12 @@
 import React from 'react'
-import { Flex, Box, Heading, Text, Image } from "@chakra-ui/react";
+import { Flex, Box, Heading, Text, Image, useColorModeValue } from "@chakra-ui/react";
 import CustomButton from './CustomButton';
 
 
 const AboutUsSection = ({ heading, subheading, image, altText, children, style, headingStyle}) => {
+    const bgButtonColor = useColorModeValue('#319795', '#3182ce')
+    
+    
     return (
         <Flex
             flexWrap="wrap"
@@ -24,11 +27,9 @@ const AboutUsSection = ({ heading, subheading, image, altText, children, style, 
                 </Text>
                 {children}
                 <CustomButton
-                    style={{
-                        bg: "blue",
-                        width: "200px",
-                        color: "#000"
-                    }}
+                    bgColor={bgButtonColor}
+                    width={200}
+                    textColor="#fff"
                 >
                     Learn more
                 </CustomButton>

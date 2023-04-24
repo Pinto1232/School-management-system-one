@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Box, Text, useColorModeValue, Flex } from "@chakra-ui/react";
+import { Box, Text, useColorModeValue, Flex } from "@chakra-ui/react";
 import CustomButton from "../../common/CustomButton";
 
 const CookieConsentBanner = ({
@@ -10,6 +10,7 @@ const CookieConsentBanner = ({
     buttonTextColor,
     message,
     onAccept,
+    CookieWidth
 }) => {
     const bannerBgColor = useColorModeValue(
         backgroundColor || "gray.100",
@@ -28,11 +29,16 @@ const CookieConsentBanner = ({
         buttonTextColor || "gray.800"
     );
 
+    const buttonBgColor = useColorModeValue('#319795', '#3182ce');
+    const textButton = useColorModeValue('#fff', '#fff')
+
+
+
     return (
         <Box
             position="fixed"
             bottom="0"
-            width="100%"
+            width={CookieWidth}
             backgroundColor={bannerBgColor}
             color={bannerTextColor}
             px={{ base: "4", md: "6" }}
@@ -41,7 +47,7 @@ const CookieConsentBanner = ({
             zIndex="999"
         >
             <Flex
-                justifyContent={"space-between"}
+                justifyContent={"space-around"}
                 justify="center"
                 alignItems="center"
             >
@@ -58,7 +64,8 @@ const CookieConsentBanner = ({
                     size={{ base: "sm", md: "md" }}
                     ml="3"
                     onClick={onAccept}
-                    bgColor={'blue'}
+                    bgColor={buttonBgColor}
+                    textColor={textButton}
                 >
                     {buttonText || "Accept"}
                 </CustomButton>

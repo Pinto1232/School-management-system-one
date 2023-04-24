@@ -50,6 +50,9 @@ const App = () => {
     localStorage.setItem('user', JSON.stringify(user));
   }, [user]);
 
+
+
+
   return (
     <Box>
       <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn, user, setUser }}>
@@ -66,7 +69,7 @@ const App = () => {
             <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/test" element={<TesPage />} />
           </Routes>
-          <Footer />
+          <Footer/>
         </Box>
       </UserContext.Provider>
     </Box>

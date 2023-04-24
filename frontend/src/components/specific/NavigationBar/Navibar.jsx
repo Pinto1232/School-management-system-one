@@ -20,6 +20,8 @@ const Navibar = () => {
     const backgroundColor = useColorModeValue("#171923", "#2D3748");
     const textColor = useColorModeValue("gray.800", "white");;
 
+    
+
 
     const menuItems = [
         { label: 'Home', href: '#' },
@@ -79,6 +81,7 @@ const Navibar = () => {
                     onSubmit={handleSubmitNewsletter}
                     placeholder="Enter your email"
                     buttonText="Subscribe for news"
+                    
                 />
             </Box>
             <Box
@@ -100,6 +103,8 @@ const Navibar = () => {
                             md: 'flex'
                         }}
                         size={20}
+                        iconPadding={2}
+
                     />
                     {/* Drop menu component */}
                     <GridItem zIndex={1200}>
