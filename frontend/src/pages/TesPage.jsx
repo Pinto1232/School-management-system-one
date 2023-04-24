@@ -106,6 +106,14 @@ import tabContentData from '../data/TabbedContentData'
 import TabbedContent from '../components/common/TabbedContent';
 import ToggleButton from '../components/common/ToggleButton';
 import Toggle from '../components/common/Toggle';
+import Footer from '../components/specific/FooterCustomizable/Footer';
+import linksFooter from '../data/linksFooterData'
+import MegamenuItemsData from '../data/MegamenuItemsData';
+import MegaMenu from '../components/specific/megamenu/MegaMenu';
+
+console.log("Menu", MegamenuItemsData);
+
+
 
 
 
@@ -198,6 +206,12 @@ const dataPagination = [
 
 
 const TesPage = () => {
+
+    // Customizable Footer
+    const newsletterPlaceholder = "Subscribe to our news letter";
+    const newsletterLabel = "Submit";
+
+
     //Data calendar
     const [selectedOption, setSelectedOption] = useState("");
     const [progress, setProgress] = useState(0);
@@ -1336,7 +1350,7 @@ const TesPage = () => {
                 />
             )} */}
 
-            <Box border={0} maxW="md" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+            {/* <Box border={0} maxW="md" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <ExitIntentPopup
                     bg="rgba(255, 255, 255, 0.8)"
                     headingSize="2xl"
@@ -1350,7 +1364,7 @@ const TesPage = () => {
                     }}
                     onClose={handleCloseExitIntent}
                 />
-            </Box>
+            </Box> */}
 
 
             {/* <Box maxW="md" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
@@ -1411,13 +1425,20 @@ const TesPage = () => {
                     buttonSize="lg"
                     labelColor="white"
                 />
-
-
             </Flex>
 
+            <Box mt={10}>
+                <Footer
+                    linksFooter={linksFooter}
+                    newsletterPlaceholder={newsletterPlaceholder}
+                    newsletterLabel={newsletterLabel}
+                    bgFooter="black"
+                />
+            </Box>
 
-
-
+            <MegaMenu
+                menuItems={MegamenuItemsData}
+            />
 
         </Box>
     )

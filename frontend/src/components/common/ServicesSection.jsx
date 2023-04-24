@@ -28,10 +28,7 @@ const servicesData = [
 const ServicesSection = () => {
     return (
         <Box py={12} maxW="1200px" mx="auto">
-            <Heading as="h2" size="xl" textAlign="center" mb={8}>
-                Our Services
-            </Heading>
-            <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={10}>
+            <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={8}>
                 {servicesData.map((service, index) => (
                     <GridItem key={index}>
                         <Flex alignItems="center" mb={4}>
