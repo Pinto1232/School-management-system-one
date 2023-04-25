@@ -107,7 +107,7 @@ import TabbedContent from '../components/common/TabbedContent';
 import ToggleButton from '../components/common/ToggleButton';
 import Toggle from '../components/common/Toggle';
 import Footer from '../components/specific/FooterCustomizable/Footer';
-import linksFooter from '../data/linksFooterData' 
+import linksFooter from '../data/linksFooterData'
 
 
 /*const columns = ['Name', 'Age', 'Email'];
@@ -1404,8 +1404,8 @@ const TesPage = () => {
 
             <Flex maxW="2xl" justify="center" mt={10} gap={2} alignItems="center" textAlign={'center'} mx="auto" p={6} borderWidth={1} rounded="md">
                 <Toggle
-                    isOnTwo={isOnTwo}
-                    handleToggleTwo={handleToggleTwo}
+                    isOn={isOnTwo}
+                    handleToggle={handleToggleTwo}
                     label="Toggle me!"
                 />
 
@@ -1423,7 +1423,7 @@ const TesPage = () => {
             {/* Footer two */}
             <Box mt={10}>
                 <Footer
-                    
+
                     newsletterPlaceholder={newsletterPlaceholder}
                     newsletterLabel={newsletterLabel}
                     bgFooter="black"
