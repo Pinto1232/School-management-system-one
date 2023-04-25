@@ -1,4 +1,4 @@
-import { useState } from "react";
+ import { useState } from "react";
 import {
     Box,
     Button,
@@ -7,7 +7,7 @@ import {
     Text,
     useToast,
 } from "@chakra-ui/react";
-import PaypalButton from "react-paypal-express-checkout";
+/* import PaypalButton from "react-paypal-express-checkout"; */
 
 
 

@@ -13,6 +13,7 @@ import ResetPassword from './pages/ResetPassword';
 import { Box } from '@chakra-ui/react';
 import ForgetPassword from './pages/ForgetPassowrd';
 import TesPage from './pages/TesPage';
+import TestPageTwo from './pages/TestPageTwo';
 
 const App = () => {
 
@@ -68,6 +69,7 @@ const App = () => {
             <Route path="/forgetPassword" element={<ForgetPassword />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/test" element={<TesPage />} />
+            <Route path="/testtwo" element={<TestPageTwo />}/ >
           </Routes>
           <Footer/>
         </Box>

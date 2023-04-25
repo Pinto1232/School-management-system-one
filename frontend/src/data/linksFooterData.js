@@ -1,105 +1,48 @@
-export default [
-    {
-        heading: "Products",
-        links: [
-            {
-                label: "Features",
-                url: "/features",
-            },
-            {
-                label: "Pricing",
-                url: "/pricing",
-            },
-            {
-                label: "Contact",
-                url: "/contact",
-            },
-        ],
-    },
-    {
-        heading: "Support",
-        links: [
-            {
-                label: "FAQ",
-                url: "/faq",
-            },
-            {
-                label: "Helpdesk",
-                url: "/helpdesk",
-            },
-            {
-                label: "Forums",
-                url: "/forums",
-            },
-        ],
-    },
-    {
-        heading: "Support",
-        links: [
-            {
-                label: "FAQ",
-                url: "/faq",
-            },
-            {
-                label: "Helpdesk",
-                url: "/helpdesk",
-            },
-            {
-                label: "Forums",
-                url: "/forums",
-            },
-        ],
-    },
-    {
-        heading: "Support",
-        links: [
-            {
-                label: "FAQ",
-                url: "/faq",
-            },
-            {
-                label: "Helpdesk",
-                url: "/helpdesk",
-            },
-            {
-                label: "Forums",
-                url: "/forums",
-            },
-        ],
-    },
-    {
-        heading: "Support",
-        links: [
-            {
-                label: "FAQ",
-                url: "/faq",
-            },
-            {
-                label: "Helpdesk",
-                url: "/helpdesk",
-            },
-            {
-                label: "Forums",
-                url: "/forums",
-            },
-        ],
-    },
-    {
-        heading: "Support",
-        links: [
-            {
-                label: "FAQ",
-                url: "/faq",
-            },
-            {
-                label: "Helpdesk",
-                url: "/helpdesk",
-            },
-            {
-                label: "Forums",
-                url: "/forums",
-            },
-        ],
-    },
-
+export default [{
+    title: 'About Us',
+    subLinks: [{ label: 'Our Team', href: '#' },
+    { label: 'Our Mission and Vision', href: '#' },
+    { label: 'Meet the Team', href: '#' },
+    { label: 'Company History', href: '#' },
+    { label: 'Core Values and Principles', href: '#' },
+    { label: 'Community Involvement', href: '#' },
+    { label: 'Career Opportunities', href: '#' },
+    ],
+},
+{
+    title: 'Policy',
+    subLinks: [
+        { label: 'Privacy Policy', href: '#' },
+        { label: 'Cookie Policy', href: '#' },
+        { label: 'Terms and Conditions', href: '#' },
+        { label: 'Refund Policy', href: '#' },
+        { label: 'Shipping Policy', href: '#' },
+        { label: 'Data Retention Policy', href: '#' },
+        { label: 'Accessibility Policy', href: '#' },
+    ],
+},
+{
+    title: 'Product',
+    subLinks: [
+        { label: 'Privacy Policy', href: '#' },
+        { label: 'Cookie Policy', href: '#' },
+        { label: 'Terms and Conditions', href: '#' },
+        { label: 'Refund Policy', href: '#' },
+        { label: 'Shipping Policy', href: '#' },
+        { label: 'Data Retention Policy', href: '#' },
+        { label: 'Accessibility Policy', href: '#' },
+    ],
+},
+{
+    title: 'FAqs',
+    subLinks: [
+        { label: 'Privacy Policy', href: '#' },
+        { label: 'Cookie Policy', href: '#' },
+        { label: 'Terms and Conditions', href: '#' },
+        { label: 'Refund Policy', href: '#' },
+        { label: 'Shipping Policy', href: '#' },
+        { label: 'Data Retention Policy', href: '#' },
+        { label: 'Accessibility Policy', href: '#' },
+    ],
+},
 ];

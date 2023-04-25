@@ -92,7 +92,7 @@ import SpecificValueCounter from '../components/specific/counterComp/SpecificVal
 import NewsletterPopup from '../components/common/NewsletterPopup';
 import Maps from '../components/common/Maps';
 import Chatbot from '../components/specific/chatbot/Chatbot';
-import SortFunction from '../components/specific/SortFunction';
+/* import SortFunction from '../components/specific/SortFunction'; */
 import ShippingStepData from '../data/ShippingStepData';
 import ShippingInfoPage from '../components/common/ShippingInfoPage';
 import Wishlist from '../components/specific/Wishlist';
@@ -108,14 +108,6 @@ import ToggleButton from '../components/common/ToggleButton';
 import Toggle from '../components/common/Toggle';
 import Footer from '../components/specific/FooterCustomizable/Footer';
 import linksFooter from '../data/linksFooterData'
-import MegamenuItemsData from '../data/MegamenuItemsData';
-import MegaMenu from '../components/specific/megamenu/MegaMenu';
-
-console.log("Menu", MegamenuItemsData);
-
-
-
-
 
 
 /*const columns = ['Name', 'Age', 'Email'];
@@ -824,8 +816,8 @@ const TesPage = () => {
                 />
             </Box>
 
-
-            <Box maxW="4xl" mx="auto" border={0} mt={10} p={6} borderWidth={1} rounded="md">
+            {/* TODO NEED TO CHECK SOME WARNINGS */}
+            {/* <Box maxW="4xl" mx="auto" border={0} mt={10} p={6} borderWidth={1} rounded="md">
                 <VideoPlayer
                     videoUrl="https://www.youtube.com/watch?v=u1y17E4mYgc"
                     title="Ninja Turtle"
@@ -837,7 +829,7 @@ const TesPage = () => {
                     title="Ninja Turtle"
                     description="This is a brief description"
                 />
-            </Box>
+            </Box> */}
 
 
             {/*  <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
@@ -1074,7 +1066,8 @@ const TesPage = () => {
                 <ShoppingCart title="My Shopping Cart" emptyMessage="Your cart is empty." />
             </Box>
 
-            <Box maxW="7xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+            {/*  TODO - Need to check errors and warning */}
+            {/* <Box maxW="7xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <Heading as="h2">Paypal checkout</Heading>
                 <PaypalCheckout
                     items={itemsPaypalCheckout}
@@ -1082,7 +1075,7 @@ const TesPage = () => {
                     onSuccess={handlePayment}
                     onCancel={handleCheckoutCancel}
                 />
-            </Box>
+            </Box> */}
 
             <Box maxW="5xl" textAlign="start" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <ProductCategory
@@ -1298,7 +1291,7 @@ const TesPage = () => {
                 <Text>Hello! How can I help you?</Text>
             </Box>
 
-            <Box maxW="4xl" textAlign={'start'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+            {/* <Box maxW="4xl" textAlign={'start'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <SortFunction onSort={handleSort} />
                 <Box mt={4}>
                     {sortedData.map((item) => (
@@ -1309,7 +1302,7 @@ const TesPage = () => {
                     ))}
                 </Box>
             </Box>
-
+ */}
 
             <Flex maxW="4xl" border={0} shadow="lg" textAlign={'start'} mx="auto" mt={10} mb={30} p={6} borderWidth={1} rounded="md">
                 <ShippingInfoPage
@@ -1427,19 +1420,16 @@ const TesPage = () => {
                 />
             </Flex>
 
-            <Box mt={10}>
+            {/* Footer two */}
+            {<Box mt={10}>
                 <Footer
-                    linksFooter={linksFooter}
+                    /* linksFooter={linksFooter} */
                     newsletterPlaceholder={newsletterPlaceholder}
                     newsletterLabel={newsletterLabel}
                     bgFooter="black"
                 />
-            </Box>
-
-            <MegaMenu
-                menuItems={MegamenuItemsData}
-            />
-
+            </Box>} 
+            
         </Box>
     )
 }

@@ -16,11 +16,10 @@ const Toggle = ({
             onChange={handleToggle}
             colorScheme={isOn ? onColor : offColor}
             size={buttonSize}
-            {...rest}
+            {...rest} // remove isOnTwo prop here
         >
-            <Text mt={6}  style={{ color: labelColor }}>{label}</Text>
+            <Text mt={6} style={{ color: labelColor }}>{label}</Text>
         </Switch>
     );
 };
-
 export default Toggle;

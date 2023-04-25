@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Text, VStack, Flex, Divider, Link, FormControl } from '@chakra-ui/react';
-import { useColorModeValue, } from '@chakra-ui/react';
-import SocialMedia from '../specific/socialIcons/SocialMediaIcons';
-import InputFieldComponent from './InputFieldComponent';
-import { EmailIcon } from '@chakra-ui/icons';
-import CustomButton from './CustomButton';
-import CookieConsentBanner from '../specific/cookieBanner/CustomCookieBanner';
-import { Form } from 'formik';
+import { Box, Text, VStack, Flex, Divider, Link, FormControl, HStack, IconButton } from '@chakra-ui/react';
+import { useColorModeValue } from '@chakra-ui/react';
+import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
+import footerLinks from '../../data/linksFooterData'
 
-
-const Footer = ({ SubmitNewsletter, handleNewsLetterTexfield }) => {
-
+function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
     const textColor = useColorModeValue('#4A5568', '#fff');
     const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
-
 
     // Custom cookie banner
     const [showBanner, setShowBanner] = useState(false);
@@ -24,7 +17,6 @@ const Footer = ({ SubmitNewsletter, handleNewsLetterTexfield }) => {
         console.log("Cookie exists", cookieExists);
     }, []);
 
-
     const handleAccept = () => {
         setShowBanner(false);
         const date = new Date();
@@ -33,17 +25,12 @@ const Footer = ({ SubmitNewsletter, handleNewsLetterTexfield }) => {
         document.cookie = "cookieConsent=true" + expires + "; path=/";
     };
 
-    const bgButtonColor = useColorModeValue('#319795', '#3182ce')
+    const bgButtonColor = useColorModeValue('#319795', '#3182ce');
 
-    {/* Form submit fuction */ }
     const handleFormSubmit = (e) => {
-        e.preventDefault()
-        SubmitNewsletter()
-        // Add functionality here for btn from the footer component
-        console.log("News letter sent")
-    }
-
-
+        e.preventDefault();
+        SubmitNewsletter();
+    };
 
 
     return (
@@ -57,129 +44,56 @@ const Footer = ({ SubmitNewsletter, handleNewsLetterTexfield }) => {
                 margin="0 auto"
                 mb={4}
             >
-                {[
-                    {
-                        title: 'About Us',
-                        subLinks: [
-                            'Our Team',
-                            'Our Mission and Vision',
-                            'Meet the Team',
-                            'Company History',
-                            'Core Values and Principles',
-                            'Community Involvement',
-                            'Career Opportunities',
-                        ],
-                    },
-                    {
-                        title: 'Policy',
-                        subLinks: [
-                            'Privacy Policy',
-                            'Cookie Policy',
-                            'Terms and Conditions',
-                            'Refund Policy',
-                            'Shipping Policy',
-                            'Data Retention Policy',
-                            'Accessibility Policy',
-                        ],
-                    },
-                    {
-                        title: 'Contact',
-                        subLinks: [
-                            'Get in Touch',
-                            'Contact Information',
-                            'Customer Support',
-                            'Sales Inquiry',
-                            'Technical Support',
-                            'Feedback and Suggestions',
-                            'Report an Issue',
-                        ],
-                    },
-                    {
-                        title: 'Licence',
-                        subLinks: [
-                            'Certifications',
-                            'Types of Licences',
-                            'Licence Activation/Renewal',
-                            'Licence Pricing',
-                            'Licence Upgrades/Downgrades',
-                            'Licence Transfer',
-                            'Licence FAQs',
-                        ],
-                    },
-                ].map(({ title, subLinks }, index) => (
+                {footerLinks.map(({ title, subLinks }, index) => (
                     <Box key={index} textAlign="center" p={{ base: 4, sm: 6, md: 12 }}>
                         <VStack spacing={2} alignItems="start">
-                            <Text whiteSpace="nowrap" color={textColor} fontSize={19} textTransform="uppercase">
-                                {title}
-                            </Text>
-                            {subLinks.map((link, i) => (
-                                <Link key={i} fontSize="sm" color={textColor} whiteSpace="nowrap">
-                                    {link}
+                            <Text fontWeight="bold" mb={2}>{title}</Text>
+                            {subLinks.map(({ label, href }, index) => (
+                                <Link key={index} href={href} color="#4A5568" fontSize={{ base: 'sm', sm: 'md', md: 'md' }}>
+                                    {label}
                                 </Link>
                             ))}
                         </VStack>
                     </Box>
                 ))}
-            </Flex>
 
+            </Flex>
+            <Divider borderColor="gray.300" my={8} />
             <Flex
-                gap={1}
-                maxW="5xl"
-                border={0}
-                textAlign={'center'}
-                mx="auto"
-                mb={4} p={2}
-                borderWidth={1}
-                rounded="md"
-                justify="center"
+                direction={{ base: 'column-reverse', sm: 'row', md: 'row' }}
+                justifyContent="space-between"
                 alignItems="center"
+                maxWidth="1200px"
+                margin="0 auto"
+                pt={4}
             >
-                <SocialMedia
-                    size={30}
-                    color="gray.500"
-                    align="center"
-                    iconPadding={2}
-                />
-                <FormControl>
-                    <form onSubmit={handleFormSubmit}>
-                        <Flex>
-                            <InputFieldComponent
-                                type="email"
-                                placeholder="Subscribe to our newsletter"
-                                icon={EmailIcon}
-                                style="#F2F2F2"
-                                placeholderTextColor="#000"
-                                maxW="100%"
-                                inpuFieldWidth={768}
-                                onChange={handleNewsLetterTexfield}
-                            />
-                            <CustomButton
-                                width={300}
-                                maxW="100%"
-                                bgColor={bgButtonColor}
-                                textColor="#fff"
-                                onClick={SubmitNewsletter}
-                            >
-                                Sign Up
-                            </CustomButton>
-                        </Flex>
-                    </form>
-                </FormControl>
-            </Flex>
-            <Divider />
-            <Box bg={backgroundColor} textAlign="center" maxW="100%" border="none">
-                <Text color={textColor} fontSize="sm" py={3} whiteSpace="nowrap">
-                    &copy; {new Date().getFullYear()} PintoEd Management
+                <Text fontSize={{ base: 'sm', sm: 'md', md: 'md' }} color="gray.500">
+                    © 2023 My Company. All rights reserved.
                 </Text>
-
-                {/* Cookie Banner */}
-                {showBanner && (
-                    <CookieConsentBanner
-                        onAccept={handleAccept}
-                        CookieWidth="100%"
+                <HStack spacing={4}>
+                    <IconButton
+                        aria-label="Facebook"
+                        icon={<FaFacebook />}
+                        size="sm"
+                        variant="ghost"
+                        colorScheme="gray"
                     />
-                )}
-            </Box>
+                    <IconButton
+                        aria-label="Twitter"
+                        icon={<FaTwitter />}
+                        size="sm"
+                        variant="ghost"
+                        colorScheme="gray"
+                    />
+                    <IconButton
+                        aria-label="Instagram"
+                        icon={<FaInstagram />}
+                        size="sm"
+                        variant="ghost"
+                        colorScheme="gray"
+                    />
+                </HStack>
+            </Flex>
         </Box>
     );
 };

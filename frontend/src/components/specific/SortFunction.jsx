@@ -1,7 +1,7 @@
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
+{/* import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 
-const SortFunction = ({ options, activeOption, onSortChange }) => {
+const SortFunction = ({ options = [], activeOption, onSortChange }) => {
     return (
         <Flex alignItems='center' bg='blue.500' p={4} borderRadius={8}>
             <Text mr={2} fontWeight='bold'>Sort by:</Text>
@@ -35,4 +35,4 @@ SortFunction.propTypes = {
     onSortChange: PropTypes.func.isRequired,
 };
 
-export default SortFunction;
+export default SortFunction; */}

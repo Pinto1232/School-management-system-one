@@ -12,30 +12,34 @@ const SocialMediaIcons = ({ size, color, align, iconPadding }) => {
                     colorScheme="facebook"
                     aria-label="Facebook"
                     variant="ghost"
-                    {...color}
-                    {...align}
+                    color={color}
+                    align={align}
                     fontSize={size}
                 />
             </Link>
-            <Link href="https://www.twitter.com" isExternal>
+            {<Link href="https://www.twitter.com" isExternal>
                 <IconButton
                     icon={<FaTwitter />}
                     size={size}
                     padding={iconPadding}
-                    colorScheme="twitter"
-                    aria-label="Twitter"
+                    colorScheme="facebook"
+                    aria-label="Facebook"
                     variant="ghost"
+                    color={color}
+                    align={align}
                     fontSize={size}
                 />
-            </Link>
+            </Link>}
             <Link href="https://www.instagram.com" isExternal>
                 <IconButton
                     icon={<FaInstagram />}
                     size={size}
                     padding={iconPadding}
-                    colorScheme="pink"
-                    aria-label="Instagram"
+                    colorScheme="facebook"
+                    aria-label="Facebook"
                     variant="ghost"
+                    color={color}
+                    align={align}
                     fontSize={size}
                 />
             </Link>
