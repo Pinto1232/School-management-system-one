@@ -489,11 +489,19 @@ const TesPage = () => {
 
 
     // Toogle two
-    const [isOnTwo, setIsOnTwo] = useState(false);
+    const [isOn, setIsOnTwo] = useState(false);
 
     const handleToggleTwo = () => {
-        setIsOnTwo(!isOnTwo);
+        setIsOnTwo(!isOn);
     };
+
+    // Second button toggle
+    const [isOnMore, setIsOnMore] = useState(false);
+
+    const handleToggleMore = () => {
+        setIsOnMore(!isOnMore);
+    };
+
 
 
     return (
@@ -1404,13 +1412,13 @@ const TesPage = () => {
 
             <Flex maxW="2xl" justify="center" mt={10} gap={2} alignItems="center" textAlign={'center'} mx="auto" p={6} borderWidth={1} rounded="md">
                 <Toggle
-                    isOn={isOnTwo}
-                    handleToggle={handleToggleTwo}
+                    isOn={isOnMore}
+                    handleToggle={handleToggleMore}
                     label="Toggle me!"
                 />
 
                 <Toggle
-                    isOn={isOnTwo}
+                    isOn={isOn}
                     handleToggle={handleToggleTwo}
                     label="Toggle Button"
                     onColor="green"
