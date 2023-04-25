@@ -14,6 +14,7 @@ const Slideshow = ({ slides }) => {
     const [isPaused, setIsPaused] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
 
+
     const settings = {
         dots: true,
         infinite: true,
@@ -30,9 +31,9 @@ const Slideshow = ({ slides }) => {
     };
 
     return (
-        <div>
+        <Box>
             <Slider {...settings}>
-                {slides.map((slid, index) => (
+                {slides.map((slid) => (
                     <Box
                         key={slid.id}
                         position="relative"
@@ -68,17 +69,24 @@ const Slideshow = ({ slides }) => {
                 <Box p="4" maxW="6xl" mx="auto">
                     <Box>
                         <Slider {...settings}>
-                            {slides.map((slides, index) => (
-                                <Box key={slides.id}>
-                                    <Image
-                                        src={slides.imageUrl}
-                                        alt={slides.altText}
-                                        maxH="600px"
-                                        mx="auto"
-                                    />
-                                    <Box mt="4">
-                                        <Text fontSize="lg">{slides.title}</Text>
-                                        <Text>{slides.description}</Text>
+                            {slides.map((slide) => (
+                                <Box
+                                    key={slide.id}
+                                    position="relative"
+                                    onClick={onOpen}
+                                    _hover={{ cursor: "pointer" }}
+                                >
+                                    <Image src={slide.imageUrl} alt={slide.altText} />
+                                    <Box
+                                        position="absolute"
+                                        bottom="0"
+                                        left="0"
+                                        width="100%"
+                                        p="4"
+                                        bg="blackAlpha.600"
+                                        color="white"
+                                    >
+                                        <Text fontSize="lg">{slide.title}</Text>
                                     </Box>
                                 </Box>
                             ))}
@@ -91,33 +99,57 @@ const Slideshow = ({ slides }) => {
                                 mx="1"
                                 borderRadius="50%"
                                 opacity={isPaused ? "0.5" : "1"}
-                            />
-                            <Box
-                                bg="white"
-                                h="2"
-                                w="6"
-                                mx="1"
-                                borderRadius="50%"
-                                opacity={!isPaused ? "0.5" : "1"}
-                            />
+                            >
+                                <Box
+                                    bg="white"
+                                    h="2"
+                                    w="6"
+                                    mx="1"
+                                    borderRadius="50%"
+                                    opacity={!isPaused ? "0.5" : "1"}
+                                >
+                                    <Box textAlign="center" mt="4">
+                                        <Text fontSize="lg">{slides[0].title}</Text>
+                                    </Box>
+                                    {slides.map((slide) => (
+                                        <Box
+                                            key={slide.id}
+                                            position="relative"
+                                            onClick={onOpen}
+                                            _hover={{ cursor: "pointer" }}
+                                        >
+                                            <Image src={slide.imageUrl} alt={slide.altText} />
+                                            <Box
+                                                position="absolute"
+                                                bottom="0"
+                                                left="0"
+                                                width="100%"
+                                                p="4"
+                                                bg="blackAlpha.600"
+                                                color="white"
+                                            >
+                                                <Text fontSize="lg">{slide.title}</Text>
+                                            </Box>
+                                        </Box>
+                                    ))}
+
+                                    <Box textAlign="center" mt="4">
+                                        <Text
+                                            fontSize="lg"
+                                            cursor="pointer"
+                                            onClick={onClose}
+                                            _hover={{ textDecoration: "underline" }}
+                                        >
+                                            Close
+                                        </Text>
+                                    </Box>
+                                </Box>
+                            </Box>
                         </Flex>
-                        <Box textAlign="center" mt="4">
-                            <Text fontSize="lg">{slides[0].title }</Text>
-                        </Box>
-                    </Box>
-                    <Box textAlign="center" mt="4">
-                        <Text
-                            fontSize="lg"
-                            cursor="pointer"
-                            onClick={onClose}
-                            _hover={{ textDecoration: "underline" }}
-                        >
-                            Close
-                        </Text>
                     </Box>
                 </Box>
             </Box>
-        </div>
+        </Box>
     );
 };
 

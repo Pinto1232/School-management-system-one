@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Text, VStack, Flex, Divider, Link, FormControl, HStack, IconButton } from '@chakra-ui/react';
 import { useColorModeValue } from '@chakra-ui/react';
-import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { FaEnvelope, FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import footerLinks from '../../data/linksFooterData'
+import InputFieldComponent from './InputFieldComponent';
+import CustomButton from './CustomButton';
+import AdjustableColumnLayout from '../specific/twocolumns/AdjustableColumnLayout';
 
 function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
     const textColor = useColorModeValue('#4A5568', '#fff');
@@ -47,17 +50,36 @@ function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
                 {footerLinks.map(({ title, subLinks }, index) => (
                     <Box key={index} textAlign="center" p={{ base: 4, sm: 6, md: 12 }}>
                         <VStack spacing={2} alignItems="start">
-                            <Text fontWeight="bold" mb={2}>{title}</Text>
+                            <Text color={textColor} fontSize={{ base: 'sm', sm: 'md', md: 'xl' }} fontWeight="bold" mb={2}>{title}</Text>
                             {subLinks.map(({ label, href }, index) => (
-                                <Link key={index} href={href} color="#4A5568" fontSize={{ base: 'sm', sm: 'md', md: 'md' }}>
+                                <Link key={index} href={href} color={textColor} fontSize={{ base: 'sm', sm: 'md', md: 'sm' }}>
                                     {label}
                                 </Link>
                             ))}
                         </VStack>
                     </Box>
                 ))}
-
             </Flex>
+
+            {/* Subscribe newsletter input */}
+            <Flex justifyContent={'center'} alignItems={'center'}>
+                <AdjustableColumnLayout>
+                    <InputFieldComponent
+                        placeholder={'Subscribe for our newsletter'}
+                        placeholderTextColor={'gray.600'}
+                        icon={FaEnvelope}
+                        inpuFieldWidth={'434px'}
+                        inpuFieldBackgroundColor={'gray.200'}
+                    /><CustomButton
+                        bgColor={'blue'}
+                        textColor={'#fff'}
+                        width={'150px'}
+                    >
+                        Submit
+                    </CustomButton>
+                </AdjustableColumnLayout>
+            </Flex>
+
             <Divider borderColor="gray.300" my={8} />
             <Flex
                 direction={{ base: 'column-reverse', sm: 'row', md: 'row' }}

@@ -6,9 +6,24 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 
-const InputFieldComponent = ({ type = "text", placeholder, icon, style, placeholderTextColor, inpuFieldWidth }) => {
+const InputFieldComponent = ({
+  type = "text", placeholder,
+  icon, style,
+  placeholderTextColor,
+  inpuFieldPaddingLeft,
+  inpuFieldWidth,
+  inpuFieldPaddingRight,
+  inpuFieldBackgroundColor,
+  InputBorder
+}) => {
+
   return (
-    <InputGroup>
+    <InputGroup
+      bg={inpuFieldBackgroundColor}
+      paddingLeft={inpuFieldPaddingLeft}
+      paddingRight={inpuFieldPaddingRight}
+      border={InputBorder}
+    >
       {icon && (
         <InputLeftElement
           {...style}

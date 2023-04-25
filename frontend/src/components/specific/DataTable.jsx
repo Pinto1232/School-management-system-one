@@ -112,4 +112,26 @@ DataTable.defaultProps = {
     oddRowColor: 'white',
 };
 
+DataTable.propTypes = {
+    columns: PropTypes.arrayOf(
+        PropTypes.shape({
+            key: PropTypes.string.isRequired,
+            title: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+    datas: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+        })
+    ).isRequired,
+    itemsPerPage: PropTypes.number.isRequired,
+    borderColor: PropTypes.string,
+    headerColor: PropTypes.string,
+    headerTextColor: PropTypes.string,
+    rowColor: PropTypes.string,
+    rowTextColor: PropTypes.string,
+    evenRowColor: PropTypes.string,
+    oddRowColor: PropTypes.string,
+};
+
 export default DataTable;

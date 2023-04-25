@@ -107,7 +107,7 @@ import TabbedContent from '../components/common/TabbedContent';
 import ToggleButton from '../components/common/ToggleButton';
 import Toggle from '../components/common/Toggle';
 import Footer from '../components/specific/FooterCustomizable/Footer';
-import linksFooter from '../data/linksFooterData'
+import linksFooter from '../data/linksFooterData' 
 
 
 /*const columns = ['Name', 'Age', 'Email'];
@@ -1421,15 +1421,14 @@ const TesPage = () => {
             </Flex>
 
             {/* Footer two */}
-            {<Box mt={10}>
+            <Box mt={10}>
                 <Footer
-                    /* linksFooter={linksFooter} */
+                    
                     newsletterPlaceholder={newsletterPlaceholder}
                     newsletterLabel={newsletterLabel}
                     bgFooter="black"
                 />
-            </Box>} 
-            
+            </Box>
         </Box>
     )
 }

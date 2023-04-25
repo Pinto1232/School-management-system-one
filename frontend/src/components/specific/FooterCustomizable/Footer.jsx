@@ -1,8 +1,13 @@
-import { Box, Flex, Heading, Input, Button, Text, Stack } from '@chakra-ui/react';
+import { Box, Flex,Text, Stack, VStack, Link } from '@chakra-ui/react';
 import CustomButton from '../../common/CustomButton';
 import InputFieldComponent from '../../common/InputFieldComponent';
+import footerLinks from '../../../data/linksFooterData'
 
-const Footer = ({ linksFooter, newsletterPlaceholder, newsletterLabel, bgFooter }) => {
+const Footer = ({ 
+    newsletterPlaceholder, 
+    newsletterLabel, 
+    bgFooter }) => {
+
     return (
         <Box
             py={10}
@@ -15,18 +20,19 @@ const Footer = ({ linksFooter, newsletterPlaceholder, newsletterLabel, bgFooter 
                 px={{ base: 6, md: 0 }}
             >
                 <Flex justify="start" gap={20} mb={20}>
-                    {linksFooter.map((section, index) => (
-                        <Box key={index} mb={4}>
-                            <Flex as="h4" fontSize="lg" mb={2}>
-                                {section.heading}
-                            </Flex>
-                            <Box direction="column">
-                                {section.links.map((link, index) => (
-                                    <Text key={index} fontSize="sm" color="gray.500" mb={2}>
-                                        <a href={link.url}>{link.label}</a>
-                                    </Text>
+                    {/* Customizable footer and commond footer
+                        are consuming the same data
+                   */}
+                    {footerLinks.map(({ title, subLinks }, index) => (
+                        <Box key={index} textAlign="center" p={{ base: 4, sm: 6, md: 12 }}>
+                            <VStack spacing={2} alignItems="start">
+                                <Text  fontSize={{ base: 'sm', sm: 'md', md: 'xl' }} fontWeight="bold" mb={2}>{title}</Text>
+                                {subLinks.map(({ label, href }, index) => (
+                                    <Link key={index} href={href} fontSize={{ base: 'sm', sm: 'md', md: 'sm' }}>
+                                        {label}
+                                    </Link>
                                 ))}
-                            </Box>
+                            </VStack>
                         </Box>
                     ))}
                 </Flex>
