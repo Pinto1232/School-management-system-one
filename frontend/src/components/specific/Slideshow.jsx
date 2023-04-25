@@ -69,6 +69,8 @@ const Slideshow = ({ slides }) => {
                 <Box p="4" maxW="6xl" mx="auto">
                     <Box>
                         <Slider {...settings}>
+
+                            {/* Block Two */}
                             {slides.map((slide) => (
                                 <Box
                                     key={slide.id}
@@ -90,6 +92,7 @@ const Slideshow = ({ slides }) => {
                                     </Box>
                                 </Box>
                             ))}
+
                         </Slider>
                         <Flex justifyContent="center" mt="4">
                             <Box
@@ -111,14 +114,17 @@ const Slideshow = ({ slides }) => {
                                     <Box textAlign="center" mt="4">
                                         <Text fontSize="lg">{slides[0].title}</Text>
                                     </Box>
-                                    {slides.map((slide) => (
+
+
+                                    {/* Block three */}
+                                    {slides.map((slideTwo) => (
                                         <Box
-                                            key={slide.id}
+                                            key={slideTwo.id}
                                             position="relative"
                                             onClick={onOpen}
                                             _hover={{ cursor: "pointer" }}
                                         >
-                                            <Image src={slide.imageUrl} alt={slide.altText} />
+                                            <Image src={slideTwo.imageUrl} alt={slideTwo.altText} />
                                             <Box
                                                 position="absolute"
                                                 bottom="0"
@@ -128,10 +134,12 @@ const Slideshow = ({ slides }) => {
                                                 bg="blackAlpha.600"
                                                 color="white"
                                             >
-                                                <Text fontSize="lg">{slide.title}</Text>
+                                                <Text fontSize="lg">{slideTwo.title}</Text>
                                             </Box>
                                         </Box>
                                     ))}
+                                    
+
 
                                     <Box textAlign="center" mt="4">
                                         <Text

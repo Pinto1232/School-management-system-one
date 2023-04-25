@@ -535,6 +535,7 @@ const TesPage = () => {
             </Box>
 
             <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+                {/* Slideshow component */}
                 <Slideshow
                     slides={slidesData}
                     speed={5000}
@@ -1059,13 +1060,13 @@ const TesPage = () => {
                     name="John Doe"
                     username="johndoe"
                     email="johndoe@example.com"
-                    avatarSrc="https://example.com/avatar.png"
+                    avatarSrc="https://cdn-icons-png.flaticon.com/512/147/147140.png"
                 />
                 <UserProfile
                     name="Pinto Manuel"
                     username="johndoe"
                     email="johndoe@example.com"
-                    avatarSrc="https://example.com/avatar.png"
+                    avatarSrc="https://cdn-icons-png.flaticon.com/512/147/147140.png"
                 />
             </Flex>
 
