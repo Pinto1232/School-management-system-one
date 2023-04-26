@@ -19,11 +19,11 @@ const ShareButtons = ({ platforms = [], buttonStyles = {} }) => {
   const shareLink = (platform) => {
     switch (platform) {
       case "twitter":
-        return `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}`;
+        return `mailto:?subject=${encodeURIComponent(document.title)}&body=${encodeURIComponent(currentUrl)}`;
       case "facebook":
-        return `https://www.facebook.com/sharer.php?u=${encodeURIComponent(currentUrl)}`;
+        return `mailto:?subject=${encodeURIComponent(document.title)}&body=${encodeURIComponent(currentUrl)}`;
       case "linkedin":
-        return `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(currentUrl)}`;
+        return `mailto:?subject=${encodeURIComponent(document.title)}&body=${encodeURIComponent(currentUrl)}`;
       case "email":
         return `mailto:?subject=${encodeURIComponent(document.title)}&body=${encodeURIComponent(currentUrl)}`;
       default:
@@ -35,6 +35,8 @@ const ShareButtons = ({ platforms = [], buttonStyles = {} }) => {
     <Flex>
       {platforms.map((platform) => (
         <IconButton
+          justify={'center'}
+          alignItems={'center'}
           key={platform}
           as="a"
           href={shareLink(platform)}
@@ -45,12 +47,12 @@ const ShareButtons = ({ platforms = [], buttonStyles = {} }) => {
             platform === "twitter"
               ? <FaTwitter />
               : platform === "facebook"
-              ? <FaFacebook />
-              : platform === "linkedin"
-              ? <FaLinkedin />
-              : platform === "email"
-              ? <FaEnvelope />
-              : null
+                ? <FaFacebook />
+                : platform === "linkedin"
+                  ? <FaLinkedin />
+                  : platform === "email"
+                    ? <FaEnvelope />
+                    : null
           }
           size="sm"
           {...mergedButtonStyles}

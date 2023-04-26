@@ -6,10 +6,13 @@ import footerLinks from '../../data/linksFooterData'
 import InputFieldComponent from './InputFieldComponent';
 import CustomButton from './CustomButton';
 import AdjustableColumnLayout from '../specific/twocolumns/AdjustableColumnLayout';
+import CookieConsentBanner from '../specific/cookieBanner/CustomCookieBanner';
 
 function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
     const textColor = useColorModeValue('#4A5568', '#fff');
     const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
+    const buttonColor = useColorModeValue('#319795', '#3182ce');
+    const textButton = useColorModeValue('#4A5568', '#fff')
 
     // Custom cookie banner
     const [showBanner, setShowBanner] = useState(false);
@@ -28,7 +31,6 @@ function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
         document.cookie = "cookieConsent=true" + expires + "; path=/";
     };
 
-    const bgButtonColor = useColorModeValue('#319795', '#3182ce');
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
@@ -71,7 +73,7 @@ function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
                         inpuFieldWidth={'434px'}
                         inpuFieldBackgroundColor={'gray.200'}
                     /><CustomButton
-                        bgColor={'blue'}
+                        bgColor={buttonColor}
                         textColor={'#fff'}
                         width={'150px'}
                     >
@@ -114,6 +116,14 @@ function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
                         variant="ghost"
                         colorScheme="gray"
                     />
+                    {/* Cookie */}
+                    {showBanner && (
+                        <CookieConsentBanner
+                            onAccept={handleAccept}
+                            CookieWidth={'vw'}
+                            buttonColor={"blue"}
+                        />
+                    )}
                 </HStack>
             </Flex>
         </Box>

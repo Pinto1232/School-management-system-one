@@ -1369,7 +1369,7 @@ const TesPage = () => {
             </Box> */}
 
 
-            {/* <Box maxW="md" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
+            <Box maxW="xs" textAlign={'center'} mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
                 <ShareButtons
                     platforms={['twitter', 'facebook', 'linkedin', 'email']}
                     buttonStyles={{
@@ -1380,7 +1380,7 @@ const TesPage = () => {
                         },
                     }}
                 />
-            </Box> */}
+            </Box>
 
             <Box border={0} maxW="4xl" textAlign={'center'} mx="auto" p={6} borderWidth={1} rounded="md">
                 <TabbedContent

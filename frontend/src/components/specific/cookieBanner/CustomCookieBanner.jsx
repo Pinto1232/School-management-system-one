@@ -61,11 +61,12 @@ const CookieConsentBanner = ({
                 <CustomButton
                     colorScheme={bannerButtonColor}
                     variant="solid"
-                    size={{ base: "sm", md: "md" }}
+                    /* size={{ base: "sm", md: "md" }} */
                     ml="3"
                     onClick={onAccept}
                     bgColor={buttonBgColor}
                     textColor={textButton}
+                    fontSize={10}
                 >
                     {buttonText || "Accept"}
                 </CustomButton>
