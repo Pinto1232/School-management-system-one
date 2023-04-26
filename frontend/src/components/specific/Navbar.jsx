@@ -10,6 +10,8 @@ function Navbar() {
   const textColor = useColorModeValue("gray.800", "white");
   const isLoggedIn = false; // replace with your authentication logic
 
+  const darkIconBg = useColorModeValue('#319795', 'black.300');
+ 
   return (
     <Box>
       <Flex>
@@ -70,7 +72,7 @@ function Navbar() {
               </Box>
               {/* Toggle color mode */}
               <Box>
-                <IconButton onClick={toggleColorMode} icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />} aria-label="Toggle color mode" mr={10} ml={4} />
+                <IconButton fontSize={22} color={darkIconBg} onClick={toggleColorMode} icon={colorMode === 'light' ? <SunIcon/> : <MoonIcon />} aria-label="Toggle color mode" mr={10} ml={4} />
               </Box>
             </Flex>
           </Flex>

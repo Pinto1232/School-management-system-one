@@ -1,8 +1,12 @@
 import { Box, Button, Flex, Icon, Menu, MenuButton, MenuGroup, MenuItem, MenuList } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaBars } from "react-icons/fa";
-import { MegaMenu } from "primereact/megamenu";
-import megamenudata from '../../../data/MegamenuData'
+import 'primereact/resources/themes/lara-light-indigo/theme.css';   // theme
+import 'primereact/resources/primereact.css';                       // core css
+import 'primeicons/primeicons.css';  
+import 'primeflex/primeflex.css';    
+import '../../specific/megamenu/flags.css'                            // icons
+
 
 
 const MegaMenus = ({ megamenudata, orientation, style }) => {
@@ -37,7 +41,7 @@ const MegaMenus = ({ megamenudata, orientation, style }) => {
                             >
                                 <Icon color={'#fff'} as={FaBars} boxSize={6} />
                             </MenuButton>
-                            <MenuList width={'600px'}>
+                            <MenuList >
                                 {Array.isArray(megamenudata) && megamenudata.length > 0
                                     ? megamenudata.map((item) =>
                                         item && item.label ? (
@@ -69,7 +73,7 @@ const MegaMenus = ({ megamenudata, orientation, style }) => {
                             >
                                About 
                             </MenuButton>
-                            <MenuList width={'800px'}>
+                            <MenuList>
                                 {Array.isArray(megamenudata) && megamenudata.length > 0
                                     ? megamenudata.map((item) =>
                                         item && item.label ? (
@@ -101,7 +105,7 @@ const MegaMenus = ({ megamenudata, orientation, style }) => {
                             >
                                Shop
                             </MenuButton>
-                            <MenuList width={'600px'}>
+                            <MenuList>
                                 {Array.isArray(megamenudata) && megamenudata.length > 0
                                     ? megamenudata.map((item) =>
                                         item && item.label ? (
@@ -133,7 +137,7 @@ const MegaMenus = ({ megamenudata, orientation, style }) => {
                             >
                                FAqs
                             </MenuButton>
-                            <MenuList width={'600px'}>
+                            <MenuList>
                                 {Array.isArray(megamenudata) && megamenudata.length > 0
                                     ? megamenudata.map((item) =>
                                         item && item.label ? (

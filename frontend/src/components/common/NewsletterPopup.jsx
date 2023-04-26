@@ -9,14 +9,17 @@ import {
     useMediaQuery,
     useToast,
     Spinner,
-    useColorModeValue
+    useColorModeValue,
+    Heading
 } from "@chakra-ui/react";
 import CustomButton from "./CustomButton";
+import imageBg from '../../assets/images/school.jpg'
+import { FaEnvelope } from "react-icons/fa";
 
 const NewsletterPopup = ({
     onSubmit,
     placeholder = "Enter your email address",
-    buttonText = "Subscribe to Our Newsletter",
+    /*   buttonText = "Subscribe to Our Newsletter", */
     ...rest
 }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -62,18 +65,31 @@ const NewsletterPopup = ({
     };
 
     const bgButtonColor = useColorModeValue('#319795', '#3182ce')
-    const iconsTextColor = useColorModeValue('#fff', '#fff')
-
 
 
     return (
         <Box>
-            <CustomButton onClick={onOpen} {...rest}>
-                {isLargerThan768 ? buttonText : "Subscribe"}
-            </CustomButton>
+            <Box onClick={onOpen} {...rest}>
+                {isLargerThan768 ? <CustomButton
+                    bgColor={bgButtonColor}
+                >
+                    <Flex
+                        gap={2}
+                        justify={'center'}
+                        alignItems={'center'}
+                    >
+                        <FaEnvelope />
+                        Subscribe
+                    </Flex>
+                </CustomButton> : "Subscribe"
+                }
+            </Box>
             {isOpen && (
                 <Box
-                    bg="gray.100"
+                    /* bg="gray.100" */
+                    backgroundImage={`url(${imageBg})`}
+                    backgroundSize="cover"
+                    backgroundPosition="center center"
                     p={4}
                     position="fixed"
                     top="0"
@@ -83,7 +99,7 @@ const NewsletterPopup = ({
                     zIndex="9999"
                 >
                     <Box
-                        bg="black"
+                        bg="whiteAlpha.900"
                         p={4}
                         borderRadius="md"
                         maxWidth="600px"
@@ -92,9 +108,23 @@ const NewsletterPopup = ({
                     >
                         <Flex justifyContent="space-between" alignItems="center" mb={4}>
                             <Text fontSize="2xl" fontWeight="bold">
-                                {buttonText}
+                                <Heading
+                                    color={'white'}
+                                >
+                                    <Heading
+                                        as="p"
+                                        color={'black'}
+                                        fontSize={20}
+                                    >
+                                        Please provide your email
+                                    </Heading>
+                                </Heading>
                             </Text>
-                            <CustomButton onClick={onClose} variant="ghost">
+                            <CustomButton
+                                bgColor={bgButtonColor}
+                                onClick={onClose}
+                                variant="ghost"
+                            >
                                 Close
                             </CustomButton>
                         </Flex>
@@ -107,18 +137,22 @@ const NewsletterPopup = ({
                                 mb={4}
                                 isRequired
                             />
-                            <CustomButton
+                            <Box
                                 type="submit"
-                                bgColor={bgButtonColor}
                                 isFullWidth
                                 isLoading={isLoading}
                                 isDisabled={isButtonDisabled}
                                 transition="all 0.2s"
                                 _disabled={{ opacity: 0.6, cursor: "not-allowed" }}
-                                _hover={{ transform: "scale(1.05)" }}
+                                /* _hover={{ transform: "scale(1.05)" }} */
                             >
-                                {isLoading ? <Spinner size="sm" /> : buttonText}
-                            </CustomButton>
+                                {isLoading ? <Spinner size="sm" /> : <CustomButton
+                                    bgColor={bgButtonColor}
+                                >
+                                    Submit
+                                </CustomButton>
+                                }
+                            </Box>
                         </form>
                     </Box>
                 </Box>

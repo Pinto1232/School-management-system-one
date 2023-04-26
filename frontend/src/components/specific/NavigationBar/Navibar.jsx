@@ -3,6 +3,7 @@ import {
     Box,
     Flex,
     GridItem,
+    Heading,
     IconButton,
     Stack,
     useColorModeValue,
@@ -20,7 +21,7 @@ const Navibar = () => {
     const backgroundColor = useColorModeValue("#171923", "#2D3748");
     const textColor = useColorModeValue("gray.800", "white");;
 
-    
+
 
 
     const menuItems = [
@@ -80,9 +81,11 @@ const Navibar = () => {
                 <NewsletterPopup
                     onSubmit={handleSubmitNewsletter}
                     placeholder="Enter your email"
-                    buttonText="Subscribe for news"
-                    
-                />
+                >
+                    <Heading>
+                         Subscribe for news
+                    </Heading>
+                </NewsletterPopup>
             </Box>
             <Box
                 display={{ base: isOpen ? 'block' : 'none', md: 'block' }}
