@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, Text } from '@chakra-ui/react'
+import { Box, Flex, Grid, Heading, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import MegaMenus from '../components/specific/megamenu/MegaMenus'
 import MegamenuData from '../data/MegamenuData'
@@ -10,12 +10,49 @@ import Parallax from '../components/specific/Parallax'
 import parallaxImage from '../assets/images/pro.jpg'
 import StickyHeader from '../components/common/StickyHeader'
 import StickyFooter from '../components/common/StickyFooter'
+import UpsellSection from "../components/specific/ProductCards/UpsellSection";
+import ProductCard from "../components/specific/ProductCards/ProductCard";
+import products from "../data/useSelectionData"
+import ProductComparisonTable from '../components/specific/ProductComparisonTable'
+import ProductsCustom from '../data/ProductComparisonTableData'
+import ProductRatingData from '../data/ProductRatingData'
+import ProductRatingsAndReviews from '../components/specific/ProductRatingsAndReviews'
+import ProductReviews from '../components/specific/ProductReviews'
+import ProductFilters from '../components/specific/ProductFilters'
+import ProductFiltersData from '../data/ProductFiltersData'
+import ProductSortingOptionsData from '../data/ProductSortingOptionsData'
+import ProductSorting from '../components/specific/ProductSorting'
+import BreadcumberData from '../data/BreadcumberData'
+import Breadcrumbs from '../components/specific/Breadcrumbs'
+import PaginationNew from '../components/specific/PaginationNew'
+import BackToTopButton from '../components/specific/BackToTopButton'
+import SocialProofSection from '../components/specific/SocialProofSection'
+import socialProofData from '../data/socialProofData'
+import filtersData from '../data/filtersData'
 
-console.log("Paralax image", parallaxImage);
+console.log("Filter data", filtersData);
+
 
 const TestPageTwo = () => {
     const orientation = "horizontal";
 
+    // Product Filter
+    const [selectedFilters, setSelectedFilters] = useState([]);
+
+    const handleFilterChange = (checked, option) => {
+        if (checked) {
+            setSelectedFilters([...selectedFilters, option]);
+        } else {
+            setSelectedFilters(selectedFilters.filter((item) => item !== option));
+        }
+    };
+
+    // New Pagination
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
 
     // Loading two
     const [isLoading, setIsLoading] = useState(true);
@@ -24,6 +61,35 @@ const TestPageTwo = () => {
         // Do some async operation here...
         setIsLoading(false);
     }, []);
+
+
+    // Product comparison
+    const features = ["feature1", "feature2", "feature3"];
+
+    //product rating reviews
+    const reviews = [
+        {
+            id: 1,
+            author: "John Doe",
+            rating: 4,
+            text: "This product is great!",
+        },
+        {
+            id: 2,
+            author: "Jane Smith",
+            rating: 3,
+            text: "It's okay, but could be better.",
+        },
+    ];
+
+    // Product sorting
+    const [selectedOption, setSelectedOption] = useState("price-low-to-high");
+
+    const handleSortingChange = (value) => {
+        setSelectedOption(value);
+        // Do something else, like update the product list with the new sorting option
+    };
+
 
 
     return (
@@ -49,7 +115,6 @@ const TestPageTwo = () => {
                 </Flex>
             </Box>
 
-
             {/* Laoding one */}
             <Box border={0} maxW="sm" textAlign={'center'} mx="auto" mt={'20px'} p={6} borderWidth={1} rounded="md">
                 <LoadingAnimation size="50px" color="red" thickness="6px" speed="1s" />
@@ -60,7 +125,6 @@ const TestPageTwo = () => {
             <Box border={0} maxW="3xl" textAlign={'center'} mx="auto" mt={'20px'} p={6} borderWidth={1} rounded="md">
                 {isLoading ? <LoadingAnimationTwo /> : <Box>This is the content that loaded.</Box>}
             </Box>
-
 
             {/* Page transition */}
             <Box maxW="7xl" textAlign={'center'} mx="auto" p={6} borderWidth={1} rounded="md">
@@ -157,16 +221,151 @@ const TestPageTwo = () => {
             </Box>
 
 
-        
-            
+            {/* Upsell Section */}
+            <UpsellSection
+                title="Product card/specify how many 
+                      number of card to show and the columns"
+                products={products}
+                columns={[3, 3, 3]}
+                numOfProductsToShow={4}
+            />
+
+
+
+            {/* Comparison table */}
+            <Box
+                maxW="7xl"
+                textAlign={'center'}
+                mx="auto"
+                p={1}
+                borderWidth={1}
+                rounded="md"
+                color={"white"}
+                shadow={'lg'}
+                mt={10}
+            >
+                <ProductComparisonTable
+                    products={ProductsCustom}
+                    features={features}
+                />
+            </Box>
+
+
+            {/* Product rating data */}
+            <Box maxW="xl" mt={10} textAlign={'center'} mx="auto" p={6} borderWidth={1} rounded="md">
+                <ProductRatingsAndReviews
+                    product={ProductRatingData}
+                    reviews={reviews}
+                />
+            </Box>
+
+            {/* Product review */}
+            <Box
+                maxW="xl" mt={10}
+                textAlign={'center'}
+                mx="auto"
+                p={6}
+                borderWidth={1}
+                rounded="md"
+                shadow={'lg'}
+            >
+                <ProductReviews />
+            </Box>
+
+
+            {/* Product filter */}
+            <Box>
+                <ProductFilters
+                    products={ProductFiltersData}
+                    categories={["All", "Category A", "Category B", "Category C"]}
+                    onCategoryChange={(category) => console.log(`Selected category: ${category}`)}
+                    onPriceChange={(priceRange) => console.log(`Selected price range: ${priceRange}`)}
+                />
+                {/* Display product list here */}
+            </Box>
+
+
+            {/* Product sorting data */}
+            <Box shadow={'lg'} maxW="xl" mt={10} textAlign={'center'} mx="auto" p={6} borderWidth={1} rounded="md">
+                <ProductSorting
+                    options={ProductSortingOptionsData}
+                    selectedOption={selectedOption}
+                    onChange={handleSortingChange}
+                />
+                {/* Render your product list here */}
+            </Box>
+
+
+            {/* Breadcumbers */}
+            <Box shadow={'lg'} maxW="4xl" mt={10} textAlign={'center'} mx="auto" p={6} borderWidth={1} rounded="md">
+                <Breadcrumbs
+                    items={BreadcumberData}
+                />
+            </Box>
+
+
+            {/* Pagination */}
+            <Box>
+                {/* Render content for the current page */}
+                {/* ... */}
+
+                {/* Render the Pagination component */}
+                <PaginationNew currentPage={currentPage} totalPages={10} onPageChange={handlePageChange} />
+            </Box>
+
+
+            {/* Back Top */}
+            <BackToTopButton />
+
+            {/* Social Proof section */}
+            <Box
+                p={8}
+                shadow={'lg'}
+                maxW="4xl"
+                mt={10}
+                textAlign={'center'}
+                mx="auto"
+                borderWidth={1}
+                rounded="md"
+            >
+                {socialProofData.map((data, index) => (
+                    <SocialProofSection
+                        key={index}
+                        heading={`${data.name}, ${data.title}`}
+                        text={data.quote}
+                        imageSrc={data.image}
+                    />
+                ))}
+            </Box>
+
+            <Box
+                p={8}
+                shadow={'lg'}
+                maxW="2xl"
+                mt={10}
+                textAlign={'center'}
+                mx="auto"
+                borderWidth={1}
+                rounded="md"
+            >
+                <Heading>Product Filter</Heading>
+                {filtersData.map((Filterdata, index) => (
+                    <ProductFilters filters={filtersData} selectedFilters={selectedFilters} onChange={handleFilterChange} />
+                ))}
+            </Box>
+
+
+
+
+
             {/* Sticky footer */}
             <StickyFooter
-               bgColor={'black'}
-               fontSize={14}
-               bgTextColor={'white'}
+                bgColor={'black'}
+                fontSize={14}
+                bgTextColor={'white'}
             >
-              {/* Content goes here */}
-              Sticky footer
+                {/* Content goes here */}
+                Sticky footer
             </StickyFooter>
         </Box>
     )

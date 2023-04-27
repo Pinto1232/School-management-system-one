@@ -13,6 +13,7 @@ function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
     const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
     const buttonColor = useColorModeValue('#319795', '#3182ce');
     const textButton = useColorModeValue('#4A5568', '#fff')
+    const footerIcons = useColorModeValue('#319795', '')
 
     // Custom cookie banner
     const [showBanner, setShowBanner] = useState(false);
@@ -94,13 +95,16 @@ function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
                 <Text fontSize={{ base: 'sm', sm: 'md', md: 'md' }} color="gray.500">
                     © 2023 My Company. All rights reserved.
                 </Text>
-                <HStack spacing={4}>
+                <Flex> 
+                <HStack spacing={4}> 
                     <IconButton
                         aria-label="Facebook"
                         icon={<FaFacebook />}
                         size="md"
                         variant="ghost"
                         colorScheme="gray"
+                        color={footerIcons}
+                        fontSize={25}
                     />
                     <IconButton
                         aria-label="Twitter"
@@ -108,6 +112,9 @@ function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
                         size="md"
                         variant="ghost"
                         colorScheme="gray"
+                        color={footerIcons}
+                        fontSize={25}
+                       
                     />
                     <IconButton
                         aria-label="Instagram"
@@ -115,6 +122,8 @@ function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
                         size="sm"
                         variant="ghost"
                         colorScheme="gray"
+                        color={footerIcons}
+                        fontSize={25}
                     />
                     {/* Cookie */}
                     {showBanner && (
@@ -125,6 +134,7 @@ function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
                         />
                     )}
                 </HStack>
+                </Flex>
             </Flex>
         </Box>
     );
