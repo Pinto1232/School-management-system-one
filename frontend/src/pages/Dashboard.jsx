@@ -21,6 +21,9 @@ import { HamburgerIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
 import { FaUsers, FaChalkboardTeacher, FaSchool, FaTasks, FaUserClock, FaFileAlt, FaCalendarAlt, FaBookOpen, FaComments, FaBook, FaCalendar, FaGraduationCap, FaUnlockAlt } from 'react-icons/fa';
 import { IoLogOut } from 'react-icons/io5';
+import AdjustableColumnLayout from '../components/specific/twocolumns/AdjustableColumnLayout';
+import UserProfile from '../components/common/UserProfilePage';
+import Avatars from '../assets/images/logo.png'
 
 
 
@@ -75,7 +78,7 @@ const Dashboard = () => {
     { label: 'Task', path: '/tasks', icon: FaTasks },
     { label: 'User Permissions and Roles', path: '/user-permissions-roles', icon: FaUnlockAlt },
   ];
-  
+
   const handleNavigation = (path) => {
     navigate(path);
     onClose();
@@ -87,9 +90,20 @@ const Dashboard = () => {
         <Flex justify="space-between" align="center" mb={4}>
           <Heading>
             <Text fontSize="3xl">PintoEdu Management</Text>
-            {user && (
-              <Text fontSize="2xl" marginTop={10} fontWeight="bold">Welcome, {user.name}</Text>
-            )}
+            <Flex justify={'center'} alignItems={'center'}>
+              <UserProfile 
+                /* Getting the user image profiles */
+                avatarSrc={Avatars}
+              />
+              {user && (
+                <Text
+                  fontSize="2xl"
+                  marginTop={10}
+                  fontWeight="bold">
+                  Welcome, {user.name}
+                </Text>
+              )}
+            </Flex>
           </Heading>
           <IconButton
             ref={btnRef}
@@ -100,15 +114,18 @@ const Dashboard = () => {
         </Flex>
         <VStack spacing={4} align="stretch">
           <Box border={backgroundBorder} bg={backgroundColor} boxShadow="base" p={6} borderRadius="md">
-            <Text color={textColor}  fontSize="xl">Announcements</Text>
+            <Text color={textColor} fontSize="xl">Announcements</Text>
             {/* Add content here */}
+            <AdjustableColumnLayout>
+              <Heading>Pinto</Heading>
+            </AdjustableColumnLayout>
           </Box>
           <Box border={backgroundBorder} bg={backgroundColor} boxShadow="base" p={6} borderRadius="md">
             <Text color={textColor} fontSize="xl">Events</Text>
             {/* Add content here */}
           </Box>
           <Box border={backgroundBorder} bg={backgroundColor} boxShadow="base" p={6} borderRadius="md">
-            <Text color={textColor}  fontSize="xl">Tasks</Text>
+            <Text color={textColor} fontSize="xl">Tasks</Text>
             {/* Add content here */}
           </Box>
           <Box border={backgroundBorder} bg={backgroundColor} boxShadow="base" p={6} borderRadius="md">

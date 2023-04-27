@@ -29,7 +29,7 @@ const Home = () => {
             />
 
             {/* Product section */}
-            <Grid maxW="6xl" mx="auto" border={0} mt={10} p={6} borderWidth={1} rounded="md">
+            <Grid maxW="6xl" mx="auto" border={0} mt={-10} p={6} borderWidth={1} rounded="md">
                 <ProductsSection
                     heading="Check Our Packages"
                     subheading="Check out our latest offerings"

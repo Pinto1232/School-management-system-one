@@ -98,14 +98,14 @@ function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
                     <IconButton
                         aria-label="Facebook"
                         icon={<FaFacebook />}
-                        size="sm"
+                        size="md"
                         variant="ghost"
                         colorScheme="gray"
                     />
                     <IconButton
                         aria-label="Twitter"
                         icon={<FaTwitter />}
-                        size="sm"
+                        size="md"
                         variant="ghost"
                         colorScheme="gray"
                     />

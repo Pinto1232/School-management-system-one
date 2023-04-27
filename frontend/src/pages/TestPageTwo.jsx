@@ -8,6 +8,8 @@ import LoadingAnimationTwo from '../components/specific/LoadingAnimationTwo'
 import PageTransition from '../components/specific/pagetransition/PageTransition'
 import Parallax from '../components/specific/Parallax'
 import parallaxImage from '../assets/images/pro.jpg'
+import StickyHeader from '../components/common/StickyHeader'
+import StickyFooter from '../components/common/StickyFooter'
 
 console.log("Paralax image", parallaxImage);
 
@@ -26,6 +28,11 @@ const TestPageTwo = () => {
 
     return (
         <Box>
+            {/*  Sticky header */}
+            <StickyHeader bg="gray.800" color="white" boxShadow="md">
+                <h1>Sticky header</h1>
+            </StickyHeader>
+
             <Grid mt={'20px'}>
                 {/* Mega menu */}
                 <MegaMenus
@@ -140,7 +147,7 @@ const TestPageTwo = () => {
                     mx="auto"
                     textAlign={'center'}
                 >
-                    <Text fontSize={'x-large'} as="h1" maxW='7xl' mx="auto" textAlign={'center'} >
+                    <Text color={'#fff'} fontSize={'x-large'} as="h1" maxW='7xl' mx="auto" textAlign={'center'} >
                         in the middle of text. All the Lorem Ipsum generators on the
                         Internet tend to repeat predefined chunks as necessary,
                         making this the first true generator on the Internet.
@@ -149,6 +156,18 @@ const TestPageTwo = () => {
                 </Box>
             </Box>
 
+
+        
+            
+            {/* Sticky footer */}
+            <StickyFooter
+               bgColor={'black'}
+               fontSize={14}
+               bgTextColor={'white'}
+            >
+              {/* Content goes here */}
+              Sticky footer
+            </StickyFooter>
         </Box>
     )
 }

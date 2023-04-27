@@ -19,7 +19,8 @@ const Navibar = () => {
     const { isOpen, onToggle } = useDisclosure();
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
     const backgroundColor = useColorModeValue("#171923", "#2D3748");
-    const textColor = useColorModeValue("gray.800", "white");;
+    const textColor = useColorModeValue("gray.800", "white");
+    const socialIconsBg = useColorModeValue("#fff"," ")
 
 
 
@@ -101,11 +102,12 @@ const Navibar = () => {
                 >
                     {/* Social media component */}
                     <SocialMedia
+                        color={socialIconsBg}
                         display={{
                             base: 'none',
                             md: 'flex'
                         }}
-                        size={20}
+                        size={23}
                         iconPadding={2}
 
                     />
