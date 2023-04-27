@@ -1,5 +1,3 @@
-// backend/models/User.js
-
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const { hashPassword } = require('../utils/password');
@@ -32,10 +30,13 @@ const UserSchema = new mongoose.Schema(
             enum: ['student', 'teacher', 'admin'],
             default: 'student',
         },
+        image: {
+            data: Buffer,
+            contentType: String
+        }
     },
     { timestamps: true }
 );
-
 
 UserSchema.pre('save', async function (next) {
     if (this.isModified('password')) {

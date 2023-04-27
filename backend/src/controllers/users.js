@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const { jwtSecret, jwtExpiresIn } = require('../config/env');
 const asyncHandler = require('../middlewares/asyncHandler');
 
+
 exports.register = asyncHandler(async (req, res) => {
     const { email, password, firstName, lastName, role } = req.body;
 
@@ -13,11 +14,38 @@ exports.register = asyncHandler(async (req, res) => {
     }
 
     const user = new User({ email, password, firstName, lastName, role });
+
+    // Check if an image file was uploaded and attach it to the user object
+    if (req.file) {
+        user.image.data = req.file.buffer;
+        user.image.contentType = req.file.mimetype;
+    }
+
     await user.save();
     console.log('Registered user:', user);
 
-    res.status(201).json({ message: 'User registered successfully' });
+    // Convert the image data to a Base64 encoded string if it exists
+    let imageString = null;
+    if (user.image && user.image.data) {
+        imageString = `data:${user.image.contentType};base64,${user.image.data.toString('base64')}`;
+        console.log("Converted Image", imageString);
+    }
+
+    res.status(201).json({
+        message: 'User registered successfully',
+        user: {
+            id: user._id,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            role: user.role,
+            image: imageString
+        }
+    });
 });
+
+
+
 
 exports.login = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
