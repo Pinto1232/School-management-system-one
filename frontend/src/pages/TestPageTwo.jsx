@@ -303,7 +303,9 @@ const TestPageTwo = () => {
                 borderWidth={1}
                 rounded="md"
             >
-            <Text as={'h2'} color={'#fff'}>Social ProofSection</Text>
+                <Text as={'h2'} fontSize={'2xl'} color={'#fff'}>
+                    Social Proof Section
+                </Text>
                 {socialProofData.map((data, index) => (
                     <SocialProofSection
                         key={index}
