@@ -48,10 +48,15 @@ import WeatherWidgetIcon from '../components/specific/widgets/WeatherWidgetIcon'
 import WeatherData from '../data/WeatherData'
 import WeatherWidgetAdditional from '../components/specific/widgets/WeatherWidgetAdditional'
 import WeatherWidgetForecast from '../components/specific/widgets/WeatherWidgetForecast'
+import TwitterFeed from '../components/specific/widgets/TwitterFeed'
 
 
 const TestPageTwo = () => {
     const orientation = "horizontal";
+
+    // Twitter widget 
+    const twitterHandle = "OpenAI";
+    const widgetId = "1409579261216474114";
 
 
     // Product Filter
@@ -298,6 +303,7 @@ const TestPageTwo = () => {
                 borderWidth={1}
                 rounded="md"
             >
+            <Text as={'h2'} color={'#fff'}>Social ProofSection</Text>
                 {socialProofData.map((data, index) => (
                     <SocialProofSection
                         key={index}
@@ -451,6 +457,28 @@ const TestPageTwo = () => {
                     apiKey="YOUR_API_KEY"
                 />
             </Flex>
+
+
+            <Flex
+                maxW="md" mt={10}
+                mx="auto" p={3}
+                borderWidth={1}
+                rounded="md"
+            >
+                <TwitterFeed
+                    twitterHandle={twitterHandle}
+                    widgetId={widgetId}
+                    theme={"light"}
+                    linkColor={"#1da1f2"}
+                    borderColor={"#e1e8ed"}
+                    noHeader={false}
+                    noFooter={false}
+                    noBorders={false}
+                    noScrollbar={false}
+                />
+            </Flex>
+
+
 
 
 

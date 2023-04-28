@@ -15,10 +15,10 @@ const SocialProofSection = ({ heading, text, imageSrc }) => {
                 mb={[8, 0]}
                 textAlign={["center", "left"]}
             >
-                <Heading as="h3" size="md" mb={4}>
+                <Heading as="h3" size="md" color={'#000'} mb={4}>
                     {heading}
                 </Heading>
-                <Text fontSize="lg">{text}</Text>
+                <Text  color={'#000'} fontSize="lg">{text}</Text>
             </Box>
             <Image
                 src={imageSrc}
