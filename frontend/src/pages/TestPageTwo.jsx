@@ -41,6 +41,13 @@ import VerticalSliderCardThreeData from '../data/VerticalSliderCardThreeData'
 import VerticalSliderCardThree from '../components/specific/cards/VerticalSliderCardThree'
 import HorizontalCardData from '../data/HorizontalCardData'
 import HorizontalSliderCard from '../components/specific/cards/HorizontalSliderCard'
+import Speedometer from '../components/specific/Speedometer'
+import SpeedometerTwo from '../components/specific/SpeedometerTwo'
+import WeatherWidgetSimple from '../components/specific/widgets/WeatherWidgetSimple'
+import WeatherWidgetIcon from '../components/specific/widgets/WeatherWidgetIcon'
+import WeatherData from '../data/WeatherData'
+import WeatherWidgetAdditional from '../components/specific/widgets/WeatherWidgetAdditional'
+import WeatherWidgetForecast from '../components/specific/widgets/WeatherWidgetForecast'
 
 
 const TestPageTwo = () => {
@@ -369,7 +376,7 @@ const TestPageTwo = () => {
             </Box>
 
             {/* Horizontal card  */}
-            <Box maxW="7xl" mt={10} mx="auto" p={6} borderWidth={1} rounded="md">
+            <Box maxW="7xl" mt={10} mx="auto" p={3} borderWidth={1} rounded="md">
                 <HorizontalSliderCard
                     data={HorizontalCardData}
                     slidesToShow={3}
@@ -377,6 +384,76 @@ const TestPageTwo = () => {
                     autoplaySpeed={5000}
                 />
             </Box>
+
+
+            <Box
+                maxW="sm"
+                mt={10}
+                mx="auto"
+                p={3}
+                borderWidth={1}
+                rounded="md"
+            >
+                <Flex
+                    justifyItems="center"
+                    alignItems="center"
+                    justifyContent="center"
+                    gap={8}
+                >
+                    {/* Speedemeter */}
+                    <Speedometer
+                        minValue={0}
+                        maxValue={100}
+                        currentValue={75}
+                        colorScheme="green"
+                        className="my-speedometer"
+                    />
+
+                    {/* Sppedomenter two */}
+                    <SpeedometerTwo
+                        value={75}
+                        max={100}
+                        size={120}
+                        strokeWidth={10}
+                        color="blue.500"
+                    /* label="Progress" */
+                    />
+                </Flex>
+            </Box>
+
+
+            {/* Widgets */}
+            <Flex
+                maxW="md" mt={10}
+                mx="auto" p={3}
+                borderWidth={1}
+                rounded="md"
+            >
+                <WeatherWidgetSimple
+                    temperature={22}
+                    condition="cloudy"
+                    location="New York"
+                />
+
+                <WeatherWidgetIcon
+                    iconCode="04d"
+                    size="md"
+                    colorScheme="blue"
+                />
+
+                <WeatherWidgetAdditional
+                    data={WeatherData}
+                />
+
+                <WeatherWidgetForecast
+                    city="New York"
+                    country="US"
+                    apiKey="YOUR_API_KEY"
+                />
+            </Flex>
+
+
+
 
             {/* Sticky footer */}
             <StickyFooter

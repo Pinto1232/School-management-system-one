@@ -18,12 +18,13 @@ const VerticalSliderCardThree = ({ data, slidesToShow, slidesToScroll, autoplayS
     };
 
     return (
-        <Box maxWidth="100%">
+        <Box
+            maxWidth="100%">
             <Slider {...settings}>
                 {data.map((item, index) => (
                     <Box key={index}>
                         <Box position="relative">
-                            <Box height="580px" overflow="hidden">
+                            <Box height="440px" overflow="hidden">
                                 <Box
                                     as="img"
                                     src={item.imageSrc}

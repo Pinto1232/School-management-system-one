@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 const HorizontalSliderCard = ({ data, slidesToShow, slidesToScroll, autoplaySpeed }) => {
     const sliderSettings = {
-        dots: true,
+        dots: false,
         infinite: true,
         speed: 500,
         slidesToShow: slidesToShow || 3,
