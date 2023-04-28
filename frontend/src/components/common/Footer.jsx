@@ -7,6 +7,9 @@ import InputFieldComponent from './InputFieldComponent';
 import CustomButton from './CustomButton';
 import AdjustableColumnLayout from '../specific/twocolumns/AdjustableColumnLayout';
 import CookieConsentBanner from '../specific/cookieBanner/CustomCookieBanner';
+import ShippingAndPaymentIcons from '../specific/ShippingAndPaymentIcons';
+import ShippingAndPaymentData from '../../data/ShippingAndPaymentData';
+
 
 function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
     const textColor = useColorModeValue('#4A5568', '#fff');
@@ -95,45 +98,50 @@ function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
                 <Text fontSize={{ base: 'sm', sm: 'md', md: 'md' }} color="gray.500">
                     © 2023 My Company. All rights reserved.
                 </Text>
-                <Flex> 
-                <HStack spacing={4}> 
-                    <IconButton
-                        aria-label="Facebook"
-                        icon={<FaFacebook />}
-                        size="md"
-                        variant="ghost"
-                        colorScheme="gray"
-                        color={footerIcons}
-                        fontSize={25}
+                <Flex gap={4}>
+                    <ShippingAndPaymentIcons
+                        icons={ShippingAndPaymentData}
+                        iconSize={12}
                     />
-                    <IconButton
-                        aria-label="Twitter"
-                        icon={<FaTwitter />}
-                        size="md"
-                        variant="ghost"
-                        colorScheme="gray"
-                        color={footerIcons}
-                        fontSize={25}
-                       
-                    />
-                    <IconButton
-                        aria-label="Instagram"
-                        icon={<FaInstagram />}
-                        size="sm"
-                        variant="ghost"
-                        colorScheme="gray"
-                        color={footerIcons}
-                        fontSize={25}
-                    />
-                    {/* Cookie */}
-                    {showBanner && (
-                        <CookieConsentBanner
-                            onAccept={handleAccept}
-                            CookieWidth={'vw'}
-                            buttonColor={"blue"}
+                    <HStack spacing={4}>
+                        <IconButton
+                            aria-label="Facebook"
+                            icon={<FaFacebook />}
+                            size="md"
+                            variant="ghost"
+                            colorScheme="gray"
+                            color={footerIcons}
+                            fontSize={25}
                         />
-                    )}
-                </HStack>
+                        <IconButton
+                            aria-label="Twitter"
+                            icon={<FaTwitter />}
+                            size="md"
+                            variant="ghost"
+                            colorScheme="gray"
+                            color={footerIcons}
+                            fontSize={25}
+
+                        />
+                        <IconButton
+                            aria-label="Instagram"
+                            icon={<FaInstagram />}
+                            size="sm"
+                            variant="ghost"
+                            colorScheme="gray"
+                            color={footerIcons}
+                            fontSize={25}
+                        />
+
+                        {/* Cookie */}
+                        {showBanner && (
+                            <CookieConsentBanner
+                                onAccept={handleAccept}
+                                CookieWidth={'vw'}
+                                buttonColor={"blue"}
+                            />
+                        )}
+                    </HStack>
                 </Flex>
             </Flex>
         </Box>

@@ -33,11 +33,19 @@ import TrustBadges from '../components/specific/TrustBadges'
 import TrustBadgesData from '../data/TrustBadgesData'
 import ShippingAndPaymentIcons from '../components/specific/ShippingAndPaymentIcons'
 import shippingAndPaymentData from '../data/ShippingAndPaymentData'
-
+import VerticalSliderCardOne from '../components/specific/cards/VerticalSliderCardOne'
+import VerticalSliderCardOneData from '../data/VerticalSliderCardOneData'
+import VerticalSliderCardTwo from '../components/specific/cards/VerticalSliderCardTwo'
+import CardVerticalTwoData from '../data/CardVerticalTwoData'
+import VerticalSliderCardThreeData from '../data/VerticalSliderCardThreeData'
+import VerticalSliderCardThree from '../components/specific/cards/VerticalSliderCardThree'
+import HorizontalCardData from '../data/HorizontalCardData'
+import HorizontalSliderCard from '../components/specific/cards/HorizontalSliderCard'
 
 
 const TestPageTwo = () => {
     const orientation = "horizontal";
+
 
     // Product Filter
     const [selectedFilters, setSelectedFilters] = useState([]);
@@ -329,6 +337,46 @@ const TestPageTwo = () => {
                 />
             </Box>
 
+            {/* Vertical Slider Card One */}
+            <Box maxW="4xl" mt={10} textAlign={'center'} mx="auto" p={6} borderWidth={1} rounded="md">
+                <VerticalSliderCardOne
+                    cards={VerticalSliderCardOneData}
+                />
+            </Box>
+
+
+
+            {/* Vertical Slider Card two */}
+            <Box maxW="4xl" mt={10} textAlign={'center'} mx="auto" p={6} borderWidth={1} rounded="md">
+                <VerticalSliderCardTwo
+                    data={CardVerticalTwoData}
+                    slides={CardVerticalTwoData}
+                    slidesToShow={2}
+                    slidesToScroll={1}
+                    autoplaySpeed={3000}
+                />
+            </Box>
+
+
+            {/* Vertical Slider Card three */}
+            <Box maxW="2xl" mt={10} mx="auto" borderWidth={1} rounded="md">
+                <VerticalSliderCardThree
+                    data={VerticalSliderCardThreeData}
+                    slidesToShow={2}
+                    slidesToScroll={1}
+                    autoplaySpeed={5000}
+                />
+            </Box>
+
+            {/* Horizontal card  */}
+            <Box maxW="7xl" mt={10} mx="auto" p={6} borderWidth={1} rounded="md">
+                <HorizontalSliderCard
+                    data={HorizontalCardData}
+                    slidesToShow={3}
+                    slidesToScroll={1}
+                    autoplaySpeed={5000}
+                />
+            </Box>
 
             {/* Sticky footer */}
             <StickyFooter
