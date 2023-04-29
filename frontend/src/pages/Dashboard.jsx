@@ -143,7 +143,7 @@ const Dashboard = () => {
 
   return (
     <Box bg={bgDashboard} minH="100vh">
-      <Flex direction="column" maxW="1200px" mx="auto" p={4}>
+      <Flex direction="column" maxW="8xl" mx="auto" p={4}>
         <Flex justify="space-between" align="center" mb={4}>
           <Heading>
             {/* <Text fontSize="3xl">PintoEdu Management</Text> */}
@@ -201,12 +201,13 @@ const Dashboard = () => {
                   />
                 </Grid>
                 {/* End of sorting by */}
+
                 <Grid>
                   {/* Custom card */}
                   <CardCustom
                     data={cardCustomData}
                     paragraphWidth="200px"
-                    rows={4}
+                    rows={5}
                     columns={1}
                   />
                   {/* End of custom card */}
@@ -215,15 +216,15 @@ const Dashboard = () => {
             </AdjustableColumnLayout>
           </Flex>
 
-          <Box
+          {/* Box of table */}
+          <Grid
             border={backgroundBorder}
             bg={backgroundColor}
             boxShadow="base"
-            p={6}
             borderRadius="md"
           >
-            <Text color={textColor} fontSize="xl">
-              Events
+            <Text mx={6} color={textColor} fontSize="xl">
+              Students
             </Text>
             {/* Add content here */}
             <AdjustableColumnLayout>
@@ -232,17 +233,40 @@ const Dashboard = () => {
                 textAlign={"center"}
                 mx="auto"
                 p={6}
-                borderWidth={1}
+                borderWidth={0}
                 rounded="md"
+                border={2}
               >
                 <TableWithIcons
                   productsImages={productsImagesData}
                   ThBgColor={"gray.800"}
                   ThColor={"#fff"}
+                  borderWid={1}
+                  tbShadow={"lg"}
+                />
+              </Box>
+
+              <Box
+                maxW="4xl"
+                textAlign={"center"}
+                mx="auto"
+                p={6}
+                borderWidth={0}
+                rounded="md"
+                border={2}
+              >
+                <TableWithIcons
+                  productsImages={productsImagesData}
+                  ThBgColor={"gray.800"}
+                  ThColor={"#fff"}
+                  borderWid={1}
+                  tbShadow={"lg"}
                 />
               </Box>
             </AdjustableColumnLayout>
-          </Box>
+          </Grid>
+          {/* End of the table */}
+
           <Box
             border={backgroundBorder}
             bg={backgroundColor}

@@ -26,9 +26,9 @@ export default [
 
   {
     image: "https://via.placeholder.com/150",
-    heading: "Card 5",
+    heading: "Reviews",
     paragraphText:
-      "Ut enim ad minim veniam, quis nostrud exercitation.",
+      "34000.",
   },
 
   {

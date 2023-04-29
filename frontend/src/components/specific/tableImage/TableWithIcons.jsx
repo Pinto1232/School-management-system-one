@@ -1,13 +1,26 @@
 import React from "react";
 import { Table, Thead, Tbody, Tr, Th, Td, Image } from "@chakra-ui/react";
 
-const TableWithIcons = ({ productsImages, ThBgColor, ThColor }) => {
+const TableWithIcons = ({
+  borderSize,
+  borderWid,
+  productsImages,
+  ThBgColor,
+  ThColor,
+  tbShadow,
+}) => {
   console.log("Color", ThColor);
 
   return (
-    <Table variant="simple">
-      <Thead bg={ThBgColor}>
-        <Tr whiteSpace={"nowrap"} color={ThColor}>
+    <Table
+      shadow={tbShadow}
+      variant="simple"
+      border={borderSize}
+      borderWidth={borderWid}
+      overflowX="auto"
+    >
+      <Thead bg={ThBgColor} whiteSpace={'nowrap'}>
+        <Tr color={ThColor}>
           <Th>Photo</Th>
           <Th>Name</Th>
           <Th>ID Number</Th>
@@ -27,6 +40,7 @@ const TableWithIcons = ({ productsImages, ThBgColor, ThColor }) => {
                   objectFit="cover"
                   src={product.image}
                   alt={product.name}
+                  display="block"
                 />
               </Td>
               <Td>{product.name}</Td>
@@ -40,5 +54,4 @@ const TableWithIcons = ({ productsImages, ThBgColor, ThColor }) => {
     </Table>
   );
 };
-
 export default TableWithIcons;
