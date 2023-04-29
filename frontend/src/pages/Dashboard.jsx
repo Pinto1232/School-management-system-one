@@ -232,7 +232,7 @@ const Dashboard = () => {
                 maxW="4xl"
                 textAlign={"center"}
                 mx="auto"
-                p={6}
+                p={3}
                 borderWidth={0}
                 rounded="md"
                 border={2}
@@ -250,7 +250,7 @@ const Dashboard = () => {
                 maxW="4xl"
                 textAlign={"center"}
                 mx="auto"
-                p={6}
+                p={3}
                 borderWidth={0}
                 rounded="md"
                 border={2}
