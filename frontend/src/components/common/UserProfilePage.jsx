@@ -1,6 +1,13 @@
 import { Flex, Heading, Text, Stack, Avatar, Box } from "@chakra-ui/react";
 
-const UserProfile = ({ name, username, email, avatarSrc }) => {
+const UserProfile = ({
+  name,
+  username,
+  email,
+  avatarSrc,
+  imageWidth,
+  ImageHeight,
+}) => {
   return (
     <Flex
       direction={{ base: "column", md: "row" }}
@@ -13,6 +20,8 @@ const UserProfile = ({ name, username, email, avatarSrc }) => {
         size={{ base: "xl", md: "2xl" }}
         name={name}
         src={avatarSrc}
+        w={imageWidth}
+        h={ImageHeight}
         mr={{ base: 0, md: 8 }}
         mb={{ base: 4, md: 0 }}
       />
@@ -20,18 +29,14 @@ const UserProfile = ({ name, username, email, avatarSrc }) => {
         <Heading as="h1" size="xl">
           {name}
         </Heading>
-        <Text fontSize="xl">
-          {username}
-        </Text>
-        <Text fontSize="xl">
-          {email}
-        </Text>
+        <Text fontSize="xl">{username}</Text>
+        <Text fontSize="xl">{email}</Text>
         <Box>
           {/* User profile information or components can be added here */}
         </Box>
       </Stack>
     </Flex>
   );
-}
+};
 
 export default UserProfile;

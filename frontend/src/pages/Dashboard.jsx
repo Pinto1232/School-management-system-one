@@ -1,6 +1,6 @@
-import React, { useRef, useContext, useState } from 'react';
-import UserContext from '../contexts/UserContext';
-import { Link, useToast } from '@chakra-ui/react';
+import React, { useRef, useContext, useState } from "react";
+import UserContext from "../contexts/UserContext";
+import { Link, useToast } from "@chakra-ui/react";
 import {
   Box,
   Flex,
@@ -16,35 +16,48 @@ import {
   DrawerHeader,
   DrawerBody,
   Button,
-} from '@chakra-ui/react';
-import { HamburgerIcon } from '@chakra-ui/icons';
-import { useNavigate } from 'react-router-dom';
-import { FaUsers, FaChalkboardTeacher, FaSchool, FaTasks, FaUserClock, FaFileAlt, FaCalendarAlt, FaBookOpen, FaComments, FaBook, FaCalendar, FaGraduationCap, FaUnlockAlt } from 'react-icons/fa';
-import { IoLogOut } from 'react-icons/io5';
-import AdjustableColumnLayout from '../components/specific/twocolumns/AdjustableColumnLayout';
-import UserProfile from '../components/common/UserProfilePage';
-import Avatars from '../assets/images/logo.png'
-import ProductSorting from '../components/specific/ProductSorting';
-import ProductSortingOptionsData from '../data/ProductSortingOptionsData';
-import Breadcrumbs from '../components/specific/Breadcrumbs';
-import BreadcumberData from '../data/BreadcumberData';
-import BlogPost from '../components/common/BlogPost';
-import blogPostsData from '../data/blogPostsData';
-
-
+} from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
+import {
+  FaUsers,
+  FaChalkboardTeacher,
+  FaSchool,
+  FaTasks,
+  FaUserClock,
+  FaFileAlt,
+  FaCalendarAlt,
+  FaBookOpen,
+  FaComments,
+  FaBook,
+  FaCalendar,
+  FaGraduationCap,
+  FaUnlockAlt,
+} from "react-icons/fa";
+import { IoLogOut } from "react-icons/io5";
+import AdjustableColumnLayout from "../components/specific/twocolumns/AdjustableColumnLayout";
+import UserProfile from "../components/common/UserProfilePage";
+import Avatars from "../assets/images/logo.png";
+import ProductSorting from "../components/specific/ProductSorting";
+import ProductSortingOptionsData from "../data/ProductSortingOptionsData";
+import Breadcrumbs from "../components/specific/Breadcrumbs";
+import BreadcumberData from "../data/BreadcumberData";
+import BlogPost from "../components/common/BlogPost";
+import blogPostsData from "../data/blogPostsData";
+import TableWithIcons from "../components/specific/tableImage/TableWithIcons";
+import productsImagesData from "../data/productsImagesData";
 
 const Dashboard = () => {
-  const bgDashboard = useColorModeValue('gray.50', 'gray.700');
+  const bgDashboard = useColorModeValue("gray.50", "gray.700");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
-  const textColor = useColorModeValue('#4A5568', '#fff');
-  const backgroundColor = useColorModeValue('#fff', 'gray.700');
-  const backgroundBorder = useColorModeValue('', '1px solid');
-
+  const textColor = useColorModeValue("#4A5568", "#fff");
+  const backgroundColor = useColorModeValue("#fff", "gray.700");
+  const backgroundBorder = useColorModeValue("", "1px solid");
 
   /* console.log('User from context:', user); */
 
@@ -56,33 +69,61 @@ const Dashboard = () => {
 
     // Show a toast message
     toast({
-      title: 'You are logging out!',
-      status: 'info',
+      title: "You are logging out!",
+      status: "info",
       duration: 3000,
       isClosable: true,
-      position: 'top-right',
+      position: "top-right",
     });
 
     // Implement your logout logic here
     setUser(null);
-    navigate('/');
+    navigate("/");
   };
 
   const menuItems = [
-    { label: 'Student Management', path: '/student-management', icon: FaUsers },
-    { label: 'Teacher Management', path: '/teacher-management', icon: FaChalkboardTeacher },
-    { label: 'Class Management', path: '/class-management', icon: FaSchool },
-    { label: 'Attendance Tracking', path: '/attendance-tracking', icon: FaUserClock },
-    { label: 'Grading and Assessment', path: '/grading-assessment', icon: FaFileAlt },
-    { label: 'Timetable Management', path: '/timetable-management', icon: FaCalendarAlt },
-    { label: 'Lesson Planning', path: '/lesson-planning', icon: FaBookOpen },
-    { label: 'Parent Communication', path: '/parent-communication', icon: FaComments },
-    { label: 'Library Management', path: '/library-management', icon: FaBook },
-    { label: 'School Calendar', path: '/school-calendar', icon: FaCalendar },
-    { label: 'Online Learning Integration', path: '/online-learning', icon: FaGraduationCap },
-    { label: 'Events', path: '/events', icon: FaCalendarAlt },
-    { label: 'Task', path: '/tasks', icon: FaTasks },
-    { label: 'User Permissions and Roles', path: '/user-permissions-roles', icon: FaUnlockAlt },
+    { label: "Student Management", path: "/student-management", icon: FaUsers },
+    {
+      label: "Teacher Management",
+      path: "/teacher-management",
+      icon: FaChalkboardTeacher,
+    },
+    { label: "Class Management", path: "/class-management", icon: FaSchool },
+    {
+      label: "Attendance Tracking",
+      path: "/attendance-tracking",
+      icon: FaUserClock,
+    },
+    {
+      label: "Grading and Assessment",
+      path: "/grading-assessment",
+      icon: FaFileAlt,
+    },
+    {
+      label: "Timetable Management",
+      path: "/timetable-management",
+      icon: FaCalendarAlt,
+    },
+    { label: "Lesson Planning", path: "/lesson-planning", icon: FaBookOpen },
+    {
+      label: "Parent Communication",
+      path: "/parent-communication",
+      icon: FaComments,
+    },
+    { label: "Library Management", path: "/library-management", icon: FaBook },
+    { label: "School Calendar", path: "/school-calendar", icon: FaCalendar },
+    {
+      label: "Online Learning Integration",
+      path: "/online-learning",
+      icon: FaGraduationCap,
+    },
+    { label: "Events", path: "/events", icon: FaCalendarAlt },
+    { label: "Task", path: "/tasks", icon: FaTasks },
+    {
+      label: "User Permissions and Roles",
+      path: "/user-permissions-roles",
+      icon: FaUnlockAlt,
+    },
   ];
 
   const handleNavigation = (path) => {
@@ -98,7 +139,6 @@ const Dashboard = () => {
     // Do something else, like update the product list with the new sorting option
   };
 
-
   return (
     <Box bg={bgDashboard} minH="100vh">
       <Flex direction="column" maxW="1200px" mx="auto" p={4}>
@@ -106,18 +146,17 @@ const Dashboard = () => {
           <Heading>
             {/* <Text fontSize="3xl">PintoEdu Management</Text> */}
             <Flex
-              justify={'center'}
-              alignItems={'center'}
-              whiteSpace={'nowrap'}
+              justify={"center"}
+              alignItems={"center"}
+              whiteSpace={"nowrap"}
             >
               <UserProfile
+                ImageHeight={"20%"}
+                imageWidth={"20%"}
                 avatarSrc="https://cdn-icons-png.flaticon.com/512/147/147140.png"
               />
               {user && (
-                <Text
-                  fontSize="2xl"
-                  marginTop={10}
-                  fontWeight="bold">
+                <Text fontSize="2xl" marginTop={10} fontWeight="bold">
                   Welcome, {user.name}
                 </Text>
               )}
@@ -130,25 +169,29 @@ const Dashboard = () => {
             variant="outline"
           />
         </Flex>
-        <Text
-          color={textColor}
-          fontSize="3xl"
-          fontWeight={'bold'}>
+        <Text color={textColor} fontSize="3xl" fontWeight={"bold"}>
           Dashboard
         </Text>
-        <Box bg={backgroundColor} color={textColor} >
+        <Box bg={backgroundColor} color={textColor}>
           <Breadcrumbs
             items={BreadcumberData}
-            bgColor={'blue.50'}
+            bgColor={'gray.50'}
             BreadcPadding={2}
           />
         </Box>
-        <VStack spacing={4} align="stretch">
-          <Box border={backgroundBorder} bg={backgroundColor} boxShadow="base" p={6} borderRadius="md">
+        <VStack spacing={4}  align="stretch">
+          <Box
+            border={backgroundBorder}
+            bg={backgroundColor}
+            boxShadow="base"
+            p={6}
+            borderRadius="md"
+          >
             {/* Add content here */}
             <AdjustableColumnLayout>
               <Flex gap={4}>
                 <Box>
+
                   <ProductSorting
                     options={ProductSortingOptionsData}
                     selectedOption={selectedOption}
@@ -156,41 +199,100 @@ const Dashboard = () => {
                     BoxWidth={200}
                   />
                 </Box>
-                <Flex gap={4} justifyContent={'center'} alignItems={'center'}>
-                  {Array.isArray(blogPostsData) && blogPostsData.slice(0, 4).map((post) => (
-                    <BlogPost key={post.title}
-                      imageSrc={post.imageSrc}
-                      title={post.title}
-                      cardWidth={200}
-                      setButtonOff={'none'}
-                      CenterPositon={'center'}
-                      TextSize={'xs'}
-                    />
-                  ))}
+                <Flex gap={4} justifyContent={"center"} alignItems={"center"}>
+                  {Array.isArray(blogPostsData) &&
+                    blogPostsData.slice(0, 4).map((post) => (
+                      <BlogPost
+                        key={post.id}
+                        imageSrc={post.imageSrc}
+                        imageDisplay={'none'} 
+                        imageH={7}
+                        imageWidth={"100%"}
+                        title={post.title}
+                        cardWidth={200}
+                        setButtonOff={"none"}
+                        CenterPositon={"center"}
+                        TextSize={"xs"}
+                        cardHeight={100}
+                      />
+                    ))}
                 </Flex>
               </Flex>
             </AdjustableColumnLayout>
           </Box>
-          <Box border={backgroundBorder} bg={backgroundColor} boxShadow="base" p={6} borderRadius="md">
-            <Text color={textColor} fontSize="xl">Events</Text>
+          <Box
+            border={backgroundBorder}
+            bg={backgroundColor}
+            boxShadow="base"
+            p={6}
+            borderRadius="md"
+          >
+            <Text color={textColor} fontSize="xl">
+              Events
+            </Text>
+            {/* Add content here */}
+            <AdjustableColumnLayout>
+              <Box
+                maxW="4xl"
+                textAlign={"center"}
+                mx="auto"
+                p={6}
+                borderWidth={1}
+                rounded="md"
+              >
+                <TableWithIcons
+                  productsImages={productsImagesData}
+                  ThBgColor={"gray.800"}
+                  ThColor={"#fff"}
+                />
+              </Box>
+            </AdjustableColumnLayout>
+          </Box>
+          <Box
+            border={backgroundBorder}
+            bg={backgroundColor}
+            boxShadow="base"
+            p={6}
+            borderRadius="md"
+          >
+            <Text color={textColor} fontSize="xl">
+              Tasks
+            </Text>
             {/* Add content here */}
           </Box>
-          <Box border={backgroundBorder} bg={backgroundColor} boxShadow="base" p={6} borderRadius="md">
-            <Text color={textColor} fontSize="xl">Tasks</Text>
+          <Box
+            border={backgroundBorder}
+            bg={backgroundColor}
+            boxShadow="base"
+            p={6}
+            borderRadius="md"
+          >
+            <Text color={textColor} fontSize="xl">
+              Tasks
+            </Text>
             {/* Add content here */}
           </Box>
-          <Box border={backgroundBorder} bg={backgroundColor} boxShadow="base" p={6} borderRadius="md">
-            <Text color={textColor} fontSize="xl">Tasks</Text>
-            {/* Add content here */}
-          </Box>
-          <Box border={backgroundBorder} bg={backgroundColor} boxShadow="base" p={6} borderRadius="md">
-            <Text color={textColor} fontSize="xl">Tasks</Text>
+          <Box
+            border={backgroundBorder}
+            bg={backgroundColor}
+            boxShadow="base"
+            p={6}
+            borderRadius="md"
+          >
+            <Text color={textColor} fontSize="xl">
+              Tasks
+            </Text>
             {/* Add content here */}
           </Box>
         </VStack>
       </Flex>
 
-      <Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={btnRef}>
+      <Drawer
+        isOpen={isOpen}
+        placement="left"
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
         <DrawerOverlay />
         <DrawerContent>
           <DrawerHeader borderBottomWidth="1px">Dashboard Menu</DrawerHeader>
@@ -203,13 +305,19 @@ const Dashboard = () => {
                   onClick={() => handleNavigation(item.path)}
                   alignItems="center"
                 >
-                  <Box as="span" display="inline-flex" alignItems="center" spacing="12" gap={4}>
+                  <Box
+                    as="span"
+                    display="inline-flex"
+                    alignItems="center"
+                    spacing="12"
+                    gap={4}
+                  >
                     <item.icon boxSize="6" />
                     <Link
                       textDecoration="none"
                       hover={{
-                        textDecoration: 'none',
-                        backgroundColor: 'gray.100',
+                        textDecoration: "none",
+                        backgroundColor: "gray.100",
                         paddingTop: "1",
                         paddingBottom: "1",
                         paddingLeft: "2",
@@ -218,14 +326,21 @@ const Dashboard = () => {
                         width: "230px",
                         whiteSpace: "nowrap",
                         borderRadius: "8",
-                      }}>
+                      }}
+                    >
                       <span>{item.label}</span>
                     </Link>
                   </Box>
                 </Flex>
               ))}
               {/* Add the Log out button */}
-              <Button colorScheme="red" onClick={handleLogout} isLoading={isLoading} leftIcon={<IoLogOut />} alignItems="center">
+              <Button
+                colorScheme="red"
+                onClick={handleLogout}
+                isLoading={isLoading}
+                leftIcon={<IoLogOut />}
+                alignItems="center"
+              >
                 Log out
               </Button>
             </VStack>
