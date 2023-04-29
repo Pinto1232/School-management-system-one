@@ -99,7 +99,7 @@ function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
                 <Text fontSize={{ base: 'sm', sm: 'md', md: 'md' }} color="gray.500">
                     © 2023 My Company. All rights reserved.
                 </Text>
-                <Flex gap={4}>
+                <Flex gap={2}>
                     <ShippingAndPaymentIcons
                         icons={ShippingAndPaymentData}
                         iconSize={12}

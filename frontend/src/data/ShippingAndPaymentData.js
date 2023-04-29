@@ -5,15 +5,14 @@ import paypaLogo from '../assets/images/paypal.png'
 export default [
   {
     name: 'Visa',
-    imageSrc: { visaLogo },
+    imageSrc: visaLogo,
   },
   {
     name: 'MasterCard',
-    imageSrc: { mastercardLogo },
+    imageSrc: mastercardLogo,
   },
   {
     name: 'Paypal',
-    imageSrc: { paypaLogo },
+    imageSrc: paypaLogo,
   },
 ];
-
