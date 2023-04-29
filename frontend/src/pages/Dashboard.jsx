@@ -258,7 +258,7 @@ const Dashboard = () => {
         <DrawerContent>
           <DrawerHeader borderBottomWidth="1px">Dashboard Menu</DrawerHeader>
           <DrawerBody>
-            <VStack spac ing={4} align="stretch">
+            <VStack spacing={4} align="stretch">
               {menuItemsData.map((item) => (
                 <Flex
                   key={item.label}
