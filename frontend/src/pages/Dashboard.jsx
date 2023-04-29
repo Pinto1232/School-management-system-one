@@ -24,6 +24,12 @@ import { IoLogOut } from 'react-icons/io5';
 import AdjustableColumnLayout from '../components/specific/twocolumns/AdjustableColumnLayout';
 import UserProfile from '../components/common/UserProfilePage';
 import Avatars from '../assets/images/logo.png'
+import ProductSorting from '../components/specific/ProductSorting';
+import ProductSortingOptionsData from '../data/ProductSortingOptionsData';
+import Breadcrumbs from '../components/specific/Breadcrumbs';
+import BreadcumberData from '../data/BreadcumberData';
+import BlogPost from '../components/common/BlogPost';
+import blogPostsData from '../data/blogPostsData';
 
 
 
@@ -84,16 +90,28 @@ const Dashboard = () => {
     onClose();
   };
 
+  // Product sorting
+  const [selectedOption, setSelectedOption] = useState("price-low-to-high");
+
+  const handleSortingChange = (value) => {
+    setSelectedOption(value);
+    // Do something else, like update the product list with the new sorting option
+  };
+
+
   return (
     <Box bg={bgDashboard} minH="100vh">
       <Flex direction="column" maxW="1200px" mx="auto" p={4}>
         <Flex justify="space-between" align="center" mb={4}>
           <Heading>
-            <Text fontSize="3xl">PintoEdu Management</Text>
-            <Flex justify={'center'} alignItems={'center'}>
-              <UserProfile 
-                /* Getting the user image profiles */
-                avatarSrc={Avatars}
+            {/* <Text fontSize="3xl">PintoEdu Management</Text> */}
+            <Flex
+              justify={'center'}
+              alignItems={'center'}
+              whiteSpace={'nowrap'}
+            >
+              <UserProfile
+                avatarSrc="https://cdn-icons-png.flaticon.com/512/147/147140.png"
               />
               {user && (
                 <Text
@@ -112,12 +130,45 @@ const Dashboard = () => {
             variant="outline"
           />
         </Flex>
+        <Text
+          color={textColor}
+          fontSize="3xl"
+          fontWeight={'bold'}>
+          Dashboard
+        </Text>
+        <Box bg={backgroundColor} color={textColor} >
+          <Breadcrumbs
+            items={BreadcumberData}
+            bgColor={'blue.50'}
+            BreadcPadding={2}
+          />
+        </Box>
         <VStack spacing={4} align="stretch">
           <Box border={backgroundBorder} bg={backgroundColor} boxShadow="base" p={6} borderRadius="md">
-            <Text color={textColor} fontSize="xl">Announcements</Text>
             {/* Add content here */}
             <AdjustableColumnLayout>
-              <Heading>Pinto</Heading>
+              <Flex gap={4}>
+                <Box>
+                  <ProductSorting
+                    options={ProductSortingOptionsData}
+                    selectedOption={selectedOption}
+                    onChange={handleSortingChange}
+                    BoxWidth={200}
+                  />
+                </Box>
+                <Flex gap={4} justifyContent={'center'} alignItems={'center'}>
+                  {Array.isArray(blogPostsData) && blogPostsData.slice(0, 4).map((post) => (
+                    <BlogPost key={post.title}
+                      imageSrc={post.imageSrc}
+                      title={post.title}
+                      cardWidth={200}
+                      setButtonOff={'none'}
+                      CenterPositon={'center'}
+                      TextSize={'xs'}
+                    />
+                  ))}
+                </Flex>
+              </Flex>
             </AdjustableColumnLayout>
           </Box>
           <Box border={backgroundBorder} bg={backgroundColor} boxShadow="base" p={6} borderRadius="md">

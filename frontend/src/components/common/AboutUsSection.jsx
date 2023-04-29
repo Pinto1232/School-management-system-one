@@ -3,10 +3,10 @@ import { Flex, Box, Heading, Text, Image, useColorModeValue } from "@chakra-ui/r
 import CustomButton from './CustomButton';
 
 
-const AboutUsSection = ({ heading, subheading, image, altText, children, style, headingStyle}) => {
+const AboutUsSection = ({ heading, subheading, image, altText, children, style, headingStyle }) => {
     const bgButtonColor = useColorModeValue('#319795', '#3182ce')
-    
-    
+
+
     return (
         <Flex
             flexWrap="wrap"
@@ -19,10 +19,10 @@ const AboutUsSection = ({ heading, subheading, image, altText, children, style, 
             {...style}
         >
             <Box flex="1" textAlign={{ base: "center", md: "left" }}>
-                <Heading  as="h2" size="xl" mb={4}>
+                <Heading as="h2" size="xl" mb={4}>
                     {heading}
                 </Heading>
-                <Text {...headingStyle} fontSize="xl" mb={8}>
+                <Text {...headingStyle} fontSize="md" w={385} mb={8}>
                     {subheading}
                 </Text>
                 {children}

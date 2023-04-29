@@ -11,6 +11,7 @@ import ShippingAndPaymentIcons from '../specific/ShippingAndPaymentIcons';
 import ShippingAndPaymentData from '../../data/ShippingAndPaymentData';
 
 
+
 function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
     const textColor = useColorModeValue('#4A5568', '#fff');
     const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');

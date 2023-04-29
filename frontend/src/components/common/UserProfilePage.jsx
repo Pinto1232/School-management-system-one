@@ -20,8 +20,12 @@ const UserProfile = ({ name, username, email, avatarSrc }) => {
         <Heading as="h1" size="xl">
           {name}
         </Heading>
-        <Text fontSize="xl">{username}</Text>
-        <Text fontSize="xl">{email}</Text>
+        <Text fontSize="xl">
+          {username}
+        </Text>
+        <Text fontSize="xl">
+          {email}
+        </Text>
         <Box>
           {/* User profile information or components can be added here */}
         </Box>

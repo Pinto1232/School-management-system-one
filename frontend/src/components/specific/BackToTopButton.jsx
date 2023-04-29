@@ -2,7 +2,7 @@ import { Button, Icon } from "@chakra-ui/react";
 import { FaArrowUp } from "react-icons/fa";
 import { useState, useEffect } from "react";
 
-const BackToTopButton = () => {
+const BackToTopButton = ({ iconButtonW, iconButtonH}) => {
     const [showButton, setShowButton] = useState(false);
 
     useEffect(() => {
@@ -35,7 +35,7 @@ const BackToTopButton = () => {
                     colorScheme="teal"
                     _hover={{ bg: "teal.500" }}
                 >
-                    <Icon as={FaArrowUp} />
+                    <Icon w={iconButtonW} h={iconButtonH} as={FaArrowUp} />
                 </Button>
             )}
         </>

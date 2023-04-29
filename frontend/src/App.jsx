@@ -14,6 +14,7 @@ import { Box } from '@chakra-ui/react';
 import ForgetPassword from './pages/ForgetPassowrd';
 import TesPage from './pages/TesPage';
 import TestPageTwo from './pages/TestPageTwo';
+import BackToTopButton from './components/specific/BackToTopButton';
 
 const App = () => {
 
@@ -71,6 +72,9 @@ const App = () => {
             <Route path="/test" element={<TesPage />} />
             <Route path="/testtwo" element={<TestPageTwo />}/ >
           </Routes>
+          <BackToTopButton
+            
+          />
           <Footer/>
         </Box>
       </UserContext.Provider>

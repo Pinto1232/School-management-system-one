@@ -1,11 +1,20 @@
 import { Box, Flex, Heading, Text, Image, Button } from "@chakra-ui/react";
 
-const BlogPost = ({ title, author, date, imageSrc, excerpt, link }) => {
+const BlogPost = ({
+    cardWidth, 
+    TextSize, 
+    CenterPositon, 
+    setButtonOff, 
+    title, 
+    author, 
+    date, 
+    imageSrc, 
+    excerpt, link }) => {
     return (
-        <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md">
+        <Box w={cardWidth} p={4} shadow="lg" borderWidth="1px" borderRadius="md">
             <Image src={imageSrc} alt={title} mb={4} />
 
-            <Heading as="h3" size="md" mb={2}>
+            <Heading fontSize={TextSize} textAlign={CenterPositon} as="h3" size="md" mb={2}>
                 {title}
             </Heading>
 
@@ -22,7 +31,7 @@ const BlogPost = ({ title, author, date, imageSrc, excerpt, link }) => {
                 {excerpt}
             </Text>
 
-            <Button as="a" href={link} target="_blank">
+            <Button display={setButtonOff} as="a" href={link} target="_blank">
                 Read More
             </Button>
         </Box>

@@ -1,19 +1,32 @@
 import { Box, Flex, Select } from "@chakra-ui/react";
 
-const ProductSorting = ({ options, selectedOption, onChange }) => {
+const ProductSorting = ({
+    options,
+    selectedOption,
+    onChange,
+    BoxWidth }) => {
+
     return (
         <Box>
-            <Flex alignItems="center" justify={'center'}>
-                <Box whiteSpace="nowrap" mr={2}>
+            <Flex gap={2} justify={'center'} alignItems={'center'}  >
+                <Box whiteSpace="nowrap" >
                     <strong >Sort by:</strong>
                 </Box>
                 <Select
+                border={0}
                     size="sm"
+                    w={BoxWidth}
                     value={selectedOption}
-                    onChange={(e) => onChange(e.target.value)}
+                    cursor={'pointer'}
+                    onChange={(e) =>
+                        onChange(e.target.value)
+                    }
                 >
                     {options.map((option, index) => (
-                        <option key={index} value={option.value}>
+                        <option
+                            key={index}
+                            value={option.value}
+                        >
                             {option.label}
                         </option>
                     ))}

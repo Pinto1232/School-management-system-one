@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 
 const WeatherWidgetAdditional = ({
     temperature,
@@ -7,12 +7,14 @@ const WeatherWidgetAdditional = ({
     humidity,
     windSpeed,
     pressure,
+    percentageColor,
+    weatherBg
 }) => {
     return (
-        <Box bg="gray.800" p={4} borderRadius="md">
-            <Text fontSize="2xl" fontWeight="bold">
-                {temperature}°C
-            </Text>
+        <Box bg={weatherBg} p={4} borderRadius="md">
+            <Flex gap={2} fontSize="2xl" fontWeight="bold">
+                <Text color={percentageColor}>{temperature}</Text>°C
+            </Flex>
             <Text fontSize="lg">{condition}</Text>
             <Text fontSize="md">{city}</Text>
             <Text fontSize="md">Humidity: {humidity}%</Text>

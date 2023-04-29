@@ -49,10 +49,16 @@ import WeatherData from '../data/WeatherData'
 import WeatherWidgetAdditional from '../components/specific/widgets/WeatherWidgetAdditional'
 import WeatherWidgetForecast from '../components/specific/widgets/WeatherWidgetForecast'
 import TwitterFeed from '../components/specific/widgets/TwitterFeed'
+import UserRoles from '../components/specific/UserRoles'
+import DashboardDropdown from '../components/specific/DashboardDropdownMenu'
+import optionsDataTwo from '../data/optionsDataTwo'
 
 
 const TestPageTwo = () => {
     const orientation = "horizontal";
+
+
+
 
     // Twitter widget 
     const twitterHandle = "OpenAI";
@@ -436,21 +442,26 @@ const TestPageTwo = () => {
                 mx="auto" p={3}
                 borderWidth={1}
                 rounded="md"
+                gap={10}
             >
                 <WeatherWidgetSimple
                     temperature={22}
                     condition="cloudy"
                     location="New York"
-                />
-
-                <WeatherWidgetIcon
-                    iconCode="04d"
-                    size="md"
-                    colorScheme="blue"
+                    tempColor={'green.200'}
+                    bgColor={'blue.500'}
+                    cardH={100}
                 />
 
                 <WeatherWidgetAdditional
                     data={WeatherData}
+                    percentageColor={'green.200'}
+                    humidity={-12}
+                    pressure={-2}
+                    windSpeed={50}
+                    temperature={-20}
+                    city={'Cape Town'}
+                    weatherBg={'blue.500'}
                 />
 
                 <WeatherWidgetForecast
@@ -480,9 +491,22 @@ const TestPageTwo = () => {
                 />
             </Flex>
 
+            {/* User role */}
 
+            <Box maxW="md" mt={10} mx="auto" p={6} borderWidth={1} rounded="md">
+                <UserRoles
+                    roles={['Admin', 'Editor', 'Contributor']}
+                    activeRole="Editor"
+                    onRoleChange={(role) => console.log('Selected role:', role)}
+                />
+            </Box>
 
-
+            {/* Dropdown Menu */}
+            <Flex whiteSpace={'nowrap'} border={0} color={'#fff'} maxW="xl" mt={10} mx="auto" p={6} borderWidth={1} rounded="md">
+                <DashboardDropdown
+                    options={optionsDataTwo}
+                />
+            </Flex>
 
 
             {/* Sticky footer */}

@@ -21,7 +21,7 @@ const DropdownMenu = () => {
                 as={IconButton}
                 aria-label="Options"
                 icon={<Icon as={FaUser} />}
-                /* variant="outline" */
+                variant="outline" 
                 size="sm"
                 bg={dropdownBg}
                 zIndex={2000}
@@ -32,6 +32,7 @@ const DropdownMenu = () => {
                         <Icon as={FaUser} mr="2" />
                         <Text>My Account</Text>
                     </MenuItem>
+                    <MenuDivider/>
                     <MenuItem bg={dropdownBg}>
                         <Icon as={FaCog} mr="2" />
                         <Text>Settings</Text>
