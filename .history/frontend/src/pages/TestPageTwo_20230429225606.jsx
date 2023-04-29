@@ -622,6 +622,7 @@ const TestPageTwo = () => {
         mx="auto"
         borderWidth={1}
         rounded="md"
+        
       >
         <AccordionComponent />
       </Box>

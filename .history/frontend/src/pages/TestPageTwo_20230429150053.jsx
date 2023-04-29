@@ -54,7 +54,6 @@ import DashboardDropdown from "../components/specific/DashboardDropdownMenu";
 import optionsDataTwo from "../data/optionsDataTwo";
 import cardCustomData from "../data/cardCustomData";
 import CardCustom from "../components/common/CardCustom";
-import AccordionComponent from "../components/common/AccordionComponent";
 
 const TestPageTwo = () => {
   const orientation = "horizontal";
@@ -600,7 +599,7 @@ const TestPageTwo = () => {
 
       {/* Card custom */}
       <Box
-        /*  maxW="7xl" */
+       /*  maxW="7xl" */
         border={0}
         mt={10}
         mx="auto"
@@ -614,16 +613,6 @@ const TestPageTwo = () => {
           rows={4}
           columns={1}
         />
-      </Box>
-
-      <Box
-        maxW="4xl"
-        textAlign={"start"}
-        mx="auto"
-        borderWidth={1}
-        rounded="md"
-      >
-        <AccordionComponent />
       </Box>
 
       {/* Sticky footer */}

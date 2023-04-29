@@ -600,7 +600,7 @@ const TestPageTwo = () => {
 
       {/* Card custom */}
       <Box
-        /*  maxW="7xl" */
+       /*  maxW="7xl" */
         border={0}
         mt={10}
         mx="auto"
@@ -616,15 +616,7 @@ const TestPageTwo = () => {
         />
       </Box>
 
-      <Box
-        maxW="4xl"
-        textAlign={"start"}
-        mx="auto"
-        borderWidth={1}
-        rounded="md"
-      >
-        <AccordionComponent />
-      </Box>
+      <AccordionComponent />
 
       {/* Sticky footer */}
       <StickyFooter bgColor={"black"} fontSize={14} bgTextColor={"white"}>

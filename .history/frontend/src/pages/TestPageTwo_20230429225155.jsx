@@ -618,8 +618,9 @@ const TestPageTwo = () => {
 
       <Box
         maxW="4xl"
-        textAlign={"start"}
+        textAlign={"center"}
         mx="auto"
+        p={6}
         borderWidth={1}
         rounded="md"
       >

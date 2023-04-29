@@ -620,6 +620,7 @@ const TestPageTwo = () => {
         maxW="4xl"
         textAlign={"start"}
         mx="auto"
+        p={1}
         borderWidth={1}
         rounded="md"
       >
