@@ -1,6 +1,6 @@
 import React, { useRef, useContext, useState } from "react";
 import UserContext from "../contexts/UserContext";
-import { Link, useToast } from "@chakra-ui/react";
+import { Grid, Link, useToast } from "@chakra-ui/react";
 import {
   Box,
   Flex,
@@ -46,6 +46,8 @@ import BlogPost from "../components/common/BlogPost";
 import blogPostsData from "../data/blogPostsData";
 import TableWithIcons from "../components/specific/tableImage/TableWithIcons";
 import productsImagesData from "../data/productsImagesData";
+import CardCustom from "../components/common/CardCustom";
+import cardCustomData from "../data/cardCustomData";
 
 const Dashboard = () => {
   const bgDashboard = useColorModeValue("gray.50", "gray.700");
@@ -175,51 +177,44 @@ const Dashboard = () => {
         <Box bg={backgroundColor} color={textColor}>
           <Breadcrumbs
             items={BreadcumberData}
-            bgColor={'gray.50'}
+            bgColor={"gray.50"}
             BreadcPadding={2}
           />
         </Box>
-        <VStack spacing={4}  align="stretch">
-          <Box
+        <VStack spacing={4} align="stretch">
+          <Flex
             border={backgroundBorder}
             bg={backgroundColor}
             boxShadow="base"
             p={6}
             borderRadius="md"
+            display="flex"
           >
-            {/* Add content here */}
             <AdjustableColumnLayout>
               <Flex gap={4}>
-                <Box>
-
+                {/* Sorting by component */}
+                <Grid>
                   <ProductSorting
                     options={ProductSortingOptionsData}
                     selectedOption={selectedOption}
                     onChange={handleSortingChange}
-                    BoxWidth={200}
                   />
-                </Box>
-                <Flex gap={4} justifyContent={"center"} alignItems={"center"}>
-                  {Array.isArray(blogPostsData) &&
-                    blogPostsData.slice(0, 4).map((post) => (
-                      <BlogPost
-                        key={post.id}
-                        imageSrc={post.imageSrc}
-                        imageDisplay={'none'} 
-                        imageH={7}
-                        imageWidth={"100%"}
-                        title={post.title}
-                        cardWidth={200}
-                        setButtonOff={"none"}
-                        CenterPositon={"center"}
-                        TextSize={"xs"}
-                        cardHeight={100}
-                      />
-                    ))}
-                </Flex>
+                </Grid>
+                {/* End of sorting by */}
+                <Grid>
+                  {/* Custom card */}
+                  <CardCustom
+                    data={cardCustomData}
+                    paragraphWidth="200px"
+                    rows={4}
+                    columns={1}
+                  />
+                  {/* End of custom card */}
+                </Grid>
               </Flex>
             </AdjustableColumnLayout>
-          </Box>
+          </Flex>
+
           <Box
             border={backgroundBorder}
             bg={backgroundColor}

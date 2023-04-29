@@ -598,8 +598,21 @@ const TestPageTwo = () => {
       </Flex>
 
       {/* Card custom */}
-      <Box maxW="7xl" mt={10} mx="auto" p={6} borderWidth={1} rounded="md">
-        <CardCustom data={cardCustomData} cardsPerRow={3} />
+      <Box
+       /*  maxW="7xl" */
+        border={0}
+        mt={10}
+        mx="auto"
+        p={6}
+        borderWidth={1}
+        rounded="md"
+      >
+        <CardCustom
+          data={cardCustomData}
+          paragraphWidth="200px"
+          rows={4}
+          columns={1}
+        />
       </Box>
 
       {/* Sticky footer */}

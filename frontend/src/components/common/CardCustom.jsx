@@ -1,40 +1,62 @@
 import React from "react";
 import { Box, Flex, Image, Heading, Text } from "@chakra-ui/react";
 
-const CardCustom = ({ data, cardsPerRow, paragraphWidth }) => {
-  const cardWidth = `${100 / cardsPerRow}%`;
+const CardCustom = ({
+  data,
+  cardsPerRow,
+  CardWidth,
+  paragraphWidth,
+  rows,
+  columns,
+}) => {
+  const cardWidth = `${100 / columns}%`;
+  const totalCards = rows * columns;
 
-  const rows = [];
+  const rowsArray = [];
 
-  for (let i = 0; i < data.length; i += cardsPerRow) {
-    const row = data.slice(i, i + cardsPerRow);
-    rows.push(row);
+  for (let i = 0; i < totalCards; i += columns) {
+    const row = data.slice(i, i + columns);
+    rowsArray.push(row);
   }
 
   return (
-    <Flex alignItems="center" justifyContent="center" marginTop={4}>
-      {rows.map((row, rowIndex) => (
-        <Flex key={rowIndex} flexWrap="wrap">
+    <Flex
+      alignItems="center"
+      justifyContent="center"
+      marginTop={4}
+      gap={4}
+      w={CardWidth}
+    >
+      {rowsArray.map((row, rowIndex) => (
+        <Box shadow={"lg"} key={rowIndex} flexWrap="wrap">
           {row.map((card, cardIndex) => (
-            <Box key={`${rowIndex}-${cardIndex}`} width={cardWidth} padding={2}>
+            <Box
+              key={`${rowIndex}-${cardIndex}`}
+              width={`calc(100%/${columns})`}
+              padding={2}
+            >
               <Flex>
                 <Image
                   src={card.image}
                   alt={card.title}
-                  boxSize="100px"
+                  boxSize={["50px", "100px"]}
                   objectFit="cover"
+                  borderRadius={"50%"}
                 />
-                <Box marginLeft={2}>
-                  <Heading size="sm">{card.heading}</Heading>
-                  <Text w={paragraphWidth}>{card.paragraphText}</Text>
+                <Box marginLeft={5}>
+                  <Heading size="sm" fontSize={["md", "lg"]}>
+                    {card.heading}
+                  </Heading>
+                  <Text w={paragraphWidth} fontSize={["sm", "md"]}>
+                    {card.paragraphText}
+                  </Text>
                 </Box>
               </Flex>
             </Box>
           ))}
-        </Flex>
+        </Box>
       ))}
     </Flex>
   );
 };
-
 export default CardCustom;

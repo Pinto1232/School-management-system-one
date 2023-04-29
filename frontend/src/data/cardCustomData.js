@@ -1,54 +1,54 @@
 export default [
   {
     image: "https://via.placeholder.com/150",
-    heading: "Card 1",
-    paragraphText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    heading: "Students",
+    paragraphText: "150000",
   },
   {
     image: "https://via.placeholder.com/150",
-    heading: "Card 2",
+    heading: "Teachers",
     paragraphText:
-      "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "200003",
   },
   {
     image: "https://via.placeholder.com/150",
-    heading: "Card 3",
+    heading: "Parents",
     paragraphText:
-      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "1230000",
   },
 
   {
     image: "https://via.placeholder.com/150",
-    heading: "Card 4",
+    heading: "Earnings",
     paragraphText:
-      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "760000",
   },
 
   {
     image: "https://via.placeholder.com/150",
     heading: "Card 5",
     paragraphText:
-      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "Ut enim ad minim veniam, quis nostrud exercitation.",
   },
 
   {
     image: "https://via.placeholder.com/150",
     heading: "Card 6",
     paragraphText:
-      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "Ut enim ad minim veniam, quis nostrud exercitation.",
   },
 
   {
     image: "https://via.placeholder.com/150",
     heading: "Card 7",
     paragraphText:
-      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "Ut enim ad minim veniam, quis nostrud exercitation.",
   },
 
   {
     image: "https://via.placeholder.com/150",
     heading: "Card 8",
     paragraphText:
-      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "Ut enim ad minim veniam, quis nostrud exercitation.",
   },
 ];
