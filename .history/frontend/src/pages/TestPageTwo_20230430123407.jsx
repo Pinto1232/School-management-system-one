@@ -55,6 +55,9 @@ import optionsDataTwo from "../data/optionsDataTwo";
 import cardCustomData from "../data/cardCustomData";
 import CardCustom from "../components/common/CardCustom";
 import AccordionComponent from "../components/common/AccordionComponent";
+import NavbarDropdown from "../components/common/NavbarDropdown";
+import DropdownButton from "../components/common/DropdownButton";
+import FullWidthCard from "../components/common/FullWidthCard";
 
 const TestPageTwo = () => {
   const orientation = "horizontal";
@@ -619,11 +622,55 @@ const TestPageTwo = () => {
       <Box
         maxW="4xl"
         textAlign={"start"}
-       
+        mx="auto"
         borderWidth={1}
         rounded="md"
       >
         <AccordionComponent />
+      </Box>
+
+      {/* Navbar dropdown */}
+      <Box mt={6}>
+        <NavbarDropdown />
+      </Box>
+
+      {/* Dropdown Button */}
+      <Box
+        maxW="5xl"
+        textAlign={"center"}
+        mx="auto"
+        p={6}
+        borderWidth={1}
+        border={0}
+        rounded="md"
+      >
+        <DropdownButton
+          options={["Option 1", "Option 2", "Option 3"]}
+          buttonDropDownText="View All"
+          buttonSize="md"
+          buttonWidth={"full"}
+          buttonColor="blue"
+          menuListWidth={"980px"}
+        />
+      </Box>
+
+      {/* Full width card */}
+      <Box maxW="4xl" border={0} mx="auto" p={6} borderWidth={1} rounded="md">
+        <FullWidthCard
+          tinyText="TINY TEXT"
+          subtitle="Heading"
+          textTitle="This is a title text"
+          bulletPoints={["Bullet 1", "Bullet 2", "Bullet 3"]}
+        >
+          <DropdownButton
+            options={["Option 1", "Option 2", "Option 3"]}
+            buttonDropDownText="View All"
+            buttonSize="md"
+            buttonWidth={"full"}
+            buttonColor="blue"
+            menuListWidth={"800px"}
+          />
+        </FullWidthCard>
       </Box>
 
       {/* Sticky footer */}
