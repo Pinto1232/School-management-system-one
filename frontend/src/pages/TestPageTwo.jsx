@@ -59,6 +59,8 @@ import NavbarDropdown from "../components/common/NavbarDropdown";
 import DropdownButton from "../components/common/DropdownButton";
 import FullWidthCard from "../components/common/FullWidthCard";
 
+
+
 const TestPageTwo = () => {
   const orientation = "horizontal";
 
@@ -660,7 +662,7 @@ const TestPageTwo = () => {
           tinyText="TINY TEXT"
           subtitle="Heading"
           textTitle="This is a title text"
-          bulletPoints={["Bullet 1", "Bullet 2", "Bullet 3"]}
+          bulletPoints={["Option 1", "Option 2", "Option 3"]}
         >
           <DropdownButton
             options={["Option 1", "Option 2", "Option 3"]}
