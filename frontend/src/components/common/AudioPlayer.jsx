@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Box, Flex, IconButton, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  IconButton,
+  Slider,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderTrack,
+  Text,
+} from "@chakra-ui/react";
 import { FaPlay, FaPause, FaVolumeUp, FaVolumeDown } from "react-icons/fa";
 
 const AudioPlayer = ({ src }) => {
@@ -42,7 +51,7 @@ const AudioPlayer = ({ src }) => {
             defaultValue={0}
             aria-label="audio slider"
             min={0}
-            max={audio ? audio.duration : 100}
+            max={!isNaN(audio?.duration) ? audio.duration : 100}
             onChange={(value) => {
               audio.currentTime = value;
             }}
@@ -54,10 +63,18 @@ const AudioPlayer = ({ src }) => {
           </Slider>
           <Flex justifyContent="space-between">
             <Text fontSize="sm" fontWeight="bold">
-              {audio ? `${Math.floor(audio.currentTime / 60)}:${Math.floor(audio.currentTime % 60)}` : "0:00"}
+              {audio
+                ? `${Math.floor(audio.currentTime / 60)}:${Math.floor(
+                    audio.currentTime % 60
+                  )}`
+                : "0:00"}
             </Text>
             <Text fontSize="sm" fontWeight="bold">
-              {audio ? `${Math.floor(audio.duration / 60)}:${Math.floor(audio.duration % 60)}` : "0:00"}
+              {audio
+                ? `${Math.floor(audio.duration / 60)}:${Math.floor(
+                    audio.duration % 60
+                  )}`
+                : "0:00"}
             </Text>
           </Flex>
         </Box>

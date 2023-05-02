@@ -9,7 +9,14 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 
-const DropdownButton = ({ options, menuListWidth,  buttonWidth, buttonDropDownText, buttonSize, buttonColor }) => {
+const DropdownButton = ({
+  options,
+  menuListWidth,
+  buttonWidth,
+  buttonDropDownText,
+  buttonSize,
+  buttonColor,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -21,14 +28,16 @@ const DropdownButton = ({ options, menuListWidth,  buttonWidth, buttonDropDownTe
           colorScheme={buttonColor}
           onClick={() => setIsOpen(!isOpen)}
           width={buttonWidth}
-        >{buttonDropDownText}
+        >
+          {buttonDropDownText}
         </MenuButton>
-        <MenuList  minWidth="100%">
-          {Array.isArray(options) && options.map((option, index) => (
-            <MenuItem key={index} onClick={() => console.log(option)}>
-              {option}
-            </MenuItem>
-          ))}
+        <MenuList minWidth="100%">
+          {Array.isArray(options) &&
+            options.map((option, index) => (
+              <MenuItem key={index} onClick={() => console.log(option)}>
+                {option}
+              </MenuItem>
+            ))}
         </MenuList>
       </Menu>
     </Box>

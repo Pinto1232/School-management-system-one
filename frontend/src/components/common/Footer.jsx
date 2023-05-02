@@ -6,7 +6,6 @@ import {
   Flex,
   Divider,
   Link,
-  FormControl,
   HStack,
   IconButton,
 } from "@chakra-ui/react";
@@ -20,7 +19,7 @@ import CookieConsentBanner from "../specific/cookieBanner/CustomCookieBanner";
 import ShippingAndPaymentIcons from "../specific/ShippingAndPaymentIcons";
 import ShippingAndPaymentData from "../../data/ShippingAndPaymentData";
 
-function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
+const Footer = ({ SubmitNewsletter }) => {
   const textColor = useColorModeValue("#4A5568", "#fff");
   const backgroundColor = useColorModeValue("#F7FAFC", "gray.700");
   const buttonColor = useColorModeValue("#319795", "#3182ce");
@@ -35,7 +34,7 @@ function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
       .split(";")
       .some((item) => item.trim().startsWith("cookieConsent="));
     setShowBanner(!cookieExists);
-    console.log("Cookie exists", cookieExists);
+    /* console.log("Cookie exists", cookieExists); */
   }, []);
 
   const handleAccept = () => {
@@ -166,6 +165,6 @@ function Footer({ SubmitNewsletter, handleNewsLetterTexfield }) {
       </Flex>
     </Box>
   );
-}
+};
 
 export default Footer;

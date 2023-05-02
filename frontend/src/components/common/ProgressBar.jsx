@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Progress, Box, Text } from '@chakra-ui/react';
+import React from "react";
+import PropTypes from "prop-types";
+import { Progress, Box, Text } from "@chakra-ui/react";
 
 const ProgressBar = ({ value, color, ...rest }) => {
   return (

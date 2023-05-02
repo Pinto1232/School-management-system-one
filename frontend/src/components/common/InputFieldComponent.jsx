@@ -7,16 +7,17 @@ import {
 } from "@chakra-ui/react";
 
 const InputFieldComponent = ({
-  type = "text", placeholder,
-  icon, style,
+  type = "text",
+  placeholder,
+  icon,
+  style,
   placeholderTextColor,
   inpuFieldPaddingLeft,
   inpuFieldWidth,
   inpuFieldPaddingRight,
   inpuFieldBackgroundColor,
-  InputBorder
+  InputBorder,
 }) => {
-
   return (
     <InputGroup
       bg={inpuFieldBackgroundColor}
@@ -25,17 +26,12 @@ const InputFieldComponent = ({
       border={InputBorder}
     >
       {icon && (
-        <InputLeftElement
-          {...style}
-          pointerEvents="none"
-        >
+        <InputLeftElement {...style} pointerEvents="none">
           {React.createElement(icon)}
         </InputLeftElement>
       )}
       <Input
-        style={
-          { backgroundColor: style }
-        }
+        style={{ backgroundColor: style }}
         type={type}
         placeholder={placeholder}
         _placeholder={{ color: placeholderTextColor }}

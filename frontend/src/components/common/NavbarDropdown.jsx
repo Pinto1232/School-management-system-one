@@ -31,7 +31,7 @@ const NavbarDropdown = () => {
   ];
 
   return (
-    <Box bg="gray.900" colorScheme="whiteAlpha" py={4}>
+    <Box bg="gray.900" py={4}>
       <Flex
         as="nav"
         align="center"
@@ -51,7 +51,7 @@ const NavbarDropdown = () => {
               icon={<HamburgerIcon />}
             />
           </Box>
-          <Box color={'white'} display={{ base: "none", md: "block" }}>
+          <Box color={"white"} display={{ base: "none", md: "block" }}>
             {menuItems.map((item, index) => (
               <Box key={index} as="span" mx={4}>
                 <a href={item.href}>{item.label}</a>

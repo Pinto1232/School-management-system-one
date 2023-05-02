@@ -44,7 +44,6 @@ import HorizontalSliderCard from "../components/specific/cards/HorizontalSliderC
 import Speedometer from "../components/specific/Speedometer";
 import SpeedometerTwo from "../components/specific/SpeedometerTwo";
 import WeatherWidgetSimple from "../components/specific/widgets/WeatherWidgetSimple";
-import WeatherWidgetIcon from "../components/specific/widgets/WeatherWidgetIcon";
 import WeatherData from "../data/WeatherData";
 import WeatherWidgetAdditional from "../components/specific/widgets/WeatherWidgetAdditional";
 import WeatherWidgetForecast from "../components/specific/widgets/WeatherWidgetForecast";
@@ -58,8 +57,7 @@ import AccordionComponent from "../components/common/AccordionComponent";
 import NavbarDropdown from "../components/common/NavbarDropdown";
 import DropdownButton from "../components/common/DropdownButton";
 import FullWidthCard from "../components/common/FullWidthCard";
-
-
+import optionsData from "../data/optionsData";
 
 const TestPageTwo = () => {
   const orientation = "horizontal";
@@ -120,6 +118,15 @@ const TestPageTwo = () => {
     setSelectedOption(value);
     // Do something else, like update the product list with the new sorting option
   };
+
+  //  Test
+  const cardProps = {
+    tinyText: "TINY TEXT",
+    subtitle: "Heading",
+    textTitle: "This is a title text",
+    bulletPoints: [...optionsData],
+  };
+  /* console.log("Bullet", cardProps); */
 
   return (
     <Box>
@@ -309,19 +316,18 @@ const TestPageTwo = () => {
       </Box>
 
       {/* Product filter */}
-      <Box>
-        <ProductFilters
-          products={ProductFiltersData}
-          categories={["All", "Category A", "Category B", "Category C"]}
-          onCategoryChange={(category) =>
-            console.log(`Selected category: ${category}`)
-          }
-          onPriceChange={(priceRange) =>
-            console.log(`Selected price range: ${priceRange}`)
-          }
-        />
-        {/* Display product list here */}
-      </Box>
+      <ProductFilters
+        products={ProductFiltersData.map((product) => (
+          <ProductCard key={product.id} {...product} />
+        ))}
+        categories={["All", "Category A", "Category B", "Category C"]}
+        onCategoryChange={(category) =>
+          console.log(`Selected category: ${category}`)
+        }
+        onPriceChange={(priceRange) =>
+          console.log(`Selected price range: ${priceRange}`)
+        }
+      />
 
       {/* Product sorting data */}
       <Box
@@ -410,6 +416,7 @@ const TestPageTwo = () => {
         <Heading>Product Filter</Heading>
         {filtersData.map((Filterdata, index) => (
           <ProductFilters
+            key={index}
             filters={filtersData}
             selectedFilters={selectedFilters}
             onChange={handleFilterChange}
@@ -658,12 +665,7 @@ const TestPageTwo = () => {
 
       {/* Full width card */}
       <Box maxW="4xl" border={0} mx="auto" p={6} borderWidth={1} rounded="md">
-        <FullWidthCard
-          tinyText="TINY TEXT"
-          subtitle="Heading"
-          textTitle="This is a title text"
-          bulletPoints={["Option 1", "Option 2", "Option 3"]}
-        >
+        <FullWidthCard {...cardProps}>
           <DropdownButton
             options={["Option 1", "Option 2", "Option 3"]}
             buttonDropDownText="View All"

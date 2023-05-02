@@ -129,7 +129,6 @@ import ToggleButton from "../components/common/ToggleButton";
 import Toggle from "../components/common/Toggle";
 import Footer from "../components/specific/FooterCustomizable/Footer";
 
-
 /*const columns = ['Name', 'Age', 'Email'];
 const data = [
     { id: 1, Name: 'John', Age: 25, Email: 'john@example.com' },

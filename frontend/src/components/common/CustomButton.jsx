@@ -1,8 +1,17 @@
-import { Button } from '@chakra-ui/react';
-import React from 'react';
+import { Button } from "@chakra-ui/react";
+import React from "react";
 
-const CustomButton = ({ children, bgColor, textColor, fontSize, width, margin, padding, btnHover, ...rest }) => {
-
+const CustomButton = ({
+  children,
+  bgColor,
+  textColor,
+  fontSize,
+  width,
+  margin,
+  padding,
+  btnHover,
+  ...rest
+}) => {
   const buttonStyle = {
     backgroundColor: bgColor,
     color: textColor,
