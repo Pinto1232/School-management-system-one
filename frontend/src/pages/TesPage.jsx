@@ -28,12 +28,7 @@ import DropdownMenu from "../components/specific/DropdownMenu";
 import ReusableModal from "../components/specific/ReusableModal";
 import CustomSelect from "../components/specific/customSelect/CustomSelect";
 import { Select, Icon } from "@chakra-ui/react";
-import {
-  FaRegCalendarAlt,
-  FaSearch,
-  FaShoppingCart,
-  FaUser,
-} from "react-icons/fa";
+import { FaRegCalendarAlt, FaSearch, FaUser } from "react-icons/fa";
 import Accordion from "../components/specific/Accordion";
 import ProductCardTwo from "../components/specific/productCardTwo/ProductCardTwo ";
 import Navibar from "../components/specific/NavigationBar/Navibar";
@@ -63,7 +58,6 @@ import { useForm } from "react-hook-form";
 import CommentSection from "../components/common/CommentSection";
 import BlogPostSection from "../components/common/BlogPostSection";
 import UserProfilePage from "../components/common/UserProfilePage";
-import ShoppingCart from "../components/common/ShoppingCart";
 import ProgressBar from "../components/common/ProgressBar";
 import { FaHome, FaHeart, FaEnvelope } from "react-icons/fa";
 import EventsCalendar from "../components/common/EventCalendar";
@@ -619,9 +613,9 @@ const TesPage = () => {
             templateColumns={["1fr", "repeat(2, 1fr)", "repeat(3, 1fr)"]}
             gap={4}
           >
-            {productsTwoData.map((product, index) => (
+            {productsTwoData.map((product) => (
               <ProductCardTwo
-                key={index.id}
+                key={product.id}
                 product={product}
                 onImageClick={() => handleImageClick(product)}
               />
@@ -981,18 +975,6 @@ const TesPage = () => {
         />
       </Box>
 
-      <Box
-        maxW="xl"
-        border={0}
-        mx="auto"
-        mt={10}
-        p={6}
-        borderWidth={1}
-        rounded="md"
-      >
-        <ShoppingCart cartItems={cartItemsData} src={FaShoppingCart} />
-      </Box>
-
       <Box maxW="xl" mx="auto" p={6} borderWidth={1} rounded="md">
         <h1>My Progress Bar</h1>
         <ProgressBar value={progress} color="blue" />
@@ -1188,22 +1170,6 @@ const TesPage = () => {
           avatarSrc="https://cdn-icons-png.flaticon.com/512/147/147140.png"
         />
       </Flex>
-
-      <Box
-        shadow={"md"}
-        maxW="4xl"
-        mx="auto"
-        mt={10}
-        p={6}
-        borderWidth={1}
-        rounded="md"
-      >
-        <Heading as="h2">Add to Cart</Heading>
-        <ShoppingCart
-          title="My Shopping Cart"
-          emptyMessage="Your cart is empty."
-        />
-      </Box>
 
       {/*  TODO - Need to check errors and warning */}
       {/* <Box maxW="7xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">

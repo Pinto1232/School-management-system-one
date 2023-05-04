@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import theme from "./utils/theme";
 import { Provider } from 'react-redux';
-import store from './reducers/store';
+import store from './Store/store';
 
 const root = document.getElementById('root');
 

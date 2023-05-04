@@ -1,5 +1,23 @@
+import axiosInstance from './axiosInstance';
 import axios from 'axios';
 
+
+export const fetchStudents = async () => {
+  const response = await axiosInstance.get('/students');
+  return response.data;
+};
+
+export const addStudent = async (newStudent) => {
+  const response = await axiosInstance.post('/students', newStudent);
+  return response.data;
+};
+
+// Add more functions for interacting with your API here
+
+
+
+
+// Normal Axios setup
 const api = axios.create({
   baseURL: 'http://localhost:3001/api',
   headers: {
