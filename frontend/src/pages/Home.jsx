@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Jumbotron from "../components/specific/Jumbotron";
 import bgImage from "../assets/images/background-01.jpg";
-import CardGrid from "../components/specific/CardGrid";
 import IconColumns from "../components/common/IconColumns";
-import { Box, Flex, Grid } from "@chakra-ui/react";
-import iconsData from "../data/IconsData";
+import { Box, Grid } from "@chakra-ui/react";
 import AboutUsSection from "../components/common/AboutUsSection";
 import ProductsSection from "../components/common/ProductsSection";
 import productsData from "../data/productsData";
 
+
 const Home = () => {
   const handleButtonClick = () => {};
-
+ 
   return (
     <Grid>
       {/* Jumbotron */}

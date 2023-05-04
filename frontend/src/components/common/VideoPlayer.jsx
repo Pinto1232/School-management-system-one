@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Heading, Text, Button, Grid } from "@chakra-ui/react";
+import { Heading, Text, Button, Grid } from "@chakra-ui/react";
 import ReactPlayer from "react-player";
 
 const VideoPlayer = ({ videoUrl, title, description }) => {

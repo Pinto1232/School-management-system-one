@@ -125,7 +125,7 @@ const Footer = ({ SubmitNewsletter }) => {
         pt={4}
       >
         <Text fontSize={{ base: "sm", sm: "md", md: "md" }} color="gray.500">
-          © 2023 My Company. All rights reserved.
+          © 2023 PintoEd Management. All rights reserved.
         </Text>
         <Flex gap={2}>
           <ShippingAndPaymentIcons
