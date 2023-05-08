@@ -6,21 +6,8 @@ import { Box, Grid } from "@chakra-ui/react";
 import AboutUsSection from "../components/common/AboutUsSection";
 import ProductsSection from "../components/common/ProductsSection";
 import productsData from "../data/productsData";
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchStudentsAsync } from '../slices/studentsSlice';
-
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const students = useSelector((state) => state.students.data);
-
-  console.log('Student data', students);
-
-  useEffect(() => {
-    dispatch(fetchStudentsAsync());
-  }, [dispatch]);
-
-
   const handleButtonClick = () => {};
 
   return (
