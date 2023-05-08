@@ -1,37 +1,4 @@
-import axiosInstance from "./axiosInstance";
 import axios from "axios";
-
-
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
-export const fetchStudents = async () => {
-  try {
-    const response = await axiosInstance.get("/students");
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const addStudent = async (newStudent) => {
-  const response = await axiosInstance.post("/students", newStudent);
-  return response.data;
-};
-
-// Add more functions for interacting with your API here
-
-
 
 // Normal Axios setup
 const api = axios.create({

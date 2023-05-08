@@ -7,6 +7,7 @@ import AboutUsSection from "../components/common/AboutUsSection";
 import ProductsSection from "../components/common/ProductsSection";
 import productsData from "../data/productsData";
 
+
 const Home = () => {
   const handleButtonClick = () => {};
 
