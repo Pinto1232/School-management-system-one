@@ -42,15 +42,18 @@ const validateStudentData = (
 // Create a new student
 const createStudent = async (req, res, next) => {
   try {
-    const {
+    const { firstName, lastName, email, dateOfBirth, phoneNumber, address } =
+      req.body;
+    const errors = validateStudentData(
       firstName,
       lastName,
       email,
       dateOfBirth,
       phoneNumber,
-      address,
-      imageUrl,
-    } = req.body;
+      address
+    );
+    if (errors.length > 0) return res.status(400).json({ errors });
+
     const newStudent = new Student({
       firstName,
       lastName,
@@ -64,10 +67,6 @@ const createStudent = async (req, res, next) => {
       newStudent.image = {
         data: req.file.buffer,
         contentType: req.file.mimetype,
-      };
-    } else if (imageUrl) {
-      newStudent.image = {
-        url: imageUrl,
       };
     }
 

@@ -6,13 +6,13 @@ const studentApi = createApi({
     baseUrl: "http://localhost:3001/api",
     prepareHeaders: (headers) => {
         const token = localStorage.getItem("token");
-        /* console.log("Token log:", token); */
+        console.log("Token log:", token);
         if (token) {
           headers.set("Authorization", `Bearer ${token}`);
         }
         headers.set("Content-Type", "application/json");
         return headers;
-      }
+      }      
   }),
   endpoints: (builder) => ({
     getStudents: builder.query({

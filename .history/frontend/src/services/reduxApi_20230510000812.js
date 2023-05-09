@@ -12,7 +12,7 @@ const studentApi = createApi({
         }
         headers.set("Content-Type", "application/json");
         return headers;
-      }
+      }      
   }),
   endpoints: (builder) => ({
     getStudents: builder.query({
