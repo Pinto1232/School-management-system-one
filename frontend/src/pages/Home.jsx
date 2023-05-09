@@ -6,10 +6,14 @@ import { Box, Grid } from "@chakra-ui/react";
 import AboutUsSection from "../components/common/AboutUsSection";
 import ProductsSection from "../components/common/ProductsSection";
 import productsData from "../data/productsData";
+import { useGetStudentsQuery } from '../services/reduxApi'
 
 
 const Home = () => {
   const handleButtonClick = () => {};
+  const { data, error, isLoading } = useGetStudentsQuery();
+  console.log("Data point", data);
+
 
   return (
     <Grid>

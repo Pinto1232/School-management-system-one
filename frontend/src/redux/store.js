@@ -1,10 +1,11 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
+import studentApi from '../services/reduxApi';
 
 
-const store = configureStore({
+export default configureStore({
   reducer: {
-    /* students: studentsReducer, */
+    [studentApi.reducerPath]: studentApi.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(studentApi.middleware),
 });
-
-export default store;
