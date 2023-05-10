@@ -36,7 +36,7 @@ const TableWithIcons = ({
               <Td>
                 <Image
                   borderRadius={25}
-                  boxSize="50px"
+                  boxsize="50px"
                   objectFit="cover"
                   src={product.image}
                   alt={product.name}

@@ -39,7 +39,7 @@ const CardCustom = ({
                 <Image
                   src={card.image}
                   alt={card.title}
-                  fontSize={["50px", "100px"]}
+                  boxsize={["50px", "100px"]}
                   objectFit="cover"
                   borderRadius={"50%"}
                 />

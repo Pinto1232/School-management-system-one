@@ -9,7 +9,7 @@ const TableWithIcons = ({
   ThColor,
   tbShadow,
 }) => {
-
+  console.log("Color", ThColor);
 
   return (
     <Table

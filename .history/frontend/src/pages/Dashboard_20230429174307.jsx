@@ -273,7 +273,7 @@ const Dashboard = () => {
                     spacing="12"
                     gap={4}
                   >
-                    <item.icon boxsize="6" />
+                    <item.icon boxSize="6" />
                     <Link
                       textDecoration="none"
                       hover={{
