@@ -12,7 +12,7 @@ import { useGetStudentsQuery } from '../services/reduxApi'
 const Home = () => {
   const handleButtonClick = () => {};
   const { data, error, isLoading } = useGetStudentsQuery();
-  console.log("Data point", data);
+  /* console.log("Data point", data); */
 
 
   return (
