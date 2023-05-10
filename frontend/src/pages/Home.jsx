@@ -6,16 +6,18 @@ import { Box, Grid } from "@chakra-ui/react";
 import AboutUsSection from "../components/common/AboutUsSection";
 import ProductsSection from "../components/common/ProductsSection";
 import productsData from "../data/productsData";
-import { useGetStudentsQuery } from '../services/studentApi'
-import {useGetPackagesQuery } from '../services/packageApi'
-
+import { useGetStudentsQuery } from "../services/studentApi";
+import { useGetPackagesQuery } from "../services/packageApi";
 
 const Home = () => {
   const handleButtonClick = () => {};
   const { data, error, isLoading } = useGetStudentsQuery();
-  const {data: packageData, error: errorPackage, isLoading: isLoadingPackage} = useGetPackagesQuery();
-  console.log("Data Package", packageData);  
-
+  const {
+    data: packageData,
+    error: errorPackage,
+    isLoading: isLoadingPackage,
+  } = useGetPackagesQuery();
+  console.log("Data Package", packageData);
 
   return (
     <Grid>
