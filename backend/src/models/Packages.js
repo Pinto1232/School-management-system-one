@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const packageSchema = new mongoose.Schema({
   basicPlan: {
@@ -24,5 +24,6 @@ const packageSchema = new mongoose.Schema({
   },
 });
 
-const Package = mongoose.model("Package", packageSchema);
+const Package = mongoose.model('Package', packageSchema);
+
 module.exports = Package;
