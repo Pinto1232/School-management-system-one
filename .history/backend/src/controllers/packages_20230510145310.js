@@ -2,16 +2,36 @@ const Package = require("../models/Packages");
 const multer = require("multer");
 const upload = multer();
 
-
 // Create a new package
 const createPackage = async (req, res, next) => {
   try {
-    const { features, name, price, images, imageUrl } = req.body;
+    const { name, price, features } = req.body;
     const newPackage = new Package({
-      features,
-      images,
+      name,
       price,
-      name
+      features,
+      images: req.files.map((file) => ({
+        data: file.buffer,
+        contentType: file.mimetype,
+      })),
+    });
+
+    await newPackage.save();
+
+    res.status(201).json({ message: "Package created", package: newPackage });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/* const createPackage = async (req, res, next) => {
+  try {
+    const { basicPlan, proPlan, premiumPlan, feature, imageUrl } = req.body;
+    const newPackage = new Package({
+      basicPlan,
+      proPlan,
+      premiumPlan,
+      feature,
     });
 
     //Check if the  request image file exist
@@ -32,7 +52,7 @@ const createPackage = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
+}; */
 
 // Get all packages
 const getAllPackages = async (req, res) => {

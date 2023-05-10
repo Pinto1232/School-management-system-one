@@ -104,8 +104,8 @@ app.use('/api/request-password-reset', resetPasswordRoutes);
 app.use('/api/reset-password', resetPasswordRoutes);
 
 // Use packages routes
-app.use('/api/packages', packagesRoutes);
-
+app.post('/packages', upload.array('images'), createPackage);
+/* app.use('/api/packages', packagesRoutes); */
 
 
 

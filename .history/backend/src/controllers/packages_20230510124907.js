@@ -2,27 +2,23 @@ const Package = require("../models/Packages");
 const multer = require("multer");
 const upload = multer();
 
+// Single Responsibility Principle (SRP)
 
 // Create a new package
 const createPackage = async (req, res, next) => {
   try {
-    const { features, name, price, images, imageUrl } = req.body;
+    const { basicPlan, proPlan, premiumPlan, feature } = req.body;
     const newPackage = new Package({
-      features,
-      images,
-      price,
-      name
+      basicPlan,
+      proPlan,
+      premiumPlan,
+      feature,
     });
 
-    //Check if the  request image file exist
     if (req.file) {
       newPackage.image = {
         data: req.file.buffer,
         contentType: req.file.mimetype,
-      };
-    } else if (imageUrl) {
-      newPackage.image = {
-        url: imageUrl,
       };
     }
 
@@ -34,10 +30,27 @@ const createPackage = async (req, res, next) => {
   }
 };
 
+/* const createPackage = async (req, res) => {
+    const package = new Packages({
+        basicPlan: req.body.basicPlan,
+        proPlan: req.body.proPlan,
+        premiumPlan: req.body.premiumPlan,
+        feature: req.body.feature,
+        packageImage: req.body.packageImage
+    });
+
+    try {
+        const newPackage = await package.save();
+        res.status(201).json(newPackage);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+}; */
+
 // Get all packages
 const getAllPackages = async (req, res) => {
   try {
-    const packages = await Package.find();
+    const packages = await Packages.find();
     res.status(200).json(packages);
   } catch (err) {
     res.status(500).json({ message: err.message });

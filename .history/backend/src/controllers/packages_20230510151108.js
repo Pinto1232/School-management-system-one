@@ -6,12 +6,13 @@ const upload = multer();
 // Create a new package
 const createPackage = async (req, res, next) => {
   try {
-    const { features, name, price, images, imageUrl } = req.body;
+    const { basicPlan, proPlan, premiumPlan, price, feature, imageUrl } = req.body;
     const newPackage = new Package({
-      features,
-      images,
-      price,
-      name
+      basicPlan,
+      proPlan,
+      premiumPlan,
+      feature,
+      price
     });
 
     //Check if the  request image file exist

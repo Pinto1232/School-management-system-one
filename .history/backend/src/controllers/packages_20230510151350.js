@@ -6,7 +6,7 @@ const upload = multer();
 // Create a new package
 const createPackage = async (req, res, next) => {
   try {
-    const { features, name, price, images, imageUrl } = req.body;
+    const { features, name, price, images imageUrl } = req.body;
     const newPackage = new Package({
       features,
       images,

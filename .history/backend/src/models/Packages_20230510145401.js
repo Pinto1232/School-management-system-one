@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const packageSchema = new mongoose.Schema({
   name: {
@@ -14,17 +14,15 @@ const packageSchema = new mongoose.Schema({
     required: true,
   },
   images: {
-    type: [
-      {
-        data: Buffer,
-        contentType: String,
-        url: String,
-      },
-    ],
+    type: [{
+      data: Buffer,
+      contentType: String,
+      url: String,
+    }],
     required: true,
   },
 });
 
-const Package = mongoose.model("Package", packageSchema);
+const Package = mongoose.model('Package', packageSchema);
 
 module.exports = Package;
