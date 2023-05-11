@@ -6,18 +6,24 @@ import { Box, Grid } from "@chakra-ui/react";
 import AboutUsSection from "../components/common/AboutUsSection";
 import ProductsSection from "../components/common/ProductsSection";
 import productsData from "../data/productsData";
-import { useGetStudentsQuery } from "../services/studentApi";
 import { useGetPackagesQuery } from "../services/packageApi";
 
 const Home = () => {
   const handleButtonClick = () => {};
-  const { data, error, isLoading } = useGetStudentsQuery();
   const {
-    data: packageData,
+    data: productsPackageData,
     error: errorPackage,
     isLoading: isLoadingPackage,
   } = useGetPackagesQuery();
-  console.log("Data Package", packageData);
+  console.log("Product Data", productsPackageData);
+
+  if (isLoadingPackage) {
+    return <Box mx="auto">Loading...</Box>;
+  }
+
+  if (errorPackage) {
+    return <div>Error: {errorPackage.message}</div>;
+  }
 
   return (
     <Grid>
@@ -31,21 +37,17 @@ const Home = () => {
       />
 
       {/* Product section */}
-      <Grid
-        maxW="6xl"
-        mx="auto"
-        border={0}
-        mt={-10}
-        p={6}
-        borderWidth={1}
-        rounded="md"
-      >
+      <Box maxW="4xl" mx="auto" border={0} p={6} borderWidth={1} rounded="md">
         <ProductsSection
           heading="Check Our Packages"
           subheading="Check out our latest offerings"
-          products={productsData}
-        />
-      </Grid>
+          products={productsPackageData}
+          cardBg={"#fff"}
+          imageMaxWidth={"200px"}
+          cardShadow="2xl"
+          gridCard={900}
+        ></ProductsSection>
+      </Box>
 
       {/* Icon component */}
       <IconColumns
