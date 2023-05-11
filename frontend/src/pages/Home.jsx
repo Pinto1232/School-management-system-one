@@ -5,8 +5,9 @@ import IconColumns from "../components/common/IconColumns";
 import { Box, Grid } from "@chakra-ui/react";
 import AboutUsSection from "../components/common/AboutUsSection";
 import ProductsSection from "../components/common/ProductsSection";
-import productsData from "../data/productsData";
 import { useGetPackagesQuery } from "../services/packageApi";
+import { useToast } from "@chakra-ui/react";
+import { Spinner } from "@chakra-ui/react";
 
 const Home = () => {
   const handleButtonClick = () => {};
@@ -15,14 +16,32 @@ const Home = () => {
     error: errorPackage,
     isLoading: isLoadingPackage,
   } = useGetPackagesQuery();
-  console.log("Product Data", productsPackageData);
+  const toast = useToast();
 
   if (isLoadingPackage) {
-    return <Box mx="auto">Loading...</Box>;
+    return (
+      <Box
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Spinner size="md" color="blue.500" />
+      </Box>
+    );
   }
 
   if (errorPackage) {
-    return <div>Error: {errorPackage.message}</div>;
+    toast({
+      title: "Error",
+      description: errorPackage.message,
+      status: "error",
+      isClosable: true,
+      position: "top",
+    });
+    return null;
   }
 
   return (

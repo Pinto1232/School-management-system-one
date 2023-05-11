@@ -7,7 +7,10 @@ import {
   Text,
   Image,
   Grid,
+  UnorderedList,
+  ListItem,
 } from "@chakra-ui/react";
+import CustomButton from "./CustomButton";
 
 const ProductsSection = ({
   heading,
@@ -34,27 +37,33 @@ const ProductsSection = ({
             borderRadius="lg"
           >
             {product.images.map((image, index) => (
-              <Box bg={"#fff"}>
+              <Box bg={"#fff"} key={index}>
                 <Image
                   maxW={imageMaxWidth}
-                  key={index}
                   src={image.url}
                   mx="auto"
                   backgroundSize={"cover"}
                   backgroundPosition={"center"}
+                  lazy
                 />
               </Box>
             ))}
+
             <Box p={6}>
               <Heading as="h3" size="md" mb={2}>
                 <Text fontWeight="bold">{product.name}</Text>
-                <Text>${product.price}</Text>
+                <Text mt={4} as="h4" fontSize={12}>
+                  ${product.price}
+                </Text>
               </Heading>
               <Box whiteSpace="nowrap">
                 {product.features.map((feature, index) => (
-                  <Text key={index}>{feature.slice(0, 20)}</Text>
+                  <UnorderedList>
+                    <ListItem key={index}>{feature.slice(0, 20)}</ListItem>
+                  </UnorderedList>
                 ))}
               </Box>
+              <CustomButton margin="20px auto">check for more</CustomButton>
             </Box>
           </Box>
         ))}
