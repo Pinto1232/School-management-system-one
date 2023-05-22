@@ -1,8 +1,6 @@
 import React from "react";
 import { Box, Flex, Image, Heading, Text } from "@chakra-ui/react";
 
-
-
 const CardCustom = ({
   data,
   cardsPerRow,
@@ -11,7 +9,7 @@ const CardCustom = ({
   rows,
   columns,
 }) => {
-  const cardWidth = `${100 / columns}%`;
+  const cardWidth = `${50 / columns}%`;
   const totalCards = rows * columns;
 
   const rowsArray = [];
@@ -27,7 +25,7 @@ const CardCustom = ({
       justifyContent="center"
       marginTop={4}
       gap={4}
-      w={CardWidth}
+      minW={CardWidth}
     >
       {rowsArray.map((row, rowIndex) => (
         <Box shadow={"lg"} key={rowIndex} flexWrap="wrap">
@@ -44,7 +42,7 @@ const CardCustom = ({
                   fontSize={["50px", "100px"]}
                   objectFit="cover"
                   borderRadius={"50%"}
-                  minW={24}
+                  minW={cardWidth}
                 />
                 <Box marginLeft={5}>
                   <Heading size="sm" fontSize={["md", "lg"]}>

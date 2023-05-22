@@ -33,6 +33,9 @@ import cardCustomData from "../data/cardCustomData";
 import menuItemsData from "../data/menuItemsData";
 
 
+console.log('====================================');
+console.log("Card data", cardCustomData);
+console.log('====================================');
 
 const Dashboard = () => {
   const bgDashboard = useColorModeValue("gray.50", "gray.700");
@@ -69,6 +72,7 @@ const Dashboard = () => {
     navigate("/");
   };
 
+  
   const handleNavigation = (path) => {
     navigate(path);
     onClose();
@@ -83,8 +87,8 @@ const Dashboard = () => {
   };
 
   return (
-    <Box bg={bgDashboard} minH="100vh">
-      <Flex direction="column" maxW={"1290px"} mx="auto" p={4}>
+    <Box bg={bgDashboard}  minH="100vh">
+      <Flex direction="column" maxW={'1290px'} mx="auto" p={4}>
         <Flex justify="space-between" align="center" mb={4}>
           <Heading>
             {/* <Text fontSize="3xl">PintoEdu Management</Text> */}
@@ -115,6 +119,7 @@ const Dashboard = () => {
         <Text color={textColor} fontSize="3xl" fontWeight={"bold"}>
           Dashboard
         </Text>
+        {/* Breadcrumbs */}
         <Box bg={backgroundColor} color={textColor}>
           <Breadcrumbs
             items={BreadcumberData}
@@ -133,6 +138,7 @@ const Dashboard = () => {
           >
             <AdjustableColumnLayout>
               <Flex gap={4}>
+                {/* Sorting by component */}
                 <Grid>
                   <ProductSorting
                     options={ProductSortingOptionsData}
@@ -140,19 +146,23 @@ const Dashboard = () => {
                     onChange={handleSortingChange}
                   />
                 </Grid>
+                {/* End of sorting by */}
 
                 <Grid>
+                  {/* Custom card */}
                   <CardCustom
                     data={cardCustomData}
                     paragraphWidth="200px"
-                    rows={3}
+                    rows={4}
                     columns={1}
                   />
+                  {/* End of custom card */}
                 </Grid>
               </Flex>
             </AdjustableColumnLayout>
           </Flex>
 
+          {/* Box of table */}
           <Grid
             border={backgroundBorder}
             bg={backgroundColor}
@@ -162,6 +172,7 @@ const Dashboard = () => {
             <Text mx={6} color={textColor} fontSize="xl">
               Students
             </Text>
+            {/* Add content here */}
             <AdjustableColumnLayout>
               <Box
                 maxW="4xl"
@@ -200,6 +211,8 @@ const Dashboard = () => {
               </Box>
             </AdjustableColumnLayout>
           </Grid>
+          {/* End of the table */}
+
           <Box
             border={backgroundBorder}
             bg={backgroundColor}
@@ -210,6 +223,7 @@ const Dashboard = () => {
             <Text color={textColor} fontSize="xl">
               Tasks
             </Text>
+            {/* Add content here */}
           </Box>
           <Box
             border={backgroundBorder}
@@ -221,6 +235,7 @@ const Dashboard = () => {
             <Text color={textColor} fontSize="xl">
               Tasks
             </Text>
+            {/* Add content here */}
           </Box>
           <Box
             border={backgroundBorder}
@@ -232,6 +247,7 @@ const Dashboard = () => {
             <Text color={textColor} fontSize="xl">
               Tasks
             </Text>
+            {/* Add content here */}
           </Box>
         </VStack>
       </Flex>
@@ -282,6 +298,7 @@ const Dashboard = () => {
                   </Box>
                 </Flex>
               ))}
+              {/* Add the Log out button */}
               <Button
                 colorScheme="red"
                 onClick={handleLogout}

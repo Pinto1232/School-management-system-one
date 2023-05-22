@@ -32,8 +32,6 @@ import CardCustom from "../components/common/CardCustom";
 import cardCustomData from "../data/cardCustomData";
 import menuItemsData from "../data/menuItemsData";
 
-
-
 const Dashboard = () => {
   const bgDashboard = useColorModeValue("gray.50", "gray.700");
   const { isOpen, onOpen, onClose } = useDisclosure();

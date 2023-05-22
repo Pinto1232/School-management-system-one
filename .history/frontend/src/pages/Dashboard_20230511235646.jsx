@@ -34,6 +34,7 @@ import menuItemsData from "../data/menuItemsData";
 
 
 
+
 const Dashboard = () => {
   const bgDashboard = useColorModeValue("gray.50", "gray.700");
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -69,6 +70,7 @@ const Dashboard = () => {
     navigate("/");
   };
 
+  
   const handleNavigation = (path) => {
     navigate(path);
     onClose();
@@ -83,8 +85,8 @@ const Dashboard = () => {
   };
 
   return (
-    <Box bg={bgDashboard} minH="100vh">
-      <Flex direction="column" maxW={"1290px"} mx="auto" p={4}>
+    <Box bg={bgDashboard}  minH="100vh">
+      <Flex direction="column" maxW={'1290px'} mx="auto" p={4}>
         <Flex justify="space-between" align="center" mb={4}>
           <Heading>
             {/* <Text fontSize="3xl">PintoEdu Management</Text> */}
@@ -162,6 +164,7 @@ const Dashboard = () => {
             <Text mx={6} color={textColor} fontSize="xl">
               Students
             </Text>
+            {/* Add content here */}
             <AdjustableColumnLayout>
               <Box
                 maxW="4xl"
@@ -200,6 +203,8 @@ const Dashboard = () => {
               </Box>
             </AdjustableColumnLayout>
           </Grid>
+          {/* End of the table */}
+
           <Box
             border={backgroundBorder}
             bg={backgroundColor}
@@ -210,6 +215,7 @@ const Dashboard = () => {
             <Text color={textColor} fontSize="xl">
               Tasks
             </Text>
+            {/* Add content here */}
           </Box>
           <Box
             border={backgroundBorder}
@@ -221,6 +227,7 @@ const Dashboard = () => {
             <Text color={textColor} fontSize="xl">
               Tasks
             </Text>
+            {/* Add content here */}
           </Box>
           <Box
             border={backgroundBorder}
@@ -232,6 +239,7 @@ const Dashboard = () => {
             <Text color={textColor} fontSize="xl">
               Tasks
             </Text>
+            {/* Add content here */}
           </Box>
         </VStack>
       </Flex>
@@ -282,6 +290,7 @@ const Dashboard = () => {
                   </Box>
                 </Flex>
               ))}
+              {/* Add the Log out button */}
               <Button
                 colorScheme="red"
                 onClick={handleLogout}

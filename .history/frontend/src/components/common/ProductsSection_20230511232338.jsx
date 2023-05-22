@@ -34,12 +34,12 @@ const ProductsSection = ({
         </Heading>
         <Text fontSize="xl">{subheading}</Text>
       </Box>
-      <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={2}>
-        {products.slice(0, 3).map((product) => (
+      <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={10}>
+        {products.map((product) => (
           <Box
             bg={bottomBgColor}
             shadow={cardShadow}
-            minH={300}
+            minH={200}
             key={product.id}
             borderRadius="lg"
             color={textColor}
@@ -57,7 +57,7 @@ const ProductsSection = ({
               </Box>
             ))}
 
-            <Box p={2}>
+            <Box p={6}>
               <Heading as="h3" size="md" mb={2}>
                 <Text fontWeight="bold">{product.name}</Text>
                 <Text mt={4} as="h4" fontSize={12}>
@@ -67,7 +67,7 @@ const ProductsSection = ({
               <Box whiteSpace="nowrap">
                 {product.features.map((feature, index) => (
                   <UnorderedList>
-                      <ListItem>{feature.slice(0, 34)}</ListItem>
+                    <ListItem key={index}>{feature.slice(0, 20)}</ListItem>
                   </UnorderedList>
                 ))}
               </Box>
@@ -75,9 +75,9 @@ const ProductsSection = ({
                 margin="20px auto"
                 textColor={btnTextColor}
                 fontSize={textFontSize}
-                width={"full"}
+                width={'full'}
               >
-                Buy now
+                Check for more...
               </CustomButton>
             </Box>
           </Box>

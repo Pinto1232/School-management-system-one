@@ -20,6 +20,7 @@ const ProductsSection = ({
   imageMaxWidth,
   cardShadow,
   gridCard,
+  Skeleton
 }) => {
   const bottomBgColor = useColorModeValue("#319795", "#3182ce");
   const textColor = useColorModeValue("#fff", "#fff");
@@ -35,7 +36,7 @@ const ProductsSection = ({
         <Text fontSize="xl">{subheading}</Text>
       </Box>
       <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={2}>
-        {products.slice(0, 3).map((product) => (
+        {products.map((product) => (
           <Box
             bg={bottomBgColor}
             shadow={cardShadow}
@@ -67,7 +68,9 @@ const ProductsSection = ({
               <Box whiteSpace="nowrap">
                 {product.features.map((feature, index) => (
                   <UnorderedList>
-                      <ListItem>{feature.slice(0, 34)}</ListItem>
+                    <Skeleton isLoaded={isLoaded}>
+                      {feature.slice(0, 20)}
+                    </Skeleton>
                   </UnorderedList>
                 ))}
               </Box>

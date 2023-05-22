@@ -88,8 +88,8 @@ const Footer = ({ SubmitNewsletter }) => {
       </Flex>
 
       {/* Subscribe newsletter input */}
-      {/* <Flex justifyContent={"center"} alignItems={"center"}>
-        <AdjustableColumnLayout>
+      <Flex justifyContent={"center"} alignItems={"center"}>
+        {/* <AdjustableColumnLayout>
           <InputFieldComponent
             placeholder={"Subscribe for our newsletter"}
             placeholderTextColor={"gray.600"}
@@ -104,8 +104,8 @@ const Footer = ({ SubmitNewsletter }) => {
           >
             Submit
           </CustomButton>
-        </AdjustableColumnLayout>
-      </Flex> */}
+        </AdjustableColumnLayout> */}
+      </Flex>
 
       {/* Cookie */}
       {showBanner && (

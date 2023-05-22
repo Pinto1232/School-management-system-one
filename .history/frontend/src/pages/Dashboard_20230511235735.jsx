@@ -32,8 +32,6 @@ import CardCustom from "../components/common/CardCustom";
 import cardCustomData from "../data/cardCustomData";
 import menuItemsData from "../data/menuItemsData";
 
-
-
 const Dashboard = () => {
   const bgDashboard = useColorModeValue("gray.50", "gray.700");
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -232,6 +230,7 @@ const Dashboard = () => {
             <Text color={textColor} fontSize="xl">
               Tasks
             </Text>
+            {/* Add content here */}
           </Box>
         </VStack>
       </Flex>
@@ -282,6 +281,7 @@ const Dashboard = () => {
                   </Box>
                 </Flex>
               ))}
+              {/* Add the Log out button */}
               <Button
                 colorScheme="red"
                 onClick={handleLogout}

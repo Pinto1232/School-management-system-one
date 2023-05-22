@@ -1,8 +1,6 @@
 import React from "react";
 import { Box, Flex, Image, Heading, Text } from "@chakra-ui/react";
 
-
-
 const CardCustom = ({
   data,
   cardsPerRow,
@@ -39,7 +37,7 @@ const CardCustom = ({
             >
               <Flex>
                 <Image
-                  src={card.image}
+                  src={card.image.slice(0, 3)}
                   alt={card.title}
                   fontSize={["50px", "100px"]}
                   objectFit="cover"

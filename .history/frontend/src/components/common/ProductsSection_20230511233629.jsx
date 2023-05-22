@@ -10,6 +10,7 @@ import {
   UnorderedList,
   ListItem,
   useColorModeValue,
+  Skeleton,
 } from "@chakra-ui/react";
 import CustomButton from "./CustomButton";
 
@@ -34,8 +35,8 @@ const ProductsSection = ({
         </Heading>
         <Text fontSize="xl">{subheading}</Text>
       </Box>
-      <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={2}>
-        {products.slice(0, 3).map((product) => (
+      <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={10}>
+        {products.map((product) => (
           <Box
             bg={bottomBgColor}
             shadow={cardShadow}
@@ -57,7 +58,7 @@ const ProductsSection = ({
               </Box>
             ))}
 
-            <Box p={2}>
+            <Box p={0}>
               <Heading as="h3" size="md" mb={2}>
                 <Text fontWeight="bold">{product.name}</Text>
                 <Text mt={4} as="h4" fontSize={12}>
@@ -67,7 +68,9 @@ const ProductsSection = ({
               <Box whiteSpace="nowrap">
                 {product.features.map((feature, index) => (
                   <UnorderedList>
-                      <ListItem>{feature.slice(0, 34)}</ListItem>
+                    <Skeleton isLoaded={product.isLoaded}>
+                      <ListItem>{feature.slice(0, 20)}</ListItem>
+                    </Skeleton>
                   </UnorderedList>
                 ))}
               </Box>

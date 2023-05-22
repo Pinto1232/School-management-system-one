@@ -27,7 +27,7 @@ const studentTrackingRoutes = require('./src/routes/studenttracking');
 const subscriptionRoutes = require('./src/routes/subscription');
 const resetPasswordRoutes = require('./src/routes/resetPasswordRoutes')
 const packagesRoutes = require('./src/routes/packages')
-const iconsRoutes = require('./src/routes/icons');
+const IconstRoutes = require('./src/routes/icons');
 
 const app = express();
 
@@ -107,7 +107,7 @@ app.use('/api/reset-password', resetPasswordRoutes);
 app.use('/api/packages', packagesRoutes);
 
 // Use Icons routes
-app.use('/api/icons', iconsRoutes) 
+app.use('/api/icons', IconstRoutes) 
 
 
 

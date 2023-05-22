@@ -1,8 +1,6 @@
 import React from "react";
 import { Box, Flex, Image, Heading, Text } from "@chakra-ui/react";
 
-
-
 const CardCustom = ({
   data,
   cardsPerRow,
