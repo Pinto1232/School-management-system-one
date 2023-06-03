@@ -1,6 +1,7 @@
 import React, { useRef, useContext, useState } from "react";
 import UserContext from "../contexts/UserContext";
 import { Grid, Link, useToast } from "@chakra-ui/react";
+import { css } from "@emotion/react";
 import {
   Box,
   Flex,
@@ -33,6 +34,22 @@ import cardCustomData from "../data/cardCustomData";
 import menuItemsData from "../data/menuItemsData";
 
 
+// Define your styles here
+const thinScrollbar = css`
+  &::-webkit-scrollbar {
+    width: 10px;
+    borderRadius: 2;
+  }
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+`;
 
 const Dashboard = () => {
   const bgDashboard = useColorModeValue("gray.50", "gray.700");
@@ -46,8 +63,7 @@ const Dashboard = () => {
   const backgroundColor = useColorModeValue("#fff", "gray.700");
   const backgroundBorder = useColorModeValue("", "1px solid");
   const breadCumberBg = useColorModeValue("", "gray.800");
-
-  /* console.log('User from context:', user); */
+  const iconsColor = useColorModeValue("#319795", "#3182ce");
 
   const handleLogout = async () => {
     setIsLoading(true);
@@ -87,7 +103,6 @@ const Dashboard = () => {
       <Flex direction="column" maxW={"1290px"} mx="auto" p={4}>
         <Flex justify="space-between" align="center" mb={4}>
           <Heading>
-            {/* <Text fontSize="3xl">PintoEdu Management</Text> */}
             <Flex
               justify={"center"}
               alignItems={"center"}
@@ -245,7 +260,7 @@ const Dashboard = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerHeader borderBottomWidth="1px">Dashboard Menu</DrawerHeader>
-          <DrawerBody>
+          <DrawerBody css={thinScrollbar}>
             <VStack spacing={4} align="stretch">
               {menuItemsData.map((item) => (
                 <Flex
@@ -261,20 +276,20 @@ const Dashboard = () => {
                     spacing="12"
                     gap={4}
                   >
-                    <item.icon boxsize="6" />
+                    <item.icon boxsize="0" fontSize={20} color={iconsColor} />
                     <Link
                       textDecoration="none"
-                      hover={{
+                      _hover={{
                         textDecoration: "none",
-                        backgroundColor: "gray.100",
                         paddingTop: "1",
                         paddingBottom: "1",
                         paddingLeft: "2",
-                        paddingRight: "4",
-                        transition: "all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)",
+                        paddingRight: "2",
+                        transition:
+                          "all 0.99s cubic-bezier(0.15, 0.8, 0.10, 6)",
                         width: "230px",
                         whiteSpace: "nowrap",
-                        borderRadius: "8",
+                        borderRadius: "4",
                       }}
                     >
                       <span>{item.label}</span>

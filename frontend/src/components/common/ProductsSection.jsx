@@ -10,6 +10,7 @@ import {
   UnorderedList,
   ListItem,
   useColorModeValue,
+  Spacer,
 } from "@chakra-ui/react";
 import CustomButton from "./CustomButton";
 
@@ -35,53 +36,61 @@ const ProductsSection = ({
         <Text fontSize="xl">{subheading}</Text>
       </Box>
       <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={2}>
-        {products.slice(0, 3).map((product) => (
-          <Box
-            bg={bottomBgColor}
-            shadow={cardShadow}
-            minH={300}
-            key={product.id}
-            borderRadius="lg"
-            color={textColor}
-          >
-            {product.images.map((image, index) => (
-              <Box bg={"#fff"} key={index}>
-                <Image
-                  maxW={imageMaxWidth}
-                  src={image.url}
-                  mx="auto"
-                  backgroundSize={"cover"}
-                  backgroundPosition={"center"}
-                  lazy
-                />
-              </Box>
-            ))}
+        {Array.isArray(products) &&
+          products.slice(0, 3).map((product, ids) => (
+            <Box
+              bg={bottomBgColor}
+              shadow={cardShadow}
+              minH={300}
+              key={ids}
+              borderRadius="lg"
+              color={textColor}
+              d="flex"
+              flexDirection="column"
+            >
+              {product.images.map((image, id) => (
+                <Box bg={"#fff"} key={`image-${id}`}>
+                  <Image
+                    maxW={imageMaxWidth}
+                    src={image.url}
+                    mx="auto"
+                    backgroundSize={"cover"}
+                    backgroundPosition={"center"}
+                    loading="lazy"
+                  />
+                </Box>
+              ))}
 
-            <Box p={2}>
-              <Heading as="h3" size="md" mb={2}>
-                <Text fontWeight="bold">{product.name}</Text>
-                <Text mt={4} as="h4" fontSize={12}>
+              <Flex flexGrow={1} p={2} flexDirection="column" height="120px">
+                <Heading as="h3" size="md" mb={2}>
+                  <Text fontWeight="bold">{product.name}</Text>
+                </Heading>
+                <Text mt={4} fontSize={12}>
                   ${product.price}
                 </Text>
-              </Heading>
-              <Box whiteSpace="nowrap">
-                {product.features.map((feature, index) => (
+                <Box whiteSpace="nowrap" flexGrow={1}>
                   <UnorderedList>
-                      <ListItem>{feature.slice(0, 34)}</ListItem>
+                    {product.features.map((feature, index) => (
+                      <ListItem key={`feature-${index}`}>
+                        {feature.slice(0, 34)}
+                      </ListItem>
+                    ))}
                   </UnorderedList>
-                ))}
+                </Box>
+              </Flex>
+
+              <Spacer mt={60} />
+              <Box m={8}>
+                <CustomButton
+                  textColor={btnTextColor}
+                  fontSize={textFontSize}
+                  width={"full"}
+                >
+                  Buy now
+                </CustomButton>
               </Box>
-              <CustomButton
-                margin="20px auto"
-                textColor={btnTextColor}
-                fontSize={textFontSize}
-                width={"full"}
-              >
-                Buy now
-              </CustomButton>
             </Box>
-          </Box>
-        ))}
+          ))}
       </SimpleGrid>
     </Grid>
   );

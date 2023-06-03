@@ -1,8 +1,3 @@
-import * as React from "react";
-import { GridItem, SimpleGrid, Spacer, useColorModeValue } from "@chakra-ui/react";
-import IconColumn from "./IconColumn";
-import CustomButton from "./CustomButton";
-import iconsData from "../../data/IconsData"; // import the iconsData array
 const IconColumns = ({ backgroundColor }) => {
   const bgButtonColor = useColorModeValue("#319795", "#3182ce");
   const iconsTextColor = useColorModeValue("#fff", "#fff");
@@ -12,6 +7,7 @@ const IconColumns = ({ backgroundColor }) => {
       bg={backgroundColor}
       padding={40}
       columns={[1, 2, 3, 4]}
+      gap={0} // This is the change
     >
       {Array.isArray(iconsData) &&
         iconsData.map((iconData) => (
@@ -23,7 +19,6 @@ const IconColumns = ({ backgroundColor }) => {
             textColor={iconsTextColor}
           />
         ))}
-        <Spacer/>
       <GridItem colSpan={[1, 2, 4]} textAlign="center">
         <CustomButton bgColor={bgButtonColor} width={200} textColor="#fff">
           learn more
@@ -32,4 +27,3 @@ const IconColumns = ({ backgroundColor }) => {
     </SimpleGrid>
   );
 };
-export default IconColumns;

@@ -3,6 +3,7 @@ import { GridItem, SimpleGrid, Spacer, useColorModeValue } from "@chakra-ui/reac
 import IconColumn from "./IconColumn";
 import CustomButton from "./CustomButton";
 import iconsData from "../../data/IconsData"; // import the iconsData array
+
 const IconColumns = ({ backgroundColor }) => {
   const bgButtonColor = useColorModeValue("#319795", "#3182ce");
   const iconsTextColor = useColorModeValue("#fff", "#fff");
@@ -12,6 +13,7 @@ const IconColumns = ({ backgroundColor }) => {
       bg={backgroundColor}
       padding={40}
       columns={[1, 2, 3, 4]}
+      gap={0}  // remove the space between icons
     >
       {Array.isArray(iconsData) &&
         iconsData.map((iconData) => (
@@ -32,4 +34,5 @@ const IconColumns = ({ backgroundColor }) => {
     </SimpleGrid>
   );
 };
+
 export default IconColumns;

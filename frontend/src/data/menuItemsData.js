@@ -61,7 +61,7 @@ export default [
     icon: FaBook 
   },
   { 
-    label: "Fees Management", 
+    label: "Fees", 
     path: "/fees", 
     icon: FaCalendar 
   },
@@ -86,13 +86,13 @@ export default [
     icon: FaUnlockAlt,
   },
   {
-    label: "Staff Management",
-    path: "/staff_management",
+    label: "Staff",
+    path: "/staff",
     icon: FaUnlockAlt,
   },
   {
-    label: "Timetable Management",
-    path: "/timetable_management",
+    label: "Timetable",
+    path: "/timetable",
     icon: FaUnlockAlt,
   },
 ];
