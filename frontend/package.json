@@ -26,7 +26,7 @@
     "bootstrap": "^5.2.3",
     "chart.js": "^4.2.1",
     "formik": "^2.2.9",
-    "framer-motion": "^10.10.0",
+    "framer-motion": "^10.12.14",
     "fusioncharts": "^3.20.0",
     "jquery": "^3.6.3",
     "openai": "^3.2.1",

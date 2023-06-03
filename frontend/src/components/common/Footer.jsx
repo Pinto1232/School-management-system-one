@@ -51,7 +51,8 @@ const Footer = ({ SubmitNewsletter }) => {
   };
 
   return (
-    <Box bg={backgroundColor} color="#4A5568" p={4} mt={8}>
+    <Box bg={backgroundColor} color="#4A5568" p={4} mt={8}  mx="auto"
+    w="100%">
       <Flex
         direction={{ base: "column", sm: "row", md: "row" }}
         wrap="wrap"
@@ -88,24 +89,24 @@ const Footer = ({ SubmitNewsletter }) => {
       </Flex>
 
       {/* Subscribe newsletter input */}
-      {/* <Flex justifyContent={"center"} alignItems={"center"}>
-        <AdjustableColumnLayout>
-          <InputFieldComponent
-            placeholder={"Subscribe for our newsletter"}
-            placeholderTextColor={"gray.600"}
-            icon={FaEnvelope}
-            inpuFieldWidth={"434px"}
-            inpuFieldBackgroundColor={"gray.200"}
-          />
-          <CustomButton
-            bgColor={buttonColor}
-            textColor={"#fff"}
-            width={"150px"}
-          >
-            Submit
-          </CustomButton>
-        </AdjustableColumnLayout>
-      </Flex> */}
+        <Flex mx="auto" ml={315}>
+          <AdjustableColumnLayout columns={1} >
+            <InputFieldComponent
+              placeholder={"Subscribe for our newsletter"}
+              placeholderTextColor={"gray.600"}
+              icon={FaEnvelope}
+              inpuFieldWidth={"434px"}
+              inpuFieldBackgroundColor={"gray.200"}
+            />
+            <CustomButton
+              bgColor={buttonColor}
+              textColor={"#fff"}
+              width={"150px"}
+            >
+              Submit
+            </CustomButton>
+          </AdjustableColumnLayout>
+        </Flex>
 
       {/* Cookie */}
       {showBanner && (

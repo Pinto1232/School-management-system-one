@@ -6,6 +6,7 @@ const AdjustableColumnLayout = ({ columns, children, bgBoxColor }) => {
 
   return (
     <Grid
+      mx="auto"
       templateColumns={{
         base: "1fr",
         sm: `repeat(${numColumns}, 1fr)`,

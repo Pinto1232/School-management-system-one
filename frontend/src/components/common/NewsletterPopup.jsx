@@ -14,6 +14,7 @@ import {
 import CustomButton from "./CustomButton";
 import imageBg from "../../assets/images/school.jpg";
 import { FaEnvelope } from "react-icons/fa";
+import { CloseIcon } from "@chakra-ui/icons";
 
 const NewsletterPopup = ({
   onSubmit,
@@ -64,6 +65,9 @@ const NewsletterPopup = ({
   };
 
   const bgButtonColor = useColorModeValue("#319795", "#3182ce");
+  const backgroundColor = useColorModeValue("#F7FAFC", "gray.700");
+  const textFieldBackgroundColor = useColorModeValue("#E2E8F0", "#4A5568");
+  const textFieldColor = useColorModeValue("#4A5568", "#fff");
 
   return (
     <Box>
@@ -94,7 +98,7 @@ const NewsletterPopup = ({
           zIndex="9999"
         >
           <Box
-            bg="whiteAlpha.900"
+            bg={backgroundColor}
             p={4}
             borderRadius="md"
             maxWidth="600px"
@@ -103,8 +107,8 @@ const NewsletterPopup = ({
           >
             <Flex justifyContent="space-between" alignItems="center" mb={4}>
               <Text fontSize="2xl" fontWeight="bold">
-                <Heading color={"white"}>
-                  <Heading as="p" color={"black"} fontSize={20}>
+                <Heading color={textFieldColor}>
+                  <Heading as="p" fontSize={20}>
                     Please provide your email
                   </Heading>
                 </Heading>
@@ -113,35 +117,37 @@ const NewsletterPopup = ({
                 bgColor={bgButtonColor}
                 onClick={onClose}
                 variant="ghost"
-              >
-                Close
-              </CustomButton>
+                rightIcon={<CloseIcon />}
+              ></CustomButton>
             </Flex>
-            <form onSubmit={handleSubmit}>
-              <Input
-                type="email"
-                placeholder={placeholder}
-                value={email}
-                onChange={handleEmailChange}
-                mb={4}
-                isRequired
-              />
-              <Box
-                type="submit"
-                isFullWidth
-                isLoading={isLoading}
-                isDisabled={isButtonDisabled}
-                transition="all 0.2s"
-                _disabled={{ opacity: 0.6, cursor: "not-allowed" }}
-                /* _hover={{ transform: "scale(1.05)" }} */
-              >
-                {isLoading ? (
-                  <Spinner size="sm" />
-                ) : (
-                  <CustomButton bgColor={bgButtonColor}>Submit</CustomButton>
-                )}
-              </Box>
-            </form>
+            <Box>
+              <form onSubmit={handleSubmit}>
+                <Input
+                  type="email"
+                  placeholder={placeholder}
+                  value={email}
+                  onChange={handleEmailChange}
+                  mb={4}
+                  isRequired
+                  bg={textFieldBackgroundColor}
+                />
+                <Box
+                  type="submit"
+                  isFullWidth
+                  isLoading={isLoading}
+                  isDisabled={isButtonDisabled}
+                  transition="all 0.2s"
+                  _disabled={{ opacity: 0.6, cursor: "not-allowed" }}
+                  /* _hover={{ transform: "scale(1.05)" }} */
+                >
+                  {isLoading ? (
+                    <Spinner size="sm" />
+                  ) : (
+                    <CustomButton bgColor={bgButtonColor}>Submit</CustomButton>
+                  )}
+                </Box>
+              </form>
+            </Box>
           </Box>
         </Box>
       )}
