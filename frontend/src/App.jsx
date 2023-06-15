@@ -11,7 +11,6 @@ import About from "./pages/About";
 import Footer from "./components/common/Footer";
 import ResetPassword from "./pages/ResetPassword";
 import { Box } from "@chakra-ui/react";
-/* import ForgetPassword from "./pages/ForgetPassword"; */
 import TesPage from "./pages/TesPage";
 import TestPageTwo from "./pages/TestPageTwo";
 import BackToTopButton from "./components/specific/BackToTopButton";
@@ -57,7 +56,6 @@ const App = () => {
     { path: "/dashboard", element: isLoggedIn ? <Dashboard /> : <Login /> },
     { path: "/faq", element: <Faq /> },
     { path: "/about", element: <About /> },
-    /* { path: "/forgetPassword", element: <ForgetPassword /> }, */
     { path: "/reset-password/:token", element: <ResetPassword /> },
     { path: "/test", element: <TesPage /> },
     { path: "/testtwo", element: <TestPageTwo /> },
