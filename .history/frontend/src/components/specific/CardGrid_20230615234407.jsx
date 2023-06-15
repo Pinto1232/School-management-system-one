@@ -1,4 +1,4 @@
-import { Grid, useColorModeValue, Text } from '@chakra-ui/react'
+import { Grid, useColorModeValue, Text, Textarea } from '@chakra-ui/react'
 import React from 'react'
 import SubscriptionCard from '../common/SubscriptionCard'
 import bgImageCardBasic from '../../assets/images/basic.jpg'
@@ -24,6 +24,7 @@ const CardGrid = () => {
             margin="0 auto"
             p={10}
         >
+        <Textarea>Pinto </Textarea>
             <Text
                 color={textColor}
                 fontSize="4xl"

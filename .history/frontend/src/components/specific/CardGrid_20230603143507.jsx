@@ -58,7 +58,7 @@ const CardGrid = () => {
                 onSubscribe={() => console.log("Premium Plan subscribed")}
                 imageUrl={bgImageCardPremium}
             />
-        </Grid>
+        </Grid >
     )
 }
 

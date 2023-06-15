@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Jumbotron from "../components/specific/Jumbotron";
 import bgImage from "../assets/images/background-01.jpg";
 import IconColumns from "../components/common/IconColumns";
-import { Flex, Box, Image, useBreakpointValue, Grid } from "@chakra-ui/react";
+import { Box, Flex, Grid, Image } from "@chakra-ui/react";
 import AboutUsSection from "../components/common/AboutUsSection";
 import ProductsSection from "../components/common/ProductsSection";
 import { useGetPackagesQuery } from "../services/packageApi";
@@ -10,12 +10,6 @@ import { useToast } from "@chakra-ui/react";
 import { Spinner } from "@chakra-ui/react";
 
 const Home = () => {
-  const flexDirection = useBreakpointValue({ base: "column", md: "row" });
-  const imageSize = useBreakpointValue({ base: "100%", md: "50%" });
-  const paddingSize = useBreakpointValue({ base: "16px", md: "32px" });
-  const gapSize = useBreakpointValue({ base: "8px", md: "16px" });
-  const headingWidth = useBreakpointValue({ base: "90%", md: "480px" });
-
   const handleButtonClick = () => {};
   const {
     data: productsPackageData,
@@ -91,43 +85,53 @@ const Home = () => {
       />
 
 <Flex
-      maxW={{ base: "90%", md: "6xl" }}
-      flexDirection={flexDirection}
-      border={0}
-      mx="auto"
-      mt={10}
-      p={6}
-      borderWidth={1}
-      rounded="md"
-      align="center"
-    >
-      <Box w={{ base: "100%", md: "50%" }} pr={{ md: "2" }}>
-        <AboutUsSection
-          style={{
-            padding: paddingSize,
-            gap: gapSize,
-          }}
-          headingStyle={{
-            maxW: headingWidth,
-          }}
-          heading="Our services"
-          subheading="
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce euismod aliquam commodo. 
-                    Vestibulum pharetra semper urna, ac dapibus felis ultricies ut.
-                    Duis pharetra sapien non magna ullamcorper, ut scelerisque enim sagittis.
-                    Nullam at ipsum quis nibh posuere ultrices. Nam posuere, purus sed finibus venenatis, 
-                    enim urna commodo mauris, at aliquet metus lorem vitae mauris."
-        />
-      </Box>
-      <Box w={imageSize} position="relative">
-        <Image
-          src="https://media.istockphoto.com/id/1402604850/photo/the-word-about-us-on-wooden-cubes-business-communication-and-information.jpg?b=1&s=170667a&w=0&k=20&c=M1zgL2pGwZ_g3cwmOvdMtzz92PlTLdihv6_wgaW1QZc="
-          layout="fill"
-          objectFit="cover"
-          alt="About us image"
-        />
-      </Box>
-    </Flex>
+  maxW={{ base: "90%", md: "6xl" }}
+  direction={{ base: "column", md: "row" }}
+  border={0}
+  mx="auto"
+  mt={10}
+  p={6}
+  borderWidth={1}
+  rounded="md"
+>
+  <Stack
+    spacing={{ base: "24px", md: "32px" }}
+    width={{ base: "full", md: "50%" }}
+  >
+    <AboutUsSection
+      style={{
+        padding: { base: "16px", md: "32px" },
+        gap: { base: "8px", md: "16px" },
+      }}
+      headingStyle={{
+        maxW: { base: "90%", md: "480px" },
+      }}
+      heading="Our services"
+      subheading="
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce euismod aliquam commodo. 
+              Vestibulum pharetra semper urna, ac dapibus felis ultricies ut.
+              Duis pharetra sapien non magna ullamcorper, ut scelerisque enim sagittis.
+              Nullam at ipsum quis nibh posuere ultrices. Nam posuere, purus sed finibus venenatis, 
+              enim urna commodo mauris, at aliquet metus lorem vitae mauris."
+    />
+  </Stack>
+  
+  <Box
+    width={{ base: "full", md: "50%" }}
+    position="relative"
+    pt={{ base: "75%", md: "50%" }}
+  >
+    <Image
+      src="https://media.istockphoto.com/id/1402604850/photo/the-word-about-us-on-wooden-cubes-business-communication-and-information.jpg?b=1&s=170667a&w=0&k=20&c=M1zgL2pGwZ_g3cwmOvdMtzz92PlTLdihv6_wgaW1QZc="
+      position="absolute"
+      top={0}
+      right={0}
+      bottom={0}
+      left={0}
+      objectFit="cover"
+    />
+  </Box>
+</Flex>
     </Grid>
   );
 };

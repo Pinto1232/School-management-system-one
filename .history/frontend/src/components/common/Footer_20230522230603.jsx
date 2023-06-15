@@ -8,8 +8,8 @@ import {
   Link,
   HStack,
   IconButton,
-  useColorModeValue,
 } from "@chakra-ui/react";
+import { useColorModeValue } from "@chakra-ui/react";
 import { FaEnvelope, FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import footerLinks from "../../data/linksFooterData";
 import InputFieldComponent from "./InputFieldComponent";
@@ -20,23 +20,13 @@ import ShippingAndPaymentIcons from "../specific/ShippingAndPaymentIcons";
 import ShippingAndPaymentData from "../../data/ShippingAndPaymentData";
 
 const Footer = ({ SubmitNewsletter }) => {
-  const colorModeStyles = useColorModeValue(
-    {
-      textColor: "#4A5568",
-      backgroundColor: "#F7FAFC",
-      buttonColor: "#319795",
-      textButton: "#4A5568",
-      footerIcons: "#319795",
-    },
-    {
-      textColor: "#fff",
-      backgroundColor: "gray.700",
-      buttonColor: "#3182ce",
-      textButton: "#fff",
-      footerIcons: "",
-    }
-  );
+  const textColor = useColorModeValue("#4A5568", "#fff");
+  const backgroundColor = useColorModeValue("#F7FAFC", "gray.700");
+  const buttonColor = useColorModeValue("#319795", "#3182ce");
+  const textButton = useColorModeValue("#4A5568", "#fff");
+  const footerIcons = useColorModeValue("#319795", "");
 
+  // Custom cookie banner
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
@@ -44,13 +34,15 @@ const Footer = ({ SubmitNewsletter }) => {
       .split(";")
       .some((item) => item.trim().startsWith("cookieConsent="));
     setShowBanner(!cookieExists);
+    /* console.log("Cookie exists", cookieExists); */
   }, []);
 
   const handleAccept = () => {
-    const date = new Date();
-    date.setTime(date.getTime() + 30 * 24 * 60 * 60 * 1000);
-    document.cookie = `cookieConsent=true; expires=${date.toGMTString()}; path=/`;
     setShowBanner(false);
+    const date = new Date();
+    date.setTime(date.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days in milliseconds
+    const expires = "; expires=" + date.toGMTString();
+    document.cookie = "cookieConsent=true" + expires + "; path=/";
   };
 
   const handleFormSubmit = (e) => {
@@ -59,87 +51,81 @@ const Footer = ({ SubmitNewsletter }) => {
   };
 
   return (
-    <Box
-      bg={colorModeStyles.backgroundColor}
-      color={colorModeStyles.textColor}
-      p={4}
-      mt={8}
-      mx="auto"
-      w="100%"
-    >
+    <Box bg={backgroundColor} color="#4A5568" p={4} mt={8}  mx="auto"
+    w="100%">
       <Flex
-        direction={{ base: "column", sm: "row" }}
+        direction={{ base: "column", sm: "row", md: "row" }}
         wrap="wrap"
         justifyContent="center"
         alignItems="center"
-        maxW="1200px"
-        mx="auto"
+        maxWidth="1200px"
+        margin="0 auto"
         mb={4}
       >
         {footerLinks.map(({ title, subLinks }, index) => (
-          <VStack
-            key={index}
-            textAlign="center"
-            p={{ base: 4, sm: 6, md: 12 }}
-            spacing={2}
-            alignItems="start"
-          >
-            <Text
-              fontSize={{ base: "sm", sm: "md", md: "xl" }}
-              fontWeight="bold"
-              mb={2}
-            >
-              {title}
-            </Text>
-            {subLinks.map(({ label, href }, index) => (
-              <Link
-                key={index}
-                href={href}
-                fontSize={{ base: "sm", sm: "md", md: "sm" }}
+          <Box key={index} textAlign="center" p={{ base: 4, sm: 6, md: 12 }}>
+            <VStack spacing={2} alignItems="start">
+              <Text
+                color={textColor}
+                fontSize={{ base: "sm", sm: "md", md: "xl" }}
+                fontWeight="bold"
+                mb={2}
               >
-                {label}
-              </Link>
-            ))}
-          </VStack>
+                {title}
+              </Text>
+              {subLinks.map(({ label, href }, index) => (
+                <Link
+                  key={index}
+                  href={href}
+                  color={textColor}
+                  fontSize={{ base: "sm", sm: "md", md: "sm" }}
+                >
+                  {label}
+                </Link>
+              ))}
+            </VStack>
+          </Box>
         ))}
       </Flex>
 
-      <Flex mx="auto" justify="center" w="100%" px={8}>
-        <AdjustableColumnLayout columns={1}>
-          <InputFieldComponent
-            placeholder="Subscribe for our newsletter"
-            placeholderTextColor="gray.600"
-            icon={FaEnvelope}
-            inpuFieldWidth="100%"
-            inpuFieldBackgroundColor="gray.200"
-          />
-          <CustomButton
-            bgColor={colorModeStyles.buttonColor}
-            textColor="#fff"
-            width="full"
-          >
-            Submit
-          </CustomButton>
-        </AdjustableColumnLayout>
-      </Flex>
+      {/* Subscribe newsletter input */}
+        <Flex mx="auto" ml={315}>
+          <AdjustableColumnLayout columns={1} >
+            <InputFieldComponent
+              placeholder={"Subscribe for our newsletter"}
+              placeholderTextColor={"gray.600"}
+              icon={FaEnvelope}
+              inpuFieldWidth={"434px"}
+              inpuFieldBackgroundColor={"gray.200"}
+            />
+            <CustomButton
+              bgColor={buttonColor}
+              textColor={"#fff"}
+              width={"150px"}
+            >
+              Submit
+            </CustomButton>
+          </AdjustableColumnLayout>
+        </Flex>
 
+      {/* Cookie */}
       {showBanner && (
         <CookieConsentBanner
           onAccept={handleAccept}
-          CookieWidth="100%"
-          buttonColor="blue"
+          CookieWidth={"100%"}
+          buttonColor={"blue"}
         />
       )}
       <Divider borderColor="gray.300" my={8} />
       <Flex
-        direction={{ base: "column-reverse", sm: "row" }}
+        direction={{ base: "column-reverse", sm: "row", md: "row" }}
         justifyContent="space-between"
         alignItems="center"
-        maxW="1200px"
-        mx="auto"
+        maxWidth="1200px"
+        margin="0 auto"
         pt={4}
       >
-        <Text fontSize={{ base: "sm", sm: "md" }} color="gray.500">
+        <Text fontSize={{ base: "sm", sm: "md", md: "md" }} color="gray.500">
           © 2023 PintoEd Management. All rights reserved.
         </Text>
         <Flex gap={2}>
@@ -154,7 +140,7 @@ const Footer = ({ SubmitNewsletter }) => {
               size="md"
               variant="ghost"
               colorScheme="gray"
-              color={colorModeStyles.footerIcons}
+              color={footerIcons}
               fontSize={25}
             />
             <IconButton
@@ -163,7 +149,7 @@ const Footer = ({ SubmitNewsletter }) => {
               size="md"
               variant="ghost"
               colorScheme="gray"
-              color={colorModeStyles.footerIcons}
+              color={footerIcons}
               fontSize={25}
             />
             <IconButton
@@ -172,7 +158,7 @@ const Footer = ({ SubmitNewsletter }) => {
               size="sm"
               variant="ghost"
               colorScheme="gray"
-              color={colorModeStyles.footerIcons}
+              color={footerIcons}
               fontSize={25}
             />
           </HStack>

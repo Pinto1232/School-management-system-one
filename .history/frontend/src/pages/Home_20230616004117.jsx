@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Jumbotron from "../components/specific/Jumbotron";
 import bgImage from "../assets/images/background-01.jpg";
 import IconColumns from "../components/common/IconColumns";
-import { Flex, Box, Image, useBreakpointValue, Grid } from "@chakra-ui/react";
+import { Box, Flex, Grid, Image, Stack } from "@chakra-ui/react";
 import AboutUsSection from "../components/common/AboutUsSection";
 import ProductsSection from "../components/common/ProductsSection";
 import { useGetPackagesQuery } from "../services/packageApi";
@@ -10,12 +10,6 @@ import { useToast } from "@chakra-ui/react";
 import { Spinner } from "@chakra-ui/react";
 
 const Home = () => {
-  const flexDirection = useBreakpointValue({ base: "column", md: "row" });
-  const imageSize = useBreakpointValue({ base: "100%", md: "50%" });
-  const paddingSize = useBreakpointValue({ base: "16px", md: "32px" });
-  const gapSize = useBreakpointValue({ base: "8px", md: "16px" });
-  const headingWidth = useBreakpointValue({ base: "90%", md: "480px" });
-
   const handleButtonClick = () => {};
   const {
     data: productsPackageData,
@@ -92,7 +86,7 @@ const Home = () => {
 
 <Flex
       maxW={{ base: "90%", md: "6xl" }}
-      flexDirection={flexDirection}
+      direction={direction}
       border={0}
       mx="auto"
       mt={10}
@@ -114,7 +108,7 @@ const Home = () => {
           subheading="
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce euismod aliquam commodo. 
                     Vestibulum pharetra semper urna, ac dapibus felis ultricies ut.
-                    Duis pharetra sapien non magna ullamcorper, ut scelerisque enim sagittis.
+                     Duis pharetra sapien non magna ullamcorper, ut scelerisque enim sagittis.
                     Nullam at ipsum quis nibh posuere ultrices. Nam posuere, purus sed finibus venenatis, 
                     enim urna commodo mauris, at aliquet metus lorem vitae mauris."
         />

@@ -8,7 +8,7 @@ import {
   Link,
   HStack,
   IconButton,
-  useColorModeValue,
+  useColorModeValue
 } from "@chakra-ui/react";
 import { FaEnvelope, FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import footerLinks from "../../data/linksFooterData";
@@ -20,29 +20,24 @@ import ShippingAndPaymentIcons from "../specific/ShippingAndPaymentIcons";
 import ShippingAndPaymentData from "../../data/ShippingAndPaymentData";
 
 const Footer = ({ SubmitNewsletter }) => {
-  const colorModeStyles = useColorModeValue(
-    {
-      textColor: "#4A5568",
-      backgroundColor: "#F7FAFC",
-      buttonColor: "#319795",
-      textButton: "#4A5568",
-      footerIcons: "#319795",
-    },
-    {
-      textColor: "#fff",
-      backgroundColor: "gray.700",
-      buttonColor: "#3182ce",
-      textButton: "#fff",
-      footerIcons: "",
-    }
-  );
+  const colorModeStyles = useColorModeValue({
+    textColor: "#4A5568",
+    backgroundColor: "#F7FAFC",
+    buttonColor: "#319795",
+    textButton: "#4A5568",
+    footerIcons: "#319795",
+  }, {
+    textColor: "#fff",
+    backgroundColor: "gray.700",
+    buttonColor: "#3182ce",
+    textButton: "#fff",
+    footerIcons: ""
+  });
 
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
-    const cookieExists = document.cookie
-      .split(";")
-      .some((item) => item.trim().startsWith("cookieConsent="));
+    const cookieExists = document.cookie.split(";").some((item) => item.trim().startsWith("cookieConsent="));
     setShowBanner(!cookieExists);
   }, []);
 
@@ -59,44 +54,15 @@ const Footer = ({ SubmitNewsletter }) => {
   };
 
   return (
-    <Box
-      bg={colorModeStyles.backgroundColor}
-      color={colorModeStyles.textColor}
-      p={4}
-      mt={8}
-      mx="auto"
-      w="100%"
-    >
-      <Flex
-        direction={{ base: "column", sm: "row" }}
-        wrap="wrap"
-        justifyContent="center"
-        alignItems="center"
-        maxW="1200px"
-        mx="auto"
-        mb={4}
-      >
+    <Box bg={colorModeStyles.backgroundColor} color={colorModeStyles.textColor} p={4} mt={8} mx="auto" w="100%">
+      <Flex direction={{ base: "column", sm: "row" }} wrap="wrap" justifyContent="center" alignItems="center" maxW="1200px" mx="auto" mb={4}>
         {footerLinks.map(({ title, subLinks }, index) => (
-          <VStack
-            key={index}
-            textAlign="center"
-            p={{ base: 4, sm: 6, md: 12 }}
-            spacing={2}
-            alignItems="start"
-          >
-            <Text
-              fontSize={{ base: "sm", sm: "md", md: "xl" }}
-              fontWeight="bold"
-              mb={2}
-            >
+          <VStack key={index} textAlign="center" p={{ base: 4, sm: 6, md: 12 }} spacing={2} alignItems="start">
+            <Text fontSize={{ base: "sm", sm: "md", md: "xl" }} fontWeight="bold" mb={2}>
               {title}
             </Text>
             {subLinks.map(({ label, href }, index) => (
-              <Link
-                key={index}
-                href={href}
-                fontSize={{ base: "sm", sm: "md", md: "sm" }}
-              >
+              <Link key={index} href={href} fontSize={{ base: "sm", sm: "md", md: "sm" }}>
                 {label}
               </Link>
             ))}
@@ -111,17 +77,16 @@ const Footer = ({ SubmitNewsletter }) => {
             placeholderTextColor="gray.600"
             icon={FaEnvelope}
             inpuFieldWidth="100%"
-            inpuFieldBackgroundColor="gray.200"
-          />
-          <CustomButton
-            bgColor={colorModeStyles.buttonColor}
-            textColor="#fff"
-            width="full"
-          >
-            Submit
-          </CustomButton>
-        </AdjustableColumnLayout>
-      </Flex>
+            inpuFieldBackgroundColor="gray.200"            />
+            <CustomButton
+              bgColor={colorModeStyles.buttonColor}
+              textColor="#fff"
+              width="full"
+            >
+              Submit
+            </CustomButton>
+          </AdjustableColumnLayout>
+        </Flex>
 
       {showBanner && (
         <CookieConsentBanner
@@ -183,3 +148,5 @@ const Footer = ({ SubmitNewsletter }) => {
 };
 
 export default Footer;
+
+         
