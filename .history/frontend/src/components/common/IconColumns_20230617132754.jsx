@@ -25,7 +25,7 @@ const IconColumns = ({ backgroundColor }) => {
     <>
       <SimpleGrid bg={backgroundColor} padding={35} columns={ICON_COLUMNS} gap={2}> 
         <GridItem colSpan={ICON_COLUMNS} textAlign="center" mb={15}>
-          <Heading as={'h3'}>What We Offer</Heading>
+          <Heading as={'h2'}>What We Offer</Heading>
         </GridItem>
         {Array.isArray(iconsData) &&
           iconsData.map((iconData) => (
