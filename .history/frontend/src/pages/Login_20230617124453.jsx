@@ -11,6 +11,7 @@ import { useColorModeValue } from '@chakra-ui/react';
 const initialValues = {
   email: '',
   password: '',
+  keepMeLogin: false
 };
 
 const validate = (values) => {
@@ -31,7 +32,6 @@ const Login = () => {
   const navigate = useNavigate();
   const toast = useToast();
   const { setUser, setIsLoggedIn } = useContext(UserContext);
-  const [keepMeLogin, setKeepMeLogin] = useState(false);
   const [toastVisible, setToastVisible] = useState(false);
   const textColor = useColorModeValue('#4A5568', '#fff');
   const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
@@ -51,7 +51,7 @@ const Login = () => {
 
       const data = response.data;
 
-      if (keepMeLogin) {
+      if (values.keepMeLogin) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
       } else {
@@ -106,12 +106,6 @@ const Login = () => {
 
   const handleForgotPasswordClick = () => {
     navigate('/forgetPassword');
-  };
-
-  const handleKeepMeLoginChange = (e) => {
-    const isChecked = e.target.checked;
-    console.log(`keepMeLogin checked: ${isChecked}`);
-    setKeepMeLogin(isChecked);
   };
 
   return (
@@ -169,8 +163,9 @@ const Login = () => {
           <FormControl id="keepMeLogin">
             <Checkbox
               name="keepMeLogin"
-              isChecked={keepMeLogin}
-              onChange={handleKeepMeLoginChange}
+              isChecked={values.keepMeLogin}
+              onChange={handleChange}
+              onBlur={handleBlur}
             >
               Keep me logged in
             </Checkbox>

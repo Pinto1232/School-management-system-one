@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
-import { Box, Button, Center, Checkbox, Flex, FormControl, FormLabel, Input, InputGroup, InputRightElement, Image, Link as ChakraLink, Spacer, Stack, Text, useToast, IconButton } from '@chakra-ui/react';
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { Box, Button, Center, Link as ChakraLink, Checkbox, Flex, FormControl, FormLabel, InputRightElement, Image, Input, InputGroup, Spacer, Stack, Text, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import useFormValidation from '../hooks/useFormValidation';
 import api from '../services/api';
 import UserContext from '../contexts/UserContext';
 import logo from '../assets/images/logo.png';
 import { useColorModeValue } from '@chakra-ui/react';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 const initialValues = {
   email: '',
@@ -42,6 +42,8 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handlePasswordVisibility = () => setShowPassword(!showPassword);
 
+
+
   const handleFormSubmit = async (values, setIsSubmitting, setErrors) => {
     try {
       const response = await api.post('/users/login', {
@@ -50,29 +52,36 @@ const Login = () => {
       });
 
       const data = response.data;
+      console.log('Login successful', data);
 
-      if (keepMeLogin) {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-      } else {
-        sessionStorage.setItem('token', data.token);
-        sessionStorage.setItem('user', JSON.stringify(data.user));
-      }
-
-      setUser(data.user);
-      setIsLoggedIn(true);
       setTimeout(() => {
-        toast({
-          title: 'Logged in successfully',
-          description: 'Welcome to the dashboard',
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
-          position: 'top-right',
-        });
+        if (values.keepMeLogin) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+        } else {
+          sessionStorage.setItem('token', data.token);
+          sessionStorage.setItem('user', JSON.stringify(data.user));
+        }
+
+        if (!toastVisible) {
+          toast({
+            title: 'Logged in successfully',
+            description: 'Welcome to the dashboard',
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+            position: 'top-right',
+            onCloseComplete: () => setToastVisible(false),
+          });
+          setToastVisible(true);
+        }
+
         navigate('/dashboard');
       }, 3000);
 
+      setUser(data.user);
+      console.log('User data:', data.user);
+      setIsLoggedIn(true);
     } catch (error) {
       console.error('Error during login:', error);
 
@@ -109,9 +118,7 @@ const Login = () => {
   };
 
   const handleKeepMeLoginChange = (e) => {
-    const isChecked = e.target.checked;
-    console.log(`keepMeLogin checked: ${isChecked}`);
-    setKeepMeLogin(isChecked);
+    setKeepMeLogin(e.target.checked);
   };
 
   return (
@@ -166,19 +173,21 @@ const Login = () => {
             </InputGroup>
             {errors.password && <Text color="red.500">{errors.password}</Text>}
           </FormControl>
-          <FormControl id="keepMeLogin">
-            <Checkbox
-              name="keepMeLogin"
-              isChecked={keepMeLogin}
-              onChange={handleKeepMeLoginChange}
-            >
-              Keep me logged in
-            </Checkbox>
-          </FormControl>
+          {errors.serverError && <Text color="red.500">{errors.serverError}</Text>}
           <Button color={buttonTextColor} type="submit" colorScheme="teal" isLoading={isSubmitting} width="100%">
             Login
           </Button>
           <Flex alignItems="center">
+            <FormControl id="keepMeLogin">
+              <Checkbox
+                name="keepMeLogin"
+                isChecked={keepMeLogin}
+                onChange={handleKeepMeLoginChange}
+                onBlur={handleBlur}
+              >
+                Keep me logged in
+              </Checkbox>
+            </FormControl>
             <Spacer />
             <ChakraLink color="blue.500" onClick={handleForgotPasswordClick} whiteSpace="nowrap">
               Forgot Password?
@@ -191,3 +200,4 @@ const Login = () => {
 };
 
 export default Login;
+
