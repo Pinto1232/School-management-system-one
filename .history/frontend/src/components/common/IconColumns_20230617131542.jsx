@@ -22,9 +22,9 @@ const IconColumns = ({ backgroundColor }) => {
 
   return (
     <>
-      <SimpleGrid bg={backgroundColor} padding={35} columns={ICON_COLUMNS}>
-        <GridItem colSpan={ICON_COLUMNS} textAlign="center" mb={15}>
-          <Heading as={'h2'}>Pinto Manuel</Heading>
+      <SimpleGrid bg={backgroundColor} padding={40} columns={ICON_COLUMNS}>
+        <GridItem colSpan={ICON_COLUMNS} textAlign="center">
+          <Heading>Pinto Manuel</Heading>
         </GridItem>
         {Array.isArray(iconsData) &&
           iconsData.map((iconData) => (

@@ -22,8 +22,8 @@ const IconColumns = ({ backgroundColor }) => {
 
   return (
     <>
-      <SimpleGrid bg={backgroundColor} padding={35} columns={ICON_COLUMNS}>
-        <GridItem colSpan={ICON_COLUMNS} textAlign="center" mb={15}>
+      <SimpleGrid bg={backgroundColor} padding={30} columns={ICON_COLUMNS}>
+        <GridItem colSpan={ICON_COLUMNS} textAlign="center">
           <Heading as={'h2'}>Pinto Manuel</Heading>
         </GridItem>
         {Array.isArray(iconsData) &&

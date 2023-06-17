@@ -4,7 +4,7 @@ const iconsData = [
     { id: 1, icon: FaHome, title: "Student Information Tracking" },
     { id: 2, icon: FaUserAlt, title: "Administrative Task Automation" },
     { id: 3, icon: FaBell, title: "Parent-Teacher Communication" },
-    { id: 4, icon: FaCog, title: "Resource Management" },
+    { id: 4, icon: FaCog, title: "24/7 Support" },
 ];
 
 export default iconsData;

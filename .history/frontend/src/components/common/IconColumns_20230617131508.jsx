@@ -5,8 +5,7 @@ import {
   Box,
   Text,
   useColorModeValue,
-  useBreakpointValue,
-  Heading,
+  useBreakpointValue
 } from "@chakra-ui/react";
 import IconColumn from "./IconColumn";
 import CustomButton from "./CustomButton";
@@ -22,10 +21,10 @@ const IconColumns = ({ backgroundColor }) => {
 
   return (
     <>
-      <SimpleGrid bg={backgroundColor} padding={35} columns={ICON_COLUMNS}>
-        <GridItem colSpan={ICON_COLUMNS} textAlign="center" mb={15}>
-          <Heading as={'h2'}>Pinto Manuel</Heading>
-        </GridItem>
+      <SimpleGrid bg={backgroundColor} padding={40} columns={ICON_COLUMNS}>
+      <GridItem colSpan={ICON_COLUMNS} textAlign="center">
+    <Text>Pinto Manuel</Text>
+  </GridItem>
         {Array.isArray(iconsData) &&
           iconsData.map((iconData) => (
             <IconColumn
@@ -38,11 +37,7 @@ const IconColumns = ({ backgroundColor }) => {
           ))}
         <Box mb={10} />
         <GridItem colSpan={ICON_COLUMNS} textAlign="center">
-          <CustomButton
-            bgColor={bgButtonColor}
-            width={buttonWidth}
-            textColor="#fff"
-          >
+          <CustomButton bgColor={bgButtonColor} width={buttonWidth} textColor="#fff">
             learn more
           </CustomButton>
         </GridItem>
