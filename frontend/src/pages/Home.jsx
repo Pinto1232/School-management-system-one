@@ -16,6 +16,9 @@ const Home = () => {
   const gapSize = useBreakpointValue({ base: "8px", md: "16px" });
   const headingWidth = useBreakpointValue({ base: "90%", md: "480px" });
 
+  const boxMaxWidth = useBreakpointValue({ base: "90%", md: "75%", lg: "4xl" });
+  const gridCardWidth = useBreakpointValue({ base: 300, md: 600, lg: 900 });
+
   const handleButtonClick = () => {};
   const {
     data: productsPackageData,
@@ -62,7 +65,14 @@ const Home = () => {
       />
 
       {/* Product section */}
-      <Box maxW="4xl" mx="auto" border={0} p={6} borderWidth={1} rounded="md">
+      <Box
+        maxW={boxMaxWidth}
+        mx="auto"
+        border={0}
+        p={6}
+        borderWidth={1}
+        rounded="md"
+      >
         <ProductsSection
           heading="Check Our Packages"
           subheading="Check out our latest offerings"
@@ -70,8 +80,8 @@ const Home = () => {
           cardBg={"#fff"}
           imageMaxWidth={"200px"}
           cardShadow="2xl"
-          gridCard={900}
-        ></ProductsSection>
+          gridCard={gridCardWidth}
+        />
       </Box>
 
       {/* Icon component */}
@@ -90,44 +100,44 @@ const Home = () => {
         }}
       />
 
-<Flex
-      maxW={{ base: "90%", md: "6xl" }}
-      flexDirection={flexDirection}
-      border={0}
-      mx="auto"
-      mt={10}
-      p={6}
-      borderWidth={1}
-      rounded="md"
-      align="center"
-    >
-      <Box w={{ base: "100%", md: "50%" }} pr={{ md: "2" }}>
-        <AboutUsSection
-          style={{
-            padding: paddingSize,
-            gap: gapSize,
-          }}
-          headingStyle={{
-            maxW: headingWidth,
-          }}
-          heading="Our services"
-          subheading="
+      <Flex
+        maxW={{ base: "90%", md: "6xl" }}
+        flexDirection={flexDirection}
+        border={0}
+        mx="auto"
+        mt={10}
+        p={6}
+        borderWidth={1}
+        rounded="md"
+        align="center"
+      >
+        <Box w={{ base: "100%", md: "50%" }} pr={{ md: "2" }}>
+          <AboutUsSection
+            style={{
+              padding: paddingSize,
+              gap: gapSize,
+            }}
+            headingStyle={{
+              maxW: headingWidth,
+            }}
+            heading="Our services"
+            subheading="
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce euismod aliquam commodo. 
                     Vestibulum pharetra semper urna, ac dapibus felis ultricies ut.
                     Duis pharetra sapien non magna ullamcorper, ut scelerisque enim sagittis.
                     Nullam at ipsum quis nibh posuere ultrices. Nam posuere, purus sed finibus venenatis, 
                     enim urna commodo mauris, at aliquet metus lorem vitae mauris."
-        />
-      </Box>
-      <Box w={imageSize} position="relative">
-        <Image
-          src="https://media.istockphoto.com/id/1402604850/photo/the-word-about-us-on-wooden-cubes-business-communication-and-information.jpg?b=1&s=170667a&w=0&k=20&c=M1zgL2pGwZ_g3cwmOvdMtzz92PlTLdihv6_wgaW1QZc="
-          layout="fill"
-          objectFit="cover"
-          alt="About us image"
-        />
-      </Box>
-    </Flex>
+          />
+        </Box>
+        <Box w={imageSize} position="relative">
+          <Image
+            src="https://media.istockphoto.com/id/1402604850/photo/the-word-about-us-on-wooden-cubes-business-communication-and-information.jpg?b=1&s=170667a&w=0&k=20&c=M1zgL2pGwZ_g3cwmOvdMtzz92PlTLdihv6_wgaW1QZc="
+            layout="fill"
+            objectFit="cover"
+            alt="About us image"
+          />
+        </Box>
+      </Flex>
     </Grid>
   );
 };

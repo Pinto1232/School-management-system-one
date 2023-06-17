@@ -11,6 +11,7 @@ import {
   ListItem,
   useColorModeValue,
   Spacer,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import CustomButton from "./CustomButton";
 
@@ -25,7 +26,12 @@ const ProductsSection = ({
   const bottomBgColor = useColorModeValue("#319795", "#3182ce");
   const textColor = useColorModeValue("#fff", "#fff");
   const btnTextColor = useColorModeValue("#000", "#fff");
-  const textFontSize = useColorModeValue("13px", "13px");
+
+  // Use responsive font sizes
+  const textFontSize = useBreakpointValue({ base: '10px', sm: '12px', md: '13px' });
+
+  // Responsive image width
+  const responsiveImageWidth = useBreakpointValue({ base: '80%', sm: '90%', md: imageMaxWidth });
 
   return (
     <Grid py={12} minW={gridCard} mx="auto">
@@ -51,7 +57,7 @@ const ProductsSection = ({
               {product.images.map((image, id) => (
                 <Box bg={"#fff"} key={`image-${id}`}>
                   <Image
-                    maxW={imageMaxWidth}
+                    maxW={responsiveImageWidth}
                     src={image.url}
                     mx="auto"
                     backgroundSize={"cover"}
@@ -61,9 +67,9 @@ const ProductsSection = ({
                 </Box>
               ))}
 
-              <Flex flexGrow={1} p={2} flexDirection="column" height="120px">
+              <Flex flexGrow={1} p={{ base: 2, sm: 4, md: 6 }} flexDirection="column" height="120px">
                 <Heading as="h3" size="md" mb={2}>
-                  <Text fontWeight="bold">{product.name}</Text>
+                  <Text fontWeight="bold" isTruncated>{product.name}</Text>
                 </Heading>
                 <Text mt={4} fontSize={12}>
                   ${product.price}
@@ -71,7 +77,7 @@ const ProductsSection = ({
                 <Box whiteSpace="nowrap" flexGrow={1}>
                   <UnorderedList>
                     {product.features.map((feature, index) => (
-                      <ListItem key={`feature-${index}`}>
+                      <ListItem key={`feature-${index}`} isTruncated>
                         {feature.slice(0, 34)}
                       </ListItem>
                     ))}
@@ -80,7 +86,7 @@ const ProductsSection = ({
               </Flex>
 
               <Spacer mt={60} />
-              <Box m={8}>
+              <Box m={{ base: 4, md: 8 }}>
                 <CustomButton
                   textColor={btnTextColor}
                   fontSize={textFontSize}

@@ -64,7 +64,6 @@ const Footer = ({ SubmitNewsletter }) => {
       color={colorModeStyles.textColor}
       p={4}
       mt={8}
-      mx="auto"
       w="100%"
     >
       <Flex
@@ -72,7 +71,7 @@ const Footer = ({ SubmitNewsletter }) => {
         wrap="wrap"
         justifyContent="center"
         alignItems="center"
-        maxW="1200px"
+        maxW="6xl"
         mx="auto"
         mb={4}
       >
@@ -110,7 +109,7 @@ const Footer = ({ SubmitNewsletter }) => {
             placeholder="Subscribe for our newsletter"
             placeholderTextColor="gray.600"
             icon={FaEnvelope}
-            inpuFieldWidth="100%"
+            inpuFieldWidth="280px"
             inpuFieldBackgroundColor="gray.200"
           />
           <CustomButton
