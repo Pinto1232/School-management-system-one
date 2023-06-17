@@ -13,7 +13,6 @@ const Jumbotron = ({
     textColor = 'white',
     bgImage,
     children,
-    jumboHeight
 }) => {
     const buttonColor = useColorModeValue('#319795', '#3182ce');
     const textButton = useColorModeValue('#4A5568', '#fff')

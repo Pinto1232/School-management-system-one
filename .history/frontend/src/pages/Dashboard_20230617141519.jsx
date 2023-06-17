@@ -104,10 +104,10 @@ const Dashboard = () => {
       <Flex direction="column" maxW={"1290px"} mx="auto" p={4}>
         <Jumbotron
           title="Elevate Education, Simplify School Management!"
+          subtitle="Streamlines processes, fosters collaboration, and enhances learning outcomes for a seamless educational experience"
+          /* buttonText="learn more" */
           bgImage={bgImage}
-          minHeight="20px"
-          bgGradient="#000"
-          
+          buttonOnClick={handleButtonClick}
         />
         <Flex justify="space-between" align="center" mb={4}>
           <Heading>

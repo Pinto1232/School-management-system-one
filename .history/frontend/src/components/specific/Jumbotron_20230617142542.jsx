@@ -78,14 +78,7 @@ const Jumbotron = ({
             >
                 {subtitle}
             </Text>
-            <CustomButton
-                bgColor={buttonColor}
-                color={textButton}
-                hover={buttonColor}
-                width={200}
-            >
-                Learn More
-            </CustomButton>
+         
         </Box>
     );
 };

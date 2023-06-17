@@ -105,8 +105,6 @@ const Dashboard = () => {
         <Jumbotron
           title="Elevate Education, Simplify School Management!"
           bgImage={bgImage}
-          minHeight="20px"
-          bgGradient="#000"
           
         />
         <Flex justify="space-between" align="center" mb={4}>

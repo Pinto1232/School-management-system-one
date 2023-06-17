@@ -2,7 +2,6 @@ import React, { useRef, useContext, useState } from "react";
 import UserContext from "../contexts/UserContext";
 import { Grid, Link, useToast } from "@chakra-ui/react";
 import { css } from "@emotion/react";
-import bgImage from "../assets/images/basic.jpg"
 import {
   Box,
   Flex,
@@ -33,13 +32,13 @@ import productsImagesData from "../data/productsImagesData";
 import CardCustom from "../components/common/CardCustom";
 import cardCustomData from "../data/cardCustomData";
 import menuItemsData from "../data/menuItemsData";
-import Jumbotron from "./../components/specific/Jumbotron";
+
 
 // Define your styles here
 const thinScrollbar = css`
   &::-webkit-scrollbar {
     width: 10px;
-    borderradius: 2;
+    borderRadius: 2;
   }
   &::-webkit-scrollbar-track {
     background: #f1f1f1;
@@ -102,13 +101,6 @@ const Dashboard = () => {
   return (
     <Box bg={bgDashboard} minH="100vh">
       <Flex direction="column" maxW={"1290px"} mx="auto" p={4}>
-        <Jumbotron
-          title="Elevate Education, Simplify School Management!"
-          bgImage={bgImage}
-          minHeight="20px"
-          bgGradient="#000"
-          
-        />
         <Flex justify="space-between" align="center" mb={4}>
           <Heading>
             <Flex

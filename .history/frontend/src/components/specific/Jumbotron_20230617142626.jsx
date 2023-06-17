@@ -60,32 +60,7 @@ const Jumbotron = ({
                 zIndex={-1}
                 opacity={0.5}
             />
-            <Heading
-                size={titleSize}
-                mb={4} whiteSpace="normal"
-                fontSize={{ base: "2rem", sm: "4rem" }}
-                w="900px"
-                textAlign="center"
-
-            >
-                {title}
-            </Heading>
-            <Text
-                fontSize={subtitleSize}
-                mb={6}
-                textAlign="center"
-                maxW={{ base: "90%", sm: "700px" }}
-            >
-                {subtitle}
-            </Text>
-            <CustomButton
-                bgColor={buttonColor}
-                color={textButton}
-                hover={buttonColor}
-                width={200}
-            >
-                Learn More
-            </CustomButton>
+            {children}
         </Box>
     );
 };
