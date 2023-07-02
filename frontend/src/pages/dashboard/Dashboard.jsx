@@ -1,32 +1,37 @@
 // Dashboard.jsx
-import React, { useContext } from 'react';
-import UserMenu from '../../pages/dashboard/UserMenu';
-import BreadcrumbNavigation from '../../pages/dashboard/BreadcrumbNavigation';
-import ContentSections from '../../pages/dashboard/ContentSections';
-import UserProfileInfo from '../../pages/dashboard/UserProfileInfo';
-import UserContext from '../../contexts/UserContext';
-import { Box } from '@chakra-ui/react';
+import React, { useContext } from "react";
+import UserMenu from "../../pages/dashboard/UserMenu";
+import BreadcrumbNavigation from "../../pages/dashboard/BreadcrumbNavigation";
+import ContentSections from "../../pages/dashboard/ContentSections";
+import UserProfileInfo from "../../pages/dashboard/UserProfileInfo";
+import UserContext from "../../contexts/UserContext";
+import { Box, useColorModeValue } from "@chakra-ui/react";
+import TwoColumnLayout from "../../components/specific/twoColumnLayout/TwoColumnLayout";
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
 
-  // This is an example breadcrumb items, replace with your actual navigation
   const breadcrumbItems = [
     { label: "Home", path: "/" },
     { label: "Dashboard", path: "/dashboard" },
   ];
 
+  const dashboardBG = useColorModeValue("#e6ebee", "");
+
   return (
-    <Box p={5}>
-      <UserMenu />
-      <BreadcrumbNavigation items={breadcrumbItems} />
-      <UserProfileInfo 
-        avatarSrc={user.avatar} 
-        user={user}
-        imageHeight="200px"
-        imageWidth="200px" 
+    <Box p={5} bg={dashboardBG} justify="center">
+      <TwoColumnLayout
+        leftContent={
+          <UserProfileInfo
+            avatarSrc={user.avatar}
+            user={user}
+            imageHeight="200px"
+            imageWidth="200px"
+          />
+        }
+        rightContent={<UserMenu />}
+        gap={8}
       />
-      <ContentSections user={user} />
     </Box>
   );
 };
