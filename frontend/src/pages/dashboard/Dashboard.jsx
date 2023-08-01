@@ -20,22 +20,17 @@ const Dashboard = () => {
   return (
     <Box p={5} bg={dashboardBG}>
       <TwoColumnLayout>
-        <Flex
-          justifyContent={'space-between'}
-        >
+        <Flex justifyContent={"space-between"}>
           <Box>
             <UserProfileInfo
               avatarSrc={user.avatar}
               user={user}
-              imageHeight="200px"
               imageWidth="200px"
             />
           </Box>
 
           <Box>
-            <UserMenu 
-              gap={8} 
-            />
+            <UserMenu gap={8} />
           </Box>
         </Flex>
       </TwoColumnLayout>
