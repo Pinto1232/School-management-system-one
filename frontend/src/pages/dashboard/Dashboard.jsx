@@ -4,7 +4,7 @@ import BreadcrumbNavigation from "../../pages/dashboard/BreadcrumbNavigation";
 import ContentSections from "../../pages/dashboard/ContentSections";
 import UserProfileInfo from "../../pages/dashboard/UserProfileInfo";
 import UserContext from "../../contexts/UserContext";
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 import TwoColumnLayout from "../../components/specific/twoColumnLayout/TwoColumnLayout";
 
 const Dashboard = () => {
@@ -18,19 +18,27 @@ const Dashboard = () => {
   const dashboardBG = useColorModeValue("#e6ebee", "");
 
   return (
-    <Box p={5} bg={dashboardBG} justify="center">
-      <TwoColumnLayout
-        leftContent={
-          <UserProfileInfo
-            avatarSrc={user.avatar}
-            user={user}
-            imageHeight="200px"
-            imageWidth="200px"
-          />
-        }
-        rightContent={<UserMenu />}
-        gap={8}
-      />
+    <Box p={5} bg={dashboardBG}>
+      <TwoColumnLayout>
+        <Flex
+          justifyContent={'space-between'}
+        >
+          <Box>
+            <UserProfileInfo
+              avatarSrc={user.avatar}
+              user={user}
+              imageHeight="200px"
+              imageWidth="200px"
+            />
+          </Box>
+
+          <Box>
+            <UserMenu 
+              gap={8} 
+            />
+          </Box>
+        </Flex>
+      </TwoColumnLayout>
     </Box>
   );
 };
