@@ -48,7 +48,10 @@ const UserMenu = () => {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const iconsColor = useColorModeValue("#319795", "#3182ce");
-  const { user } = useContext(UserContext);
+  const { image, user } = useContext(UserContext);
+
+  console.log(image, user);
+
 
   const handleLogout = async () => {
     setIsLoading(true);
@@ -93,7 +96,7 @@ const UserMenu = () => {
         <DrawerContent>
           <DrawerHeader borderBottomWidth="1px">
             <UserProfileInfo
-              avatarSrc={user.avatar}
+              avatarSrc={user.image}
               user={user}
               imageWidth="60px"
               imageHeight="60px"
