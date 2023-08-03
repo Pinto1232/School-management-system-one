@@ -1,13 +1,12 @@
-// UserProfileInfo.jsx
 import React from 'react';
-import { Image, Text } from '@chakra-ui/react';
+import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
 
-const UserProfileInfo = ({ avatarSrc, user, imageHeight, imageWidth }) => {
+const UserProfileInfo = ({ avatarSrc, user, imageWidth, imageHeight }) => {
   return (
-    <div>
-      <Image boxSize={imageHeight} src={avatarSrc} alt={user.name} />
-      <Text>{user.name}</Text>
-    </div>
+    <Flex align="center" gap={4} alignItems={'center'} alignContent={'center'}>
+      <Avatar src={avatarSrc} width={imageWidth}  height={imageHeight}/>
+      <Text mt={4}>{user.name}</Text>
+    </Flex>
   );
 };
 

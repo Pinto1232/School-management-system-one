@@ -20,13 +20,22 @@ const Dashboard = () => {
   return (
     <Box p={5} bg={dashboardBG}>
       <TwoColumnLayout>
-        <Flex justifyContent={"space-between"}>
+        <Flex justifyContent={"space-between"} align={"center"}>
           <Box>
-            <UserProfileInfo
+            {/* <UserProfileInfo
               avatarSrc={user.avatar}
               user={user}
               imageWidth="200px"
-            />
+            /> */}
+          </Box>
+
+          <Box
+            flexGrow={1}
+            alignItems={"center"}
+            justifyItems={"center"}
+            textAlign={"center"}
+          >
+            Content
           </Box>
 
           <Box>

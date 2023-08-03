@@ -32,8 +32,7 @@ const UserSchema = new mongoose.Schema(
       default: "student",
     },
     image: {
-      data: Buffer,
-      contentType: String,
+      type: String,
     },
   },
   { timestamps: true }

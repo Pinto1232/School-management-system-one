@@ -11,7 +11,7 @@ import {
   VStack,
   Flex,
   Box,
-  Link
+  Link,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +22,7 @@ import { useToast } from "@chakra-ui/react";
 import { useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 import { css } from "@emotion/react";
+import UserProfileInfo from "./UserProfileInfo";
 
 const thinScrollbar = css`
   &::-webkit-scrollbar {
@@ -47,6 +48,7 @@ const UserMenu = () => {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const iconsColor = useColorModeValue("#319795", "#3182ce");
+  const { user } = useContext(UserContext);
 
   const handleLogout = async () => {
     setIsLoading(true);
@@ -75,14 +77,31 @@ const UserMenu = () => {
 
   return (
     <>
-      <IconButton ref={btnRef} onClick={onOpen} icon={<HamburgerIcon />} variant="outline" />
-      <Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={btnRef}>
+      <IconButton
+        ref={btnRef}
+        onClick={onOpen}
+        icon={<HamburgerIcon />}
+        variant="outline"
+      />
+      <Drawer
+        isOpen={isOpen}
+        placement="left"
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerHeader borderBottomWidth="1px">Dashboard Menu</DrawerHeader>
+          <DrawerHeader borderBottomWidth="1px">
+            <UserProfileInfo
+              avatarSrc={user.avatar}
+              user={user}
+              imageWidth="60px"
+              imageHeight="60px"
+            />
+          </DrawerHeader>
           <DrawerBody css={thinScrollbar}>
             <VStack spacing={4} align="stretch">
-              {menuItemsData.map((item) => (
+              {menuItemsData?.map((item) => (
                 <Flex
                   key={item.label}
                   fontSize="lg"
@@ -106,7 +125,7 @@ const UserMenu = () => {
                         paddingLeft: "2",
                         paddingRight: "2",
                         transition:
-                          "all 0.99s cubic-bezier(0.15, 0.8, 0.10, 6)",
+                          "all 0.50s cubic-bezier(0.25, 0.1, 0.25, 1)",
                         width: "230px",
                         whiteSpace: "nowrap",
                         borderRadius: "4",

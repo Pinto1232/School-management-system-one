@@ -3,9 +3,8 @@ const jwt = require('jsonwebtoken');
 const { jwtSecret, jwtExpiresIn } = require('../config/env');
 const asyncHandler = require('../middlewares/asyncHandler');
 
-
 exports.register = asyncHandler(async (req, res) => {
-    const { email, password, firstName, lastName, role } = req.body;
+    const { email, password, firstName, lastName, role, image } = req.body;
 
     const existingUser = await User.findOne({ email });
 
@@ -13,23 +12,10 @@ exports.register = asyncHandler(async (req, res) => {
         return res.status(400).json({ error: 'Email already in use' });
     }
 
-    const user = new User({ email, password, firstName, lastName, role });
-
-    // Check if an image file was uploaded and attach it to the user object
-    if (req.file) {
-        user.image.data = req.file.buffer;
-        user.image.contentType = req.file.mimetype;
-    }
+    const user = new User({ email, password, firstName, lastName, role, image });
 
     await user.save();
     console.log('Registered user:', user);
-
-    // Convert the image data to a Base64 encoded string if it exists
-    let imageString = null;
-    if (user.image && user.image.data) {
-        imageString = `data:${user.image.contentType};base64,${user.image.data.toString('base64')}`;
-        console.log("Converted Image", imageString);
-    }
 
     res.status(201).json({
         message: 'User registered successfully',
@@ -39,12 +25,10 @@ exports.register = asyncHandler(async (req, res) => {
             firstName: user.firstName,
             lastName: user.lastName,
             role: user.role,
-            image: imageString
+            image: user.image
         }
     });
 });
-
-
 
 
 exports.login = asyncHandler(async (req, res) => {
@@ -68,11 +52,15 @@ exports.login = asyncHandler(async (req, res) => {
         role: user.role,
     };
 
-    // Set the token to expire in 1 hour (or any desired duration)
-    const expiresIn = '4h';
-
     const token = jwt.sign(payload, jwtSecret, { expiresIn: jwtExpiresIn });
-    console.log('Logged-in user:', user); // Move this line here
-    console.log('Generated token:', token); // Move this line here
-    res.status(200).json({ token, message: 'User logged in successfully', user: { id: user._id, name: user.firstName + ' ' + user.lastName } });
+
+    res.status(200).json({
+        token,
+        message: 'User logged in successfully',
+        user: {
+            id: user._id,
+            name: user.firstName + ' ' + user.lastName,
+            image: user.image
+        }
+    });
 });
