@@ -49,6 +49,8 @@ const UserMenu = () => {
   const toast = useToast();
   const iconsColor = useColorModeValue("#319795", "#3182ce");
   const { image, user } = useContext(UserContext);
+  const btColor = useColorModeValue("#319795", "#3182ce");
+  const textColor = useColorModeValue("#fff", "#000");
 
   console.log(image, user);
 
@@ -140,6 +142,8 @@ const UserMenu = () => {
                 </Flex>
               ))}
               <Button
+                bg={btColor}
+                color={textColor}
                 isLoading={isLoading}
                 onClick={handleLogout}
                 leftIcon={<IoLogOut />}

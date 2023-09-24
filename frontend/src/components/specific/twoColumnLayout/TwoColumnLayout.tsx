@@ -1,15 +1,12 @@
 import React from "react";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 
-const TwoColumnLayout = ({ children, gap = 4, ...props }) => {
+const TwoColumnLayout = ({ children }) => {
+  const containerBackground = useColorModeValue("#319795", "#3182ce");
   return (
-    <Flex direction={{ base: "column", md: "row" }} {...props}>
-      {React.Children.map(children, (child, index) => (
-        <Box flex={{ md: 1 }} mb={{ base: gap, md: 0 }} ml={index > 0 ? { md: "auto" } : 0}>
-          {child}
-        </Box>
-      ))}
-    </Flex>
+    <Box w="100%" maxWidth="full" bg={containerBackground}>
+      {children}
+    </Box>
   );
 };
 
