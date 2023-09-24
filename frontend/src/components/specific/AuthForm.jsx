@@ -10,6 +10,7 @@ const initialValues = {
     lastName: '',
     email: '',
     password: '',
+    profileImage: null,
 };
 
 const validate = (values) => {
@@ -31,18 +32,28 @@ const validate = (values) => {
         errors.password = 'Password must be at least 6 characters and contain a number';
     }
 
+    if (!values.profileImage) {
+        errors.profileImage = 'Profile image is required';
+    }
+
     return errors;
 };
 
 const registerUser = async (values, toast, navigate) => {
-    const { firstName, lastName, email, password } = values;
+    const { firstName, lastName, email, password, profileImage  } = values;
+    const formData = new FormData();
+
+    formData.append('firstName', firstName);
+    formData.append('lastName', lastName);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('profileImage', profileImage);  // New field
 
     try {
-        const response = await api.post('/users/register', {
-            firstName,
-            lastName,
-            email,
-            password,
+        const response = await api.post('/users/register',formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         });
 
         if (response.status < 200 || response.status >= 300) {
@@ -193,6 +204,17 @@ const FormFields = ({ textFieldBackgroundColor, textFieldColor, handleChange, ha
             values={values}
             errors={errors}
         />
+        {/* Directly adding the image uploader */}
+        <FormControl id="profileImage">
+            <Input
+                type="file"
+                id="profileImage" 
+                name="profileImage"
+                accept="image/*"
+                onChange={handleChange}
+                style={{ padding: "4px"}} 
+            />
+        </FormControl>
         <Button type="submit" colorScheme="blue" w="100%">
             {isLogin ? 'Login' : 'Sign Up'}
         </Button>
