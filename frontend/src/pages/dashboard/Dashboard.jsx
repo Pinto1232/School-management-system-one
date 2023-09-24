@@ -18,15 +18,15 @@ const Dashboard = () => {
   const dashboardBG = useColorModeValue("#e6ebee", "");
 
   return (
-    <Box  bg={dashboardBG}>
+    <Box bg={dashboardBG}>
       <TwoColumnLayout>
-        <Flex justifyContent={"space-between"} align={"center"} p={5}>
+        <Flex justifyContent={"space-between"} align={"center"} p={4} boxShadow="sm">
           <Box>
             <UserProfileInfo
               avatarSrc={user.avatar}
               user={user}
               imageWidth="200px"
-            /> 
+            />
           </Box>
           <Box>
             <UserMenu gap={8} />

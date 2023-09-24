@@ -50,7 +50,7 @@ const UserMenu = () => {
   const iconsColor = useColorModeValue("#319795", "#3182ce");
   const { image, user } = useContext(UserContext);
   const btColor = useColorModeValue("#319795", "#3182ce");
-  const textColor = useColorModeValue("#fff", "#000");
+  const textColor = useColorModeValue("#000", "#fff");
 
   console.log(image, user);
 
