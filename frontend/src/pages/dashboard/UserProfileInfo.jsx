@@ -3,11 +3,11 @@ import { Avatar, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 
 const UserProfileInfo = ({ avatarSrc, user }) => {
   const fontSize = "lg";
-  const smallSize = "65px"; // Adjust this value for smaller or larger sizes
+  const smallSize = "70px"; // Adjust this value for smaller or larger sizes
   const textColor = useColorModeValue("#fff", "#fff");
 
   return (
-    <Flex align="center" gap={2}>
+    <Flex align="center" >
       <Avatar
         src={avatarSrc}
         boxSize={smallSize}
@@ -15,7 +15,7 @@ const UserProfileInfo = ({ avatarSrc, user }) => {
         objectFit="cover"
       />
       <Text whiteSpace="nowrap" color={textColor} fontSize={fontSize}>
-        Welcome..,{" "}
+        Welcome,{" "}
         <Text as="span" fontSize={fontSize} color={textColor}>
           {user.name}
         </Text>

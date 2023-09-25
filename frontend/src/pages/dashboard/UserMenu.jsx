@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   IconButton,
   useDisclosure,
@@ -12,6 +12,7 @@ import {
   Flex,
   Box,
   Link,
+  Tooltip,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
@@ -40,7 +41,7 @@ const thinScrollbar = css`
   }
 `;
 
-const UserMenu = () => {
+const UserMenu = ({ onMenuToggle, gap }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
   const { setUser } = useContext(UserContext);
@@ -51,6 +52,7 @@ const UserMenu = () => {
   const { image, user } = useContext(UserContext);
   const btColor = useColorModeValue("#319795", "#3182ce");
   const textColor = useColorModeValue("#000", "#fff");
+  const bgMenuColor = useColorModeValue("#171923", "#171923")
 
   console.log(image, user);
 
@@ -80,14 +82,53 @@ const UserMenu = () => {
     onClose();
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isOpen && !btnRef.current.contains(event.target)) {
+        onClose();
+        onMenuToggle(false); // Setting menu to close
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen, onClose, onMenuToggle]);
+
+  const handleMenuToggle = () => {
+    if (isOpen) {
+      onClose();
+      onMenuToggle(false); // Setting menu to close
+    } else {
+      onOpen();
+      onMenuToggle(true);  // Setting menu to open
+    }
+  };
+
   return (
     <>
-      <IconButton
-        ref={btnRef}
-        onClick={onOpen}
-        icon={<HamburgerIcon />}
-        variant="outline"
-      />
+       <Box position="absolute" right="0"  shadow="md" borderRadius="md" m={4} justifyItems={'center'}>
+        <Tooltip
+          label="Open Sidebar"
+          fontSize="xs"
+          bg="gray.600"
+          color="white"
+          placement="right"
+          hasArrow
+          arrowSize={10}
+          arrowShadowColor="gray.500"
+        >
+          <IconButton
+            ref={btnRef}
+            onClick={handleMenuToggle}
+            icon={<HamburgerIcon />}
+            variant="outline"
+            bg={bgMenuColor}
+          />
+        </Tooltip>
+      </Box>
+
       <Drawer
         isOpen={isOpen}
         placement="left"

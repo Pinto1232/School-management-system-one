@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useRoutes } from "react-router-dom";
+import { useRoutes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Navbar from "./components/specific/Navbar";
@@ -18,6 +18,7 @@ import BackToTopButton from "./components/specific/BackToTopButton";
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const storedUser = localStorage.getItem("user");
+  const location = useLocation();
   let parsedUser = null;
 
   if (storedUser && storedUser !== "undefined") {
@@ -70,7 +71,7 @@ const App = () => {
           <Navbar />
           {routing}
           <BackToTopButton />
-          <Footer />
+          { location.pathname !== '/dashboard' && <Footer /> }
         </Box>
       </UserContext.Provider>
     </Box>
