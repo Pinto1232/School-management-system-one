@@ -11,6 +11,8 @@ import BellBadge from "../../components/specific/badge/BellBadge";
 import GlobeBadge from "../../components/specific/badge/GlobeBadge";
 import CardInfo from "../../components/common/CardInfo";
 import { FaBell, FaBook, FaCoins, FaGraduationCap, FaMoneyBill, FaMoneyBillWave, FaReact, FaUser } from "react-icons/fa";
+import DataTable from "../../components/common/DataTable";
+
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
@@ -27,6 +29,72 @@ const Dashboard = () => {
 
 
   const dashboardBG = useColorModeValue("#319795", "#3182ce");
+  const tableBG = useColorModeValue("#171923", "#2d3748");
+
+
+  const data = [
+    {
+      id: 1,
+      photo: 'https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=1229',
+      name: 'John Doe',
+      gender: 'Male',
+      class: '10th',
+      parent: 'Jane Doe',
+      address: '123 Main St',
+      dob: '01/01/2000',
+      phone: '123-456-7890',
+      email: 'johndoe@example.com',
+    },
+    // More data...
+    {
+      id: 2,
+      photo: 'https://media.licdn.com/dms/image/C4E03AQEDWldIzAaQXw/profile-displayphoto-shrink_400_400/0/1648990806686?e=1700697600&v=beta&t=GS18KGi2PuDMdRtnjRkf2TC3qYJ4J0ZLnmdZ2IZMuAk',
+      name: 'John Doe',
+      gender: 'Male',
+      class: '10th',
+      parent: 'Jane Doe',
+      address: '123 Main St',
+      dob: '01/01/2000',
+      phone: '123-456-7890',
+      email: 'johndoe@example.com',
+    },
+    {
+      id: 3,
+      photo: 'https://asamnews.com/wp-content/uploads/2019/02/thispersondoesnotexist.com_.jpg',
+      name: 'John Doe',
+      gender: 'Male',
+      class: '10th',
+      parent: 'Jane Doe',
+      address: '123 Main St',
+      dob: '01/01/2000',
+      phone: '123-456-7890',
+      email: 'johndoe@example.com',
+    },
+    {
+      id: 4,
+      photo: 'https://static.generated.photos/vue-static/face-generator/landing/demo-previews/age.jpg',
+      name: 'John Doe',
+      gender: 'Male',
+      class: '10th',
+      parent: 'Jane Doe',
+      address: '123 Main St',
+      dob: '01/01/2000',
+      phone: '123-456-7890',
+      email: 'johndoe@example.com',
+    },
+    {
+      id: 5,
+      photo: 'https://static.generated.photos/vue-static/face-generator/landing/wall/6.jpg',
+      name: 'John Doe',
+      gender: 'Male',
+      class: '10th',
+      parent: 'Jane Doe',
+      address: '123 Main St',
+      dob: '01/01/2000',
+      phone: '123-456-7890',
+      email: 'johndoe@example.com',
+    },
+  ];
 
   return (
     <Box bg={dashboardBG} justifyItems={'center'} >
@@ -160,13 +228,22 @@ const Dashboard = () => {
       </TwoColumnLayout>
 
       {/* Content code collumns */}
+      <TwoColumnLayout isMenuOpen={isMenuOpen} >
+        <Flex direction={['column', 'row']} w="100%"  >
+            <Box flex={1} bg={tableBG} p={4} borderRadius="md"  shadow="md" >
+                <Heading as='h6'>My Students</Heading>
+               <DataTable data={data} />
+            </Box>
+        </Flex>
+      </TwoColumnLayout>
+
       <TwoColumnLayout isMenuOpen={isMenuOpen}>
         <Flex direction={['column', 'row']} w="100%" h={["50vh", "100vh"]} gap={1}>
             <Box flex={1} bg="whitesmoke" p={4} borderRadius="md" shadow="md">
-              Column 1
+               Column 2
             </Box>
             <Box flex={1} bg="whitesmoke" p={4} borderRadius="md" shadow="md">
-              Column 2
+               Column 2
             </Box>
         </Flex>
       </TwoColumnLayout>
