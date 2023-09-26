@@ -24,6 +24,7 @@ import { useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 import { css } from "@emotion/react";
 import UserProfileInfo from "./UserProfileInfo";
+import { CloseButton } from "@chakra-ui/react";
 
 const thinScrollbar = css`
   &::-webkit-scrollbar {
@@ -82,19 +83,6 @@ const UserMenu = ({ onMenuToggle, gap }) => {
     onClose();
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (isOpen && !btnRef.current.contains(event.target)) {
-        onClose();
-        onMenuToggle(false); // Setting menu to close
-      }
-    };
-    
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen, onClose, onMenuToggle]);
 
   const handleMenuToggle = () => {
     if (isOpen) {
@@ -106,64 +94,73 @@ const UserMenu = ({ onMenuToggle, gap }) => {
     }
   };
 
+  const handleOverlayClick = (e) => {
+    e.stopPropagation();
+  };
+  
+  
+
   return (
     <>
-       <Box position="absolute" right="0"  shadow="md" borderRadius="md" m={4} justifyItems={'center'}>
-        <Tooltip
-          label="Open Sidebar"
-          fontSize="xs"
-          bg="gray.600"
-          color="white"
-          placement="right"
-          hasArrow
-          arrowSize={10}
-          arrowShadowColor="gray.500"
-        >
+      
+      <Box position="absolute" right="0" shadow="md" borderRadius="md" m={4}>
+        <Tooltip label="Open Sidebar" fontSize="xs">
           <IconButton
             ref={btnRef}
             onClick={handleMenuToggle}
             icon={<HamburgerIcon />}
             variant="outline"
-            bg={bgMenuColor}
           />
         </Tooltip>
       </Box>
-
       <Drawer
-        isOpen={isOpen}
         placement="left"
-        onClose={onClose}
         finalFocusRef={btnRef}
+        isOpen={isOpen}
+        onClose={onClose}
+        isCloseable={false}
+        size="xs"
+        closeOnOverlayClick={false} // Add this
+        trapFocus={false} // Add this
       >
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerHeader borderBottomWidth="1px">
-            <UserProfileInfo
-              avatarSrc={user.image}
-              user={user}
-              imageWidth="60px"
-              imageHeight="60px"
-            />
-          </DrawerHeader>
-          <DrawerBody css={thinScrollbar}>
-            <VStack spacing={4} align="stretch">
-              {menuItemsData?.map((item) => (
-                <Flex
-                  key={item.label}
-                  fontSize="lg"
-                  onClick={() => handleNavigation(item.path)}
-                  alignItems="center"
-                >
-                  <Box
-                    as="span"
-                    display="inline-flex"
-                    alignItems="center"
-                    spacing="12"
-                    gap={4}
-                  >
-                    <item.icon boxsize="0" fontSize={20} color={iconsColor} />
-                    <Link
-                      textDecoration="none"
+        <DrawerOverlay >
+          <DrawerContent>
+            <DrawerHeader borderBottomWidth="1px">
+            <Flex justifyContent="space-between" alignItems="center">
+                <UserProfileInfo
+                  avatarSrc={user.image}
+                  user={user}
+                  imageWidth="60px"
+                  imageHeight="60px"
+                />
+                <CloseButton 
+                  onClick={() => { onClose(); 
+                  onMenuToggle(false); }} 
+                  bg="#3182ce" 
+                  color="white"
+                  borderRadius="full"
+                />
+              </Flex>
+            </DrawerHeader>
+            <DrawerBody css={thinScrollbar}>
+  <VStack spacing={4} align="stretch">
+    {menuItemsData?.map((item) => (
+      <Flex
+        key={item.label}
+        fontSize="lg"
+        onClick={() => handleNavigation(item.path)}
+        alignItems="center"
+      >
+        <Box
+          as="span"
+          display="inline-flex"
+          alignItems="center"
+          spacing="12"
+          gap={4}
+        >
+          <item.icon boxsize="0" fontSize={20} color={iconsColor} />
+              <Link
+                textDecoration="none"
                       _hover={{
                         textDecoration: "none",
                         paddingTop: "1",
@@ -192,8 +189,9 @@ const UserMenu = ({ onMenuToggle, gap }) => {
                 Logout
               </Button>
             </VStack>
-          </DrawerBody>
-        </DrawerContent>
+           </DrawerBody>
+          </DrawerContent>
+        </DrawerOverlay>
       </Drawer>
     </>
   );

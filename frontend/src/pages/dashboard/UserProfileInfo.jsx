@@ -7,14 +7,14 @@ const UserProfileInfo = ({ avatarSrc, user }) => {
   const textColor = useColorModeValue("#fff", "#fff");
 
   return (
-    <Flex align="center" >
+    <Flex align="center" w="300px"> {/* Set the starting width here */}
       <Avatar
         src={avatarSrc}
         boxSize={smallSize}
         borderRadius="50%"
         objectFit="cover"
       />
-      <Text whiteSpace="nowrap" color={textColor} fontSize={fontSize}>
+      <Text whiteSpace="nowrap" color={textColor} fontSize={fontSize} px={2}>
         Welcome,{" "}
         <Text as="span" fontSize={fontSize} color={textColor}>
           {user.name}
