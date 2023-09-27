@@ -31,7 +31,7 @@ const IconColumns = () => {
         </GridItem>
         {Array.isArray(iconsData) &&
           iconsData.map((iconData) => (
-            <Center>
+            <Center key={iconData.id}>
               <IconColumn
                 key={iconData.id}
                 icon={iconData.icon}

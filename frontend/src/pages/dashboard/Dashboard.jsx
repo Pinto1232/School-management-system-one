@@ -12,6 +12,8 @@ import GlobeBadge from "../../components/specific/badge/GlobeBadge";
 import CardInfo from "../../components/common/CardInfo";
 import { FaBell, FaBook, FaCoins, FaGraduationCap, FaMoneyBill, FaMoneyBillWave, FaReact, FaUser } from "react-icons/fa";
 import DataTable from "../../components/common/DataTable";
+import SearchComponent from "../../components/common/SearchComponent";
+import ThreeDotsMenu from "../../components/common/ThreeDotsMenu";
 
 
 const Dashboard = () => {
@@ -30,6 +32,7 @@ const Dashboard = () => {
 
   const dashboardBG = useColorModeValue("#319795", "#3182ce");
   const tableBG = useColorModeValue("#171923", "#2d3748");
+  const textColor = useColorModeValue("#fff", "#fff");
 
 
   const data = [
@@ -94,7 +97,34 @@ const Dashboard = () => {
       phone: '123-456-7890',
       email: 'johndoe@example.com',
     },
+    {
+      id: 6,
+      photo: 'https://static.generated.photos/vue-static/face-generator/landing/wall/6.jpg',
+      name: 'John Doe',
+      gender: 'Male',
+      class: '10th',
+      parent: 'Jane Doe',
+      address: '123 Main St',
+      dob: '01/01/2000',
+      phone: '123-456-7890',
+      email: 'johndoe@example.com',
+    },
+    {
+      id: 7,
+      photo: 'https://static.generated.photos/vue-static/face-generator/landing/wall/6.jpg',
+      name: 'John Doe',
+      gender: 'Male',
+      class: '10th',
+      parent: 'Jane Doe',
+      address: '123 Main St',
+      dob: '01/01/2000',
+      phone: '123-456-7890',
+      email: 'johndoe@example.com',
+    },
   ];
+
+  /* Email count */
+  const emailCount = 5; 
 
   return (
     <Box bg={dashboardBG} justifyItems={'center'} >
@@ -104,7 +134,8 @@ const Dashboard = () => {
             <EmailBadge 
               width="40px" 
               height="40px" 
-              bgColor="transparent" 
+              bgColor="transparent"
+              count={emailCount} 
               textColor="white"
               iconWidth="20px"  // Custom width for the icon
               iconHeight="20px" // Custom height for the icon
@@ -228,21 +259,49 @@ const Dashboard = () => {
       </TwoColumnLayout>
 
       {/* Content code collumns */}
-      <TwoColumnLayout isMenuOpen={isMenuOpen} >
-        <Flex direction={['column', 'row']} w="100%"  >
-            <Box flex={1} bg={tableBG} p={4} borderRadius="md"  shadow="md" >
-                <Heading as='h6'>My Students</Heading>
-               <DataTable data={data} />
+      <TwoColumnLayout isMenuOpen={isMenuOpen}>
+        <Flex 
+          direction={['column', 'column', 'row']} 
+          
+          overflowX={['auto', 'auto', 'visible']}
+          px-5
+        >
+          <Box 
+            flex={1} 
+            bg={tableBG} 
+            p={[2, 4]} 
+            borderRadius="md"
+            shadow="md"
+          >
+            <Box mb={[2, 4]}>  
+              <Heading 
+                color={textColor} 
+                as='h6'
+                fontSize={['md', 'lg', 'xl']} 
+              >
+                My Students
+              </Heading>
             </Box>
+
+            <Box>
+               <ThreeDotsMenu  />
+            </Box>
+
+            <Box>
+              <SearchComponent />
+              <DataTable data={data} />
+            </Box>
+          </Box>
         </Flex>
       </TwoColumnLayout>
 
+
       <TwoColumnLayout isMenuOpen={isMenuOpen}>
         <Flex direction={['column', 'row']} w="100%" h={["50vh", "100vh"]} gap={1}>
-            <Box flex={1} bg="whitesmoke" p={4} borderRadius="md" shadow="md">
+            <Box flex={1}  p={4} borderRadius="md" shadow="md" bg={tableBG}>
                Column 2
             </Box>
-            <Box flex={1} bg="whitesmoke" p={4} borderRadius="md" shadow="md">
+            <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
                Column 2
             </Box>
         </Flex>

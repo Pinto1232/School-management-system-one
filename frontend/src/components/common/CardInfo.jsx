@@ -31,6 +31,8 @@ const CardInfo = ({
       justifyContent="space-between"
       width={width}
       height={height}
+      transition="all 0.3s ease-in-out"  // Add this line for smooth transition
+      _hover={{ boxShadow: "xl" }}  // Add this line to have a larger boxShadow on hover
     >
       <Box flexShrink={0}>
         {IconComponent && (
