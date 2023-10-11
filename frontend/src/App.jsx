@@ -62,6 +62,8 @@ const App = () => {
     { path: "/testtwo", element: <TestPageTwo /> },
   ]);
 
+  
+
   return (
     <Box>
       <UserContext.Provider
@@ -71,7 +73,7 @@ const App = () => {
           <Navbar />
           {routing}
           <BackToTopButton />
-          { location.pathname !== '/dashboard' && <Footer /> }
+          {isLoggedIn ? null : <Footer />}
         </Box>
       </UserContext.Provider>
     </Box>

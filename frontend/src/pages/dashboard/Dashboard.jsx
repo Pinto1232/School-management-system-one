@@ -18,7 +18,14 @@ import ThreeDotsMenu from "../../components/common/ThreeDotsMenu";
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // State variable to control the visibility of the content
+  const [isContentVisible, setIsContentVisible] = useState(false);
+
+  // Function to toggle the visibility of the content
+  const toggleContentVisibility = () => {
+    setIsContentVisible(!isContentVisible);
+  };
+
 
   const breadcrumbItems = [
     { label: "Home", path: "/" },
@@ -127,20 +134,18 @@ const Dashboard = () => {
   const emailCount = 5; 
 
   return (
-    <Box bg={dashboardBG} justifyItems={'center'} >
-      <TwoColumnLayout isMenuOpen={isMenuOpen}>
-        <Flex align={"start"} p={6} gap={10} >
-          <Box>
-            <EmailBadge 
-              width="40px" 
-              height="40px" 
-              bgColor="transparent"
-              count={emailCount} 
-              textColor="white"
-              iconWidth="20px"  // Custom width for the icon
-              iconHeight="20px" // Custom height for the icon
-            />
-          </Box> 
+    <Box p={5} bg={dashboardBG}>
+      <TwoColumnLayout>
+        <Flex justifyContent={"space-between"} minH={'100vh'}>
+          <Box
+            flexGrow={1}
+            alignItems={"center"}
+            justifyItems={"center"}
+            textAlign={"center"}
+          >
+            Content
+          </Box>
+
           <Box>
           <BellBadge 
             count={5}
