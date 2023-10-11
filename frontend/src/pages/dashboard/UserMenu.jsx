@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import { CloseIcon } from "@chakra-ui/icons";
 import {
   IconButton,
   useDisclosure,
@@ -25,7 +24,7 @@ import { useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 import { css } from "@emotion/react";
 import UserProfileInfo from "./UserProfileInfo";
-import { useBreakpointValue } from "@chakra-ui/react";
+import { CloseButton } from "@chakra-ui/react";
 
 const thinScrollbar = css`
   &::-webkit-scrollbar {
@@ -43,25 +42,21 @@ const thinScrollbar = css`
   }
 `;
 
-const UserMenu = ({ onButtonClick }) => {
+const UserMenu = ({ onMenuToggle, gap }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
-  const { isLoggedIn, setIsLoggedIn, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const iconsColor = useColorModeValue("#319795", "#3182ce");
   const { image, user } = useContext(UserContext);
-  const size = useBreakpointValue({ base: "full", md: "md", lg: "lg" });
+  const btColor = useColorModeValue("#319795", "#3182ce");
+  const textColor = useColorModeValue("#000", "#fff");
+  const bgMenuColor = useColorModeValue("#171923", "#171923")
 
-  const dashboardBG = useColorModeValue("#e6ebee", "#e6ebee");
+  console.log(image, user);
 
-  // In your component
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate("/");
-    }
-  }, [isLoggedIn]);
 
   const handleLogout = async () => {
     setIsLoading(true);
@@ -80,7 +75,7 @@ const UserMenu = ({ onButtonClick }) => {
 
     // Implement your logout logic here
     setUser(null);
-    setIsLoggedIn(false); // Set isLoggedIn to false when user logs out
+    navigate("/");
   };
 
   const handleNavigation = (path) => {
@@ -128,68 +123,62 @@ const UserMenu = ({ onButtonClick }) => {
         closeOnOverlayClick={false} // Add this
         trapFocus={false} // Add this
       >
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerHeader borderBottomWidth="1px">
-            <Flex gap={"20"}>
-              <UserProfileInfo
-                avatarSrc={user.image}
-                user={user}
-                imageWidth="70px"
-                imageHeight="70px"
-                bgImageNoRepeat={"no-repeat"}
-                bgImagePosition={"center"}
-              />
-              <IconButton
-                icon={<CloseIcon />}
-                onClick={onClose}
-                zIndex={"999"}
-                bg="teal.500"
-                variant="solid"
-                color="white"
-                _hover={{ color: "gray.900", bg: { dashboardBG } }}
-              />
-            </Flex>
-          </DrawerHeader>
-          <DrawerBody css={thinScrollbar}>
-            <Flex direction="column" justify="space-between" height="100%">
-              <VStack spacing={4} align="stretch">
-                {menuItemsData?.map((item) => (
-                  <Flex
-                    key={item.label}
-                    fontSize="lg"
-                    onClick={() => handleNavigation(item.path)}
-                    alignItems="center"
-                  >
-                    <Box
-                      as="span"
-                      display="inline-flex"
-                      alignItems="center"
-                      spacing="12"
-                      gap={4}
+        <DrawerOverlay >
+          <DrawerContent>
+            <DrawerHeader borderBottomWidth="1px">
+            <Flex justifyContent="space-between" alignItems="center">
+                <UserProfileInfo
+                  avatarSrc={user.image}
+                  user={user}
+                  imageWidth="60px"
+                  imageHeight="60px"
+                />
+                <CloseButton 
+                  onClick={() => { onClose(); 
+                  onMenuToggle(false); }} 
+                  bg="#3182ce" 
+                  color="white"
+                  borderRadius="full"
+                />
+              </Flex>
+            </DrawerHeader>
+            <DrawerBody css={thinScrollbar}>
+  <VStack spacing={4} align="stretch">
+    {menuItemsData?.map((item) => (
+      <Flex
+        key={item.label}
+        fontSize="lg"
+        onClick={() => handleNavigation(item.path)}
+        alignItems="center"
+      >
+        <Box
+          as="span"
+          display="inline-flex"
+          alignItems="center"
+          spacing="12"
+          gap={4}
+        >
+          <item.icon boxsize="0" fontSize={20} color={iconsColor} />
+              <Link
+                textDecoration="none"
+                      _hover={{
+                        textDecoration: "none",
+                        paddingTop: "1",
+                        paddingBottom: "1",
+                        paddingLeft: "2",
+                        paddingRight: "2",
+                        transition:
+                          "all 0.50s cubic-bezier(0.25, 0.1, 0.25, 1)",
+                        width: "230px",
+                        whiteSpace: "nowrap",
+                        borderRadius: "4",
+                      }}
                     >
-                      <item.icon boxsize="0" fontSize={20} color={iconsColor} />
-                      <Link
-                        textDecoration="none"
-                        _hover={{
-                          textDecoration: "none",
-                          paddingTop: "1",
-                          paddingBottom: "1",
-                          paddingLeft: "2",
-                          paddingRight: "2",
-                          transition:
-                            "all 0.50s cubic-bezier(0.25, 0.1, 0.25, 1)",
-                          width: "230px",
-                          whiteSpace: "nowrap",
-                          borderRadius: "4",
-                        }}
-                      >
-                        <span>{item.label}</span>
-                      </Link>
-                    </Box>
-                  </Flex>
-                ))}
-              </VStack>
+                      <span>{item.label}</span>
+                    </Link>
+                  </Box>
+                </Flex>
+              ))}
               <Button
                 bg={btColor}
                 color={textColor}
@@ -199,9 +188,10 @@ const UserMenu = ({ onButtonClick }) => {
               >
                 Logout
               </Button>
-            </Flex>
-          </DrawerBody>
-        </DrawerContent>
+            </VStack>
+           </DrawerBody>
+          </DrawerContent>
+        </DrawerOverlay>
       </Drawer>
     </>
   );
