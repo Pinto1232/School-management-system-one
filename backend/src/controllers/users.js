@@ -14,7 +14,29 @@ exports.register = asyncHandler(async (req, res) => {
 
     const user = new User({ email, password, firstName, lastName, role, image });
 
-    await user.save();
+    try {
+        await user.save();
+        console.log('Registered user:', user);
+        // ... rest of your code
+        res.status(201).json({
+            message: 'User registered successfully',
+            user: {
+                id: user._id,
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                role: user.role,
+                image: user.image
+            }
+        });
+    } catch (error) {
+        if (error.code === 11000) {
+            return res.status(400).json({ error: 'Email already in use (from save)' });
+        }
+        throw error;
+    }
+    
+   /*  await user.save();
     console.log('Registered user:', user);
 
     res.status(201).json({
@@ -27,7 +49,7 @@ exports.register = asyncHandler(async (req, res) => {
             role: user.role,
             image: user.image
         }
-    });
+    }); */
 });
 
 
