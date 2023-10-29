@@ -2,9 +2,23 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const { jwtSecret, jwtExpiresIn } = require('../config/env');
 const asyncHandler = require('../middlewares/asyncHandler');
+const multer = require('multer');
 
-exports.register = asyncHandler(async (req, res) => {
-    const { email, password, firstName, lastName, role, image } = req.body;
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads/');
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+
+const upload = multer({ storage: storage });
+
+exports.register = asyncHandler(upload.single('profileImage'), async (req, res) => {
+    const { email, password, firstName, lastName, role } = req.body;
+    const profileImage = req.file ? req.file.path : null;
 
     const existingUser = await User.findOne({ email });
 
@@ -12,7 +26,7 @@ exports.register = asyncHandler(async (req, res) => {
         return res.status(400).json({ error: 'Email already in use' });
     }
 
-    const user = new User({ email, password, firstName, lastName, role, image });
+    const user = new User({ email, password, firstName, lastName, role, image: profileImage });
 
     try {
         await user.save();
@@ -34,22 +48,26 @@ exports.register = asyncHandler(async (req, res) => {
             return res.status(400).json({ error: 'Email already in use (from save)' });
         }
         throw error;
-    }
-    
-   /*  await user.save();
-    console.log('Registered user:', user);
 
-    res.status(201).json({
-        message: 'User registered successfully',
-        user: {
-            id: user._id,
-            email: user.email,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            role: user.role,
-            image: user.image
+        if (error.errors && error.errors.image) {
+            return res.status(400).json({ error: error.errors.image.message });
         }
-    }); */
+    }
+
+    /*  await user.save();
+     console.log('Registered user:', user);
+ 
+     res.status(201).json({
+         message: 'User registered successfully',
+         user: {
+             id: user._id,
+             email: user.email,
+             firstName: user.firstName,
+             lastName: user.lastName,
+             role: user.role,
+             image: user.image
+         }
+     }); */
 });
 
 

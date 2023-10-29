@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const validator = require('validator');
 const { hashPassword } = require("../utils/password");
 
 
@@ -31,8 +32,17 @@ const UserSchema = new mongoose.Schema(
       enum: ["student", "teacher", "admin"],
       default: "student",
     },
+    /* image: {
+      type: String,
+    }, */
     image: {
       type: String,
+      validate: {
+        validator: function(value) {
+          return validator.isURL(value, { protocols: ['http','https'], require_protocol: true });
+        },
+        message: props => `${props.value} is not a valid URL!`
+      },
     },
   },
   { timestamps: true }
