@@ -108,6 +108,8 @@ app.use('/api/packages', packagesRoutes);
 
 // Use Icons routes
 app.use('/api/icons', iconsRoutes) 
+app.use('/uploads', express.static('uploads'));
+/* app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); */
 
 
 

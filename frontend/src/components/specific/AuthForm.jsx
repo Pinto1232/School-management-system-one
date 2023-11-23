@@ -40,50 +40,48 @@ const validate = (values) => {
 };
 
 const registerUser = async (values, toast, navigate) => {
-    const { firstName, lastName, email, password, profileImage  } = values;
     const formData = new FormData();
-
-    formData.append('firstName', firstName);
-    formData.append('lastName', lastName);
-    formData.append('email', email);
-    formData.append('password', password);
-    formData.append('profileImage', profileImage);  // New field
+    formData.append('firstName', values.firstName);
+    formData.append('lastName', values.lastName);
+    formData.append('email', values.email);
+    formData.append('password', values.password);
+    // Check if profileImage is a file before appending to avoid appending the string "C:\fakepath\file.jpg"
+    if (values.profileImage instanceof File) {
+        formData.append('profileImage', values.profileImage);
+    }
 
     try {
-        const response = await api.post('/users/register',formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
+        const response = await api.post('/users/register', formData);
 
-        if (response.status < 200 || response.status >= 300) {
-            throw new Error('Registration failed');
+        // If the request was successful, check for a 2xx status code using response.ok
+        if (response && response.status >= 200 && response.status < 300) {
+            toast({
+                title: 'Registration successful',
+                description: 'You can now login!',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+            });
+            navigate('/login');
+        } else {
+            // If the server responded with a non-2xx status code, throw an error
+            throw new Error('Registration failed with status: ' + response.status);
         }
-
-        // Show success toast
-        toast({
-            title: 'Success',
-            description: 'You can now login!',
-            status: 'success',
-            duration: 3000,
-            isClosable: true,
-        });
-
-        // Redirect to the login page
-        navigate('/login');
     } catch (error) {
-        console.error('Error during registration:', error.message);
-
-        // Show error toast
+        // If an error occurs during the request or the server responds with an error status
+        console.error('Error during registration:', error.response || error.message);
         toast({
-            title: 'Error',
-            description: error.message,
+            title: 'Registration Error',
+            description: (error.response && error.response.data && error.response.data.error) 
+                         ? error.response.data.error 
+                         : 'An error occurred during registration.',
             status: 'error',
             duration: 3000,
             isClosable: true,
         });
     }
 };
+
 
 const AuthForm = ({ mode, onToggleMode }) => {
     const isLogin = mode === 'login';
@@ -104,8 +102,6 @@ const AuthForm = ({ mode, onToggleMode }) => {
         setIsLoading(false);
     };
 
-    const { handleChange, handleBlur, handleSubmit, values, errors, isSubmitting } = useFormValidation(initialValues, validate, handleFormSubmit);
-
     const onSubmit = async (e) => {
         e.preventDefault();
         handleSubmit(e);
@@ -113,6 +109,21 @@ const AuthForm = ({ mode, onToggleMode }) => {
             await registerUser(values, toast, navigate);
         }
     };
+    
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+    
+        handleChange({
+            target: {
+                name: 'profileImage',
+                value: file
+            }
+        });
+    }
+    
+
+    const { handleChange, handleBlur, handleSubmit, values, errors, isSubmitting } = useFormValidation(initialValues, validate, handleFormSubmit);
+
 
     return (
         <AuthFormComponent
@@ -121,7 +132,7 @@ const AuthForm = ({ mode, onToggleMode }) => {
             backgroundColor={backgroundColor}
             textFieldBackgroundColor={textFieldBackgroundColor}
             textFieldColor={textFieldColor}
-            handleChange={handleChange}
+            handleFileChange={handleFileChange}
             handleBlur={handleBlur}
             values={values}
             errors={errors}
@@ -131,7 +142,7 @@ const AuthForm = ({ mode, onToggleMode }) => {
     );
 };
 
-const AuthFormComponent = ({ onSubmit, isLoading, backgroundColor, textFieldBackgroundColor, textFieldColor, handleChange, handleBlur, values, errors, isLogin, navigate }) => (
+const AuthFormComponent = ({ onSubmit, isLoading, backgroundColor, textFieldBackgroundColor, textFieldColor, handleChange, handleFileChange, handleBlur, values, errors, isLogin, navigate }) => (
     <>
         <Box bg={backgroundColor} maxWidth="400px" mx="auto" p={8} marginTop={10} boxShadow="md" rounded="md">
             <Text fontSize="3xl" textAlign="center" mb={6}>
@@ -176,7 +187,7 @@ const LoadingOverlay = () => (
     </Flex>
 );
 
-const FormFields = ({ textFieldBackgroundColor, textFieldColor, handleChange, handleBlur, values, errors, isLogin }) => (
+const FormFields = ({ textFieldBackgroundColor, textFieldColor, handleChange, handleBlur, handleFileChange, values, errors, isLogin }) => (
     <Stack spacing={4}>
         {!isLogin && (
             <NameFields
@@ -205,13 +216,13 @@ const FormFields = ({ textFieldBackgroundColor, textFieldColor, handleChange, ha
             errors={errors}
         />
         {/* Directly adding the image uploader */}
-        <FormControl id="profileImage">
+        <FormControl>
             <Input
                 type="file"
                 id="profileImage" 
                 name="profileImage"
                 accept="image/*"
-                onChange={handleChange}
+                onChange={handleFileChange}
                 style={{ padding: "4px"}} 
             />
         </FormControl>

@@ -4,6 +4,12 @@ const { jwtSecret, jwtExpiresIn } = require('../config/env');
 const asyncHandler = require('../middlewares/asyncHandler');
 const multer = require('multer');
 
+// Ensure the uploads directory exists
+const fs = require('fs');
+const uploadDir = './uploads/';
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+}
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -17,21 +23,27 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 exports.register = asyncHandler(upload.single('profileImage'), async (req, res) => {
-    const { email, password, firstName, lastName, role } = req.body;
-    const profileImage = req.file ? req.file.path : null;
-
-    const existingUser = await User.findOne({ email });
-
-    if (existingUser) {
-        return res.status(400).json({ error: 'Email already in use' });
-    }
-
-    const user = new User({ email, password, firstName, lastName, role, image: profileImage });
-
     try {
+        if (!req.file) {
+            return res.status(400).json({ error: 'Profile image upload failed' });
+        }
+
+        const { email, password, firstName, lastName, role } = req.body;
+        const profileImage = req.file.path;
+
+        // Check if user already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ error: 'Email already in use' });
+        }
+
+        // Create and save the new user
+        const user = new User({ email, password, firstName, lastName, role, image: profileImage });
+        console.log('Saving user...');
         await user.save();
-        console.log('Registered user:', user);
-        // ... rest of your code
+        console.log('User saved successfully');
+
+        // Respond with the new user's data
         res.status(201).json({
             message: 'User registered successfully',
             user: {
@@ -44,30 +56,9 @@ exports.register = asyncHandler(upload.single('profileImage'), async (req, res) 
             }
         });
     } catch (error) {
-        if (error.code === 11000) {
-            return res.status(400).json({ error: 'Email already in use (from save)' });
-        }
-        throw error;
-
-        if (error.errors && error.errors.image) {
-            return res.status(400).json({ error: error.errors.image.message });
-        }
+        console.error('Error during registration:', error); // Log the full error
+        res.status(500).json({ error: 'An error occurred during the registration process' });
     }
-
-    /*  await user.save();
-     console.log('Registered user:', user);
- 
-     res.status(201).json({
-         message: 'User registered successfully',
-         user: {
-             id: user._id,
-             email: user.email,
-             firstName: user.firstName,
-             lastName: user.lastName,
-             role: user.role,
-             image: user.image
-         }
-     }); */
 });
 
 

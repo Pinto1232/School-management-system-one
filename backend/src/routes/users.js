@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const { register, login } = require('../controllers/users');
-const upload = require('../middlewares/multer'); 
+const upload = require('../middlewares/multer');
 
+// Route for user registration
+router.post('/register', upload.single('profileImage'), register);
 
-// Replace with your actual user controller methods
-router.post('/register', upload.single('image'), register);
+// Route for user login
 router.post('/login', login);
 
 module.exports = router;

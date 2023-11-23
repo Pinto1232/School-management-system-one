@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const validator = require('validator');
 const { hashPassword } = require("../utils/password");
-
+const fs = require('fs');
+const path = require('path');
 
 const UserSchema = new mongoose.Schema(
   {
@@ -37,12 +38,15 @@ const UserSchema = new mongoose.Schema(
     }, */
     image: {
       type: String,
+      required: [true, 'A profile image is required'],
       validate: {
-        validator: function(value) {
-          return validator.isURL(value, { protocols: ['http','https'], require_protocol: true });
+        validator: function (value) {
+          // Check if the file exists in the given path
+          const filePath = path.join(__dirname, '..', value);
+          return fs.existsSync(filePath);
         },
-        message: props => `${props.value} is not a valid URL!`
-      },
+        message: props => `File does not exist: ${props.value}`
+      }
     },
   },
   { timestamps: true }

@@ -6,16 +6,20 @@ const useFormValidation = (initialState, validate, onSubmit) => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
-    if (isSubmitting) {
-      const noErrors = Object.keys(errors).length === 0;
-      if (noErrors) {
-        onSubmit(values, setIsSubmitting, setErrors); // Pass setErrors as the third argument
-      } else {
-        setIsSubmitting(false);
-      }
+// Inside useFormValidation hook
+useEffect(() => {
+  if (isSubmitting) {
+    const noErrors = Object.keys(errors).length === 0;
+    if (noErrors) {
+      onSubmit(); // This should be the registerUser function
+      setIsSubmitting(false); // Set it to false after calling the submit function
+    } else {
+      setIsSubmitting(false);
     }
-  }, [errors, onSubmit]);
+  }
+  // Removed the setErrors function from dependencies because it does not change
+}, [errors, isSubmitting, values, onSubmit]); // Added values to dependencies to ensure the latest values are used
+
 
   const handleChange = (event) => {
     setValues({
@@ -36,6 +40,17 @@ const useFormValidation = (initialState, validate, onSubmit) => {
     setIsSubmitting(true);
   };
 
+  // Inside useFormValidation hook
+const handleFileChange = (event) => {
+  const { files } = event.target;
+  if (files.length > 0) {
+    const file = files[0];
+    setValues((prevValues) => ({ ...prevValues, profileImage: file }));
+  }
+};
+
+  
+
   return {
     handleChange,
     handleBlur,
@@ -43,6 +58,7 @@ const useFormValidation = (initialState, validate, onSubmit) => {
     values,
     errors,
     isSubmitting,
+    handleFileChange
   };
 };
 
