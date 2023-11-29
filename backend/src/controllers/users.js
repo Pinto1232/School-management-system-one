@@ -23,6 +23,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 exports.register = asyncHandler(upload.single('profileImage'), async (req, res) => {
+    console.log("Register endpoint hit");
+
     try {
         if (!req.file) {
             return res.status(400).json({ error: 'Profile image upload failed' });

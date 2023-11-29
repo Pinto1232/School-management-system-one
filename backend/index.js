@@ -1,8 +1,9 @@
+const { port } = require('./src/config/env');
 const express = require('express');
 const connectDB = require('./src/config/db');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const { port } = require('./src/config/env');
+
 
 // Import user routes
 const attendanceRoutes = require('./src/routes/attendance');
@@ -37,7 +38,7 @@ connectDB();
 
 // Middlewares
 app.use(express.json()); // Parse JSON request body
-app.use(cors()); // Enable CORS
+app.use(cors());
 
 // Use user routes
 app.use('/api/users', userRoutes);
@@ -107,9 +108,12 @@ app.use('/api/reset-password', resetPasswordRoutes);
 app.use('/api/packages', packagesRoutes);
 
 // Use Icons routes
-app.use('/api/icons', iconsRoutes) 
+app.use('/api/icons', iconsRoutes)
+
 app.use('/uploads', express.static('uploads'));
-/* app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); */
+
+
+
 
 
 

@@ -39,48 +39,58 @@ const validate = (values) => {
     return errors;
 };
 
+
 const registerUser = async (values, toast, navigate) => {
     const formData = new FormData();
     formData.append('firstName', values.firstName);
     formData.append('lastName', values.lastName);
     formData.append('email', values.email);
     formData.append('password', values.password);
-    // Check if profileImage is a file before appending to avoid appending the string "C:\fakepath\file.jpg"
-    if (values.profileImage instanceof File) {
+
+
+    if (values.profileImage) {
         formData.append('profileImage', values.profileImage);
+        console.log("Form data", formData);
+
+        // Debugging: Log formData contents
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+        }
     }
+
 
     try {
         const response = await api.post('/users/register', formData);
-
-        // If the request was successful, check for a 2xx status code using response.ok
-        if (response && response.status >= 200 && response.status < 300) {
+        if (response.status === 201) {
             toast({
                 title: 'Registration successful',
-                description: 'You can now login!',
+                description: 'You have been successfully registered.',
                 status: 'success',
-                duration: 3000,
+                duration: 5000,
                 isClosable: true,
             });
             navigate('/login');
         } else {
-            // If the server responded with a non-2xx status code, throw an error
-            throw new Error('Registration failed with status: ' + response.status);
+            toast({
+                title: 'Registration failed',
+                description: 'Something went wrong, please try again.',
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+            });
         }
     } catch (error) {
-        // If an error occurs during the request or the server responds with an error status
-        console.error('Error during registration:', error.response || error.message);
+        const errorMessage = error.response?.data?.error || 'An error occurred during registration.';
         toast({
             title: 'Registration Error',
-            description: (error.response && error.response.data && error.response.data.error) 
-                         ? error.response.data.error 
-                         : 'An error occurred during registration.',
+            description: errorMessage,
             status: 'error',
-            duration: 3000,
+            duration: 5000,
             isClosable: true,
         });
     }
 };
+
 
 
 const AuthForm = ({ mode, onToggleMode }) => {
@@ -92,37 +102,31 @@ const AuthForm = ({ mode, onToggleMode }) => {
     const textFieldBackgroundColor = useColorModeValue('#E2E8F0', '#4A5568');
     const textFieldColor = useColorModeValue('#4A5568', '#fff');
 
-    const handleFormSubmit = async () => {
+    const handleValidSubmit = async (values) => {
         setIsLoading(true);
-
-        if (!isLogin) {
-            await registerUser(values, toast, navigate);
-        }
-
+        await registerUser(values, toast, navigate);
         setIsLoading(false);
     };
 
-    const onSubmit = async (e) => {
-        e.preventDefault();
-        handleSubmit(e);
-        if (isSubmitting && Object.keys(errors).length === 0 && !isLogin) {
-            await registerUser(values, toast, navigate);
-        }
-    };
-    
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-    
-        handleChange({
-            target: {
-                name: 'profileImage',
-                value: file
-            }
-        });
-    }
-    
 
-    const { handleChange, handleBlur, handleSubmit, values, errors, isSubmitting } = useFormValidation(initialValues, validate, handleFormSubmit);
+
+
+    // useFormValidation hook used here
+    const { handleChange, handleBlur, handleSubmit, values, errors, handleFileChange } = useFormValidation(
+        initialValues,
+        validate,
+        handleValidSubmit // Pass the handleValidSubmit to useFormValidation
+    );
+
+
+
+    // Inside AuthForm component
+    const onSubmit = (event) => {
+        event.preventDefault(); // Prevent the default form submission
+        console.log("Form submitted");
+        handleSubmit(event);
+    };
+
 
 
     return (
@@ -132,7 +136,8 @@ const AuthForm = ({ mode, onToggleMode }) => {
             backgroundColor={backgroundColor}
             textFieldBackgroundColor={textFieldBackgroundColor}
             textFieldColor={textFieldColor}
-            handleFileChange={handleFileChange}
+            handleFileChange={handleFileChange} // Pass handleFileChange
+            handleChange={handleChange} // Pass handleChange
             handleBlur={handleBlur}
             values={values}
             errors={errors}
@@ -187,7 +192,15 @@ const LoadingOverlay = () => (
     </Flex>
 );
 
-const FormFields = ({ textFieldBackgroundColor, textFieldColor, handleChange, handleBlur, handleFileChange, values, errors, isLogin }) => (
+const FormFields = ({
+    textFieldBackgroundColor,
+    textFieldColor,
+    handleChange,
+    handleBlur,
+    handleFileChange,
+    values,
+    errors,
+    isLogin }) => (
     <Stack spacing={4}>
         {!isLogin && (
             <NameFields
@@ -195,6 +208,7 @@ const FormFields = ({ textFieldBackgroundColor, textFieldColor, handleChange, ha
                 textFieldColor={textFieldColor}
                 handleChange={handleChange}
                 handleBlur={handleBlur}
+                handleFileChange={handleFileChange}
                 values={values}
                 errors={errors}
             />
@@ -216,15 +230,16 @@ const FormFields = ({ textFieldBackgroundColor, textFieldColor, handleChange, ha
             errors={errors}
         />
         {/* Directly adding the image uploader */}
-        <FormControl>
+        <FormControl id="profileImage">
             <Input
                 type="file"
-                id="profileImage" 
+                id="profileImage"
                 name="profileImage"
                 accept="image/*"
                 onChange={handleFileChange}
-                style={{ padding: "4px"}} 
+                style={{ padding: "4px" }}
             />
+
         </FormControl>
         <Button type="submit" colorScheme="blue" w="100%">
             {isLogin ? 'Login' : 'Sign Up'}
