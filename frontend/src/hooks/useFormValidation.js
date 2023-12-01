@@ -1,28 +1,15 @@
 // src/hooks/useFormValidation.js
 import { useState, useEffect } from 'react';
 
-const useFormValidation = (initialState, validate, onSubmit, onValidSubmit) => {
+const useFormValidation = (initialState, validate, onValidSubmit) => {
   const [values, setValues] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-// Inside useFormValidation hook
-/* useEffect(() => {
-  console.log('Updated values:', values); 
-  if (isSubmitting) {
-    const noErrors = Object.keys(errors).length === 0;
-    if (noErrors) {
-      onSubmit(); 
-      setIsSubmitting(false); 
-    } else {
-      setIsSubmitting(false);
-    }
-  }
-}, [errors, isSubmitting, values, onSubmit]); 
- */
-useEffect(() => {
-  console.log('Updated form values:', values);
-}, [values]);
+
+  useEffect(() => {
+    console.log('Updated form values:', values);
+  }, [values]);
 
   const handleChange = (event) => {
     setValues({
@@ -37,32 +24,24 @@ useEffect(() => {
     setErrors(validationErrors);
   };
 
-
-  
- // Inside useFormValidation.js
- const handleSubmit = (event) => {
-  console.log('Current form values:', values); // Debug current form values
-  const validationErrors = validate(values);
-  setErrors(validationErrors);
-
-  if (Object.keys(validationErrors).length === 0) {
-    console.log('Form is valid, submitting:', values); // Debug values when the form is valid
-    onValidSubmit(values);
-  }
-};
+  const handleSubmit = () => {
+    const validationErrors = validate(values);
+    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length === 0 && typeof onValidSubmit === 'function') {
+      onValidSubmit(values);
+    }
+  };
 
 
-  // Inside useFormValidation hook
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      // Update your state to reflect the new file
       setValues({ ...values, profileImage: file });
     }
   };
-  
-  
-  
+
+
+
 
   return {
     handleChange,

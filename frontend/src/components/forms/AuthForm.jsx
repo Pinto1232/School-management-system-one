@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Text, Spinner, Flex, useColorModeValue, useToast } from '@chakra-ui/react';
 import useFormValidation from '../../hooks/useFormValidation';
-import AuthFormComponent from '../forms/AuthFormComponent'; 
+import AuthFormComponent from '../forms/AuthFormComponent';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -15,7 +15,6 @@ const initialValues = {
 
 // Define your validate function here
 const validate = (values) => {
-  // Validation logic here
   const errors = {};
   if (!/^[a-zA-Z]+$/i.test(values.firstName)) {
     errors.firstName = 'Name is required and should only contain letters';
@@ -35,26 +34,44 @@ const validate = (values) => {
   return errors;
 };
 
-// Define what happens when the form is valid
-const onValidSubmit = (values, toast, navigate) => {
-  // Submission logic here, like calling an API
-  console.log('Form is valid, submit to the server:', values);
-  // You'll also need to handle toast notifications and navigation
-};
 
 const AuthForm = () => {
-  const {
-    handleChange,
-    handleFileChange,
-    handleSubmit,
-    values,
-    errors,
-  } = useFormValidation(initialValues, validate, onValidSubmit);
   const [mode, setMode] = useState('signup');
   const navigate = useNavigate();
   const toast = useToast();
+
+   // No need to pass handleSubmit as a parameter to useFormValidation
+   const { handleChange, handleFileChange, handleSubmit, values, errors } = useFormValidation(initialValues, validate, (formValues) => {
+    // Implement your form submission logic here
+    console.log('Form is valid, submit to the server:', formValues);
+    // Example: post the data to the server
+    // axios.post('http://localhost:3001/api/users/register', formValues)
+    //   .then(response => {
+    //     // handle success
+    //     navigate('/login');
+    //     toast({
+    //       title: 'Registration successful',
+    //       description: 'You have been successfully registered.',
+    //       status: 'success',
+    //       duration: 5000,
+    //       isClosable: true,
+    //     });
+    //   })
+    //   .catch(error => {
+    //     // handle error
+    //     toast({
+    //       title: 'Registration Error',
+    //       description: error.response.data.message || 'An error occurred during registration.',
+    //       status: 'error',
+    //       duration: 5000,
+    //       isClosable: true,
+    //     });
+    //   });
+  });
+
+  // handleFormSubmission
   const handleFormSubmission = () => {
-    handleSubmit(values, toast, navigate); // Pass the necessary arguments to the handleSubmit
+    handleSubmit(values, toast, navigate);
   };
 
 
@@ -80,7 +97,7 @@ const AuthForm = () => {
         onToggleMode={toggleMode}
         onSubmit={(e) => {
           e.preventDefault();
-          handleFormSubmission(); 
+          handleFormSubmission();
         }}
         handleChange={handleChange}
         handleFileChange={handleFileChange}
