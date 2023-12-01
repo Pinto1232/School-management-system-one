@@ -3,7 +3,6 @@ import { useRoutes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Navbar from "./components/specific/Navbar";
-import AuthForm from "./components/specific/AuthForm";
 import Dashboard from "./pages/dashboard/Dashboard";
 import UserContext from "./contexts/UserContext";
 import Faq from "./pages/Faq";
@@ -14,6 +13,7 @@ import { Box } from "@chakra-ui/react";
 import TesPage from "./pages/TesPage";
 import TestPageTwo from "./pages/TestPageTwo";
 import BackToTopButton from "./components/specific/BackToTopButton";
+import AuthForm from "./components/forms/AuthForm";
 //Test
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

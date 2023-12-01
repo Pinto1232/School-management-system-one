@@ -11,7 +11,10 @@ const AuthPage = () => {
 
     return (
         <Box>
-            <AuthForm mode={mode} onToggleMode={toggleMode} />
+            <AuthForm mode={mode} />
+            <Button onClick={toggleMode} mt={4}>
+                {mode === 'signup' ? 'Already have an account? Log in' : "Don't have an account? Sign up"}
+            </Button>
         </Box>
     );
 };
