@@ -42,25 +42,18 @@ const validate = (values) => {
 
 const registerUser = async (values, toast, navigate) => {
     const formData = new FormData();
+
     formData.append('firstName', values.firstName);
     formData.append('lastName', values.lastName);
     formData.append('email', values.email);
     formData.append('password', values.password);
-
-
     if (values.profileImage) {
-        formData.append('profileImage', values.profileImage);
-        console.log("Form data", formData);
-
-        // Debugging: Log formData contents
-        for (let [key, value] of formData.entries()) {
-            console.log(`${key}: ${value}`);
-        }
-    }
+    formData.append('profileImage', values.profileImage);
+  }
 
 
     try {
-        const response = await api.post('/users/register', formData);
+        const response = await axios.post('http://localhost:3001/api/users/register', formData);
         if (response.status === 201) {
             toast({
                 title: 'Registration successful',
@@ -121,11 +114,21 @@ const AuthForm = ({ mode, onToggleMode }) => {
 
 
     // Inside AuthForm component
+    // Inside AuthForm component
     const onSubmit = (event) => {
-        event.preventDefault(); // Prevent the default form submission
-        console.log("Form submitted");
-        handleSubmit(event);
+        event.preventDefault();
+        console.log("Form submitted", values); // Log the form values upon submission
+        handleSubmit(event); // This should eventually call handleValidSubmit if valid
     };
+
+    // In the registerUser function
+    console.log("Register user with values", values);
+    if (values.profileImage instanceof File) {
+        console.log("Appending file to FormData", values.profileImage);
+        formData.append('profileImage', values.profileImage);
+    }
+
+    // Then proceed to make the API call
 
 
 

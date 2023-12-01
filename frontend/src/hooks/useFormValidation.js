@@ -56,11 +56,8 @@ useEffect(() => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      console.log('Selected file:', file); // Debugging
-      setValues(prevValues => ({ 
-        ...prevValues, 
-        profileImage: file 
-      }));
+      // Update your state to reflect the new file
+      setValues({ ...values, profileImage: file });
     }
   };
   
