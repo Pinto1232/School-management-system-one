@@ -53,6 +53,10 @@ const AuthForm = () => {
   const [mode, setMode] = useState('signup');
   const navigate = useNavigate();
   const toast = useToast();
+  const handleFormSubmission = () => {
+    handleSubmit(values, toast, navigate); // Pass the necessary arguments to the handleSubmit
+  };
+
 
   // Handle loading state as needed
   const isLoading = false;
@@ -76,7 +80,7 @@ const AuthForm = () => {
         onToggleMode={toggleMode}
         onSubmit={(e) => {
           e.preventDefault();
-          handleSubmit();
+          handleFormSubmission(); 
         }}
         handleChange={handleChange}
         handleFileChange={handleFileChange}
