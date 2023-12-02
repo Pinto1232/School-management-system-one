@@ -3,6 +3,8 @@ import { Box, Text, Spinner, Flex, useColorModeValue, useToast } from '@chakra-u
 import useFormValidation from '../../hooks/useFormValidation';
 import AuthFormComponent from '../forms/AuthFormComponent';
 import { useNavigate } from 'react-router-dom';
+import api from '../../services/api';
+import axios from 'axios';
 
 
 const initialValues = {
@@ -13,7 +15,7 @@ const initialValues = {
   profileImage: '',
 };
 
-// Define your validate function here
+// validate function here
 const validate = (values) => {
   const errors = {};
   if (!/^[a-zA-Z]+$/i.test(values.firstName)) {
@@ -40,33 +42,31 @@ const AuthForm = () => {
   const navigate = useNavigate();
   const toast = useToast();
 
-   // No need to pass handleSubmit as a parameter to useFormValidation
-   const { handleChange, handleFileChange, handleSubmit, values, errors } = useFormValidation(initialValues, validate, (formValues) => {
+  const { handleChange, handleFileChange, handleSubmit, values, errors } = useFormValidation(initialValues, validate, (formValues) => {
     // Implement your form submission logic here
     console.log('Form is valid, submit to the server:', formValues);
-    // Example: post the data to the server
-    // axios.post('http://localhost:3001/api/users/register', formValues)
-    //   .then(response => {
-    //     // handle success
-    //     navigate('/login');
-    //     toast({
-    //       title: 'Registration successful',
-    //       description: 'You have been successfully registered.',
-    //       status: 'success',
-    //       duration: 5000,
-    //       isClosable: true,
-    //     });
-    //   })
-    //   .catch(error => {
-    //     // handle error
-    //     toast({
-    //       title: 'Registration Error',
-    //       description: error.response.data.message || 'An error occurred during registration.',
-    //       status: 'error',
-    //       duration: 5000,
-    //       isClosable: true,
-    //     });
-    //   });
+    axios.post('http://localhost:3001/api/users/register', formValues)
+      .then(response => {
+        // handle success
+        navigate('/login');
+        toast({
+          title: 'Registration successful',
+          description: 'You have been successfully registered.',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+      })
+      .catch(error => {
+        // handle error
+        toast({
+          title: 'Registration Error',
+          description: error.response.data.message || 'An error occurred during registration.',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+      });
   });
 
   // handleFormSubmission
