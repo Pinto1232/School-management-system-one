@@ -95,9 +95,11 @@ const AuthForm = () => {
     axios.post("http://localhost:3001/api/users/login", {
       email: values.email,
       password: values.password,
-    }).then(response => {
-      localStorage.setItem("token", response.data.token);
-      setIsLoggedIn(true); 
+    })
+      .then(response => {
+        // Success handling: Save the token, show success toast, navigate to dashboard
+        localStorage.setItem("token", response.data.token);
+        setIsLoggedIn(true);
         toast({
           title: 'Login successful',
           description: 'Redirecting to dashboard...',
@@ -105,9 +107,11 @@ const AuthForm = () => {
           duration: 5000,
           isClosable: true,
         });
-        navigate('/dashboard'); // Assuming you have a route set up for the dashboard
+        navigate('/dashboard');
       })
       .catch(error => {
+        // Here you log the error and show a toast notification for the error
+        console.error("Login error:", error.response.data);
         toast({
           title: 'Login Error',
           description: error.response.data.message || 'An error occurred during login.',
@@ -117,6 +121,7 @@ const AuthForm = () => {
         });
       });
   };
+
 
 
   // useFormValidation hook

@@ -17,7 +17,17 @@ import AuthForm from "./components/forms/AuthForm";
 //Test
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const storedUser = localStorage.getItem("user");
+
+  useEffect(() => {
+    // Check if the token is stored in local storage
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+
+ /*  const storedUser = localStorage.getItem("user");
   const location = useLocation();
   let parsedUser = null;
 
@@ -47,7 +57,7 @@ const App = () => {
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(user));
-  }, [user]);
+  }, [user]); */
 
   // This will be your routes configuration
   const routing = useRoutes([
@@ -67,7 +77,7 @@ const App = () => {
   return (
     <Box>
       <UserContext.Provider
-        value={{ isLoggedIn, setIsLoggedIn, user, setUser }}
+       value={{ isLoggedIn, setIsLoggedIn }}
       >
         <Box>
           <Navbar />

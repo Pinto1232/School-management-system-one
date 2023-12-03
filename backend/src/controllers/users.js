@@ -64,6 +64,7 @@ exports.register = asyncHandler(upload.single('profileImage'), async (req, res) 
 
 
 exports.login = asyncHandler(async (req, res) => {
+    console.log(req.body); 
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
