@@ -58,7 +58,7 @@ const AuthForm = () => {
     } else {
       console.log('No file attached');
     }
-    
+
 
     for (let [key, value] of formData.entries()) {
       console.log(`${key}:`, value);
@@ -89,6 +89,36 @@ const AuthForm = () => {
       });
   };
 
+
+  // Login function
+  const handleLogin = (values) => {
+    axios.post("http://localhost:3001/api/users/login", {
+      email: values.email,
+      password: values.password,
+    }).then(response => {
+      localStorage.setItem("token", response.data.token);
+      setIsLoggedIn(true); 
+        toast({
+          title: 'Login successful',
+          description: 'Redirecting to dashboard...',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+        navigate('/dashboard'); // Assuming you have a route set up for the dashboard
+      })
+      .catch(error => {
+        toast({
+          title: 'Login Error',
+          description: error.response.data.message || 'An error occurred during login.',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+      });
+  };
+
+
   // useFormValidation hook
   const {
     handleChange,
@@ -101,15 +131,17 @@ const AuthForm = () => {
 
   // handleFormSubmission
   const handleFormSubmission = () => {
-    handleSubmit(values, toast, navigate);
+    /* handleSubmit(values, toast, navigate); */
+    if (mode === 'login') {
+      handleLogin(values);
+    } else {
+      handleSubmit(values, toast, navigate);
+    }
   };
-
-
 
   const toggleMode = () => {
     setMode(prevMode => (prevMode === 'signup' ? 'login' : 'signup'));
   };
-
 
   // Use the extracted form fields component
   return (

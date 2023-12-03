@@ -14,33 +14,40 @@ const AuthFormComponent = ({
 }) => (
   <form onSubmit={onSubmit}>
     <Stack spacing={4}>
-      {mode === 'signup' && (
-        <NameFields handleChange={handleChange} values={values} errors={errors} />
+      {mode === 'signup' ? (
+        // Sign-up specific fields
+        <>
+          <NameFields handleChange={handleChange} values={values} errors={errors} />
+          <EmailField handleChange={handleChange} values={values} errors={errors} />
+          <PasswordField handleChange={handleChange} values={values} errors={errors} />
+          <FormControl>
+            <Input type="file" id="profileImage" name="profileImage" accept="image/*" onChange={handleFileChange} hidden />
+            <Button
+              as="label"
+              htmlFor="profileImage"
+              variant="outline"
+              colorScheme="blue"
+              w="100%"
+              textAlign="center"
+              cursor="pointer"
+              leftIcon={<AttachmentIcon />}
+            >
+              Choose File
+            </Button>
+          </FormControl>
+        </>
+      ) : (
+        // Login specific fields
+        <>
+          <EmailField handleChange={handleChange} values={values} errors={errors} />
+          <PasswordField handleChange={handleChange} values={values} errors={errors} />
+          {/* Add other login fields if needed */}
+        </>
       )}
 
-      {/* Email and Password Fields are common for both Sign Up and Login */}
-      <EmailField handleChange={handleChange} values={values} errors={errors} />
-      <PasswordField handleChange={handleChange} values={values} errors={errors} />
-
-      {mode === 'signup' && (
-        <FormControl>
-          <Input type="file" id="profileImage" name="profileImage" accept="image/*" onChange={handleFileChange} hidden />
-          <Button
-            as="label"
-            htmlFor="profileImage"
-            variant="outline"
-            colorScheme="blue"
-            w="100%"
-            textAlign="center"
-            cursor="pointer"
-            leftIcon={<AttachmentIcon />}
-          >
-            Choose File
-          </Button>
-        </FormControl>
-      )}
-
-      <Button type="submit" colorScheme="blue" w="100%">{mode === 'login' ? 'Login' : 'Sign Up'}</Button>
+      <Button type="submit" colorScheme="blue" w="100%">
+        {mode === 'login' ? 'Login' : 'Sign Up'}
+      </Button>
 
       <Text textAlign="center" mt={4}>
         {mode === 'signup' ? (

@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { register, login } = require('../controllers/users');
 const upload = require('../middlewares/multer');
+const User = require('../models/User'); 
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const User = require('../models/User');
 const saltRounds = 10;
 
 router.post('/register', upload.single('profileImage'), async (req, res) => {
@@ -56,6 +57,38 @@ router.post('/register', upload.single('profileImage'), async (req, res) => {
 
 
 // Route for user login
-router.post('/login', login);
+router.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(400).json({ error: 'Invalid email or password' });
+        }
+
+        const isPasswordValid = await user.comparePassword(password);
+
+        if (!isPasswordValid) {
+            return res.status(400).json({ error: 'Invalid email or password' });
+        }
+
+        // Assuming you have some JWT_SECRET for token generation
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        res.status(200).json({
+            message: 'Login successful',
+            token,
+            user: {
+                id: user._id,
+                email: user.email,
+                role: user.role
+            }
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error logging in user' });
+    }
+});
 
 module.exports = router;
