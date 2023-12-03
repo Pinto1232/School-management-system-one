@@ -57,7 +57,7 @@ exports.register = asyncHandler(upload.single('profileImage'), async (req, res) 
             }
         });
     } catch (error) {
-        console.error('Error during registration:', error); // Log the full error
+        console.error('Error details:', error); // Log the full error
         res.status(500).json({ error: 'An error occurred during the registration process' });
     }
 });
