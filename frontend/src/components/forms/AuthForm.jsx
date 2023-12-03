@@ -3,7 +3,6 @@ import { Box, Text, Spinner, Flex, useColorModeValue, useToast } from '@chakra-u
 import useFormValidation from '../../hooks/useFormValidation';
 import AuthFormComponent from '../forms/AuthFormComponent';
 import { useNavigate } from 'react-router-dom';
-import api from '../../services/api';
 import axios from 'axios';
 
 
