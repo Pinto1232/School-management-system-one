@@ -3,8 +3,6 @@ const express = require('express');
 const connectDB = require('./src/config/db');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const multer = require('multer');
-
 
 // Import user routes
 const attendanceRoutes = require('./src/routes/attendance');
@@ -41,22 +39,6 @@ connectDB();
 // Middlewares
 app.use(express.json()); // Parse JSON request body
 app.use(cors());
-
-
-// Set up storage engine
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, 'uploads/'); // make sure this uploads directory exists
-    },
-    filename: function(req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
-
-
-// Initialize upload
-const upload = multer({ storage: storage });
-
 
 // Use user routes
 app.use('/api/users', userRoutes);
@@ -130,12 +112,7 @@ app.use('/api/icons', iconsRoutes)
 
 app.use('/uploads', express.static('uploads'));
 
-app.post('/register', upload.single('profileImage'), (req, res) => {
-    console.log(req.file); // Check if the file is being received
-    console.log(req.body); // Check if the rest of the data is being received
 
-    // Your registration logic...
-});
 
 
 

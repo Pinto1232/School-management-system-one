@@ -41,14 +41,26 @@ const AuthForm = () => {
   const [mode, setMode] = useState('signup');
   const navigate = useNavigate();
   const toast = useToast();
+  const isLoading = false;
+  const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
 
-  const { handleChange, handleFileChange, handleSubmit, values, errors } = useFormValidation(initialValues, validate, (formValues) => {
+
+  const onValidSubmit = (values) => {
     // Implement your form submission logic here
-    console.log('Form is valid, submit to the server:', formValues);
-    axios.post('http://localhost:3001/api/users/register', formValues)
+    const formData = new FormData();
+    formData.append('firstName', values.firstName);
+    formData.append('lastName', values.lastName);
+    formData.append('email', values.email);
+    formData.append('password', values.password);
+
+    // Check if profileImage is a File object before appending
+    if (values.profileImage instanceof File) {
+      formData.append('profileImage', values.profileImage);
+    }
+
+    // API call and further logic
+    axios.post('http://localhost:3001/api/users/register', formData)
       .then(response => {
-        // handle success
-        navigate('/login');
         toast({
           title: 'Registration successful',
           description: 'You have been successfully registered.',
@@ -56,9 +68,9 @@ const AuthForm = () => {
           duration: 5000,
           isClosable: true,
         });
+        navigate('/login');
       })
       .catch(error => {
-        // handle error
         toast({
           title: 'Registration Error',
           description: error.response.data.message || 'An error occurred during registration.',
@@ -67,17 +79,24 @@ const AuthForm = () => {
           isClosable: true,
         });
       });
-  });
+      console.log("Data", formData)
+  };
+
+  // useFormValidation hook
+  const {
+    handleChange,
+    handleFileChange,
+    handleSubmit,
+    values,
+    errors,
+  } = useFormValidation(initialValues, validate, onValidSubmit);
+
 
   // handleFormSubmission
   const handleFormSubmission = () => {
     handleSubmit(values, toast, navigate);
   };
 
-
-  // Handle loading state as needed
-  const isLoading = false;
-  const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
 
 
   const toggleMode = () => {

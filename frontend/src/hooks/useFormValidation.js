@@ -36,7 +36,7 @@ const useFormValidation = (initialState, validate, onValidSubmit) => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setValues({ ...values, profileImage: file });
+      setValues({ ...values, profileImage: event.target.files[0] });
     }
   };
 
