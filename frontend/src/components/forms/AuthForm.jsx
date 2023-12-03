@@ -54,10 +54,18 @@ const AuthForm = () => {
     formData.append('password', values.password);
 
     // Check if profileImage is a File object before appending
-    if (values.profileImage instanceof File) {
+    if (values.profileImage && values.profileImage instanceof File) {
       formData.append('profileImage', values.profileImage);
+    } else {
+      console.log('No file attached');
+    }
+    
+
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
     }
 
+    console.log("Form data", [...formData])
     // API call and further logic
     axios.post('http://localhost:3001/api/users/register', formData)
       .then(response => {
