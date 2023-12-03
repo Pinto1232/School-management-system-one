@@ -86,8 +86,8 @@ const AuthForm = () => {
           duration: 5000,
           isClosable: true,
         });
+        console.log("Data", formData)
       });
-      console.log("Data", formData)
   };
 
   // useFormValidation hook
