@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useRoutes, useLocation } from "react-router-dom";
+import { useRoutes, useLocation, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Navbar from "./components/specific/Navbar";
 import Dashboard from "./pages/dashboard/Dashboard";
-import { UserContext, UserProvider } from './contexts/UserContext.jsx';
+import { useUserContext, UserProvider } from './contexts/UserContext';
 import Faq from "./pages/Faq";
 import About from "./pages/About";
 import Footer from "./components/common/Footer";
@@ -14,32 +14,33 @@ import TesPage from "./pages/TesPage";
 import TestPageTwo from "./pages/TestPageTwo";
 import BackToTopButton from "./components/specific/BackToTopButton";
 import AuthForm from "./components/forms/AuthForm";
+import { useNavigate } from 'react-router-dom';
 
 
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const { isLoggedIn } = useUserContext(); // assuming useUserContext is your custom hook to access context
+
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsLoggedIn(true);
+    if (isLoggedIn) {
+      navigate('/dashboard');
     }
-  }, []);
+  }, [isLoggedIn, navigate]);
+
 
   const routing = useRoutes([
     { path: "/", element: <Home /> },
     { path: "/login", element: <Login /> },
     { path: "/register", element: <AuthForm /> },
-    { path: "/dashboard", element: isLoggedIn ? <Dashboard /> : <Login /> },
+    { path: "/dashboard", element: isLoggedIn ? <Dashboard /> : <Navigate to="/login" replace /> },
     { path: "/faq", element: <Faq /> },
     { path: "/about", element: <About /> },
     { path: "/reset-password/:token", element: <ResetPassword /> },
     { path: "/test", element: <TesPage /> },
     { path: "/testtwo", element: <TestPageTwo /> },
   ]);
-
-  
 
   return (
       <UserProvider value={{ isLoggedIn, setIsLoggedIn }}>

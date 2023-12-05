@@ -3,7 +3,7 @@ import UserMenu from "../../pages/dashboard/UserMenu";
 import BreadcrumbNavigation from "../../pages/dashboard/BreadcrumbNavigation";
 import ContentSections from "../../pages/dashboard/ContentSections";
 import UserProfileInfo from "../../pages/dashboard/UserProfileInfo";
-import { UserContext } from '../../contexts/UserContext';
+import { useUserContext } from '../../contexts/UserContext';
 import { Box, Center, Flex, Heading, useColorModeValue } from "@chakra-ui/react";
 import TwoColumnLayout from "../../components/specific/twoColumnLayout/TwoColumnLayout";
 import EmailBadge from "../../components/specific/badge/EmailBadge";
@@ -17,7 +17,7 @@ import ThreeDotsMenu from "../../components/common/ThreeDotsMenu";
 
 
 const Dashboard = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useContext(useUserContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const breadcrumbItems = [
