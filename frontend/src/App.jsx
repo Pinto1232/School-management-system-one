@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Navbar from "./components/specific/Navbar";
 import Dashboard from "./pages/dashboard/Dashboard";
-import UserContext from "./contexts/UserContext";
+import { UserContext, UserProvider } from './contexts/UserContext.jsx';
 import Faq from "./pages/Faq";
 import About from "./pages/About";
 import Footer from "./components/common/Footer";
@@ -14,52 +14,19 @@ import TesPage from "./pages/TesPage";
 import TestPageTwo from "./pages/TestPageTwo";
 import BackToTopButton from "./components/specific/BackToTopButton";
 import AuthForm from "./components/forms/AuthForm";
-//Test
+
+
+
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Check if the token is stored in local storage
     const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
     }
   }, []);
 
-
- /*  const storedUser = localStorage.getItem("user");
-  const location = useLocation();
-  let parsedUser = null;
-
-  if (storedUser && storedUser !== "undefined") {
-    try {
-      parsedUser = JSON.parse(storedUser);
-    } catch (error) {
-      console.error("Error parsing stored user data:", error);
-    }
-  }
-
-  const [user, setUser] = useState(parsedUser);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser && storedUser !== "undefined") {
-      try {
-        const parsedUser = JSON.parse(storedUser);
-        setUser(parsedUser);
-      } catch (error) {
-        console.error("Error parsing stored user data:", error);
-      }
-    } else {
-      console.log("No stored user data found or stored data is 'undefined'");
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(user));
-  }, [user]); */
-
-  // This will be your routes configuration
   const routing = useRoutes([
     { path: "/", element: <Home /> },
     { path: "/login", element: <Login /> },
@@ -75,18 +42,14 @@ const App = () => {
   
 
   return (
-    <Box>
-      <UserContext.Provider
-       value={{ isLoggedIn, setIsLoggedIn }}
-      >
+      <UserProvider value={{ isLoggedIn, setIsLoggedIn }}>
         <Box>
           <Navbar />
           {routing}
           <BackToTopButton />
           {isLoggedIn ? null : <Footer />}
         </Box>
-      </UserContext.Provider>
-    </Box>
+      </UserProvider >
   );
 };
 

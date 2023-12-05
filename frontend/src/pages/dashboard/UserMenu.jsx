@@ -21,7 +21,7 @@ import menuItemsData from "../../data/menuItemsData";
 import { useColorModeValue } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import { useContext } from "react";
-import UserContext from "../../contexts/UserContext";
+import { UserContext } from '../../contexts/UserContext';
 import { css } from "@emotion/react";
 import UserProfileInfo from "./UserProfileInfo";
 import { CloseButton } from "@chakra-ui/react";

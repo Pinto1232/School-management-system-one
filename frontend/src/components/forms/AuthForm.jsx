@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Box, Text, Spinner, Flex, useColorModeValue, useToast } from '@chakra-ui/react';
 import useFormValidation from '../../hooks/useFormValidation';
 import AuthFormComponent from '../forms/AuthFormComponent';
+import { useUserContext } from '../../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
 
 
 const initialValues = {
@@ -42,6 +44,7 @@ const AuthForm = () => {
   const toast = useToast();
   const isLoading = false;
   const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
+  const { setIsLoggedIn } = useUserContext();
 
 
   const onValidSubmit = (values) => {
