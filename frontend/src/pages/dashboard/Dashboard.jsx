@@ -3,7 +3,6 @@ import UserMenu from "../../pages/dashboard/UserMenu";
 import BreadcrumbNavigation from "../../pages/dashboard/BreadcrumbNavigation";
 import ContentSections from "../../pages/dashboard/ContentSections";
 import UserProfileInfo from "../../pages/dashboard/UserProfileInfo";
-import { useUserContext } from '../../contexts/UserContext';
 import { Box, Center, Flex, Heading, useColorModeValue } from "@chakra-ui/react";
 import TwoColumnLayout from "../../components/specific/twoColumnLayout/TwoColumnLayout";
 import EmailBadge from "../../components/specific/badge/EmailBadge";
@@ -14,6 +13,8 @@ import { FaBell, FaBook, FaCoins, FaGraduationCap, FaMoneyBill, FaMoneyBillWave,
 import DataTable from "../../components/common/DataTable";
 import SearchComponent from "../../components/common/SearchComponent";
 import ThreeDotsMenu from "../../components/common/ThreeDotsMenu";
+import { useUserContext } from '../../contexts/UserContext';
+
 
 
 const Dashboard = () => {

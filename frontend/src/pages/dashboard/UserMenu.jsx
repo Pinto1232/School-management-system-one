@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect , useContext } from "react";
 import {
   IconButton,
   useDisclosure,
@@ -20,11 +20,11 @@ import { IoLogOut } from "react-icons/io5";
 import menuItemsData from "../../data/menuItemsData";
 import { useColorModeValue } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
-import { useContext } from "react";
-import { useUserContext } from '../../contexts/UserContext';
 import { css } from "@emotion/react";
 import UserProfileInfo from "./UserProfileInfo";
 import { CloseButton } from "@chakra-ui/react";
+import { useUserContext } from '../../contexts/UserContext';
+
 
 const thinScrollbar = css`
   &::-webkit-scrollbar {

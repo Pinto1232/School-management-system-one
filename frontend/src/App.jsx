@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useRoutes, useLocation, Navigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useRoutes, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Navbar from "./components/specific/Navbar";
 import Dashboard from "./pages/dashboard/Dashboard";
-import { useUserContext, UserProvider } from './contexts/UserContext';
+import { UserProvider, useUserContext } from './contexts/UserContext';
 import Faq from "./pages/Faq";
 import About from "./pages/About";
 import Footer from "./components/common/Footer";
@@ -16,19 +16,15 @@ import BackToTopButton from "./components/specific/BackToTopButton";
 import AuthForm from "./components/forms/AuthForm";
 import { useNavigate } from 'react-router-dom';
 
-
-
 const App = () => {
   const navigate = useNavigate();
-  const { isLoggedIn } = useUserContext(); // assuming useUserContext is your custom hook to access context
-
+  const { isLoggedIn } = useUserContext();
 
   useEffect(() => {
     if (isLoggedIn) {
       navigate('/dashboard');
     }
   }, [isLoggedIn, navigate]);
-
 
   const routing = useRoutes([
     { path: "/", element: <Home /> },
@@ -43,14 +39,14 @@ const App = () => {
   ]);
 
   return (
-      <UserProvider value={{ isLoggedIn, setIsLoggedIn }}>
-        <Box>
-          <Navbar />
-          {routing}
-          <BackToTopButton />
-          {isLoggedIn ? null : <Footer />}
-        </Box>
-      </UserProvider >
+    <UserProvider>
+      <Box>
+        <Navbar />
+        {routing}
+        <BackToTopButton />
+        {isLoggedIn ? null : <Footer />}
+      </Box>
+    </UserProvider>
   );
 };
 

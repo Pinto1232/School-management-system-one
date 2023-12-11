@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Box, Text, Spinner, Flex, useColorModeValue, useToast } from '@chakra-ui/react';
 import useFormValidation from '../../hooks/useFormValidation';
 import AuthFormComponent from '../forms/AuthFormComponent';
-import { useUserContext } from '../../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useUserContext } from '../../contexts/UserContext';
 
 
 
@@ -48,6 +48,7 @@ const AuthForm = () => {
 
 
   const onValidSubmit = (values) => {
+    /* event.preventDefault(); */
     // Implement your form submission logic here
     const formData = new FormData();
     formData.append('firstName', values.firstName);
@@ -93,37 +94,7 @@ const AuthForm = () => {
   };
 
 
-  // Login function
-  const handleLogin = (values) => {
-    axios.post("http://localhost:3001/api/users/login", {
-      email: values.email,
-      password: values.password,
-    })
-      .then(response => {
-        // Success handling: Save the token, show success toast, navigate to dashboard
-        localStorage.setItem("token", response.data.token);
-        setIsLoggedIn(true);
-        toast({
-          title: 'Login successful',
-          description: 'Redirecting to dashboard...',
-          status: 'success',
-          duration: 5000,
-          isClosable: true,
-        });
-        navigate('/dashboard');
-      })
-      .catch(error => {
-        // Here you log the error and show a toast notification for the error
-        console.error("Login error:", error.response.data);
-        toast({
-          title: 'Login Error',
-          description: error.response.data.message || 'An error occurred during login.',
-          status: 'error',
-          duration: 5000,
-          isClosable: true,
-        });
-      });
-  };
+
 
 
 

@@ -4,9 +4,10 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
 import useFormValidation from '../hooks/useFormValidation';
 import api from '../services/api';
-import { useUserContext } from '../contexts/UserContext';
 import logo from '../assets/images/logo.png';
 import { useColorModeValue } from '@chakra-ui/react';
+import { UserContext } from '../contexts/UserContext';
+
 
 const initialValues = {
   email: '',
@@ -30,19 +31,20 @@ const validate = (values) => {
 const Login = () => {
   const navigate = useNavigate();
   const toast = useToast();
-  const { setUser, setIsLoggedIn } = useContext(UserContext);
+  const { setIsLoggedIn } = useContext(UserContext);
   const [keepMeLogin, setKeepMeLogin] = useState(false);
-  const [toastVisible, setToastVisible] = useState(false);
+  /* const [toastVisible, setToastVisible] = useState(false); */
   const textColor = useColorModeValue('#4A5568', '#fff');
   const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
   const buttonTextColor = useColorModeValue('#fff', '#fff');
   const textFieldBackgroundColor = useColorModeValue('#E2E8F0', '#4A5568');
   const textFieldColor = useColorModeValue('#4A5568', '#fff');
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const handlePasswordVisibility = () => setShowPassword(!showPassword);
 
-  const handleFormSubmit = async (values, setIsSubmitting, setErrors) => {
+  const handleFormSubmit = async (values, setIsSubmitting, setErrors, event) => {
+    event.preventDefault();
     try {
       const response = await api.post('/users/login', {
         email: values.email,
@@ -59,7 +61,6 @@ const Login = () => {
         sessionStorage.setItem('user', JSON.stringify(data.user));
       }
 
-      setUser(data.user);
       setIsLoggedIn(true);
       setTimeout(() => {
         toast({
