@@ -47,8 +47,11 @@ const Login = () => {
             });
 
             console.log("Login successful, updating state and navigating...");
-            setIsLoggedIn(true);
-            setUser(response.data.user);
+            setIsLoggedIn(true); // Set context state
+            localStorage.setItem('isLoggedIn', 'true'); // Update localStorage
+            localStorage.setItem('user', JSON.stringify(response.data.user)); // Save user data
+            /* navigate('/dashboard');
+             */
 
 
             if (keepMeLogin) {

@@ -52,18 +52,18 @@ const UserMenu = ({ onMenuToggle, gap }) => {
   const textColor = useColorModeValue("#000", "#fff");
   const bgMenuColor = useColorModeValue("#171923", "#171923");
   const navigate = useNavigate();
-  const { setUser, user } = useUserContext();
+  const { setUser, setIsLoggedIn, user } = useUserContext();
 
   console.log("User Image", user);
 
 
   const handleLogout = async () => {
     setIsLoading(true);
-
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
     setUser(null);
-  
+    
+
     toast({
       title: "You are logging out!",
       status: "info",
@@ -72,8 +72,10 @@ const UserMenu = ({ onMenuToggle, gap }) => {
       position: "top-right",
     });
 
-    setIsLoading(false); 
-    navigate("/");
+    setIsLoggedIn(false); 
+    localStorage.removeItem('isLoggedIn'); 
+    localStorage.removeItem('user'); 
+    navigate('/'); 
   };
 
   const handleNavigation = (path) => {
