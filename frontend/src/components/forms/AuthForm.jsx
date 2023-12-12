@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Text, Spinner, Flex, useColorModeValue, useToast } from '@chakra-ui/react';
 import useFormValidation from '../../hooks/useFormValidation';
 import AuthFormComponent from '../forms/AuthFormComponent';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useUserContext } from '../../contexts/UserContext';
+import { UserContext, useUserContext } from '../../contexts/UserContext';
 
 
 
@@ -44,11 +44,19 @@ const AuthForm = () => {
   const toast = useToast();
   const isLoading = false;
   const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
-  const { setIsLoggedIn } = useUserContext();
+  const { setIsLoggedIn, isLoggedIn } = useUserContext();
 
 
-  const onValidSubmit = (values) => {
-    /* event.preventDefault(); */
+  useEffect(() => {
+    if (isLoggedIn) {
+        navigate('/dashboard', { replace: true });
+    }
+}, [isLoggedIn, navigate]);
+
+
+  const onValidSubmit = (values, event ) => {
+    event.preventDefault(); 
+
     // Implement your form submission logic here
     const formData = new FormData();
     formData.append('firstName', values.firstName);
@@ -94,6 +102,35 @@ const AuthForm = () => {
   };
 
 
+    // Login function
+    const handleLogin = (values) => {
+      axios.post("http://localhost:3001/api/users/login", {
+        email: values.email,
+        password: values.password,
+      })
+        .then(response => {
+          localStorage.setItem("token", response.data.token);
+          setIsLoggedIn(true);
+          toast({
+            title: 'Login successful',
+            description: 'Redirecting to dashboard...',
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+          });
+          navigate('/dashboard');
+        })
+        .catch(error => {
+          console.error("Login error:", error.response.data);
+          toast({
+            title: 'Login Error',
+            description: error.response.data.message || 'An error occurred during login.',
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+          });
+        });
+    };
 
 
 

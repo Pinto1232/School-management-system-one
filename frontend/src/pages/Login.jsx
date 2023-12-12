@@ -1,194 +1,159 @@
-import React, { useState, useContext } from 'react';
-import { Box, Button, Center, Checkbox, Flex, FormControl, FormLabel, Input, InputGroup, InputRightElement, Image, Link as ChakraLink, Spacer, Stack, Text, useToast, IconButton } from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react';
+import { Box, Button, Center, Checkbox, Flex, FormControl, Input, InputGroup, InputRightElement, Image, Link as ChakraLink, Stack, Text, useToast, IconButton, Spacer } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
 import useFormValidation from '../hooks/useFormValidation';
 import api from '../services/api';
 import logo from '../assets/images/logo.png';
 import { useColorModeValue } from '@chakra-ui/react';
-import { UserContext } from '../contexts/UserContext';
-
+import { useUserContext } from '../contexts/UserContext';
 
 const initialValues = {
-  email: '',
-  password: '',
+    email: '',
+    password: '',
 };
 
+// Add your validation logic here
 const validate = (values) => {
-  const errors = {};
-
-  if (!/\S+@\S+\.\S+/.test(values.email)) {
-    errors.email = 'Valid email is required';
-  }
-
-  if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(values.password)) {
-    errors.password = 'Password must be at least 6 characters and contain a number';
-  }
-
-  return errors;
+    const errors = {};
+    // Your validation logic
+    return errors;
 };
 
 const Login = () => {
-  const navigate = useNavigate();
-  const toast = useToast();
-  const { setIsLoggedIn } = useContext(UserContext);
-  const [keepMeLogin, setKeepMeLogin] = useState(false);
-  /* const [toastVisible, setToastVisible] = useState(false); */
-  const textColor = useColorModeValue('#4A5568', '#fff');
-  const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
-  const buttonTextColor = useColorModeValue('#fff', '#fff');
-  const textFieldBackgroundColor = useColorModeValue('#E2E8F0', '#4A5568');
-  const textFieldColor = useColorModeValue('#4A5568', '#fff');
+    const navigate = useNavigate();
+    const toast = useToast();
+    const [keepMeLogin, setKeepMeLogin] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const handlePasswordVisibility = () => setShowPassword(!showPassword);
+    const { setIsLoggedIn, isLoggedIn, setUser } = useUserContext();
 
-  const [showPassword, setShowPassword] = useState(false);
-  const handlePasswordVisibility = () => setShowPassword(!showPassword);
-
-  const handleFormSubmit = async (values, setIsSubmitting, setErrors, event) => {
-    event.preventDefault();
-    try {
-      const response = await api.post('/users/login', {
-        email: values.email,
-        password: values.password,
-      });
-
-      const data = response.data;
-
-      if (keepMeLogin) {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-      } else {
-        sessionStorage.setItem('token', data.token);
-        sessionStorage.setItem('user', JSON.stringify(data.user));
-      }
-
-      setIsLoggedIn(true);
-      setTimeout(() => {
-        toast({
-          title: 'Logged in successfully',
-          description: 'Welcome to the dashboard',
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
-          position: 'top-right',
-        });
-        navigate('/dashboard');
-      }, 3000);
-
-    } catch (error) {
-      console.error('Error during login:', error);
-
-      if (error.response && error.response.status === 400) {
-        const serverError = error.response.data.error;
-
-        if (serverError === 'Invalid email or password') {
-          setErrors((prevErrors) => ({ ...prevErrors, serverError }));
-        } else {
-          setErrors((prevErrors) => ({ ...prevErrors, serverError }));
+    
+    useEffect(() => {
+        if (isLoggedIn) {
+          navigate('/dashboard', { replace: true });
         }
-      } else {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          serverError: 'An unexpected error occurred. Please try again.',
-        }));
-      }
+      }, [isLoggedIn, navigate]);
 
-      setIsSubmitting(false);
-    }
-  };
 
-  const {
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    values,
-    errors,
-    isSubmitting,
-  } = useFormValidation(initialValues, validate, handleFormSubmit);
+    const { handleChange, handleBlur, handleSubmit, values, errors, isSubmitting } = useFormValidation(initialValues, validate);
 
-  const handleForgotPasswordClick = () => {
-    navigate('/forgetPassword');
-  };
+    const handleFormSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await api.post('/users/login', {
+                email: values.email,
+                password: values.password,
+            });
 
-  const handleKeepMeLoginChange = (e) => {
-    const isChecked = e.target.checked;
-    console.log(`keepMeLogin checked: ${isChecked}`);
-    setKeepMeLogin(isChecked);
-  };
+            console.log("Login successful, updating state and navigating...");
+            setIsLoggedIn(true);
+            setUser(response.data.user);
 
-  return (
-    <Box bg={backgroundColor} maxWidth="400px" mx="auto" p={8} marginTop={10} boxShadow="md" rounded="md">
-      <Center marginBottom={4}>
-        <Image src={logo} alt="Your Logo" width="100px" height="100px" />
-      </Center>
-      <Text color={textColor} fontSize="3xl" textAlign="center" mb={6}>
-        Login
-      </Text>
-      <form onSubmit={handleSubmit}>
-        <Stack spacing={4}>
-          <FormControl id="email">
-            <Input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              isInvalid={!!errors.email}
-              errorBorderColor="red.300"
-              focusBorderColor={errors.email ? 'red.300' : 'green.300'}
-              bg={textFieldBackgroundColor}
-              color={textFieldColor}
-            />
-            {errors.email && <Text color="red.500">{errors.email}</Text>}
-          </FormControl>
-          <FormControl id="password">
-            <InputGroup>
-              <Input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                placeholder='Password'
-                value={values.password}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                isInvalid={!!errors.password}
-                errorBorderColor="red.300"
-                focusBorderColor={errors.password ? 'red.300' : 'green.300'}
-                bg={textFieldBackgroundColor}
-                color={textFieldColor}
-              />
-              <InputRightElement>
-                <IconButton
-                  aria-label={showPassword ? "Mask password" : "Show password"}
-                  icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
-                  onClick={handlePasswordVisibility}
-                  size="sm"
-                />
-              </InputRightElement>
-            </InputGroup>
-            {errors.password && <Text color="red.500">{errors.password}</Text>}
-          </FormControl>
-          <FormControl id="keepMeLogin">
-            <Checkbox
-              name="keepMeLogin"
-              isChecked={keepMeLogin}
-              onChange={handleKeepMeLoginChange}
-            >
-              Keep me logged in
-            </Checkbox>
-          </FormControl>
-          <Button color={buttonTextColor} type="submit" colorScheme="teal" isLoading={isSubmitting} width="100%">
-            Login
-          </Button>
-          <Flex alignItems="center">
-            <Spacer />
-            <ChakraLink color="blue.500" onClick={handleForgotPasswordClick} whiteSpace="nowrap">
-              Forgot Password?
-            </ChakraLink>
-          </Flex>
-        </Stack>
-      </form>
-    </Box>
-  );
+
+            if (keepMeLogin) {
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('user', JSON.stringify(response.data.user));
+            } else {
+                sessionStorage.setItem('token', response.data.token);
+                sessionStorage.setItem('user', JSON.stringify(response.data.user));
+            }
+
+            setTimeout(() => {
+                navigate('/dashboard');
+            }, 500);
+
+
+        } catch (error) {
+            console.error('Login error:', error);
+            toast({
+                title: 'Login Failed',
+                description: 'An error occurred during login. Please try again.',
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'top-right',
+            });
+        }
+    };
+
+    const handleForgotPasswordClick = () => {
+        navigate('/forgetPassword');
+    };
+
+    const handleKeepMeLoginChange = (e) => {
+        setKeepMeLogin(e.target.checked);
+    };
+
+    return (
+        <Box bg={useColorModeValue('#F7FAFC', 'gray.700')} maxWidth="400px" mx="auto" p={8} mt={10} boxShadow="md" rounded="md">
+            <Center mb={4}>
+                <Image src={logo} alt="Logo" width="100px" height="100px" />
+            </Center>
+            <Text fontSize="3xl" textAlign="center" mb={6}>Login</Text>
+            <form onSubmit={handleFormSubmit}>
+                <Stack spacing={4}>
+                    <FormControl id="email">
+                        <Input
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            value={values.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            isInvalid={!!errors.email}
+                        />
+                        {errors.email && <Text color="red.500">{errors.email}</Text>}
+                    </FormControl>
+                    <FormControl id="password">
+                        <InputGroup>
+                            <Input
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                placeholder="Password"
+                                value={values.password}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                isInvalid={!!errors.password}
+                            />
+                            <InputRightElement>
+                                <IconButton
+                                    aria-label={showPassword ? "Mask password" : "Show password"}
+                                    icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
+                                    onClick={handlePasswordVisibility}
+                                    size="sm"
+                                />
+                            </InputRightElement>
+                        </InputGroup>
+                        {errors.password && <Text color="red.500">{errors.password}</Text>}
+                    </FormControl>
+                    <FormControl id="keepMeLogin">
+                        <Checkbox
+                            name="keepMeLogin"
+                            isChecked={keepMeLogin}
+                            onChange={handleKeepMeLoginChange}
+                        >
+                            Keep me logged in
+                        </Checkbox>
+                    </FormControl>
+                    <Button
+                        colorScheme="teal"
+                        isLoading={isSubmitting}
+                        type="submit"
+                        width="100%"
+                    >
+                        Login
+                    </Button>
+                    <Flex alignItems="center">
+                        <Spacer />
+                        <ChakraLink color="blue.500" onClick={handleForgotPasswordClick} whiteSpace="nowrap">
+                            Forgot Password?
+                        </ChakraLink>
+                    </Flex>
+                </Stack>
+            </form>
+        </Box>
+    );
 };
 
 export default Login;

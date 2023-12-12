@@ -17,7 +17,7 @@ const UserProfileInfo = ({ avatarSrc, user }) => {
       <Text whiteSpace="nowrap" color={textColor} fontSize={fontSize} px={2}>
         Welcome,{" "}
         <Text as="span" fontSize={fontSize} color={textColor}>
-          {user.name}
+         {/*  {user.name} */}
         </Text>
       </Text>
     </Flex>

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useRoutes, Navigate } from "react-router-dom";
+import { useRoutes, Navigate, useLocation, useNavigate  } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Navbar from "./components/specific/Navbar";
@@ -14,17 +14,25 @@ import TesPage from "./pages/TesPage";
 import TestPageTwo from "./pages/TestPageTwo";
 import BackToTopButton from "./components/specific/BackToTopButton";
 import AuthForm from "./components/forms/AuthForm";
-import { useNavigate } from 'react-router-dom';
+
 
 const App = () => {
   const navigate = useNavigate();
   const { isLoggedIn } = useUserContext();
+  const location = useLocation();
+  
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn && location.pathname === '/login') {
+      // Redirect to dashboard only if the user is on the login page
       navigate('/dashboard');
+    } else if (!isLoggedIn && location.pathname === '/dashboard') {
+      // Redirect to home if the user logs out and is currently on the dashboard
+      navigate('/');
     }
-  }, [isLoggedIn, navigate]);
+  }, [isLoggedIn, navigate, location.pathname]);
+  
+
 
   const routing = useRoutes([
     { path: "/", element: <Home /> },

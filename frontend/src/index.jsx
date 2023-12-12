@@ -6,6 +6,7 @@ import App from './App';
 import theme from "./utils/theme";
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { UserProvider } from './contexts/UserContext'; // Import UserProvider
 
 const root = document.getElementById('root');
 
@@ -13,9 +14,11 @@ createRoot(root).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
       <BrowserRouter>
-      <Provider store={store}>
-         <App />
-      </Provider>
+        <Provider store={store}>
+          <UserProvider> {/* Wrap App with UserProvider */}
+            <App />
+          </UserProvider>
+        </Provider>
       </BrowserRouter>
     </ChakraProvider>
   </React.StrictMode>

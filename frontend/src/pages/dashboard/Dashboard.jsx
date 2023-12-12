@@ -18,7 +18,7 @@ import { useUserContext } from '../../contexts/UserContext';
 
 
 const Dashboard = () => {
-  const { user } = useContext(useUserContext);
+  const { user } = useUserContext();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const breadcrumbItems = [
@@ -129,7 +129,7 @@ const Dashboard = () => {
 
   return (
     <Box bg={dashboardBG} justifyItems={'center'} >
-      <TwoColumnLayout isMenuOpen={isMenuOpen}>
+      <TwoColumnLayout >
         <Flex align={"start"} p={6} gap={10} >
           <Box>
             <EmailBadge 
@@ -265,7 +265,7 @@ const Dashboard = () => {
           direction={['column', 'column', 'row']} 
           
           overflowX={['auto', 'auto', 'visible']}
-          px-5
+          style={{ paddingLeft: '5px', paddingRight: '5px' }}
         >
           <Box 
             flex={1} 
