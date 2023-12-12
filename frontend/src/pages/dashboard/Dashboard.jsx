@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import UserMenu from "../../pages/dashboard/UserMenu";
 import BreadcrumbNavigation from "../../pages/dashboard/BreadcrumbNavigation";
 import ContentSections from "../../pages/dashboard/ContentSections";
@@ -14,6 +14,7 @@ import DataTable from "../../components/common/DataTable";
 import SearchComponent from "../../components/common/SearchComponent";
 import ThreeDotsMenu from "../../components/common/ThreeDotsMenu";
 import { useUserContext } from '../../contexts/UserContext';
+import axios from "axios";
 
 
 
@@ -34,7 +35,22 @@ const Dashboard = () => {
   const dashboardBG = useColorModeValue("#319795", "#3182ce");
   const tableBG = useColorModeValue("#171923", "#2d3748");
   const textColor = useColorModeValue("#fff", "#fff");
+  const [studentsData, setStudentsData] = useState([]);
 
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/api/users');
+      console.log('Response data:', response.data);
+    } catch (error) {
+      console.error('Fetch error:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+  
 
   const data = [
     {
@@ -125,35 +141,35 @@ const Dashboard = () => {
   ];
 
   /* Email count */
-  const emailCount = 5; 
+  const emailCount = 5;
 
   return (
     <Box bg={dashboardBG} justifyItems={'center'} >
       <TwoColumnLayout >
         <Flex align={"start"} p={6} gap={10} >
           <Box>
-            <EmailBadge 
-              width="40px" 
-              height="40px" 
+            <EmailBadge
+              width="40px"
+              height="40px"
               bgColor="transparent"
-              count={emailCount} 
+              count={emailCount}
               textColor="white"
               iconWidth="20px"  // Custom width for the icon
               iconHeight="20px" // Custom height for the icon
             />
-          </Box> 
+          </Box>
           <Box>
-          <BellBadge 
-            count={5}
-            width="40px" 
-            height="40px" 
-            bgColor="red" 
-            textColor="white" 
-          />
+            <BellBadge
+              count={5}
+              width="40px"
+              height="40px"
+              bgColor="red"
+              textColor="white"
+            />
           </Box>
           <Box>
             <GlobeBadge count={5} />
-          </Box> 
+          </Box>
           <Box>
             <UserMenu onMenuToggle={handleMenuToggle} />
           </Box>
@@ -161,24 +177,24 @@ const Dashboard = () => {
       </TwoColumnLayout>
 
       <TwoColumnLayout isMenuOpen={isMenuOpen}>
-      <Flex align={"start"} px={6} gap={10} >
-        <Box>
-          <Heading as="h2" size="md">
-             Admin Dashboard
-          </Heading>
-        </Box>
-      </Flex>
+        <Flex align={"start"} px={6} gap={10} >
+          <Box>
+            <Heading as="h2" size="md">
+              Admin Dashboard
+            </Heading>
+          </Box>
+        </Flex>
       </TwoColumnLayout>
 
       <TwoColumnLayout isMenuOpen={isMenuOpen}>
         <Flex align={"start"} px={6} gap={4} flexWrap="wrap">
           <Box shadow='md' >
-          <CardInfo
-              icon={<FaCoins/>}
+            <CardInfo
+              icon={<FaCoins />}
               heading="Due Fees"
               iconSize={35}
               iconBgColor="orange.400" // New prop
-              iconColor="white" 
+              iconColor="white"
               text="$4503"
               bgColor="gray.100"
               textColor="gray.700"
@@ -187,12 +203,12 @@ const Dashboard = () => {
             />
           </Box>
           <Box shadow='md'>
-          <CardInfo
+            <CardInfo
               icon={<FaBell />}
               heading="Notifications"
               iconSize={35}
               iconBgColor="red.400" // New prop
-              iconColor="white" 
+              iconColor="white"
               text="12"
               bgColor="gray.100"
               textColor="gray.700"
@@ -201,8 +217,8 @@ const Dashboard = () => {
             />
           </Box>
           <Box shadow='md'>
-          <CardInfo
-              icon={<FaGraduationCap  />}
+            <CardInfo
+              icon={<FaGraduationCap />}
               heading="Result"
               iconBgColor="yellow.400" // New prop
               iconSize={35}
@@ -215,11 +231,11 @@ const Dashboard = () => {
           </Box>
 
           <Box shadow='md'>
-          <CardInfo
+            <CardInfo
               icon={<FaMoneyBillWave />}
               heading="Expenses"
               iconBgColor="purple.400" // New prop
-              iconColor="white" 
+              iconColor="white"
               iconSize={35}
               text="$193000"
               bgColor="gray.100"
@@ -229,11 +245,11 @@ const Dashboard = () => {
             />
           </Box>
           <Box shadow='md'>
-          <CardInfo
-              icon={<FaUser  />}
+            <CardInfo
+              icon={<FaUser />}
               heading="Total Students"
               iconBgColor="green.400" // New prop
-              iconColor="white" 
+              iconColor="white"
               iconSize={35}
               text="35000"
               bgColor="gray.100"
@@ -243,49 +259,49 @@ const Dashboard = () => {
             />
           </Box>
           <Box shadow='md'>
-          <CardInfo
-            icon={<FaBook/>}
-            iconBgColor="pink.400" // New prop
-            iconColor="white" 
-            heading="Total Exams"
-            iconSize={35}
-            text="19050"
-            bgColor="gray.100"
-            textColor="gray.700"
-            width="225px"
-            height="100px"
-          />
+            <CardInfo
+              icon={<FaBook />}
+              iconBgColor="pink.400" // New prop
+              iconColor="white"
+              heading="Total Exams"
+              iconSize={35}
+              text="19050"
+              bgColor="gray.100"
+              textColor="gray.700"
+              width="225px"
+              height="100px"
+            />
           </Box>
         </Flex>
       </TwoColumnLayout>
 
       {/* Content code collumns */}
       <TwoColumnLayout isMenuOpen={isMenuOpen}>
-        <Flex 
-          direction={['column', 'column', 'row']} 
-          
+        <Flex
+          direction={['column', 'column', 'row']}
+
           overflowX={['auto', 'auto', 'visible']}
           style={{ paddingLeft: '5px', paddingRight: '5px' }}
         >
-          <Box 
-            flex={1} 
-            bg={tableBG} 
-            p={[2, 4]} 
+          <Box
+            flex={1}
+            bg={tableBG}
+            p={[2, 4]}
             borderRadius="md"
             shadow="md"
           >
-            <Box mb={[2, 4]}>  
-              <Heading 
-                color={textColor} 
+            <Box mb={[2, 4]}>
+              <Heading
+                color={textColor}
                 as='h6'
-                fontSize={['md', 'lg', 'xl']} 
+                fontSize={['md', 'lg', 'xl']}
               >
                 My Students
               </Heading>
             </Box>
 
             <Box>
-               <ThreeDotsMenu  />
+              <ThreeDotsMenu />
             </Box>
 
             <Box>
@@ -299,12 +315,12 @@ const Dashboard = () => {
 
       <TwoColumnLayout isMenuOpen={isMenuOpen}>
         <Flex direction={['column', 'row']} w="100%" h={["50vh", "100vh"]} gap={1}>
-            <Box flex={1}  p={4} borderRadius="md" shadow="md" bg={tableBG}>
-               Column 2
-            </Box>
-            <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
-               Column 2
-            </Box>
+          <Box flex={1} p={4} borderRadius="md" shadow="md" bg={tableBG}>
+            Column 2
+          </Box>
+          <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
+            Column 2
+          </Box>
         </Flex>
       </TwoColumnLayout>
     </Box>

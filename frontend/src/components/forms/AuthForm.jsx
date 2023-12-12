@@ -54,8 +54,8 @@ const AuthForm = () => {
 }, [isLoggedIn, navigate]);
 
 
-  const onValidSubmit = (values, event ) => {
-    event.preventDefault(); 
+  const onValidSubmit = (values ) => {
+     
 
     // Implement your form submission logic here
     const formData = new FormData();
@@ -76,7 +76,7 @@ const AuthForm = () => {
       console.log(`${key}:`, value);
     }
 
-    console.log("Form data", [...formData])
+    /* console.log("Form data", [...formData]) */
     // API call and further logic
     axios.post('http://localhost:3001/api/users/register', formData)
       .then(response => {

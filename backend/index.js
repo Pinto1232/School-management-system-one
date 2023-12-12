@@ -28,7 +28,7 @@ const subscriptionRoutes = require('./src/routes/subscription');
 const resetPasswordRoutes = require('./src/routes/resetPasswordRoutes')
 const packagesRoutes = require('./src/routes/packages')
 const iconsRoutes = require('./src/routes/icons');
-
+/* const userRoutes = require('./routes/userRoutes'); */
 
 const app = express();
 
@@ -42,6 +42,9 @@ app.use(cors());
 
 // Use user routes
 app.use('/api/users', userRoutes);
+
+app.use('/api', userRoutes);
+
 
 // attendances routes
 app.use('/api/attendances', attendanceRoutes);
@@ -111,6 +114,8 @@ app.use('/api/packages', packagesRoutes);
 app.use('/api/icons', iconsRoutes)
 
 app.use('/uploads', express.static('uploads'));
+
+
 
 
 
