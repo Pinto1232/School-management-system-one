@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Box, Text, Spinner, Flex, useColorModeValue, useToast } from '@chakra-ui/react';
 import useFormValidation from '../../hooks/useFormValidation';
 import AuthFormComponent from '../forms/AuthFormComponent';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { UserContext, useUserContext } from '../../contexts/UserContext';
+import { useUserContext } from '../../contexts/UserContext';
+import { useNavigate, useLocation } from 'react-router-dom';
+import api from '../../services/api';
+
 
 
 
@@ -40,22 +42,23 @@ const validate = (values) => {
 
 const AuthForm = () => {
   const [mode, setMode] = useState('signup');
-  const navigate = useNavigate();
   const toast = useToast();
   const isLoading = false;
   const backgroundColor = useColorModeValue('#F7FAFC', 'gray.700');
   const { setIsLoggedIn, isLoggedIn } = useUserContext();
+  const navigate = useNavigate();
+  const location = useLocation();
 
 
   useEffect(() => {
     if (isLoggedIn) {
-        navigate('/dashboard', { replace: true });
+      navigate('/dashboard', { replace: true });
     }
-}, [isLoggedIn, navigate]);
+  }, [isLoggedIn, navigate]);
 
 
-  const onValidSubmit = (values ) => {
-     
+  const onValidSubmit = async (values) => {
+
 
     // Implement your form submission logic here
     const formData = new FormData();
@@ -78,7 +81,7 @@ const AuthForm = () => {
 
     /* console.log("Form data", [...formData]) */
     // API call and further logic
-    axios.post('http://localhost:3001/api/users/register', formData)
+    const response = await api.post('/users/register', formData)
       .then(response => {
         toast({
           title: 'Registration successful',
@@ -102,35 +105,35 @@ const AuthForm = () => {
   };
 
 
-    // Login function
-    const handleLogin = (values) => {
-      axios.post("http://localhost:3001/api/users/login", {
-        email: values.email,
-        password: values.password,
-      })
-        .then(response => {
-          localStorage.setItem("token", response.data.token);
-          setIsLoggedIn(true);
-          toast({
-            title: 'Login successful',
-            description: 'Redirecting to dashboard...',
-            status: 'success',
-            duration: 5000,
-            isClosable: true,
-          });
-          navigate('/dashboard');
-        })
-        .catch(error => {
-          console.error("Login error:", error.response.data);
-          toast({
-            title: 'Login Error',
-            description: error.response.data.message || 'An error occurred during login.',
-            status: 'error',
-            duration: 5000,
-            isClosable: true,
-          });
+  // Login function
+  const handleLogin = async (values) => {
+    const response = await api.post('/users/login', {
+      email: values.email,
+      password: values.password,
+    })
+      .then(response => {
+        localStorage.setItem("token", response.data.token);
+        setIsLoggedIn(true);
+        toast({
+          title: 'Login successful',
+          description: 'Redirecting to dashboard...',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
         });
-    };
+        navigate('/dashboard');
+      })
+      .catch(error => {
+        console.error("Login error:", error.response.data);
+        toast({
+          title: 'Login Error',
+          description: error.response.data.message || 'An error occurred during login.',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+      });
+  };
 
 
 
@@ -156,9 +159,12 @@ const AuthForm = () => {
   };
 
   const toggleMode = () => {
-    setMode(prevMode => (prevMode === 'signup' ? 'login' : 'signup'));
+    setMode(prevMode => {
+      const newMode = prevMode === 'signup' ? 'login' : 'signup';
+      navigate(`/${newMode}`, { replace: true });  // Change the URL
+      return newMode;
+    });
   };
-
   // Use the extracted form fields component
   return (
     <Box bg={backgroundColor} maxWidth="400px" mx="auto" p={8} mt={10} boxShadow="md" rounded="md">

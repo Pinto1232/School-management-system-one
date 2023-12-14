@@ -1,6 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Jumbotron from "../components/specific/Jumbotron";
-import bgImage from "../assets/images/background-01.jpg";
+import bgImage1 from "../assets/images/about-us.jpg";
+import bgImage2 from "../assets/images/basic-plan.jpg";
+import bgImage3 from "../assets/images/background-01.jpg";
+
 import IconColumns from "../components/common/IconColumns";
 import { Flex, Box, Image, useBreakpointValue, Grid } from "@chakra-ui/react";
 import AboutUsSection from "../components/common/AboutUsSection";
@@ -18,8 +21,24 @@ const Home = () => {
 
   const boxMaxWidth = useBreakpointValue({ base: "90%", md: "75%", lg: "4xl" });
   const gridCardWidth = useBreakpointValue({ base: 300, md: 600, lg: 900 });
+  const bgImages = [bgImage1, bgImage2, bgImage3];
+  const [bgImage, setBgImage] = useState(bgImages[0]);
 
-  const handleButtonClick = () => {};
+
+
+
+
+  useEffect(() => {
+    let index = 0;
+    const intervalId = setInterval(() => {
+      setBgImage(bgImages[index % bgImages.length]); // Cycle through the images
+      index++;
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(intervalId); // Clear the interval when the component unmounts
+  }, []);
+
+  const handleButtonClick = () => { };
   const {
     data: productsPackageData,
     error: errorPackage,
@@ -59,7 +78,7 @@ const Home = () => {
       <Jumbotron
         title="Elevate Education, Simplify School Management!"
         subtitle="Streamlines processes, fosters collaboration, and enhances learning outcomes for a seamless educational experience"
-        /* buttonText="learn more" */
+        buttonText="Learn More"
         bgImage={bgImage}
         buttonOnClick={handleButtonClick}
       />

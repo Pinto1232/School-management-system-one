@@ -59,10 +59,11 @@ export const PasswordField = ({ handleChange, handleBlur, values, errors }) => {
         <Input
           type={showPassword ? "text" : "password"}
           name="password"
-          value={values.password}
+          placeholder="Password"
+          value={values.password || ''} // Make sure the value is taken from the state
           onChange={handleChange}
           onBlur={handleBlur}
-          placeholder="Password"
+          isInvalid={!!errors.password}
         />
         <InputRightElement width="4.5rem">
           <Button h="1.75rem" size="sm" onClick={handlePasswordVisibility}>

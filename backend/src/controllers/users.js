@@ -73,7 +73,9 @@ exports.login = asyncHandler(async (req, res) => {
         return res.status(400).json({ error: 'Invalid email or password' });
     }
 
+
     const isPasswordValid = await user.comparePassword(password);
+
 
     if (!isPasswordValid) {
         return res.status(400).json({ error: 'Invalid email or password' });

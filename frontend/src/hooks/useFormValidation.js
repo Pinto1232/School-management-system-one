@@ -7,17 +7,21 @@ const useFormValidation = (initialState, validate, onValidSubmit) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
 
- /*  useEffect(() => {
-    console.log('Updated form values:', values);
-  }, [values]); */
+  useEffect(() => {
+    console.log('Form values updated:', values);
+  }, [values]);
+
 
   const handleChange = (event) => {
+    const { name, value } = event.target;
+    console.log(`Field updated: ${name}, Value: ${value}`);
     setValues({
       ...values,
-      [event.target.name]: event.target.value,
+      [name]: value,
     });
-    console.log(values);
+    console.log(`New values:`, values);
   };
+
 
   const handleBlur = () => {
     const validationErrors = validate(values);

@@ -12,44 +12,24 @@ const DataTable = ({ data }) => {
       },
       {
         Header: 'Photo',
-        accessor: 'photo',
+        accessor: 'image',
         Cell: ({ value }) => (
-            <img 
-              src={value} 
-              alt="Avatar" 
-              width={40} 
-              height={40}  // Add height to make it a square
-              style={{ borderRadius: "50%" }}  // Full rounded corners
-            />
-          ),
-      },
+          value ? <img 
+            src={value.replace(/\\/g, '/')} // Replace backslashes with forward slashes only if value is not undefined
+            alt="Avatar" 
+            width={40} 
+            height={40}  
+            style={{ borderRadius: "50%" }} 
+          /> : <span>No image</span> // Display placeholder text or element if image is not available
+        ),
+      },      
       {
         Header: 'Name',
-        accessor: 'name',
+        accessor: 'firstName',
       },
       {
-        Header: 'Gender',
-        accessor: 'gender',
-      },
-      {
-        Header: 'Class',
-        accessor: 'class',
-      },
-      {
-        Header: 'Parent',
-        accessor: 'parent',
-      },
-      {
-        Header: 'Address',
-        accessor: 'address',
-      },
-      {
-        Header: 'DOB',
-        accessor: 'dob',
-      },
-      {
-        Header: 'Phone',
-        accessor: 'phone',
+        Header: 'Last Name',
+        accessor: 'lastName',
       },
       {
         Header: 'Email',

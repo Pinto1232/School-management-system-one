@@ -58,38 +58,34 @@ router.post('/register', upload.single('profileImage'), async (req, res) => {
 
 // Route for user login
 router.post('/login', async (req, res) => {
+    console.log("Login attempt with:", req.body);
+    console.log(req.body);
+
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
 
         if (!user) {
+            console.log(`No user found for email: ${email}`);
             return res.status(400).json({ error: 'Invalid email or password' });
         }
 
-        const isPasswordValid = await user.comparePassword(password);
+        const isPasswordValid = await user.comparePassword(password); // Add await here
 
         if (!isPasswordValid) {
+            console.log(`Password mismatch for user: ${email}`);
             return res.status(400).json({ error: 'Invalid email or password' });
         }
 
-        // Assuming you have some JWT_SECRET for token generation
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-        res.status(200).json({
-            message: 'Login successful',
-            token,
-            user: {
-                id: user._id,
-                email: user.email,
-                role: user.role
-            }
-        });
+        res.status(200).json({ message: 'Login successful', token, user: user.toObject() });
 
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error logging in user' });
+        console.error("Error during login:", error);
+        res.status(500).json({ message: 'Error logging in user', error: error.toString() });
     }
 });
+
 
 // Route to get all users
 router.get('/users', async (req, res) => {

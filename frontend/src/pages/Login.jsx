@@ -8,6 +8,7 @@ import logo from '../assets/images/logo.png';
 import { useColorModeValue } from '@chakra-ui/react';
 import { useUserContext } from '../contexts/UserContext';
 
+
 const initialValues = {
     email: '',
     password: '',
@@ -28,50 +29,71 @@ const Login = () => {
     const handlePasswordVisibility = () => setShowPassword(!showPassword);
     const { setIsLoggedIn, isLoggedIn, setUser } = useUserContext();
 
-    
+
     useEffect(() => {
         if (isLoggedIn) {
-          navigate('/dashboard', { replace: true });
+            navigate('/dashboard', { replace: true });
         }
-      }, [isLoggedIn, navigate]);
+    }, [isLoggedIn, navigate]);
 
 
     const { handleChange, handleBlur, handleSubmit, values, errors, isSubmitting } = useFormValidation(initialValues, validate);
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
+
+        const trimmedEmail = values.email.trim();
+        const trimmedPassword = values.password.trim();
+
+        // Additional logging and validation
+        console.log("Submitting with Email:", trimmedEmail, "Password:", trimmedPassword);
+        if (!trimmedEmail || !trimmedPassword) {
+            toast({
+                title: 'Validation Error',
+                description: 'Email and password are required.',
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'top-right',
+            });
+            return; // Exit early if validation fails
+        }
+
         try {
+            // Make the login request
             const response = await api.post('/users/login', {
-                email: values.email,
-                password: values.password,
+                email: trimmedEmail,
+                password: trimmedPassword,
             });
 
-            console.log("Login successful, updating state and navigating...");
-            setIsLoggedIn(true); // Set context state
-            localStorage.setItem('isLoggedIn', 'true'); // Update localStorage
-            localStorage.setItem('user', JSON.stringify(response.data.user)); // Save user data
-            /* navigate('/dashboard');
-             */
+            console.log("Login successful, updating state and navigating...", response);
 
+            // Set user context and local storage
+            setIsLoggedIn(true);
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('user', JSON.stringify(response.data.user));
 
+            // If "keep me logged in" is selected, store the token in localStorage, else store in sessionStorage
             if (keepMeLogin) {
                 localStorage.setItem('token', response.data.token);
-                localStorage.setItem('user', JSON.stringify(response.data.user));
             } else {
                 sessionStorage.setItem('token', response.data.token);
-                sessionStorage.setItem('user', JSON.stringify(response.data.user));
             }
 
+            // Redirect to the dashboard after a slight delay
             setTimeout(() => {
                 navigate('/dashboard');
             }, 500);
 
-
         } catch (error) {
-            console.error('Login error:', error);
+            // Extract the error message from the server response if available, otherwise set a default
+            const errorMessage = error.response?.data?.error || 'An error occurred during login. Please try again.';
+            console.error('Login error:', errorMessage);
+
+            // Show the error message to the user
             toast({
                 title: 'Login Failed',
-                description: 'An error occurred during login. Please try again.',
+                description: errorMessage,
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
@@ -79,6 +101,7 @@ const Login = () => {
             });
         }
     };
+
 
     const handleForgotPasswordClick = () => {
         navigate('/forgetPassword');
@@ -106,6 +129,7 @@ const Login = () => {
                             onBlur={handleBlur}
                             isInvalid={!!errors.email}
                         />
+
                         {errors.email && <Text color="red.500">{errors.email}</Text>}
                     </FormControl>
                     <FormControl id="password">
@@ -114,7 +138,7 @@ const Login = () => {
                                 type={showPassword ? "text" : "password"}
                                 name="password"
                                 placeholder="Password"
-                                value={values.password}
+                                value={values.password || ''} // Make sure the value is taken from the state
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 isInvalid={!!errors.password}

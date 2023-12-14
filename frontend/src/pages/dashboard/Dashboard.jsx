@@ -42,6 +42,7 @@ const Dashboard = () => {
     try {
       const response = await axios.get('http://localhost:3001/api/users');
       console.log('Response data:', response.data);
+      setStudentsData(response.data);
     } catch (error) {
       console.error('Fetch error:', error);
     }
@@ -50,95 +51,9 @@ const Dashboard = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  
 
-  const data = [
-    {
-      id: 1,
-      photo: 'https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=1229',
-      name: 'John Doe',
-      gender: 'Male',
-      class: '10th',
-      parent: 'Jane Doe',
-      address: '123 Main St',
-      dob: '01/01/2000',
-      phone: '123-456-7890',
-      email: 'johndoe@example.com',
-    },
-    // More data...
-    {
-      id: 2,
-      photo: 'https://media.licdn.com/dms/image/C4E03AQEDWldIzAaQXw/profile-displayphoto-shrink_400_400/0/1648990806686?e=1700697600&v=beta&t=GS18KGi2PuDMdRtnjRkf2TC3qYJ4J0ZLnmdZ2IZMuAk',
-      name: 'John Doe',
-      gender: 'Male',
-      class: '10th',
-      parent: 'Jane Doe',
-      address: '123 Main St',
-      dob: '01/01/2000',
-      phone: '123-456-7890',
-      email: 'johndoe@example.com',
-    },
-    {
-      id: 3,
-      photo: 'https://asamnews.com/wp-content/uploads/2019/02/thispersondoesnotexist.com_.jpg',
-      name: 'John Doe',
-      gender: 'Male',
-      class: '10th',
-      parent: 'Jane Doe',
-      address: '123 Main St',
-      dob: '01/01/2000',
-      phone: '123-456-7890',
-      email: 'johndoe@example.com',
-    },
-    {
-      id: 4,
-      photo: 'https://static.generated.photos/vue-static/face-generator/landing/demo-previews/age.jpg',
-      name: 'John Doe',
-      gender: 'Male',
-      class: '10th',
-      parent: 'Jane Doe',
-      address: '123 Main St',
-      dob: '01/01/2000',
-      phone: '123-456-7890',
-      email: 'johndoe@example.com',
-    },
-    {
-      id: 5,
-      photo: 'https://static.generated.photos/vue-static/face-generator/landing/wall/6.jpg',
-      name: 'John Doe',
-      gender: 'Male',
-      class: '10th',
-      parent: 'Jane Doe',
-      address: '123 Main St',
-      dob: '01/01/2000',
-      phone: '123-456-7890',
-      email: 'johndoe@example.com',
-    },
-    {
-      id: 6,
-      photo: 'https://static.generated.photos/vue-static/face-generator/landing/wall/6.jpg',
-      name: 'John Doe',
-      gender: 'Male',
-      class: '10th',
-      parent: 'Jane Doe',
-      address: '123 Main St',
-      dob: '01/01/2000',
-      phone: '123-456-7890',
-      email: 'johndoe@example.com',
-    },
-    {
-      id: 7,
-      photo: 'https://static.generated.photos/vue-static/face-generator/landing/wall/6.jpg',
-      name: 'John Doe',
-      gender: 'Male',
-      class: '10th',
-      parent: 'Jane Doe',
-      address: '123 Main St',
-      dob: '01/01/2000',
-      phone: '123-456-7890',
-      email: 'johndoe@example.com',
-    },
-  ];
+
+
 
   /* Email count */
   const emailCount = 5;
@@ -306,7 +221,7 @@ const Dashboard = () => {
 
             <Box>
               <SearchComponent />
-              <DataTable data={data} />
+              <DataTable data={studentsData} />
             </Box>
           </Box>
         </Flex>
