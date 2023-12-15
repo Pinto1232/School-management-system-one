@@ -62,12 +62,12 @@ const Footer = ({ SubmitNewsletter }) => {
     <Box
       bg={colorModeStyles.backgroundColor}
       color={colorModeStyles.textColor}
-      p={4}
+      p={{ base: 4, md: 8 }}
       mt={8}
-      w="100%"
+      w="full"
     >
       <Flex
-        direction={{ base: "column", sm: "row" }}
+        direction={{ base: "column", md: "row" }}
         wrap="wrap"
         justifyContent="center"
         alignItems="center"
@@ -103,40 +103,50 @@ const Footer = ({ SubmitNewsletter }) => {
         ))}
       </Flex>
 
-      <Flex mx="auto" justify="center" w="100%" px={8}>
-        <AdjustableColumnLayout columns={1}>
-          <InputFieldComponent
-            placeholder="Subscribe for our newsletter"
-            placeholderTextColor="gray.600"
-            icon={FaEnvelope}
-            inpuFieldWidth="280px"
-            inpuFieldBackgroundColor="gray.200"
-          />
-          <CustomButton
-            bgColor={colorModeStyles.buttonColor}
-            textColor="#fff"
-            width="full"
-          >
-            Submit
-          </CustomButton>
+      <Flex
+        justify="flex-start"
+        align="flex-start"
+        w="full"
+        px={{ base: 4, md: 8 }}
+        mb={{ base: 4, md: 8 }}
+      >
+        <AdjustableColumnLayout columns={{ base: 1, md: 2, lg: 5 }}>
+          <Flex  align="flex-start" style={{ paddingLeft: '1px'}}>
+            <InputFieldComponent
+              placeholder="Subscribe for our newsletter"
+              placeholderTextColor="gray.600"
+              icon={FaEnvelope}
+              inpuFieldWidth="280px"
+              inpuFieldBackgroundColor="gray.200"
+            />
+            <CustomButton
+              bgColor={colorModeStyles.buttonColor}
+              textColor="#fff"
+              width="full"
+            >
+              Submit
+            </CustomButton>
+          </Flex>
         </AdjustableColumnLayout>
       </Flex>
+
 
       {showBanner && (
         <CookieConsentBanner
           onAccept={handleAccept}
-          CookieWidth="100%"
+          CookieWidth="full"
           buttonColor="blue"
         />
       )}
       <Divider borderColor="gray.300" my={8} />
       <Flex
-        direction={{ base: "column-reverse", sm: "row" }}
+        direction={{ base: "column-reverse", md: "row" }}
         justifyContent="space-between"
         alignItems="center"
         maxW="1200px"
         mx="auto"
         pt={4}
+        px={{ base: 4, md: 8 }}
       >
         <Text fontSize={{ base: "sm", sm: "md" }} color="gray.500">
           © 2023 PintoEd Management. All rights reserved.

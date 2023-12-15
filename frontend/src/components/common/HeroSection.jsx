@@ -13,7 +13,7 @@ const HeroSection = ({
 }) => {
   return (
     <Box
-      position="relative"
+      position="absolute"
       height={height ? height : "100vh"}
       overflow="hidden"
     >

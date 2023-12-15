@@ -9,8 +9,7 @@ const CookieConsentBanner = ({
     buttonText,
     buttonTextColor,
     message,
-    onAccept,
-    CookieWidth
+    onAccept
 }) => {
     const bannerBgColor = useColorModeValue(
         backgroundColor || "gray.100",
@@ -32,41 +31,37 @@ const CookieConsentBanner = ({
     const buttonBgColor = useColorModeValue('#319795', '#3182ce');
     const textButton = useColorModeValue('#fff', '#fff')
 
-
-
     return (
         <Box
             position="fixed"
             bottom="0"
-            width={CookieWidth}
+            width="full" // This ensures that the banner takes the full width of the viewport
             backgroundColor={bannerBgColor}
             color={bannerTextColor}
-            px={{ base: "4", md: "6" }}
-            py={{ base: "3", md: "4" }}
+            p={{ base: 3, sm: 4, md: 5 }} // Responsive padding
             boxShadow={{ base: "md", md: "lg" }}
-            zIndex="999"
+            zIndex="sticky"
         >
             <Flex
-                justifyContent={"space-around"}
-                justify="center"
-                alignItems="center"
+                direction={{ base: "column", sm: "row" }} // Stack on top of each other on small screens, side by side on larger
+                justifyContent="space-between" // This will space out the text and button
+                alignItems="center" // Vertically centers the content
+                textAlign={{ base: "center", sm: "left" }} // Center text on small screens, left-align on larger
             >
                 <Text
                     fontSize={{ base: "sm", md: "md" }}
                     fontWeight="medium"
+                    mb={{ base: 2, sm: 0 }} // Add bottom margin on small screens
                 >
-                    {message ||
-                        "We use cookies to ensure you get the best experience on our website. By using our site, you consent to our use of cookies."}
+                    {message || "We use cookies to ensure you get the best experience on our website. By using our site, you consent to our use of cookies."}
                 </Text>
                 <CustomButton
                     colorScheme={bannerButtonColor}
                     variant="solid"
-                    /* size={{ base: "sm", md: "md" }} */
-                    ml="3"
+                    size={{ base: "sm", md: "md" }} // Responsive button size
                     onClick={onAccept}
                     bgColor={buttonBgColor}
-                    textColor={textButton}
-                    fontSize={10}
+                    color={textButton}
                 >
                     {buttonText || "Accept"}
                 </CustomButton>

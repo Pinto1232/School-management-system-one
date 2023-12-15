@@ -54,7 +54,7 @@ const UserMenu = ({ onMenuToggle, gap }) => {
   const navigate = useNavigate();
   const { setUser, setIsLoggedIn, user } = useUserContext();
 
-  console.log("User Image", user);
+ /*  console.log("User Image", user); */
 
 
   const handleLogout = async () => {
