@@ -111,7 +111,7 @@ const Footer = ({ SubmitNewsletter }) => {
         mb={{ base: 4, md: 8 }}
       >
         <AdjustableColumnLayout columns={{ base: 1, md: 2, lg: 5 }}>
-          <Flex  align="flex-start" style={{ paddingLeft: '1px'}}>
+          <Flex align="flex-start" style={{ paddingLeft: '263px' }}>
             <InputFieldComponent
               placeholder="Subscribe for our newsletter"
               placeholderTextColor="gray.600"
@@ -123,6 +123,11 @@ const Footer = ({ SubmitNewsletter }) => {
               bgColor={colorModeStyles.buttonColor}
               textColor="#fff"
               width="full"
+              borderRadiusTopRight="10px"
+              borderRadiusBottomRight="10px"
+              borderRadiusTopLeft="0px"
+              borderRadiusBottomLeft="0px"
+
             >
               Submit
             </CustomButton>

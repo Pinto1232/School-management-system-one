@@ -10,6 +10,12 @@ const CustomButton = ({
   margin,
   padding,
   btnHover,
+  borderRadiusTopRight,
+  borderRadiusBottomRight,
+
+  borderRadiusTopLeft,
+  borderRadiusBottomLeft,
+  zIndex,
   ...rest
 }) => {
   const buttonStyle = {
@@ -20,6 +26,12 @@ const CustomButton = ({
     margin: margin,
     padding: padding,
     _hover: btnHover,
+    borderTopRightRadius: borderRadiusTopRight,
+    borderBottomRightRadius: borderRadiusBottomRight,
+
+    borderTopLeftRadius: borderRadiusTopLeft,
+    borderBottomLeftRadius: borderRadiusBottomLeft,
+    zIndex: zIndex,
   };
 
   return (
