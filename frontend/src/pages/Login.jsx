@@ -39,6 +39,68 @@ const Login = () => {
 
     const { handleChange, handleBlur, handleSubmit, values, errors, isSubmitting } = useFormValidation(initialValues, validate);
 
+    /*  const handleFormSubmit = async (event) => {
+         event.preventDefault();
+ 
+         const trimmedEmail = values.email.trim();
+         const trimmedPassword = values.password.trim();
+ 
+         console.log("Submitting with Email:", trimmedEmail, "Password:", trimmedPassword);
+         if (!trimmedEmail || !trimmedPassword) {
+             toast({
+                 title: 'Validation Error',
+                 description: 'Email and password are required.',
+                 status: 'error',
+                 duration: 3000,
+                 isClosable: true,
+                 position: 'top-right',
+             });
+             return; 
+         }
+ 
+         try {
+             
+             const response = await api.post('/users/login', {
+                 email: trimmedEmail,
+                 password: trimmedPassword,
+             });
+ 
+             console.log("Login successful, updating state and navigating...", response);
+ 
+             
+             setIsLoggedIn(true);
+             localStorage.setItem('isLoggedIn', 'true');
+             localStorage.setItem('user', JSON.stringify(response.data.user));
+ 
+             
+             if (keepMeLogin) {
+                 localStorage.setItem('token', response.data.token);
+             } else {
+                 sessionStorage.setItem('token', response.data.token);
+             }
+ 
+             
+             setTimeout(() => {
+                 navigate('/dashboard');
+             }, 500);
+ 
+         } catch (error) {
+             
+             const errorMessage = error.response?.data?.error || 'An error occurred during login. Please try again.';
+             console.error('Login error:', errorMessage);
+ 
+            
+             toast({
+                 title: 'Login Failed',
+                 description: errorMessage,
+                 status: 'error',
+                 duration: 3000,
+                 isClosable: true,
+                 position: 'top-right',
+             });
+         }
+     }; */
+
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
@@ -46,7 +108,6 @@ const Login = () => {
         const trimmedPassword = values.password.trim();
 
         // Additional logging and validation
-        console.log("Submitting with Email:", trimmedEmail, "Password:", trimmedPassword);
         if (!trimmedEmail || !trimmedPassword) {
             toast({
                 title: 'Validation Error',
@@ -66,31 +127,21 @@ const Login = () => {
                 password: trimmedPassword,
             });
 
-            console.log("Login successful, updating state and navigating...", response);
-
-            // Set user context and local storage
+            // Set user context and local storage upon successful login
             setIsLoggedIn(true);
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('user', JSON.stringify(response.data.user));
-
-            // If "keep me logged in" is selected, store the token in localStorage, else store in sessionStorage
             if (keepMeLogin) {
                 localStorage.setItem('token', response.data.token);
             } else {
                 sessionStorage.setItem('token', response.data.token);
             }
-
-            // Redirect to the dashboard after a slight delay
-            setTimeout(() => {
-                navigate('/dashboard');
-            }, 500);
+            navigate('/dashboard'); // Navigate without the delay
 
         } catch (error) {
-            // Extract the error message from the server response if available, otherwise set a default
+            // Handle the login error
             const errorMessage = error.response?.data?.error || 'An error occurred during login. Please try again.';
             console.error('Login error:', errorMessage);
-
-            // Show the error message to the user
             toast({
                 title: 'Login Failed',
                 description: errorMessage,
@@ -101,6 +152,7 @@ const Login = () => {
             });
         }
     };
+
 
 
     const handleForgotPasswordClick = () => {

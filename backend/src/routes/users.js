@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { register, login } = require('../controllers/users');
 const upload = require('../middlewares/multer');
-const User = require('../models/User'); 
+const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -58,27 +58,34 @@ router.post('/register', upload.single('profileImage'), async (req, res) => {
 
 // Route for user login
 router.post('/login', async (req, res) => {
-    console.log("Login attempt with:", req.body);
-    console.log(req.body);
-
     try {
         const { email, password } = req.body;
+
+        // Find the user by email
         const user = await User.findOne({ email });
 
+        // If user is not found, return an error
         if (!user) {
             console.log(`No user found for email: ${email}`);
             return res.status(400).json({ error: 'Invalid email or password' });
         }
 
-        const isPasswordValid = await user.comparePassword(password); // Add await here
-
-        if (!isPasswordValid) {
-            console.log(`Password mismatch for user: ${email}`);
-            return res.status(400).json({ error: 'Invalid email or password' });
-        }
-
+        // Generate a token
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.status(200).json({ message: 'Login successful', token, user: user.toObject() });
+
+        // Send the response back with token and user information
+        res.status(200).json({
+            message: 'Login successful',
+            token,
+            user: {
+                id: user._id,
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                role: user.role,
+                image: user.image,
+            },
+        });
 
     } catch (error) {
         console.error("Error during login:", error);

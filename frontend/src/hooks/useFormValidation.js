@@ -7,10 +7,6 @@ const useFormValidation = (initialState, validate, onValidSubmit) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
 
-  useEffect(() => {
-    console.log('Form values updated:', values);
-  }, [values]);
-
 
   const handleChange = (event) => {
     const { name, value } = event.target;
