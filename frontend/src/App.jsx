@@ -22,16 +22,17 @@ const App = () => {
   const location = useLocation();
 
 
-  useEffect(() => {
+/*   useEffect(() => {
     if (!isLoggedIn && location.pathname === '/dashboard') {
-      navigate('/login');
+      navigate('/login', { replace: true });
     }
   }, [isLoggedIn, location.pathname, navigate]);
-
+ */
 
   const routing = useRoutes([
     { path: "/", element: <Home /> },
-    { path: "/login", element: <Login /> },
+    /*     { path: "/login", element: <Login /> }, */
+    { path: "/login", element: isLoggedIn ? <Navigate to="/dashboard" replace /> : <Login /> },
     { path: "/register", element: <AuthForm /> },
     { path: "/dashboard", element: isLoggedIn ? <Dashboard /> : <Navigate to="/login" replace /> },
     { path: "/faq", element: <Faq /> },

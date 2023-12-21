@@ -3,6 +3,7 @@ const express = require('express');
 const connectDB = require('./src/config/db');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 
 // Import user routes
 const attendanceRoutes = require('./src/routes/attendance');
@@ -112,16 +113,13 @@ app.use('/api/packages', packagesRoutes);
 
 // Use Icons routes
 app.use('/api/icons', iconsRoutes)
-
+/* 
 app.use('/uploads', express.static('uploads'));
+ */
 
+app.use('/api/users/uploads', express.static('uploads'));
 
-
-
-
-
-
-
+console.log(path.join(__dirname, 'uploads'));
 
 
 

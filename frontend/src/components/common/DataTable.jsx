@@ -9,7 +9,7 @@ const DataTable = ({ data, fetchData }) => {
     () => [
       {
         Header: 'ID',
-        accessor: 'id',
+        accessor: '_id',
       },
       {
         Header: 'Photo',
@@ -98,18 +98,18 @@ const DataTable = ({ data, fetchData }) => {
         </Thead>
 
         <Tbody {...getTableBodyProps()} bg="gray.200">
-          {currentTableBody.map((row) => {
+          {currentTableBody.map((row, rowIndex) => {
             prepareRow(row);
+            const isOddRow = rowIndex % 2 !== 0;
+            const bgColor = isOddRow ? 'gray.300' : 'gray.200';
             return (
               <Tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <Td bg={'gray.300'} {...cell.getCellProps()} py={4} verticalAlign="middle">
-                      {cell.render('Cell')}
-                    </Td>
-                  );
-                })}
-                <Td>
+                {row.cells.map((cell) => (
+                  <Td {...cell.getCellProps()} py={4} verticalAlign="middle" bg={bgColor}>
+                    {cell.render('Cell')}
+                  </Td>
+                ))}
+                <Td bg={bgColor}>
                   <Button colorScheme="red" onClick={() => handleDelete(row.original._id)}>Delete</Button>
                 </Td>
               </Tr>

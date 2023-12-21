@@ -1,6 +1,7 @@
+
 const express = require('express');
 const router = express.Router();
-const { register, login } = require('../controllers/users');
+const { register, login, deleteUser } = require('../controllers/users');
 const upload = require('../middlewares/multer');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
@@ -8,7 +9,6 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 router.post('/register', upload.single('profileImage'), async (req, res) => {
-
     if (!req.file) {
         return res.status(400).json({ error: 'No file uploaded' });
     }
@@ -17,14 +17,9 @@ router.post('/register', upload.single('profileImage'), async (req, res) => {
 
     try {
 
-        // Hash the password
         const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
-
-        // extract the file path relative to the public directory
         const imagePath = req.file.path.split('uploads')[1];
 
-
-        // create a neew user instance
         const newUser = new User({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -33,10 +28,8 @@ router.post('/register', upload.single('profileImage'), async (req, res) => {
             image: `uploads${imagePath}`
         });
 
-        //Save the user to the database
         await newUser.save();
 
-        // Send a response to the client
         res.status(201).json({
             message: 'User registered successfully',
             user: {
@@ -53,27 +46,18 @@ router.post('/register', upload.single('profileImage'), async (req, res) => {
     }
 });
 
-
-
-
-// Route for user login
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
-
-        // Find the user by email
         const user = await User.findOne({ email });
 
-        // If user is not found, return an error
         if (!user) {
             console.log(`No user found for email: ${email}`);
             return res.status(400).json({ error: 'Invalid email or password' });
         }
 
-        // Generate a token
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-        // Send the response back with token and user information
         res.status(200).json({
             message: 'Login successful',
             token,
@@ -86,15 +70,12 @@ router.post('/login', async (req, res) => {
                 image: user.image,
             },
         });
-
     } catch (error) {
         console.error("Error during login:", error);
         res.status(500).json({ message: 'Error logging in user', error: error.toString() });
     }
 });
 
-
-// Route to get all users
 router.get('/users', async (req, res) => {
     try {
         const users = await User.find({});
@@ -104,7 +85,6 @@ router.get('/users', async (req, res) => {
     }
 });
 
-// Route to get a specific user by ID
 router.get('/users/:userId', async (req, res) => {
     try {
         const user = await User.findById(req.params.userId);
@@ -116,5 +96,7 @@ router.get('/users/:userId', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+router.delete('/:id', deleteUser);
 
 module.exports = router;

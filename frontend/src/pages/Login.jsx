@@ -27,81 +27,19 @@ const Login = () => {
     const [keepMeLogin, setKeepMeLogin] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const handlePasswordVisibility = () => setShowPassword(!showPassword);
-    const { setIsLoggedIn, isLoggedIn, setUser } = useUserContext();
 
+
+    const { isLoggedIn, login } = useUserContext();
 
     useEffect(() => {
         if (isLoggedIn) {
             navigate('/dashboard', { replace: true });
         }
-    }, [isLoggedIn, navigate]);
-
+    }, [isLoggedIn]);
 
     const { handleChange, handleBlur, handleSubmit, values, errors, isSubmitting } = useFormValidation(initialValues, validate);
 
-    /*  const handleFormSubmit = async (event) => {
-         event.preventDefault();
- 
-         const trimmedEmail = values.email.trim();
-         const trimmedPassword = values.password.trim();
- 
-         console.log("Submitting with Email:", trimmedEmail, "Password:", trimmedPassword);
-         if (!trimmedEmail || !trimmedPassword) {
-             toast({
-                 title: 'Validation Error',
-                 description: 'Email and password are required.',
-                 status: 'error',
-                 duration: 3000,
-                 isClosable: true,
-                 position: 'top-right',
-             });
-             return; 
-         }
- 
-         try {
-             
-             const response = await api.post('/users/login', {
-                 email: trimmedEmail,
-                 password: trimmedPassword,
-             });
- 
-             console.log("Login successful, updating state and navigating...", response);
- 
-             
-             setIsLoggedIn(true);
-             localStorage.setItem('isLoggedIn', 'true');
-             localStorage.setItem('user', JSON.stringify(response.data.user));
- 
-             
-             if (keepMeLogin) {
-                 localStorage.setItem('token', response.data.token);
-             } else {
-                 sessionStorage.setItem('token', response.data.token);
-             }
- 
-             
-             setTimeout(() => {
-                 navigate('/dashboard');
-             }, 500);
- 
-         } catch (error) {
-             
-             const errorMessage = error.response?.data?.error || 'An error occurred during login. Please try again.';
-             console.error('Login error:', errorMessage);
- 
-            
-             toast({
-                 title: 'Login Failed',
-                 description: errorMessage,
-                 status: 'error',
-                 duration: 3000,
-                 isClosable: true,
-                 position: 'top-right',
-             });
-         }
-     }; */
-
-    const handleFormSubmit = async (event) => {
+    /* const handleFormSubmit = async (event) => {
         event.preventDefault();
 
         const trimmedEmail = values.email.trim();
@@ -117,7 +55,7 @@ const Login = () => {
                 isClosable: true,
                 position: 'top-right',
             });
-            return; // Exit early if validation fails
+            return; 
         }
 
         try {
@@ -131,11 +69,13 @@ const Login = () => {
             setIsLoggedIn(true);
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('user', JSON.stringify(response.data.user));
+            
             if (keepMeLogin) {
                 localStorage.setItem('token', response.data.token);
             } else {
                 sessionStorage.setItem('token', response.data.token);
             }
+
             navigate('/dashboard'); // Navigate without the delay
 
         } catch (error) {
@@ -151,7 +91,56 @@ const Login = () => {
                 position: 'top-right',
             });
         }
+    }; */
+
+
+    const handleFormSubmit = async (event) => {
+        event.preventDefault();
+    
+        const trimmedEmail = values.email.trim();
+        const trimmedPassword = values.password.trim();
+    
+        if (!trimmedEmail || !trimmedPassword) {
+            toast({
+                title: 'Validation Error',
+                description: 'Email and password are required.',
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'top-right',
+            });
+            return;
+        }
+    
+        try {
+            const response = await api.post('/users/login', {
+                email: trimmedEmail,
+                password: trimmedPassword,
+            });
+    
+            login(response.data.user, response.data.token, keepMeLogin);
+            // Removed the navigate call from here
+    
+        } catch (error) {
+            const errorMessage = error.response?.data?.error || 'An error occurred during login. Please try again.';
+            console.error('Login error:', errorMessage);
+            toast({
+                title: 'Login Failed',
+                description: errorMessage,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'top-right',
+            });
+        }
     };
+    
+    /* useEffect(() => {
+        if (isLoggedIn) {
+            navigate('/dashboard', { replace: true });
+        }
+    }, [isLoggedIn, navigate]);
+ */
 
 
 
