@@ -3,7 +3,7 @@ import UserMenu from "../../pages/dashboard/UserMenu";
 import BreadcrumbNavigation from "../../pages/dashboard/BreadcrumbNavigation";
 import ContentSections from "../../pages/dashboard/ContentSections";
 import UserProfileInfo from "../../pages/dashboard/UserProfileInfo";
-import { Box, Center, Flex, Heading, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Center, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Input, VStack, useColorModeValue } from "@chakra-ui/react";
 import TwoColumnLayout from "../../components/specific/twoColumnLayout/TwoColumnLayout";
 import EmailBadge from "../../components/specific/badge/EmailBadge";
 import BellBadge from "../../components/specific/badge/BellBadge";
@@ -15,6 +15,7 @@ import SearchComponent from "../../components/common/SearchComponent";
 import ThreeDotsMenu from "../../components/common/ThreeDotsMenu";
 import { useUserContext } from '../../contexts/UserContext';
 import axios from "axios";
+import { useForm } from 'react-hook-form';
 
 
 
@@ -52,6 +53,12 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+  const onSubmit = data => {
+    // Process the form data
+    console.log(data);
+  };
 
 
 
@@ -221,7 +228,8 @@ const Dashboard = () => {
 
             <Box>
               <SearchComponent />
-              <DataTable data={studentsData} />
+              {/* <DataTable data={studentsData} /> */}
+              <DataTable data={studentsData} fetchData={fetchData} />
             </Box>
           </Box>
         </Flex>
@@ -231,7 +239,53 @@ const Dashboard = () => {
       <TwoColumnLayout isMenuOpen={isMenuOpen}>
         <Flex direction={['column', 'row']} w="100%" h={["50vh", "100vh"]} gap={1}>
           <Box flex={1} p={4} borderRadius="md" shadow="md" bg={tableBG}>
-            Column 2
+            <Box p={8}>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <VStack spacing={4}>
+                  <FormControl isInvalid={errors.firstName}>
+                    <FormLabel htmlFor="firstName">First Name</FormLabel>
+                    <Input id="firstName" {...register('firstName', { required: 'First name is required' })} />
+                    <FormErrorMessage>
+                      {errors.firstName && errors.firstName.message}
+                    </FormErrorMessage>
+                  </FormControl>
+
+                  <FormControl isInvalid={errors.lastName}>
+                    <FormLabel htmlFor="lastName">Last Name</FormLabel>
+                    <Input id="lastName" {...register('lastName', { required: 'Last name is required' })} />
+                    <FormErrorMessage>
+                      {errors.lastName && errors.lastName.message}
+                    </FormErrorMessage>
+                  </FormControl>
+
+                  <FormControl isInvalid={errors.email}>
+                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <Input id="email" type="email" {...register('email', { required: 'Email is required' })} />
+                    <FormErrorMessage>
+                      {errors.email && errors.email.message}
+                    </FormErrorMessage>
+                  </FormControl>
+
+                  <FormControl isInvalid={errors.password}>
+                    <FormLabel htmlFor="password">Password</FormLabel>
+                    <Input id="password" type="password" {...register('password', { required: 'Password is required' })} />
+                    <FormErrorMessage>
+                      {errors.password && errors.password.message}
+                    </FormErrorMessage>
+                  </FormControl>
+
+                  <FormControl isInvalid={errors.confirmPassword}>
+                    <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
+                    <Input id="confirmPassword" type="password" {...register('confirmPassword', { required: 'Please confirm your password' })} />
+                    <FormErrorMessage>
+                      {errors.confirmPassword && errors.confirmPassword.message}
+                    </FormErrorMessage>
+                  </FormControl>
+
+                  <Button colorScheme="blue" type="submit">Update</Button>
+                </VStack>
+              </form>
+            </Box>
           </Box>
           <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
             Column 2
