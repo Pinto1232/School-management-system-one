@@ -7,7 +7,7 @@ const TwoColumnLayout = ({ children, isMenuOpen }) => {
 
 
   return (
-    <Box marginLeft={marginLeft}  mb={5} p={1} transition="margin-left 0.3s ease-in-out" maxWidth="full" bg={containerBackground}>
+    <Box marginLeft={marginLeft}  mb={5} p={1} transition="margin-left 0.3s ease-in-out" maxH="full" maxWidth="full" bg={containerBackground}>
       {children}
     </Box>
   );

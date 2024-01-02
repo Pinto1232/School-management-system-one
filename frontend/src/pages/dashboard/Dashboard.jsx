@@ -16,6 +16,8 @@ import ThreeDotsMenu from "../../components/common/ThreeDotsMenu";
 import { useUserContext } from '../../contexts/UserContext';
 import axios from "axios";
 import { useForm } from 'react-hook-form';
+import Calendar from "../../components/common/Calendar";
+import BarChart from "../../components/common/BarChart";
 
 
 
@@ -67,6 +69,7 @@ const Dashboard = () => {
 
   return (
     <Box bg={dashboardBG} justifyItems={'center'} >
+
       <TwoColumnLayout >
         <Flex align={"start"} p={6} gap={10} >
           <Box>
@@ -240,6 +243,7 @@ const Dashboard = () => {
         <Flex direction={['column', 'row']} w="100%" h={["50vh", "100vh"]} gap={1}>
           <Box flex={1} p={4} borderRadius="md" shadow="md" bg={tableBG}>
             <Box p={8}>
+              <BarChart />
               <form onSubmit={handleSubmit(onSubmit)}>
                 <VStack spacing={4}>
                   <FormControl isInvalid={errors.firstName}>
@@ -266,29 +270,13 @@ const Dashboard = () => {
                     </FormErrorMessage>
                   </FormControl>
 
-                  <FormControl isInvalid={errors.password}>
-                    <FormLabel htmlFor="password">Password</FormLabel>
-                    <Input id="password" type="password" {...register('password', { required: 'Password is required' })} />
-                    <FormErrorMessage>
-                      {errors.password && errors.password.message}
-                    </FormErrorMessage>
-                  </FormControl>
-
-                  <FormControl isInvalid={errors.confirmPassword}>
-                    <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
-                    <Input id="confirmPassword" type="password" {...register('confirmPassword', { required: 'Please confirm your password' })} />
-                    <FormErrorMessage>
-                      {errors.confirmPassword && errors.confirmPassword.message}
-                    </FormErrorMessage>
-                  </FormControl>
-
                   <Button colorScheme="blue" type="submit">Update</Button>
                 </VStack>
-              </form>
+              </form> 
             </Box>
           </Box>
           <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
-            Column 2
+            <Calendar />
           </Box>
         </Flex>
       </TwoColumnLayout>
