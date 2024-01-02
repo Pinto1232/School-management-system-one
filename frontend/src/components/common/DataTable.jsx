@@ -14,16 +14,23 @@ const DataTable = ({ data, fetchData }) => {
       {
         Header: 'Photo',
         accessor: 'image',
-        Cell: ({ value }) => (
-          value ? <img
-            src={value.replace(/\\/g, '/')} // Replace backslashes with forward slashes only if value is not undefined
-            alt="Avatar"
-            width={40}
-            height={40}
-            style={{ borderRadius: "50%" }}
-          /> : <span>No image</span> // Display placeholder text or element if image is not available
-        ),
-      },
+        Cell: ({ value }) => {
+          const imageUrl = `http://localhost:3001/${value.replace(/\\/g, '/')}`;
+          return (
+            value ? (
+              <img
+                src={imageUrl}
+                alt="Avatar"
+                width={40}
+                height={40}
+                style={{ borderRadius: "50%" }}
+              />
+            ) : (
+              <span>No image</span>
+            )
+          );
+        },
+      }, // Add this comma
       {
         Header: 'Name',
         accessor: 'firstName',

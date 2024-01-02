@@ -26,7 +26,7 @@ import { useNavigate  } from 'react-router-dom';
 const Dashboard = () => {
   const navigate = useNavigate();
   const { user } = useUserContext();
-  console.log(user);
+  console.log("User Dashboard", user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 
@@ -256,7 +256,7 @@ const Dashboard = () => {
           <Box flex={1} p={4} borderRadius="md" shadow="md" bg={tableBG}>
             <Box p={8}>
               <BarChart />
-              <form onSubmit={handleSubmit(onSubmit)}>
+              {/* <form onSubmit={handleSubmit(onSubmit)}>
                 <VStack spacing={4}>
                   <FormControl isInvalid={errors.firstName}>
                     <FormLabel htmlFor="firstName">First Name</FormLabel>
@@ -284,7 +284,7 @@ const Dashboard = () => {
 
                   <Button colorScheme="blue" type="submit">Update</Button>
                 </VStack>
-              </form> 
+              </form> */} 
             </Box>
           </Box>
           <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
