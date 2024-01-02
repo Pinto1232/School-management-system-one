@@ -39,10 +39,10 @@ const DropdownMenu = () => {
                     </MenuItem>
                 </MenuGroup>
                 <MenuDivider />
-                <MenuItem bg={dropdownBg}>
+                {/* <MenuItem bg={dropdownBg}>
                     <Icon as={FaSignOutAlt} mr="2" />
                     <Text>Sign out</Text>
-                </MenuItem>
+                </MenuItem> */}
             </MenuList>
         </Menu>
     );

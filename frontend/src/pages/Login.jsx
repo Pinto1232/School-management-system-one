@@ -27,79 +27,30 @@ const Login = () => {
     const [keepMeLogin, setKeepMeLogin] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const handlePasswordVisibility = () => setShowPassword(!showPassword);
+    const [user, setUser] = useState(null);
+    const [token, setToken] = useState(null);
 
 
     const { isLoggedIn, login } = useUserContext();
 
-    useEffect(() => {
-        if (isLoggedIn) {
-            navigate('/dashboard', { replace: true });
-        }
-    }, [isLoggedIn]);
+    const handleLogin = (user, token, keepMeLogin) => {
+        setUser(user);
+        setToken(token);
+        console.log("User:", user);
+        console.log("Token:", token);
+    };
+
 
     const { handleChange, handleBlur, handleSubmit, values, errors, isSubmitting } = useFormValidation(initialValues, validate);
 
-    /* const handleFormSubmit = async (event) => {
-        event.preventDefault();
-
-        const trimmedEmail = values.email.trim();
-        const trimmedPassword = values.password.trim();
-
-        // Additional logging and validation
-        if (!trimmedEmail || !trimmedPassword) {
-            toast({
-                title: 'Validation Error',
-                description: 'Email and password are required.',
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'top-right',
-            });
-            return; 
-        }
-
-        try {
-            // Make the login request
-            const response = await api.post('/users/login', {
-                email: trimmedEmail,
-                password: trimmedPassword,
-            });
-
-            // Set user context and local storage upon successful login
-            setIsLoggedIn(true);
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('user', JSON.stringify(response.data.user));
-            
-            if (keepMeLogin) {
-                localStorage.setItem('token', response.data.token);
-            } else {
-                sessionStorage.setItem('token', response.data.token);
-            }
-
-            navigate('/dashboard'); // Navigate without the delay
-
-        } catch (error) {
-            // Handle the login error
-            const errorMessage = error.response?.data?.error || 'An error occurred during login. Please try again.';
-            console.error('Login error:', errorMessage);
-            toast({
-                title: 'Login Failed',
-                description: errorMessage,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'top-right',
-            });
-        }
-    }; */
 
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-    
+
         const trimmedEmail = values.email.trim();
         const trimmedPassword = values.password.trim();
-    
+
         if (!trimmedEmail || !trimmedPassword) {
             toast({
                 title: 'Validation Error',
@@ -111,16 +62,18 @@ const Login = () => {
             });
             return;
         }
-    
+
         try {
             const response = await api.post('/users/login', {
                 email: trimmedEmail,
                 password: trimmedPassword,
             });
-    
+
+            handleLogin(response.data.user, response.data.token, keepMeLogin);
             login(response.data.user, response.data.token, keepMeLogin);
-            // Removed the navigate call from here
-    
+            console.log("Login function called");
+            navigate('/dashboard', { replace: true });
+
         } catch (error) {
             const errorMessage = error.response?.data?.error || 'An error occurred during login. Please try again.';
             console.error('Login error:', errorMessage);
@@ -134,13 +87,7 @@ const Login = () => {
             });
         }
     };
-    
-    /* useEffect(() => {
-        if (isLoggedIn) {
-            navigate('/dashboard', { replace: true });
-        }
-    }, [isLoggedIn, navigate]);
- */
+
 
 
 

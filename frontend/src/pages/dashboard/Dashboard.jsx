@@ -18,12 +18,24 @@ import axios from "axios";
 import { useForm } from 'react-hook-form';
 import Calendar from "../../components/common/Calendar";
 import BarChart from "../../components/common/BarChart";
+import { useNavigate  } from 'react-router-dom';
+
 
 
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const { user } = useUserContext();
+  console.log(user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+
+  
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
 
   const breadcrumbItems = [
     { label: "Home", path: "/" },

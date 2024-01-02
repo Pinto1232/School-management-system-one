@@ -114,7 +114,6 @@ const AuthForm = () => {
           duration: 5000,
           isClosable: true,
         });
-        /* navigate('/dashboard'); */
       })
       .catch(error => {
         console.error("Login error:", error.response.data);

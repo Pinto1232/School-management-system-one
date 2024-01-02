@@ -136,13 +136,13 @@ const Footer = ({ SubmitNewsletter }) => {
       </Flex>
 
 
-      {showBanner && (
+      {/* {showBanner && (
         <CookieConsentBanner
           onAccept={handleAccept}
           CookieWidth="full"
           buttonColor="blue"
         />
-      )}
+      )} */}
       <Divider borderColor="gray.300" my={8} />
       <Flex
         direction={{ base: "column-reverse", md: "row" }}
