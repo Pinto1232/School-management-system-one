@@ -19,6 +19,7 @@ import { useForm } from 'react-hook-form';
 import Calendar from "../../components/common/Calendar";
 import BarChart from "../../components/common/BarChart";
 import { useNavigate } from 'react-router-dom';
+import WelcomeCard from "../../components/common/WelcomeCard";
 
 
 
@@ -81,7 +82,6 @@ const Dashboard = () => {
 
   return (
     <Box bg={dashboardBG} justifyItems={'center'} >
-
       <TwoColumnLayout >
         <Flex align={"start"} p={6} gap={10} >
           <Box>
@@ -110,6 +110,17 @@ const Dashboard = () => {
           <Box>
             <UserMenu onMenuToggle={handleMenuToggle} />
           </Box>
+        </Flex>
+      </TwoColumnLayout>
+
+      <TwoColumnLayout isMenuOpen={isMenuOpen}  w="100%">
+        <Flex justifyContent="center" alignItems="center" w="100%">
+          <WelcomeCard
+            backgroundImage="/path-to-your-background-image.jpg"
+            onAnalyticsClick={() => {
+              
+            }}
+          />
         </Flex>
       </TwoColumnLayout>
 
@@ -252,18 +263,18 @@ const Dashboard = () => {
 
 
       <TwoColumnLayout isMenuOpen={isMenuOpen}>
-        <Flex direction={['column', 'row']} w="100%"  gap={1}>
+        <Flex direction={['column', 'row']} w="100%" gap={1}>
           <Box flex={1} p={4} borderRadius="md" shadow="md" bg={tableBG}>
-              {/* <BarChart /> */}
+            {/* <BarChart /> */}
           </Box>
           <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
-             {/* <Calendar /> */}
+            {/* <Calendar /> */}
           </Box>
           <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
-             {/* <Calendar /> */}
+            {/* <Calendar /> */}
           </Box>
           <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
-             {/* <Calendar /> */}
+            {/* <Calendar /> */}
           </Box>
         </Flex>
       </TwoColumnLayout>
