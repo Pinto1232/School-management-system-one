@@ -18,7 +18,7 @@ import axios from "axios";
 import { useForm } from 'react-hook-form';
 import Calendar from "../../components/common/Calendar";
 import BarChart from "../../components/common/BarChart";
-import { useNavigate  } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -30,7 +30,7 @@ const Dashboard = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 
-  
+
   useEffect(() => {
     if (!user) {
       navigate('/login');
@@ -252,43 +252,18 @@ const Dashboard = () => {
 
 
       <TwoColumnLayout isMenuOpen={isMenuOpen}>
-        <Flex direction={['column', 'row']} w="100%" h={["50vh", "100vh"]} gap={1}>
+        <Flex direction={['column', 'row']} w="100%"  gap={1}>
           <Box flex={1} p={4} borderRadius="md" shadow="md" bg={tableBG}>
-            <Box p={8}>
-              <BarChart />
-              {/* <form onSubmit={handleSubmit(onSubmit)}>
-                <VStack spacing={4}>
-                  <FormControl isInvalid={errors.firstName}>
-                    <FormLabel htmlFor="firstName">First Name</FormLabel>
-                    <Input id="firstName" {...register('firstName', { required: 'First name is required' })} />
-                    <FormErrorMessage>
-                      {errors.firstName && errors.firstName.message}
-                    </FormErrorMessage>
-                  </FormControl>
-
-                  <FormControl isInvalid={errors.lastName}>
-                    <FormLabel htmlFor="lastName">Last Name</FormLabel>
-                    <Input id="lastName" {...register('lastName', { required: 'Last name is required' })} />
-                    <FormErrorMessage>
-                      {errors.lastName && errors.lastName.message}
-                    </FormErrorMessage>
-                  </FormControl>
-
-                  <FormControl isInvalid={errors.email}>
-                    <FormLabel htmlFor="email">Email</FormLabel>
-                    <Input id="email" type="email" {...register('email', { required: 'Email is required' })} />
-                    <FormErrorMessage>
-                      {errors.email && errors.email.message}
-                    </FormErrorMessage>
-                  </FormControl>
-
-                  <Button colorScheme="blue" type="submit">Update</Button>
-                </VStack>
-              </form> */} 
-            </Box>
+              {/* <BarChart /> */}
           </Box>
           <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
-            <Calendar />
+             {/* <Calendar /> */}
+          </Box>
+          <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
+             {/* <Calendar /> */}
+          </Box>
+          <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
+             {/* <Calendar /> */}
           </Box>
         </Flex>
       </TwoColumnLayout>
