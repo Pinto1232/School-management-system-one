@@ -18,23 +18,17 @@ import AuthForm from "./components/forms/AuthForm";
 
 const App = () => {
   const navigate = useNavigate();
-  const { isLoggedIn } = useUserContext();
+  /* const { isLoggedIn } = useUserContext(); */
   const location = useLocation();
 
 
-/*   useEffect(() => {
-    if (!isLoggedIn && location.pathname === '/dashboard') {
-      navigate('/login', { replace: true });
-    }
-  }, [isLoggedIn, location.pathname, navigate]);
- */
 
   const routing = useRoutes([
     { path: "/", element: <Home /> },
     /*     { path: "/login", element: <Login /> }, */
-    { path: "/login", element: isLoggedIn ? <Navigate to="/dashboard" replace /> : <Login /> },
+    { path: "/login", element: <Login /> },
     { path: "/register", element: <AuthForm /> },
-    { path: "/dashboard", element: isLoggedIn ? <Dashboard /> : <Navigate to="/login" replace /> },
+    { path: "/dashboard", element:  <Dashboard />  },
     { path: "/faq", element: <Faq /> },
     { path: "/about", element: <About /> },
     { path: "/reset-password/:token", element: <ResetPassword /> },
@@ -48,7 +42,7 @@ const App = () => {
         <Navbar />
         {routing}
         <BackToTopButton />
-        {isLoggedIn ? null : <Footer />}
+         <Footer />
       </Box>
     </UserProvider>
   );

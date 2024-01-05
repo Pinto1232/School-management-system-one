@@ -15,7 +15,7 @@ const DataTable = ({ data, fetchData }) => {
         Header: 'Photo',
         accessor: 'image',
         Cell: ({ value }) => {
-          const imageUrl = `http://localhost:3001/${value.replace(/\\/g, '/')}`;
+          const imageUrl = `http://localhost:3001/api/users/uploads/${value.replace(/\\/g, '/')}`;
           return (
             value ? (
               <img
