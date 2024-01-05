@@ -18,14 +18,12 @@ import AuthForm from "./components/forms/AuthForm";
 
 const App = () => {
   const navigate = useNavigate();
-  /* const { isLoggedIn } = useUserContext(); */
   const location = useLocation();
 
 
 
   const routing = useRoutes([
     { path: "/", element: <Home /> },
-    /*     { path: "/login", element: <Login /> }, */
     { path: "/login", element: <Login /> },
     { path: "/register", element: <AuthForm /> },
     { path: "/dashboard", element:  <Dashboard />  },
