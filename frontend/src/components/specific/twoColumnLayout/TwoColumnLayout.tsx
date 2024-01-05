@@ -3,7 +3,7 @@ import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 
 const TwoColumnLayout = ({ children, isMenuOpen }) => {
   const containerBackground = useColorModeValue("#319795", "#3182ce");
-  const marginLeft = isMenuOpen ? '320px' : '0'; // Assuming 320px is the width of your sidebar
+  const marginLeft = isMenuOpen ? '320px' : '0'; 
 
 
   return (

@@ -30,6 +30,17 @@ const Dashboard = () => {
   console.log("User Dashboard", user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const [showWelcomeCard, setShowWelcomeCard] = useState(true);
+
+  const handleAnalyticsClick = () => {
+    // Handle the analytics click event
+    // For example, navigate to the analytics page or display analytics
+  };
+
+  const handleClose = () => {
+    setShowWelcomeCard(false); // Hide the WelcomeCard
+  };
+
 
 
   useEffect(() => {
@@ -113,14 +124,15 @@ const Dashboard = () => {
         </Flex>
       </TwoColumnLayout>
 
-      <TwoColumnLayout isMenuOpen={isMenuOpen}  w="100%">
+      <TwoColumnLayout isMenuOpen={isMenuOpen} w="100%">
         <Flex justifyContent="center" alignItems="center" w="100%">
-          <WelcomeCard
-            backgroundImage="/path-to-your-background-image.jpg"
-            onAnalyticsClick={() => {
-              
-            }}
-          />
+          {showWelcomeCard && (
+            <WelcomeCard
+              backgroundImage="/path-to-your-background-image.jpg"
+              onAnalyticsClick={handleAnalyticsClick}
+              onClose={handleClose}
+            />
+          )}
         </Flex>
       </TwoColumnLayout>
 

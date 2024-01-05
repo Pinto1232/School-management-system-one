@@ -26,7 +26,7 @@ const App = () => {
     { path: "/", element: <Home /> },
     { path: "/login", element: <Login /> },
     { path: "/register", element: <AuthForm /> },
-    { path: "/dashboard", element:  <Dashboard />  },
+    { path: "/dashboard", element: <Dashboard /> },
     { path: "/faq", element: <Faq /> },
     { path: "/about", element: <About /> },
     { path: "/reset-password/:token", element: <ResetPassword /> },
@@ -34,13 +34,16 @@ const App = () => {
     { path: "/testtwo", element: <TestPageTwo /> },
   ]);
 
+  // Check if the current route is not the dashboard
+  const showFooter = location.pathname !== '/dashboard';
+
   return (
     <UserProvider>
       <Box>
         <Navbar />
         {routing}
         <BackToTopButton />
-         <Footer />
+        {showFooter && <Footer />}
       </Box>
     </UserProvider>
   );

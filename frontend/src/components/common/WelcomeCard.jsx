@@ -36,7 +36,10 @@ const WelcomeCard = ({ backgroundImage, onAnalyticsClick, onClose }) => {
                 <Button
                     mt={4}
                     colorScheme="teal"
-                    onClick={onAnalyticsClick}
+                    onClick={() => {
+                        onAnalyticsClick();
+                        onClose(); 
+                    }}
                 >
                     View Analytics
                 </Button>
