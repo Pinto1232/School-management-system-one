@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, Flex, Heading, IconButton, useColorModeValue } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 import axios from 'axios';
+import { useUserContext } from '../../contexts/UserContext';
 
 const WelcomeCard = ({ backgroundImage, onAnalyticsClick, onClose }) => {
-    const [userData, setUserData] = useState({ firstName: '', lastName: '' });
-    console.log("user data", userData)
+    const { user } = useUserContext();
 
     const fetchData = async () => {
         try {
@@ -27,7 +27,7 @@ const WelcomeCard = ({ backgroundImage, onAnalyticsClick, onClose }) => {
             w="60%"
             p={"3%"}
             bgImage={`url('${backgroundImage}')`}
-            bgGradient="linear(to-r, blue.00, red.400)" 
+            bgGradient="linear(to-r, blue.00, red.400)"
             bgPosition="center"
             bgRepeat="no-repeat"
             bgSize="cover"
@@ -49,7 +49,7 @@ const WelcomeCard = ({ backgroundImage, onAnalyticsClick, onClose }) => {
                 h="full"
             >
                 <Heading as="h4" size="lg" color={useColorModeValue('white', 'white')}>
-                    Welcome {userData.firstName} {userData.lastName}
+                    Welcome: {user?.firstName} {user?.lastName}
                 </Heading>
                 <Heading as="h3" size="md">Your Mathematics</Heading>
                 <Button

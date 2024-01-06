@@ -1,25 +1,22 @@
 import React from "react";
 import { Avatar, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { useUserContext } from "../../contexts/UserContext";
 
-const UserProfileInfo = ({ avatarSrc, user }) => {
+const UserProfileInfo = ({ avatarSrc }) => {
   const fontSize = "lg";
-  const smallSize = "70px"; // Adjust this value for smaller or larger sizes
+  const smallSize = "70px"
   const textColor = useColorModeValue("#fff", "#fff");
+  const { user } = useUserContext();
 
   return (
-    <Flex align="center" w="300px"> {/* Set the starting width here */}
+    <Flex align="center" w="300px">
       <Avatar
-        src={avatarSrc}
+        src={user?.image
+        }
         boxSize={smallSize}
         borderRadius="50%"
         objectFit="cover"
       />
-      <Text whiteSpace="nowrap" color={textColor} fontSize={fontSize} px={2}>
-        Welcome,{" "}
-        <Text as="span" fontSize={fontSize} color={textColor}>
-         {/*  {user.name} */}
-        </Text>
-      </Text>
     </Flex>
   );
 };

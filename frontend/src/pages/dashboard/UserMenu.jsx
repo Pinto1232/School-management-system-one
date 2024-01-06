@@ -53,7 +53,7 @@ const UserMenu = ({ onMenuToggle, gap }) => {
   const textColor = useColorModeValue("#000", "#fff");
   const bgMenuColor = useColorModeValue("#171923", "#171923");
   const navigate = useNavigate();
-  const { setUser, setIsLoggedIn, user } = useUserContext();
+  const { user } = useUserContext();
   const { logout } = useUserContext();
   const examDate = new Date('2024-05-30T15:00:00Z');
 
