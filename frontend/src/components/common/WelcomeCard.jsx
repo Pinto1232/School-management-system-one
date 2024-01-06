@@ -12,7 +12,6 @@ const WelcomeCard = ({ backgroundImage, onAnalyticsClick, onClose }) => {
             const response = await axios.get('http://localhost:3001/api/users');
             console.log('Response data on welcome card:', response.data);
             const user = response.data[0];
-            setUserData({ firstName: user.firstName, lastName: user.lastName });
         } catch (error) {
             console.error('Fetch error:', error);
         }

@@ -116,7 +116,7 @@ app.use('/api/icons', iconsRoutes)
 
 app.use('/api/users/uploads', express.static('uploads'));
 
-console.log(path.join(__dirname, 'uploads'));
+/* console.log(path.join(__dirname, 'uploads')); */
 
 
 

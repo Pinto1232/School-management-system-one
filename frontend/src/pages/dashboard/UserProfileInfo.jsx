@@ -8,11 +8,12 @@ const UserProfileInfo = ({ avatarSrc }) => {
   const textColor = useColorModeValue("#fff", "#fff");
   const { user } = useUserContext();
 
+  console.log("User Profile Info", user)
+
   return (
     <Flex align="center" w="300px">
       <Avatar
-        src={user?.image
-        }
+        src={`http://localhost:5173/${user?.image}`}
         boxSize={smallSize}
         borderRadius="50%"
         objectFit="cover"
