@@ -27,7 +27,7 @@ const WelcomeCard = ({ backgroundImage, onAnalyticsClick, onClose }) => {
             w="60%"
             p={"3%"}
             bgImage={`url('${backgroundImage}')`}
-            bg={"red"}
+            bgGradient="linear(to-r, blue.00, red.400)" 
             bgPosition="center"
             bgRepeat="no-repeat"
             bgSize="cover"

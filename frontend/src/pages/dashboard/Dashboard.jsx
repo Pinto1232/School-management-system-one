@@ -1,8 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import UserMenu from "../../pages/dashboard/UserMenu";
-import BreadcrumbNavigation from "../../pages/dashboard/BreadcrumbNavigation";
-import ContentSections from "../../pages/dashboard/ContentSections";
-import UserProfileInfo from "../../pages/dashboard/UserProfileInfo";
 import { Box, Button, Center, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Input, VStack, useColorModeValue } from "@chakra-ui/react";
 import TwoColumnLayout from "../../components/specific/twoColumnLayout/TwoColumnLayout";
 import EmailBadge from "../../components/specific/badge/EmailBadge";
@@ -16,8 +13,6 @@ import ThreeDotsMenu from "../../components/common/ThreeDotsMenu";
 import { useUserContext } from '../../contexts/UserContext';
 import axios from "axios";
 import { useForm } from 'react-hook-form';
-import Calendar from "../../components/common/Calendar";
-import BarChart from "../../components/common/BarChart";
 import { useNavigate } from 'react-router-dom';
 import WelcomeCard from "../../components/common/WelcomeCard";
 

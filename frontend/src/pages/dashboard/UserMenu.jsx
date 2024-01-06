@@ -24,6 +24,7 @@ import { css } from "@emotion/react";
 import UserProfileInfo from "./UserProfileInfo";
 import { CloseButton } from "@chakra-ui/react";
 import { useUserContext } from '../../contexts/UserContext';
+import NextExamStart from "../../components/common/NextExamStart";
 
 
 const thinScrollbar = css`
@@ -54,6 +55,8 @@ const UserMenu = ({ onMenuToggle, gap }) => {
   const navigate = useNavigate();
   const { setUser, setIsLoggedIn, user } = useUserContext();
   const { logout } = useUserContext();
+  const examDate = new Date('2024-05-30T15:00:00Z');
+
 
 
   /*  console.log("User Image", user); */
@@ -67,7 +70,6 @@ const UserMenu = ({ onMenuToggle, gap }) => {
 
     // Invoke the logout function from UserContext
     logout();
-
     // Display a toast notification
     toast({
       title: "You have logged out!",
@@ -185,6 +187,11 @@ const UserMenu = ({ onMenuToggle, gap }) => {
                     </Box>
                   </Flex>
                 ))}
+                <NextExamStart
+                  title="Next Exam Starts"
+                  examDate={new Date('2024-05-30T15:00:00Z')}
+                />
+
                 <Button
                   bg={btColor}
                   color={textColor}
