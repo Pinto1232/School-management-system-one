@@ -27,10 +27,14 @@ const NextExamStart = ({ title, examDate }) => {
         return () => clearTimeout(timer);
     });
 
+    const capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    };
+
     return (
-        <Box p={5} shadow="md" borderWidth="1px" borderRadius="md"  bgGradient="linear(to-r, blue.400, green.400)" >
+        <Box p={5} shadow="md" borderWidth="1px" borderRadius="md" bgGradient="linear(to-r, blue.400, green.400)" >
             <VStack spacing={4}>
-                <Text fontSize="md" fontWeight="bold" whiteSpace="nowrap">
+                <Text fontSize="xl" fontWeight="bold" whiteSpace="nowrap">
                     {title}
                 </Text>
                 <Divider />
@@ -38,10 +42,18 @@ const NextExamStart = ({ title, examDate }) => {
                     {Object.keys(timeLeft).length > 0 ? (
                         Object.keys(timeLeft).map((interval) => (
                             <VStack key={interval}>
-                                <Text fontSize="lg" fontWeight="semibold">
-                                    {timeLeft[interval]}
-                                </Text>
-                                <Text fontSize="sm">{interval}</Text>
+                                <Box
+                                    pt={2}
+                                    pb={1}
+                                    borderTop="1px solid"
+                                    borderBottom="1px solid"
+                                    borderColor="gray.200"
+                                >
+                                    <Text fontSize="2xl" fontWeight="semibold">
+                                        {timeLeft[interval]}
+                                    </Text>
+                                </Box>
+                                <Text fontSize="md">{capitalizeFirstLetter(interval)}</Text>
                             </VStack>
                         ))
                     ) : (
