@@ -14,6 +14,7 @@ import TesPage from "./pages/TesPage";
 import TestPageTwo from "./pages/TestPageTwo";
 import BackToTopButton from "./components/specific/BackToTopButton";
 import AuthForm from "./components/forms/AuthForm";
+import ForgetPassword from "./pages/ForgetPassowrd";
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
     { path: "/faq", element: <Faq /> },
     { path: "/about", element: <About /> },
     { path: "/reset-password/:token", element: <ResetPassword /> },
+    { path: "/forgetPassword", element: <ForgetPassword /> },
     { path: "/test", element: <TesPage /> },
     { path: "/testtwo", element: <TestPageTwo /> },
   ]);

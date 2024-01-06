@@ -41,8 +41,6 @@ const Dashboard = () => {
     setShowWelcomeCard(false); // Hide the WelcomeCard
   };
 
-
-
   useEffect(() => {
     if (!user) {
       navigate('/login');
@@ -153,13 +151,13 @@ const Dashboard = () => {
               icon={<FaCoins />}
               heading="Due Fees"
               iconSize={35}
-              iconBgColor="orange.400" // New prop
+              iconBgColor="orange.400" 
               iconColor="white"
               text="$4503"
               bgColor="gray.100"
               textColor="gray.700"
-              width="225px"  // Custom width
-              height="100px" // Custom height
+              width="225px"  
+              height="100px" 
             />
           </Box>
           <Box shadow='md'>
@@ -167,26 +165,26 @@ const Dashboard = () => {
               icon={<FaBell />}
               heading="Notifications"
               iconSize={35}
-              iconBgColor="red.400" // New prop
+              iconBgColor="red.400" 
               iconColor="white"
               text="12"
               bgColor="gray.100"
               textColor="gray.700"
-              width="225px"  // Custom width
-              height="100px" // Custom height
+              width="225px"  
+              height="100px" 
             />
           </Box>
           <Box shadow='md'>
             <CardInfo
               icon={<FaGraduationCap />}
               heading="Result"
-              iconBgColor="yellow.400" // New prop
+              iconBgColor="yellow.400" 
               iconSize={35}
               text="16"
               bgColor="gray.100"
               textColor="gray.700"
-              width="225px"  // Custom width
-              height="100px" // Custom height
+              width="225px"  
+              height="100px" 
             />
           </Box>
 
@@ -194,34 +192,34 @@ const Dashboard = () => {
             <CardInfo
               icon={<FaMoneyBillWave />}
               heading="Expenses"
-              iconBgColor="purple.400" // New prop
+              iconBgColor="purple.400" 
               iconColor="white"
               iconSize={35}
               text="$193000"
               bgColor="gray.100"
               textColor="gray.700"
-              width="255px"  // Custom width
-              height="100px" // Custom height
+              width="255px"  
+              height="100px" 
             />
           </Box>
           <Box shadow='md'>
             <CardInfo
               icon={<FaUser />}
               heading="Total Students"
-              iconBgColor="green.400" // New prop
+              iconBgColor="green.400" 
               iconColor="white"
               iconSize={35}
               text="35000"
               bgColor="gray.100"
               textColor="gray.700"
-              width="225px"  // Custom width
-              height="100px" // Custom height
+              width="225px"  
+              height="100px" 
             />
           </Box>
           <Box shadow='md'>
             <CardInfo
               icon={<FaBook />}
-              iconBgColor="pink.400" // New prop
+              iconBgColor="pink.400" 
               iconColor="white"
               heading="Total Exams"
               iconSize={35}

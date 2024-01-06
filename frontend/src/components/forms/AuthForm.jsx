@@ -18,7 +18,7 @@ const initialValues = {
   profileImage: '',
 };
 
-// validate function here
+// Register validate function here
 const validate = (values) => {
   const errors = {};
   if (!/^[a-zA-Z]+$/i.test(values.firstName)) {
@@ -51,8 +51,6 @@ const AuthForm = () => {
 
 
   const onValidSubmit = async (values) => {
-
-
     // Implement your form submission logic here
     const formData = new FormData();
     formData.append('firstName', values.firstName);

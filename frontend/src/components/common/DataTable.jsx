@@ -99,11 +99,10 @@ const DataTable = ({ data, fetchData }) => {
                   </Box>
                 </Th>
               ))}
-              <Th>Actions</Th> {/* Add this line */}
+              <Th>Actions</Th>
             </Tr>
           ))}
         </Thead>
-
         <Tbody {...getTableBodyProps()} bg="gray.200">
           {currentTableBody.map((row, rowIndex) => {
             prepareRow(row);

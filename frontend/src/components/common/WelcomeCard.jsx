@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, Flex, Heading, IconButton, useColorModeValue } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
+import axios from 'axios';
 
 const WelcomeCard = ({ backgroundImage, onAnalyticsClick, onClose }) => {
+    const [userData, setUserData] = useState({ firstName: '', lastName: '' });
+    console.log("user data", userData)
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('http://localhost:3001/api/users');
+            console.log('Response data on welcome card:', response.data);
+            const user = response.data[0];
+            setUserData({ firstName: user.firstName, lastName: user.lastName });
+        } catch (error) {
+            console.error('Fetch error:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     return (
         <Box
             w="60%"
@@ -30,7 +49,7 @@ const WelcomeCard = ({ backgroundImage, onAnalyticsClick, onClose }) => {
                 h="full"
             >
                 <Heading as="h4" size="lg" color={useColorModeValue('white', 'white')}>
-                    Welcome Pinto Manuel
+                    Welcome {userData.firstName} {userData.lastName}
                 </Heading>
                 <Heading as="h3" size="md">Your Mathematics</Heading>
                 <Button
@@ -38,7 +57,7 @@ const WelcomeCard = ({ backgroundImage, onAnalyticsClick, onClose }) => {
                     colorScheme="teal"
                     onClick={() => {
                         onAnalyticsClick();
-                        onClose(); 
+                        onClose();
                     }}
                 >
                     View Analytics

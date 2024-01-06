@@ -7,7 +7,8 @@ export const useUserContext = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
-  
+
+
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem('user');
     return savedUser ? JSON.parse(savedUser) : null;
@@ -51,7 +52,7 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ isLoggedIn, user, login, logout }}>
+    <UserContext.Provider value={{ isLoggedIn, user, login, logout, setUser }}>
       {children}
     </UserContext.Provider>
   );

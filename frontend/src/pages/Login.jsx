@@ -29,15 +29,18 @@ const Login = () => {
     const handlePasswordVisibility = () => setShowPassword(!showPassword);
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
+    const [loading, setLoading] = useState(false);
 
 
     const { isLoggedIn, login } = useUserContext();
 
+
     const handleLogin = (user, token, keepMeLogin) => {
-        setUser(user);
+        setUser(user); 
         setToken(token);
         console.log("User:", user);
         console.log("Token:", token);
+        console.log("Is it keep log?: ", keepMeLogin)
     };
 
 
@@ -47,6 +50,7 @@ const Login = () => {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
+        setLoading(true);
 
         const trimmedEmail = values.email.trim();
         const trimmedPassword = values.password.trim();
@@ -62,30 +66,32 @@ const Login = () => {
             });
             return;
         }
+        setTimeout(async () => {
+            try {
+                const response = await api.post('/users/login', {
+                    email: trimmedEmail,
+                    password: trimmedPassword,
+                });
 
-        try {
-            const response = await api.post('/users/login', {
-                email: trimmedEmail,
-                password: trimmedPassword,
-            });
+                handleLogin(response.data.user, response.data.token, keepMeLogin);
+                login(response.data.user, response.data.token, keepMeLogin);
+                console.log("Login function called");
+                navigate('/dashboard', { replace: true });
 
-            handleLogin(response.data.user, response.data.token, keepMeLogin);
-            login(response.data.user, response.data.token, keepMeLogin);
-            console.log("Login function called");
-            navigate('/dashboard', { replace: true });
-
-        } catch (error) {
-            const errorMessage = error.response?.data?.error || 'An error occurred during login. Please try again.';
-            console.error('Login error:', errorMessage);
-            toast({
-                title: 'Login Failed',
-                description: errorMessage,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'top-right',
-            });
-        }
+            } catch (error) {
+                const errorMessage = error.response?.data?.error || 'An error occurred during login. Please try again.';
+                console.error('Login error:', errorMessage);
+                toast({
+                    title: 'Login Failed',
+                    description: errorMessage,
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                    position: 'top-right',
+                });
+            }
+            setLoading(false);
+        }, 2000);
     };
 
 
@@ -153,7 +159,8 @@ const Login = () => {
                     </FormControl>
                     <Button
                         colorScheme="teal"
-                        isLoading={isSubmitting}
+                        /* isLoading={isSubmitting} */
+                        isLoading={loading}
                         type="submit"
                         width="100%"
                     >
