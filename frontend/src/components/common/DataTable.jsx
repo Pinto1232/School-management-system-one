@@ -7,6 +7,11 @@ import { useUserContext } from '../../contexts/UserContext';
 
 const DataTable = ({ data, fetchData }) => {
   const { user } = useUserContext();
+
+  const handleView = (id) => {
+    console.log('View user with id:', id);
+  };
+
   console.log("User data table", user)
 
   const columns = useMemo(
@@ -122,7 +127,10 @@ const DataTable = ({ data, fetchData }) => {
                   </Td>
                 ))}
                 <Td bg={bgColor}>
-                  <Button colorScheme="red" onClick={() => handleDelete(row.original._id)}>Delete</Button>
+                  <ButtonGroup spacing={2}>
+                    <Button colorScheme="blue" onClick={() => handleView(row.original._id)}>View</Button>
+                    <Button colorScheme="red" onClick={() => handleDelete(row.original._id)}>Delete</Button>
+                  </ButtonGroup>
                 </Td>
               </Tr>
             );

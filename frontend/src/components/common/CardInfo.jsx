@@ -5,7 +5,7 @@ const CardInfo = ({
   icon,
   iconSize = 70,
   iconBgColor = "blue.500",
-  iconColor = "white",  // New prop for icon color
+  iconColor = "white",
   imageSrc,
   heading,
   text,
@@ -15,6 +15,8 @@ const CardInfo = ({
   height = "auto",
 }) => {
   const flexDirection = useBreakpointValue({ base: "column", md: "row" });
+  const dynamicWidth = useBreakpointValue({ base: "225px", lg: "293px" }); 
+
 
   // Clone the icon and set its size and color dynamically
   const IconComponent = icon ? React.cloneElement(icon, { size: iconSize, color: iconColor }) : null;
@@ -29,10 +31,10 @@ const CardInfo = ({
       boxShadow="md"
       alignItems="center"
       justifyContent="space-between"
-      width={width}
+      width={dynamicWidth} 
       height={height}
-      transition="all 0.3s ease-in-out"  // Add this line for smooth transition
-      _hover={{ boxShadow: "xl" }}  // Add this line to have a larger boxShadow on hover
+      transition="all 0.3s ease-in-out"
+      _hover={{ boxShadow: "xl" }}
     >
       <Box flexShrink={0}>
         {IconComponent && (

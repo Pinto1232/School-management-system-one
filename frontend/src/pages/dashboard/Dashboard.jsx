@@ -165,7 +165,6 @@ const Dashboard = () => {
               text="$4503"
               bgColor="gray.100"
               textColor="gray.700"
-              width="225px"
               height="100px"
             />
           </Box>
@@ -179,7 +178,6 @@ const Dashboard = () => {
               text="12"
               bgColor="gray.100"
               textColor="gray.700"
-              width="225px"
               height="100px"
             />
           </Box>
@@ -192,7 +190,6 @@ const Dashboard = () => {
               text="16"
               bgColor="gray.100"
               textColor="gray.700"
-              width="225px"
               height="100px"
             />
           </Box>
@@ -207,7 +204,6 @@ const Dashboard = () => {
               text="$193000"
               bgColor="gray.100"
               textColor="gray.700"
-              width="255px"
               height="100px"
             />
           </Box>
@@ -221,7 +217,6 @@ const Dashboard = () => {
               text="35000"
               bgColor="gray.100"
               textColor="gray.700"
-              width="225px"
               height="100px"
             />
           </Box>
@@ -235,7 +230,6 @@ const Dashboard = () => {
               text="19050"
               bgColor="gray.100"
               textColor="gray.700"
-              width="225px"
               height="100px"
             />
           </Box>
