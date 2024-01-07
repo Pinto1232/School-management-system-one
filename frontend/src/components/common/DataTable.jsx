@@ -4,12 +4,16 @@ import { useTable, useSortBy } from 'react-table';
 import { FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
 import axios from 'axios';
 import { useUserContext } from '../../contexts/UserContext';
+import UserDetailsModal from './UserDetailsModal';
 
 const DataTable = ({ data, fetchData }) => {
   const { user } = useUserContext();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  const handleView = (id) => {
-    console.log('View user with id:', id);
+  const handleView = (user) => {
+    setSelectedUser(user);
+    setIsModalOpen(true);
   };
 
   console.log("User data table", user)
@@ -128,7 +132,7 @@ const DataTable = ({ data, fetchData }) => {
                 ))}
                 <Td bg={bgColor}>
                   <ButtonGroup spacing={2}>
-                    <Button colorScheme="blue" onClick={() => handleView(row.original._id)}>View</Button>
+                    <Button colorScheme="blue" onClick={() => handleView(row.original)}>View</Button>
                     <Button colorScheme="red" onClick={() => handleDelete(row.original._id)}>Delete</Button>
                   </ButtonGroup>
                 </Td>
@@ -164,6 +168,12 @@ const DataTable = ({ data, fetchData }) => {
           </ButtonGroup>
         </Box>
       )}
+      <UserDetailsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        user={selectedUser}
+        modalWidth="800px"
+      />
     </Box>
   );
 };

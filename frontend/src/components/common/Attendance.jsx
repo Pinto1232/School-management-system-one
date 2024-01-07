@@ -13,7 +13,7 @@ const Attendance = ({ onDateRangeChange, presentCount, absentCount, bgBack, bord
     };
 
     return (
-        <VStack bgGradient={bgBack} borderRadius={bordeRad} alignItems="start" {...props} p={4}>
+        <VStack bgGradient={bgBack} borderRadius={bordeRad} alignItems="start" {...props} p={4} h={'180px'}>
             <Heading as="h3" size="lg">Attendance</Heading>
             <Box w="100px">
                 <Select cursor={'pointer'} placeholder="Select date range" value={dateRange} onChange={handleDateRangeChange} border="none" sx={{ '&:focus': { outline: 'none', boxShadow: 'none' } }}>

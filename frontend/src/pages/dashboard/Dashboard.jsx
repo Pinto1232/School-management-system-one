@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import WelcomeCard from "../../components/common/WelcomeCard";
 import Attendance from "../../components/common/Attendance";
+import AssignmentCard from "../../components/common/AssignmentCard";
 
 
 
@@ -92,11 +93,14 @@ const Dashboard = () => {
     // setAbsentCount(fetchedAbsentCount);
   };
 
-
-
-
   /* Email count */
   const emailCount = 5;
+
+  const assignments = [
+    { subject: "Mathematics", percentage: 75 },
+    { subject: "Programming", percentage: 90 },
+    { subject: "Biology", percentage: 50 },
+  ];
 
   return (
     <Box bg={dashboardBG} justifyItems={'center'} >
@@ -284,11 +288,13 @@ const Dashboard = () => {
               absentCount={absentCount}
               bgBack={'linear(to-r, #ff7e5f, #feb47b)'}
               bordeRad={4}
-            
+
             />
           </Box>
           <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
-            {/* <Calendar /> */}
+            <AssignmentCard
+              assignments={assignments}
+            />
           </Box>
           <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
             {/* <Calendar /> */}
