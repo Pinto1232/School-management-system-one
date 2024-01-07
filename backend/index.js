@@ -31,6 +31,7 @@ const packagesRoutes = require('./src/routes/packages')
 const iconsRoutes = require('./src/routes/icons');
 /* const userRoutes = require('./routes/userRoutes'); */
 
+
 const app = express();
 
 // Connect to MongoDB
@@ -114,9 +115,10 @@ app.use('/api/packages', packagesRoutes);
 // Use Icons routes
 app.use('/api/icons', iconsRoutes)
 
-app.use('/api/users/uploads', express.static('uploads'));
+/* app.use('/api/users/uploads', express.static('uploads')); */
+app.use('/api/users/uploads', express.static(path.join(__dirname, 'src/uploads')));
 
-/* console.log(path.join(__dirname, 'uploads')); */
+console.log(path.join(__dirname, 'uploads'));
 
 
 

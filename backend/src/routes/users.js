@@ -18,14 +18,15 @@ router.post('/register', upload.single('profileImage'), async (req, res) => {
     try {
 
         const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
-        const imagePath = req.file.path.split('uploads')[1];
+        const imagePath = req.file.path.split('../../uploads')[1];
 
         const newUser = new User({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
             password: hashedPassword,
-            image: `uploads${imagePath}`
+           /*  image: `uploads${imagePath}` */
+           image: req.file.path
         });
 
         await newUser.save();

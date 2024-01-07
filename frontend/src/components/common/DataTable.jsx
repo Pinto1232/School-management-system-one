@@ -3,8 +3,12 @@ import { useMemo, useState } from 'react';
 import { useTable, useSortBy } from 'react-table';
 import { FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
 import axios from 'axios';
+import { useUserContext } from '../../contexts/UserContext';
 
 const DataTable = ({ data, fetchData }) => {
+  const { user } = useUserContext();
+  console.log("User data table", user)
+
   const columns = useMemo(
     () => [
       {
@@ -15,7 +19,7 @@ const DataTable = ({ data, fetchData }) => {
         Header: 'Photo',
         accessor: 'image',
         Cell: ({ value }) => {
-          const imageUrl = `http://localhost:3001/api/users/uploads/${value.replace(/\\/g, '/')}`;
+          const imageUrl = user?.image ? `http://localhost:3001/api/users/uploads/${user?.image}` : undefined;
           return (
             value ? (
               <img
@@ -24,6 +28,7 @@ const DataTable = ({ data, fetchData }) => {
                 width={40}
                 height={40}
                 style={{ borderRadius: "50%" }}
+                name={user ? `${user.firstName} ${user.lastName}` : 'User'}
               />
             ) : (
               <span>No image</span>
