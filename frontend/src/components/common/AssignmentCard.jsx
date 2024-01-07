@@ -48,7 +48,7 @@ const AssignmentCard = ({ assignments }) => {
                 background: 'linear-gradient(to right, #90EEEE90, #D8BFD7)' // Using inline styles for gradient
             }}
             w="full"
-            h={'180px'}
+            h={'290px'}
             position="relative"
         >
             <Menu>
@@ -69,7 +69,7 @@ const AssignmentCard = ({ assignments }) => {
                 </MenuList>
             </Menu>
             <Heading as="h3" size="lg">Assignment</Heading>
-            <VStack spacing={4} align="stretch" mt={2}>
+            <VStack spacing={4} align="stretch" mt={'50px'}>
                 {assignments.map((assignment) => (
                     <Flex key={assignment.subject} width="100%" justifyContent={'space-between'} alignItems="center">
                         <Box flexShrink={0} width="30%">

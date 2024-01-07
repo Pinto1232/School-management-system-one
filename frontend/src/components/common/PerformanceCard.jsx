@@ -11,7 +11,7 @@ const PerformanceCard = ({ title, data, options }) => {
   const seasons = ['Winter', 'Spring', 'Summer', 'Fall', 'All'];
 
   return (
-    <Box p={4} borderRadius="md" boxShadow="md" bg="white" w="full" h={'180px'}>
+    <Box p={4} borderRadius="md" boxShadow="md" bg="white" w="full">
       <Flex justifyContent="space-between" alignItems="center" mb={4}>
         <Text fontSize="lg" color={'black'} fontWeight="bold">{title}</Text>
         <Menu>

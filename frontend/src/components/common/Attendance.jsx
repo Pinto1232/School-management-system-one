@@ -13,9 +13,9 @@ const Attendance = ({ onDateRangeChange, presentCount, absentCount, bgBack, bord
     };
 
     return (
-        <VStack bgGradient={bgBack} borderRadius={bordeRad} alignItems="start" {...props} p={4} h={'180px'}>
+        <VStack bgGradient={bgBack} borderRadius={bordeRad} alignItems="start" {...props} p={4} h={'290px'}>
             <Heading as="h3" size="lg">Attendance</Heading>
-            <Box w="100px">
+            <Box w="100px" mt={'50px'}>
                 <Select cursor={'pointer'} placeholder="Select date range" value={dateRange} onChange={handleDateRangeChange} border="none" sx={{ '&:focus': { outline: 'none', boxShadow: 'none' } }}>
                     <option value="today">Today</option>
                     <option value="lastWeek">Last week</option>
