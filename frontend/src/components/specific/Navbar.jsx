@@ -11,70 +11,54 @@ function Navbar() {
   const isLoggedIn = false; // replace with your authentication logic
 
   const darkIconBg = useColorModeValue('#319795', 'black.300');
- 
+
   return (
     <Box>
       <Flex>
         <Navibar />
       </Flex>
       <Box bg={backgroundColor} p={4} position="sticky" top={0} zIndex={1000} boxShadow="sm">
-        <Flex position="sticky" justifyContent="space-between" alignItems="center">
-          <Menu>
-            <MenuButton display={{ base: 'block', md: 'none' }} as={IconButton} aria-label="Options" icon={<HamburgerIcon />} />
-            <MenuList>
-              {!isLoggedIn && (
-                <MenuItem as={RouterLink} to="/">Home</MenuItem>
-              )}
-              {!isLoggedIn && (
-                <MenuItem as={RouterLink} to="/about">About</MenuItem>
-              )}
-              {!isLoggedIn && (
-                <MenuItem as={RouterLink} to="/faq">FAQs</MenuItem>
-              )}
-            </MenuList>
-          </Menu>
-
-          <Flex display={{ base: 'none', md: 'flex' }} alignItems="center" justifyContent="space-between" width="auto" ml={4}>
-            {!isLoggedIn && (
-              <Link as={RouterLink} to="/" ml={10} mr={8} textDecoration="none">
-                <Text color={textColor}>Home</Text>
-              </Link>
-            )}
-
-            {!isLoggedIn && (
-              <Link as={RouterLink} to="/about" mr={8} textDecoration="none">
-                <Text color={textColor}>About</Text>
-              </Link>
-            )}
-
-            {!isLoggedIn && (
-              <Link as={RouterLink} to="/faq" mr={8} textDecoration="none">
-                <Text color={textColor}>FAQs</Text>
-              </Link>
-            )}
+        <Flex justifyContent="space-between" alignItems="center">
+          {/* Left-aligned items */}
+          <Flex align="center">
+            <Menu>
+              <MenuButton as={IconButton} aria-label="Options" icon={<HamburgerIcon />} display={{ base: 'block', md: 'none' }} />
+              <MenuList>
+                {!isLoggedIn && <MenuItem as={RouterLink} to="/">Home</MenuItem>}
+                {!isLoggedIn && <MenuItem as={RouterLink} to="/about">About</MenuItem>}
+                {!isLoggedIn && <MenuItem as={RouterLink} to="/faq">FAQs</MenuItem>}
+              </MenuList>
+            </Menu>
+            <Flex display={{ base: 'none', md: 'flex' }} ml={4}>
+              {!isLoggedIn && <Link as={RouterLink} to="/" textDecoration="none"><Text color={textColor}>Home</Text></Link>}
+              {!isLoggedIn && <Link as={RouterLink} to="/about" textDecoration="none" ml={4}><Text color={textColor}>About</Text></Link>}
+              {!isLoggedIn && <Link as={RouterLink} to="/faq" textDecoration="none" ml={4}><Text color={textColor}>FAQs</Text></Link>}
+            </Flex>
           </Flex>
 
-          <Flex alignItems="center">
-            {/* SearchBar and Sign Up */}
-            <Flex>
-              {/* Searchbar */}
-              <Box>
-                <SearchBar />
-              </Box>
+          {/* Right-aligned items */}
+          <Flex align="center">
+            {/* SearchBar */}
+            <Box flex="1" minW="0">
+              <SearchBar />
+            </Box>
 
-              {/* Sign Up */}
-              <Box>
-                {!isLoggedIn && (
-                  <Link as={RouterLink} to="/register" ml={4} textDecoration="none">
-                    <Text color={textColor} ml={4} whiteSpace="nowrap" marginTop={-4}>Sign Up</Text>
-                  </Link>
-                )}
-              </Box>
-              {/* Toggle color mode */}
-              <Box>
-                <IconButton fontSize={22} color={darkIconBg} onClick={toggleColorMode} icon={colorMode === 'light' ? <SunIcon/> : <MoonIcon />} aria-label="Toggle color mode" mr={10} ml={4} />
-              </Box>
-            </Flex>
+            {/* Sign Up */}
+            {!isLoggedIn && (
+              <Link as={RouterLink} to="/register" textDecoration="none" ml={4}>
+                <Text color={textColor} whiteSpace="nowrap">Sign Up</Text>
+              </Link>
+            )}
+
+            {/* Toggle color mode */}
+            <IconButton
+              fontSize={22}
+              color={darkIconBg}
+              onClick={toggleColorMode}
+              icon={colorMode === 'light' ? <SunIcon /> : <MoonIcon />}
+              aria-label="Toggle color mode"
+              ml={4}
+            />
           </Flex>
         </Flex>
       </Box>

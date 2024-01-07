@@ -15,6 +15,7 @@ import axios from "axios";
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import WelcomeCard from "../../components/common/WelcomeCard";
+import Attendance from "../../components/common/Attendance";
 
 
 
@@ -78,6 +79,19 @@ const Dashboard = () => {
     // Process the form data
     console.log(data);
   };
+
+
+  // Attendance code
+  const [presentCount, setPresentCount] = useState(0);
+  const [absentCount, setAbsentCount] = useState(0);
+
+  const handleDateRangeChange = (selectedRange) => {
+    // Fetch and update attendance counts based on the selected range
+    // For example:
+    // setPresentCount(fetchedPresentCount);
+    // setAbsentCount(fetchedAbsentCount);
+  };
+
 
 
 
@@ -146,13 +160,13 @@ const Dashboard = () => {
               icon={<FaCoins />}
               heading="Due Fees"
               iconSize={35}
-              iconBgColor="orange.400" 
+              iconBgColor="orange.400"
               iconColor="white"
               text="$4503"
               bgColor="gray.100"
               textColor="gray.700"
-              width="225px"  
-              height="100px" 
+              width="225px"
+              height="100px"
             />
           </Box>
           <Box shadow='md'>
@@ -160,26 +174,26 @@ const Dashboard = () => {
               icon={<FaBell />}
               heading="Notifications"
               iconSize={35}
-              iconBgColor="red.400" 
+              iconBgColor="red.400"
               iconColor="white"
               text="12"
               bgColor="gray.100"
               textColor="gray.700"
-              width="225px"  
-              height="100px" 
+              width="225px"
+              height="100px"
             />
           </Box>
           <Box shadow='md'>
             <CardInfo
               icon={<FaGraduationCap />}
               heading="Result"
-              iconBgColor="yellow.400" 
+              iconBgColor="yellow.400"
               iconSize={35}
               text="16"
               bgColor="gray.100"
               textColor="gray.700"
-              width="225px"  
-              height="100px" 
+              width="225px"
+              height="100px"
             />
           </Box>
 
@@ -187,34 +201,34 @@ const Dashboard = () => {
             <CardInfo
               icon={<FaMoneyBillWave />}
               heading="Expenses"
-              iconBgColor="purple.400" 
+              iconBgColor="purple.400"
               iconColor="white"
               iconSize={35}
               text="$193000"
               bgColor="gray.100"
               textColor="gray.700"
-              width="255px"  
-              height="100px" 
+              width="255px"
+              height="100px"
             />
           </Box>
           <Box shadow='md'>
             <CardInfo
               icon={<FaUser />}
               heading="Total Students"
-              iconBgColor="green.400" 
+              iconBgColor="green.400"
               iconColor="white"
               iconSize={35}
               text="35000"
               bgColor="gray.100"
               textColor="gray.700"
-              width="225px"  
-              height="100px" 
+              width="225px"
+              height="100px"
             />
           </Box>
           <Box shadow='md'>
             <CardInfo
               icon={<FaBook />}
-              iconBgColor="pink.400" 
+              iconBgColor="pink.400"
               iconColor="white"
               heading="Total Exams"
               iconSize={35}
@@ -270,7 +284,14 @@ const Dashboard = () => {
       <TwoColumnLayout isMenuOpen={isMenuOpen}>
         <Flex direction={['column', 'row']} w="100%" gap={1}>
           <Box flex={1} p={4} borderRadius="md" shadow="md" bg={tableBG}>
-            {/* <BarChart /> */}
+            <Attendance
+              onDateRangeChange={handleDateRangeChange}
+              presentCount={presentCount}
+              absentCount={absentCount}
+              bgBack={'linear(to-r, #ff7e5f, #feb47b)'}
+              bordeRad={4}
+            
+            />
           </Box>
           <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
             {/* <Calendar /> */}
