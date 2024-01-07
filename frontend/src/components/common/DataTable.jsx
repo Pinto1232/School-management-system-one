@@ -19,20 +19,21 @@ const DataTable = ({ data, fetchData }) => {
         Header: 'Photo',
         accessor: 'image',
         Cell: ({ value }) => {
-          const imageUrl = user?.image ? `http://localhost:3001/api/users/uploads/${user?.image}` : undefined;
+          const imageUrl = value ? `http://localhost:3001/api/users/uploads/${value.split('\\').pop().split('/').pop()}` : undefined;
           return (
-            value ? (
-              <img
-                src={imageUrl}
-                alt="Avatar"
-                width={40}
-                height={40}
-                style={{ borderRadius: "50%" }}
-                name={user ? `${user.firstName} ${user.lastName}` : 'User'}
-              />
-            ) : (
-              <span>No image</span>
-            )
+            <Box>
+              {imageUrl ? (
+                <img
+                  src={imageUrl}
+                  alt="User Avatar"
+                  width={40}
+                  height={40}
+                  style={{ borderRadius: "50%" }}
+                />
+              ) : (
+                <span>No image</span>
+              )}
+            </Box>
           );
         },
       }, // Add this comma
