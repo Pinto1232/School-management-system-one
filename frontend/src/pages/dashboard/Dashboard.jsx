@@ -142,8 +142,20 @@ const Dashboard = () => {
     {
       id: 2,
       imageUrl: 'path/to/image2.jpg',
-      percentage: 78,
+      percentage: 5,
       changeDirection: 'down',
+    },
+    {
+      id: 3,
+      imageUrl: 'path/to/image2.jpg',
+      percentage: 40,
+      changeDirection: 'up',
+    },
+    {
+      id: 4,
+      imageUrl: 'path/to/image2.jpg',
+      percentage: 20,
+      changeDirection: 'up',
     },
   ];
 

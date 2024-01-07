@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Box, Flex, Text, Menu, MenuButton, Button, MenuList, MenuItem } from '@chakra-ui/react';
+import { Box, Flex, Text, Menu, MenuButton, Button, MenuList, MenuItem, Heading } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Line } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
@@ -72,7 +72,7 @@ const PerformanceCard = ({ title, data, initialData, options = {} }) => {
     return (
         <Box p={4} borderRadius="md" boxShadow="md" bg="white" w="full">
             <Flex justifyContent="space-between" alignItems="center" mb={4}>
-                <Text fontSize="lg" color={'black'} fontWeight="bold">{title}</Text>
+                <Heading as="h3" color={'black'} size="lg">{title}</Heading>
                 <Menu>
                     <MenuButton colorScheme="blue" as={Button} rightIcon={<ChevronDownIcon />}>
                         {selectedSeason}
