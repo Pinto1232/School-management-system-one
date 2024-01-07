@@ -18,6 +18,7 @@ import WelcomeCard from "../../components/common/WelcomeCard";
 import Attendance from "../../components/common/Attendance";
 import AssignmentCard from "../../components/common/AssignmentCard";
 import PerformanceCard from "../../components/common/PerformanceCard";
+import LeaderBoard from "../../components/common/LeaderBoard";
 
 
 
@@ -105,11 +106,13 @@ const Dashboard = () => {
   ];
 
   //Peformance
-  const data = {
+
+  // Define the initial data for the chart
+  const initialData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
-        label: 'Monthly Performance',
+        label: 'Performance',
         data: [65, 59, 80, 81, 56, 55, 40],
         fill: false,
         borderColor: 'rgb(75, 192, 192)',
@@ -118,6 +121,7 @@ const Dashboard = () => {
     ],
   };
 
+  // Define the options for the chart
   const options = {
     scales: {
       y: {
@@ -125,6 +129,23 @@ const Dashboard = () => {
       },
     },
   };
+
+
+  // Leadership
+  const students = [
+    {
+      id: 1,
+      imageUrl: 'path/to/image1.jpg',
+      percentage: 85,
+      changeDirection: 'up',
+    },
+    {
+      id: 2,
+      imageUrl: 'path/to/image2.jpg',
+      percentage: 78,
+      changeDirection: 'down',
+    },
+  ];
 
   return (
     <Box bg={dashboardBG} justifyItems={'center'} >
@@ -322,13 +343,13 @@ const Dashboard = () => {
           </Box>
           <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
             <PerformanceCard
-              title="Monthly Performance"
-              data={data}
+              title="Performance"
+              initialData={initialData}
               options={options}
             />
           </Box>
           <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
-            {/* <Calendar /> */}
+            <LeaderBoard students={students} />
           </Box>
         </Flex>
       </TwoColumnLayout>
