@@ -70,7 +70,7 @@ const PerformanceCard = ({ title, data, initialData, options = {} }) => {
     };
 
     return (
-        <Box p={4} borderRadius="md" boxShadow="md" bg="white" w="full">
+        <Box p={4} borderRadius="md" boxShadow="md" bg="white" w="full" h={'290px'}>
             <Flex justifyContent="space-between" alignItems="center" mb={4}>
                 <Heading as="h3" color={'black'} size="lg">{title}</Heading>
                 <Menu>

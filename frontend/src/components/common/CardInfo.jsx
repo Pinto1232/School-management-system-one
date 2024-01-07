@@ -15,10 +15,9 @@ const CardInfo = ({
   height = "auto",
 }) => {
   const flexDirection = useBreakpointValue({ base: "column", md: "row" });
-  const dynamicWidth = useBreakpointValue({ base: "225px", lg: "293px" }); 
+  const dynamicWidth = useBreakpointValue({ base: "225px", md: "230px" });
+  console.log('Current dynamicWidth:', dynamicWidth);
 
-
-  // Clone the icon and set its size and color dynamically
   const IconComponent = icon ? React.cloneElement(icon, { size: iconSize, color: iconColor }) : null;
 
   return (
@@ -31,7 +30,8 @@ const CardInfo = ({
       boxShadow="md"
       alignItems="center"
       justifyContent="space-between"
-      width={dynamicWidth} 
+      width={dynamicWidth}
+      minWidth={dynamicWidth}
       height={height}
       transition="all 0.3s ease-in-out"
       _hover={{ boxShadow: "xl" }}

@@ -80,7 +80,7 @@ const AssignmentCard = ({ assignments }) => {
                         <Box width="100%" mx={4}>
                         <Progress value={progressValues[assignment.subject] || 0} colorScheme={getColorScheme(assignment.percentage)} size="sm" />
                         </Box>
-                        <Box shadow={'md'} bg={"white"} borderRadius={'md'} flexShrink={0} width="8%" textAlign="right">
+                        <Box shadow={'md'} bg={"white"} borderRadius={'md'} flexShrink={0} width="10%" textAlign="right">
                             <Text fontSize="sm" fontWeight={'bold'} color="gray.600">{progressValues[assignment.subject] || 0}%</Text>
                         </Box>
                     </Flex>
