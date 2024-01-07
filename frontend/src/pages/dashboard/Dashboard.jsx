@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import WelcomeCard from "../../components/common/WelcomeCard";
 import Attendance from "../../components/common/Attendance";
 import AssignmentCard from "../../components/common/AssignmentCard";
+import PerformanceCard from "../../components/common/PerformanceCard";
 
 
 
@@ -96,11 +97,34 @@ const Dashboard = () => {
   /* Email count */
   const emailCount = 5;
 
+  // Attendance
   const assignments = [
     { subject: "Mathematics", percentage: 75 },
     { subject: "Programming", percentage: 90 },
     { subject: "Biology", percentage: 50 },
   ];
+
+  //Peformance
+  const data = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label: 'Monthly Performance',
+        data: [65, 59, 80, 81, 56, 55, 40],
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1,
+      },
+    ],
+  };
+
+  const options = {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  };
 
   return (
     <Box bg={dashboardBG} justifyItems={'center'} >
@@ -297,7 +321,11 @@ const Dashboard = () => {
             />
           </Box>
           <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
-            {/* <Calendar /> */}
+            <PerformanceCard
+              title="Monthly Performance"
+              data={data}
+              options={options}
+            />
           </Box>
           <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
             {/* <Calendar /> */}
