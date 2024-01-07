@@ -6,7 +6,7 @@ const getColorScheme = (percentage) => {
     if (percentage <= 25) {
         return 'red';
     } else if (percentage <= 50) {
-        return 'orange';
+        return 'red';
     } else if (percentage <= 75) {
         return 'purple';
     } else {
@@ -19,25 +19,20 @@ const AssignmentCard = ({ assignments }) => {
     const [progressValues, setProgressValues] = useState({});
 
     useEffect(() => {
-        // Set initial progress values to 0
         const initialProgressValues = assignments.reduce((acc, assignment) => {
           acc[assignment.subject] = 0;
           return acc;
         }, {});
         setProgressValues(initialProgressValues);
-    
-        // Update progress values to animate the bar and text
         const intervalIds = assignments.map((assignment) => {
           const intervalId = setInterval(() => {
             setProgressValues((prevValues) => {
               const nextValue = Math.min(prevValues[assignment.subject] + 1, assignment.percentage);
               return { ...prevValues, [assignment.subject]: nextValue };
             });
-          }, 20); // Adjust the interval time as needed
+          }, 20); 
           return intervalId;
         });
-    
-        // Clear intervals when component unmounts
         return () => {
           intervalIds.forEach(clearInterval);
         };
