@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Box, Image, Text, Flex, IconButton, useColorModeValue, Badge } from '@chakra-ui/react';
+import { Box, Image, Text, Flex, IconButton, useColorModeValue, Badge, Spinner } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
 
-const CourseCard = ({ title, description, imageUrl, duration, level, onFavoriteToggle, isFavorite }) => {
+const CourseCard = ({ title, description, imageUrl, duration, level, onFavoriteToggle, isFavorite, isLoading }) => {
   const [favorite, setFavorite] = useState(isFavorite);
   const cardBg = useColorModeValue('white', 'gray.700');
   const textColor = useColorModeValue('gray.700', 'white');
@@ -13,6 +13,14 @@ const CourseCard = ({ title, description, imageUrl, duration, level, onFavoriteT
       onFavoriteToggle(!favorite);
     }
   };
+
+  if (isLoading) {
+    return (
+      <Box borderWidth="1px" borderRadius="lg" overflow="hidden" bg={cardBg} boxShadow="sm" w="100%" p="4" display="flex" justifyContent="center" alignItems="center">
+        <Spinner size="xl" />
+      </Box>
+    );
+  }
 
   return (
     <Box borderWidth="1px" borderRadius="lg" overflow="hidden" bg={cardBg} boxShadow="sm" w="100%">
