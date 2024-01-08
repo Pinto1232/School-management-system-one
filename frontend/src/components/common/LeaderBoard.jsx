@@ -30,36 +30,46 @@ const LeaderBoardItem = ({ imageUrl, percentage, changeDirection }) => (
 );
      
 const LeaderBoard = ({ students }) => (
-    <Box p={3} boxShadow="md" borderRadius="md" bgGradient="linear(to-r, green.700, blue.800)" h={"289px"} display="flex" flexDirection="column" justifyContent="space-between">
-      <Box>
-        <Flex justify="space-between" align="center" mb={1}>
-          <Heading as="h3" size="lg">Leaderboard</Heading>
-          <IconButton
-            aria-label="Options"
-            icon={<MdMoreHoriz />}
-            variant="ghost"
-          />
-        </Flex>
-        <Box maxH="200px" overflowY="auto"> {/* Container for scrolling */}
-          <Stack spacing={4}>
-            {students.map((student) => (
-              <LeaderBoardItem
-                key={student.id}
-                imageUrl={student.imageUrl}
-                percentage={student.percentage}
-                changeDirection={student.changeDirection}
-              />
-            ))}
-          </Stack>
-        </Box>
-      </Box>
-      <Divider/>
-      <Box>
-        <Button width="full" fontSize={14} colorScheme="transparent" color={"white"}>
-          VIEW ALL STUDENTS
-        </Button>
+  <Box p={3} boxShadow="md" borderRadius="md" bgGradient="linear(to-r, green.700, blue.800)" h={"289px"} display="flex" flexDirection="column" justifyContent="space-between">
+    <Box>
+      <Flex justify="space-between" align="center" mb={1}>
+        <Heading as="h3" size="lg">Leaderboard</Heading>
+        <IconButton
+          aria-label="Options"
+          icon={<MdMoreHoriz />}
+          variant="ghost"
+        />
+      </Flex>
+      <Box maxH="200px" overflowY="auto" sx={{
+        '&::-webkit-scrollbar': {
+          width: '8px',
+          borderRadius: '8px',
+          backgroundColor: `rgba(0, 0, 0, 0.05)`,
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: `rgba(0, 0, 0, 0.2)`,
+          borderRadius: '8px',
+        }
+      }}> {/* Container for scrolling */}
+        <Stack spacing={4}>
+          {students.map((student) => (
+            <LeaderBoardItem
+              key={student.id}
+              imageUrl={student.imageUrl}
+              percentage={student.percentage}
+              changeDirection={student.changeDirection}
+            />
+          ))}
+        </Stack>
       </Box>
     </Box>
-  );
-  
-  export default LeaderBoard;
+    <Divider/>
+    <Box>
+      <Button width="full" fontSize={14} colorScheme="transparent" color={"white"}>
+        VIEW ALL STUDENTS
+      </Button>
+    </Box>
+  </Box>
+);
+
+export default LeaderBoard;

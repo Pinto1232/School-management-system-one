@@ -15,6 +15,7 @@ import TestPageTwo from "./pages/TestPageTwo";
 import BackToTopButton from "./components/specific/BackToTopButton";
 import AuthForm from "./components/forms/AuthForm";
 import ForgetPassword from "./pages/ForgetPassowrd";
+import DashboardFooter from "./components/common/DashboardFooter";
 
 
 const App = () => {
@@ -39,6 +40,10 @@ const App = () => {
   // Check if the current route is not the dashboard
   const showFooter = location.pathname !== '/dashboard';
 
+  // Check if the current route is the dashboard
+  const showDashboardFooter = location.pathname === '/dashboard';
+
+
   return (
     <UserProvider>
       <Box>
@@ -46,6 +51,7 @@ const App = () => {
         {routing}
         <BackToTopButton />
         {showFooter && <Footer />}
+        {showDashboardFooter && <DashboardFooter />}
       </Box>
     </UserProvider>
   );

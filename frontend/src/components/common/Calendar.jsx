@@ -80,7 +80,7 @@ const Calendar = ({ onDateSelect }) => {
     };
 
     return (
-        <Box borderWidth="1px" borderRadius="lg" overflow="hidden" bg="white" boxShadow="xl">
+        <Box borderWidth="1px" borderRadius="lg" overflow="hidden" bg="white" boxShadow="xl" height="43vh">
             <Flex justifyContent="space-between" alignItems="center" bg="teal.500" color="white" p={4} borderRadius="lg">
                 <IconButton
                     aria-label="Previous month"
@@ -102,7 +102,7 @@ const Calendar = ({ onDateSelect }) => {
                     fontSize={24}
                 />
             </Flex>
-            <Flex bg="gray.100" color={'black'} p={2}>
+            <Flex bg="gray.100" color={'black'} p={8}>
                 {renderDaysOfWeek()}
             </Flex>
             <Flex flexWrap="wrap" p={2}>

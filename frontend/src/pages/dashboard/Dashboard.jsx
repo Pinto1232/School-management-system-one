@@ -21,6 +21,7 @@ import PerformanceCard from "../../components/common/PerformanceCard";
 import LeaderBoard from "../../components/common/LeaderBoard";
 import Calendar from "../../components/common/Calendar";
 import CourseCard from "../../components/common/CourseCard";
+import StatisticsCard from "../../components/common/StatisticsCard";
 
 
 
@@ -393,11 +394,12 @@ const Dashboard = () => {
             </Flex>
 
             <Flex w="100%" gap={4}>
-              <Box w="50%" p={4} bg="gray.100" borderRadius="md" shadow="md">
-                {/* Content for the first 50% width box */}
-              </Box>
-              <Box w="50%" p={4} bg="gray.100" borderRadius="md" shadow="md">
-                {/* Content for the second 50% width box */}
+              <Box w="100%" p={4} bg="gray.100" borderRadius="md" shadow="md">
+                <StatisticsCard
+                  totalCourses={10}
+                  hoursSpent={120}
+                  achievements={5}
+                />
               </Box>
             </Flex>
           </Box>
@@ -405,10 +407,6 @@ const Dashboard = () => {
             <Box h="50%" bg="gray.100" borderRadius="md" shadow="md" mb={2}>
               {/* Content for the first 50% height box */}
               <Calendar />
-              Pinto
-            </Box>
-            <Box h="50%" bg="gray.100" borderRadius="md" shadow="md">
-              {/* Content for the second 50% height box */}
             </Box>
           </Box>
         </Flex>
