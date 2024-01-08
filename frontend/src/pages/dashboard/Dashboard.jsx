@@ -19,6 +19,8 @@ import Attendance from "../../components/common/Attendance";
 import AssignmentCard from "../../components/common/AssignmentCard";
 import PerformanceCard from "../../components/common/PerformanceCard";
 import LeaderBoard from "../../components/common/LeaderBoard";
+import Calendar from "../../components/common/Calendar";
+import CourseCard from "../../components/common/CourseCard";
 
 
 
@@ -205,17 +207,15 @@ const Dashboard = () => {
       </TwoColumnLayout>
 
       <TwoColumnLayout isMenuOpen={isMenuOpen}>
-        <Flex align={"start"} px={6} gap={10} >
-          <Box>
-            <Heading as="h2" size="md">
-              Admin Dashboard
-            </Heading>
-          </Box>
+        <Flex align={"start"} px={["1em", "6em", "10em", "14em"]} >
+          <Heading as="h2" size="md">
+            Admin Dashboard
+          </Heading>
         </Flex>
       </TwoColumnLayout>
 
       <TwoColumnLayout isMenuOpen={isMenuOpen}>
-        <Flex align={"start"} px={6} gap={4} flexWrap="wrap">
+        <Flex align={"start"} justifyContent={'center'} px={6} gap={4} flexWrap="wrap">
           <Box shadow='md' >
             <CardInfo
               icon={<FaCoins />}
@@ -301,7 +301,6 @@ const Dashboard = () => {
       <TwoColumnLayout isMenuOpen={isMenuOpen}>
         <Flex
           direction={['column', 'column', 'row']}
-
           overflowX={['auto', 'auto', 'visible']}
           style={{ paddingLeft: '5px', paddingRight: '5px' }}
         >
@@ -312,7 +311,7 @@ const Dashboard = () => {
             borderRadius="md"
             shadow="md"
           >
-            <Box mb={[2, 4]}>
+            <Flex justifyContent="space-between" alignItems="center" mb={[2, 4]}>
               <Heading
                 color={textColor}
                 as='h6'
@@ -320,15 +319,13 @@ const Dashboard = () => {
               >
                 My Students
               </Heading>
-            </Box>
-
-            <Box>
-              <ThreeDotsMenu />
-            </Box>
+              <Box>
+                <ThreeDotsMenu />
+              </Box>
+            </Flex>
 
             <Box>
               <SearchComponent />
-              {/* <DataTable data={studentsData} /> */}
               <DataTable data={studentsData} fetchData={fetchData} />
             </Box>
           </Box>
@@ -362,6 +359,57 @@ const Dashboard = () => {
           </Box>
           <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
             <LeaderBoard students={students} />
+          </Box>
+        </Flex>
+      </TwoColumnLayout>
+
+      <TwoColumnLayout>
+        <Flex w="100%" gap={2}>
+          <Box w="70%" p={4} bg={tableBG} borderRadius="md" shadow="md">
+            <Heading as="h3" size="md">Available Course For You</Heading>
+            <Flex w="100%" gap={4} my={2}>
+              <Box w="50%" p={4} bg="gray.100" borderRadius="md" shadow="md">
+                <CourseCard
+                  title="Introduction to React"
+                  description="Learn the basics of React, including components, state, and props."
+                  imageUrl="path-to-image.jpg"
+                  duration="4 weeks"
+                  level="Beginner"
+                  onFavoriteToggle={(isFav) => console.log('Favorite status:', isFav)}
+                  isFavorite={false}
+                />
+              </Box>
+              <Box w="50%" p={4} bg="gray.100" borderRadius="md" shadow="md">
+                <CourseCard
+                  title="Introduction to Object Oriented Programming"
+                  description="Learn the basics of OBJ, including classes, polymorphism, and more complex topics."
+                  imageUrl="path-to-image.jpg"
+                  duration="4 weeks"
+                  level="Advance"
+                  onFavoriteToggle={(isFav) => console.log('Favorite status:', isFav)}
+                  isFavorite={false}
+                />
+              </Box>
+            </Flex>
+
+            <Flex w="100%" gap={4}>
+              <Box w="50%" p={4} bg="gray.100" borderRadius="md" shadow="md">
+                {/* Content for the first 50% width box */}
+              </Box>
+              <Box w="50%" p={4} bg="gray.100" borderRadius="md" shadow="md">
+                {/* Content for the second 50% width box */}
+              </Box>
+            </Flex>
+          </Box>
+          <Box w="30%" p={4} bg={tableBG} borderRadius="md" shadow="md" >
+            <Box h="50%" bg="gray.100" borderRadius="md" shadow="md" mb={2}>
+              {/* Content for the first 50% height box */}
+              <Calendar />
+              Pinto
+            </Box>
+            <Box h="50%" bg="gray.100" borderRadius="md" shadow="md">
+              {/* Content for the second 50% height box */}
+            </Box>
           </Box>
         </Flex>
       </TwoColumnLayout>

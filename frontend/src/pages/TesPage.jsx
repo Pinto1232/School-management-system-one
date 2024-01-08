@@ -65,7 +65,6 @@ import Timeline from "../components/common/Timeline";
 import BigCalendar from "../components/common/BigCalendar";
 import events from "../data/BigCalendarEventData";
 import fullcalendarevent from "../data/FullCalendarData";
-import FCalendar from "../components/common/FCalendar";
 import ResponsiveCalendar from "../components/common/ReactCalendar";
 import ResponsiveMultiStep from "../components/common/ResponsiveMultiStepForm";
 import UserProfileForm from "../components/common/UserProfileForm";
