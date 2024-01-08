@@ -29,19 +29,21 @@ import NextExamStart from "../../components/common/NextExamStart";
 
 const thinScrollbar = css`
   &::-webkit-scrollbar {
-    width: 10px;
-    borderradius: 2;
+    width: 8px; 
   }
   &::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: rgba(255, 255, 255, 255); 
   }
   &::-webkit-scrollbar-thumb {
-    background: #888;
+    background: rgba(0, 0, 0, 0.2); 
+    border-radius: 8px; 
+    cursor: pointer; 
   }
   &::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: rgba(0, 0, 0, 0.3); 
   }
 `;
+
 
 const UserMenu = ({ onMenuToggle, gap }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
