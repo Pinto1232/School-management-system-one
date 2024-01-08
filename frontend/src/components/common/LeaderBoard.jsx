@@ -1,34 +1,39 @@
 import React from 'react';
 import {
-    Box,
-    Heading,
-    IconButton,
-    Image,
-    Stack,
-    Divider,
-    Button,
-    Text,
-    Flex,
-    Icon,
+  Box,
+  Heading,
+  IconButton,
+  Image,
+  Stack,
+  Divider,
+  Button,
+  Text,
+  Flex,
+  Icon,
+  Tooltip,
 } from '@chakra-ui/react';
 import { MdMoreHoriz } from 'react-icons/md';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 
 const LeaderBoardItem = ({ imageUrl, percentage, changeDirection }) => (
   <Flex align="center" justifyContent="space-between" >
-    <Box minWidth="56px"> {/* Added minWidth */}
+    <Box minWidth="56px">
       <Image borderRadius="full" boxSize="50px" src={imageUrl} alt="Student" mr={4} />
     </Box>
     <Box flex="1">
-      <Text fontSize="lg">{percentage}%</Text>
-      <Icon
-        as={changeDirection === 'up' ? FaArrowUp : FaArrowDown}
-        color={percentage < 6 ? "red.500" : "green.500"}
-      />
+      <Tooltip label={`Performance: ${percentage}%`} hasArrow>
+        <Text fontSize="lg">{percentage}%</Text>
+      </Tooltip>
+      <Tooltip label={`Trend: ${changeDirection === 'up' ? 'Increasing' : 'Decreasing'}`} hasArrow>
+        <Icon
+          as={changeDirection === 'up' ? FaArrowUp : FaArrowDown}
+          color={percentage < 6 ? "red.500" : "green.500"}
+        />
+      </Tooltip>
     </Box>
   </Flex>
 );
-     
+
 const LeaderBoard = ({ students }) => (
   <Box p={3} boxShadow="md" borderRadius="md" bgGradient="linear(to-r, green.700, blue.800)" h={"289px"} display="flex" flexDirection="column" justifyContent="space-between">
     <Box>
@@ -63,7 +68,7 @@ const LeaderBoard = ({ students }) => (
         </Stack>
       </Box>
     </Box>
-    <Divider/>
+    <Divider />
     <Box>
       <Button width="full" fontSize={14} colorScheme="transparent" color={"white"}>
         VIEW ALL STUDENTS
