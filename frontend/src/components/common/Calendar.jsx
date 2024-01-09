@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Flex, Text, IconButton } from '@chakra-ui/react';
+import { Box, Flex, Text, IconButton, useBreakpointValue } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { addMonths, subMonths, format, startOfWeek, addDays, startOfMonth, endOfMonth, endOfWeek, isSameMonth, isSameDay } from 'date-fns';
 
@@ -79,8 +79,10 @@ const Calendar = ({ onDateSelect }) => {
         return days;
     };
 
+    const gridHeight = useBreakpointValue({ base: '43vh', lg: '56vh' });
+
     return (
-        <Box borderWidth="1px" borderRadius="lg" overflow="hidden" bg="white" boxShadow="xl" height="43vh">
+        <Box borderWidth="1px" borderRadius="lg" overflow="hidden" bg="white" boxShadow="xl" height={gridHeight}>
             <Flex justifyContent="space-between" alignItems="center" bg="teal.500" color="white" p={4} borderRadius="lg">
                 <IconButton
                     aria-label="Previous month"

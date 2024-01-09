@@ -23,7 +23,7 @@ const CourseCard = ({ title, description, imageUrl, duration, level, onFavoriteT
   }
 
   return (
-    <Box borderWidth="1px" borderRadius="lg" overflow="hidden" bg={cardBg} boxShadow="sm" w="100%">
+    <Box borderWidth="1px" borderRadius="lg" overflow="hidden" bg={cardBg} boxShadow="sm" w="100%" height={'25vh'} >
       <Image src={imageUrl} alt={title} width="100%" height="50px" objectFit="cover" />
       <Box p="4">
         <Flex justifyContent="space-between" alignItems="center">

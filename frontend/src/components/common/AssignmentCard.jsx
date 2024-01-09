@@ -73,14 +73,14 @@ const AssignmentCard = ({ assignments }) => {
                     {assignments.map((assignment) => (
                         <Flex key={assignment.subject} width="100%" justifyContent={'space-between'} alignItems="center">
                             <Box flexShrink={0} width="30%">
-                                <Text fontSize="lg" fontWeight="bold">
+                                <Text fontSize="lg" fontWeight="bold" whiteSpace={'nowrap'} >
                                     {assignment.subject}
                                 </Text>
                             </Box>
-                            <Box width="100%" mx={4}>
+                            <Box width="100%" mx={7}>
                                 <Progress value={progressValues[assignment.subject] || 0} colorScheme={getColorScheme(assignment.percentage)} size="sm" />
                             </Box>
-                            <Box shadow={'md'} bg={"white"} borderRadius={'md'} flexShrink={0} width="10%" textAlign="right">
+                            <Box shadow={'md'} bg={"white"} borderRadius={'md'} flexShrink={0} width="10%" textAlign="right" >
                                 <Text fontSize="sm" fontWeight={'bold'} color="gray.600">{progressValues[assignment.subject] || 0}%</Text>
                             </Box>
                         </Flex>
