@@ -208,7 +208,7 @@ const Dashboard = () => {
       </TwoColumnLayout>
 
       <TwoColumnLayout isMenuOpen={isMenuOpen}>
-        <Flex align={"start"} px={["1em", "6em", "10em", "14em"]} >
+        <Flex align={"start"} px={["2em"]} >
           <Heading as="h2" size="md">
             Admin Dashboard
           </Heading>

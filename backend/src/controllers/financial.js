@@ -56,10 +56,6 @@ const getAllFinances = async (req, res) => {
 };
 
 
-
-
-
-
 // Get a finance record by ID
 const getFinanceById = async (req, res) => {
     try {
