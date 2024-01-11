@@ -110,7 +110,6 @@ const UserMenu = ({ onMenuToggle, gap }) => {
 
   return (
     <>
-
       <Box position="absolute" right="0" shadow="md" borderRadius="md" m={4}>
         <Tooltip label="Open Sidebar" fontSize="xs">
           <IconButton

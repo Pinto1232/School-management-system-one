@@ -382,8 +382,8 @@ const Dashboard = () => {
               </Box>
               <Box w="50%" p={4} bg="gray.100" borderRadius="md" shadow="md">
                 <CourseCard
-                  title="Introduction to Object Oriented Programming"
-                  description="Learn the basics of OBJ, including classes, polymorphism, and more complex topics."
+                  title="Object Oriented Programming"
+                  description="Learn the basics of OBJ."
                   imageUrl="path-to-image.jpg"
                   duration="4 weeks"
                   level="Advance"

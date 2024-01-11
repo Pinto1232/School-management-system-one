@@ -16,7 +16,7 @@ const CardInfo = ({
 }) => {
   const flexDirection = useBreakpointValue({ base: "column", md: "row" });
   const dynamicWidth = useBreakpointValue({ base: "225px", md: "230px" });
-  console.log('Current dynamicWidth:', dynamicWidth);
+
 
   const IconComponent = icon ? React.cloneElement(icon, { size: iconSize, color: iconColor }) : null;
 
