@@ -9,6 +9,7 @@ import {
   HStack,
   IconButton,
   useColorModeValue,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { FaEnvelope, FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import footerLinks from "../../data/linksFooterData";
@@ -57,6 +58,10 @@ const Footer = ({ SubmitNewsletter }) => {
     e.preventDefault();
     SubmitNewsletter();
   };
+
+  
+  const responsivePadding = useBreakpointValue({ base: '16px', md: '263px', lg: '453px' });
+
 
   return (
     <Box
@@ -111,7 +116,7 @@ const Footer = ({ SubmitNewsletter }) => {
         mb={{ base: 4, md: 8 }}
       >
         <AdjustableColumnLayout columns={{ base: 1, md: 2, lg: 5 }}>
-          <Flex align="flex-start" style={{ paddingLeft: '263px' }}>
+          <Flex align="flex-start" pl={responsivePadding}>
             <InputFieldComponent
               placeholder="Subscribe for our newsletter"
               placeholderTextColor="gray.600"
