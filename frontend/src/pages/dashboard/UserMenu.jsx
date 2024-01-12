@@ -45,7 +45,10 @@ const thinScrollbar = css`
 `;
 
 
-const UserMenu = ({ onMenuToggle, gap }) => {
+const UserMenu = ({ onMenuToggle, changeView }) => {
+
+  console.log("Change View", typeof changeView);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
   const [isLoading, setIsLoading] = useState(false);
@@ -85,9 +88,13 @@ const UserMenu = ({ onMenuToggle, gap }) => {
     navigate('/');
   };
 
-
-  const handleNavigation = (path) => {
-    navigate(path);
+  const handleNavigation = (view) => {
+    if (typeof changeView === 'function') {
+      changeView(view);
+    } else {
+      console.error('changeView is not a function', changeView);
+    }
+    onMenuToggle(false);
     onClose();
   };
 
@@ -157,7 +164,7 @@ const UserMenu = ({ onMenuToggle, gap }) => {
                   <Flex
                     key={item.label}
                     fontSize="lg"
-                    onClick={() => handleNavigation(item.path)}
+                    onClick={() => handleNavigation(item.label.toLowerCase())}
                     alignItems="center"
                   >
                     <Box

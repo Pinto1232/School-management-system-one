@@ -63,6 +63,13 @@ const Dashboard = () => {
   const tableBG = useColorModeValue("#171923", "#2d3748");
   const textColor = useColorModeValue("#fff", "#fff");
   const [studentsData, setStudentsData] = useState([]);
+  const [currentView, setCurrentView] = useState('dashboard');
+
+
+  const changeView = (view) => {
+    setCurrentView(view);
+  };
+
 
 
   const fetchData = async () => {
@@ -162,259 +169,278 @@ const Dashboard = () => {
     },
   ];
 
+
+  let content;
+  switch (currentView) {
+    case 'dashboard':
+      content = <Box>
+
+        <TwoColumnLayout >
+          <Flex align={"start"} p={6} gap={10} >
+            <Box>
+              <EmailBadge
+                width="40px"
+                height="40px"
+                bgColor="transparent"
+                count={emailCount}
+                textColor="white"
+                iconWidth="20px"  // Custom width for the icon
+                iconHeight="20px" // Custom height for the icon
+              />
+            </Box>
+            <Box>
+              <BellBadge
+                count={5}
+                width="40px"
+                height="40px"
+                bgColor="red"
+                textColor="white"
+              />
+            </Box>
+            <Box>
+              <GlobeBadge count={5} />
+            </Box>
+            <Box>
+              <UserMenu onMenuToggle={handleMenuToggle} changeView={changeView} />
+            </Box>
+          </Flex>
+        </TwoColumnLayout>
+
+        <TwoColumnLayout isMenuOpen={isMenuOpen} w="100%">
+          <Flex justifyContent="center" alignItems="center" w="100%">
+            {showWelcomeCard && (
+              <WelcomeCard
+                backgroundImage="/path-to-your-background-image.jpg"
+                onAnalyticsClick={handleAnalyticsClick}
+                onClose={handleClose}
+              />
+            )}
+          </Flex>
+        </TwoColumnLayout>
+
+        <TwoColumnLayout isMenuOpen={isMenuOpen}>
+          <Flex align={"start"} px={["2em"]} >
+            <Heading as="h2" size="md">
+              Admin Dashboard
+            </Heading>
+          </Flex>
+        </TwoColumnLayout>
+
+        <TwoColumnLayout isMenuOpen={isMenuOpen}>
+          <Flex align={"start"} justifyContent={'center'} px={6} gap={4} flexWrap="wrap">
+            <Box shadow='md' >
+              <CardInfo
+                icon={<FaCoins />}
+                heading="Due Fees"
+                iconSize={35}
+                iconBgColor="orange.400"
+                iconColor="white"
+                text="$4503"
+                bgColor="gray.100"
+                textColor="gray.700"
+                height="100px"
+              />
+            </Box>
+            <Box shadow='md'>
+              <CardInfo
+                icon={<FaBell />}
+                heading="Notifications"
+                iconSize={35}
+                iconBgColor="red.400"
+                iconColor="white"
+                text="12"
+                bgColor="gray.100"
+                textColor="gray.700"
+                height="100px"
+              />
+            </Box>
+            <Box shadow='md'>
+              <CardInfo
+                icon={<FaGraduationCap />}
+                heading="Result"
+                iconBgColor="yellow.400"
+                iconSize={35}
+                text="16"
+                bgColor="gray.100"
+                textColor="gray.700"
+                height="100px"
+              />
+            </Box>
+
+            <Box shadow='md'>
+              <CardInfo
+                icon={<FaMoneyBillWave />}
+                heading="Expenses"
+                iconBgColor="purple.400"
+                iconColor="white"
+                iconSize={35}
+                text="$193000"
+                bgColor="gray.100"
+                textColor="gray.700"
+                height="100px"
+              />
+            </Box>
+            <Box shadow='md'>
+              <CardInfo
+                icon={<FaUser />}
+                heading="Total Students"
+                iconBgColor="green.400"
+                iconColor="white"
+                iconSize={35}
+                text="35000"
+                bgColor="gray.100"
+                textColor="gray.700"
+                height="100px"
+              />
+            </Box>
+            <Box shadow='md'>
+              <CardInfo
+                icon={<FaBook />}
+                iconBgColor="pink.400"
+                iconColor="white"
+                heading="Total Exams"
+                iconSize={35}
+                text="19050"
+                bgColor="gray.100"
+                textColor="gray.700"
+                height="100px"
+              />
+            </Box>
+          </Flex>
+        </TwoColumnLayout>
+
+        {/* Content code collumns */}
+        <TwoColumnLayout isMenuOpen={isMenuOpen}>
+          <Flex
+            direction={['column', 'column', 'row']}
+            overflowX={['auto', 'auto', 'visible']}
+            style={{ paddingLeft: '5px', paddingRight: '5px' }}
+          >
+            <Box
+              flex={1}
+              bg={tableBG}
+              p={[2, 4]}
+              borderRadius="md"
+              shadow="md"
+            >
+              <Flex justifyContent="space-between" alignItems="center" mb={[2, 4]}>
+                <Heading
+                  color={textColor}
+                  as='h6'
+                  fontSize={['md', 'lg', 'xl']}
+                >
+                  My Students
+                </Heading>
+                <Box>
+                  <ThreeDotsMenu />
+                </Box>
+              </Flex>
+
+              <Box>
+                <SearchComponent />
+                <DataTable data={studentsData} fetchData={fetchData} />
+              </Box>
+            </Box>
+          </Flex>
+        </TwoColumnLayout>
+
+
+        <TwoColumnLayout isMenuOpen={isMenuOpen}>
+          <Flex direction={['column', 'row']} w="100%" gap={1}>
+            <Box flex={1} p={4} borderRadius="md" shadow="md" bg={tableBG}>
+              <Attendance
+                onDateRangeChange={handleDateRangeChange}
+                presentCount={presentCount}
+                absentCount={absentCount}
+                bgBack={'linear(to-r, #ff7e5f, #feb47b)'}
+                bordeRad={4}
+
+              />
+            </Box>
+            <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
+              <AssignmentCard
+                assignments={assignments}
+              />
+            </Box>
+            <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
+              <PerformanceCard
+                title="Performance"
+                initialData={initialData}
+                options={options}
+              />
+            </Box>
+            <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
+              <LeaderBoard students={students} />
+            </Box>
+          </Flex>
+        </TwoColumnLayout>
+
+        <TwoColumnLayout>
+          <Flex w="100%" gap={2}>
+            <Box w="70%" p={4} bg={tableBG} borderRadius="md" shadow="md">
+              <Heading as="h3" size="md">Available Course For You</Heading>
+              <Flex w="100%" gap={4} my={2}>
+                <Box w="50%" p={4} bg="gray.100" borderRadius="md" shadow="md">
+                  <CourseCard
+                    title="Introduction to React"
+                    description="Learn the basics of React, including components, state, and props."
+                    imageUrl="path-to-image.jpg"
+                    duration="4 weeks"
+                    level="Beginner"
+                    onFavoriteToggle={(isFav) => console.log('Favorite status:', isFav)}
+                    isFavorite={false}
+                  />
+                </Box>
+                <Box w="50%" p={4} bg="gray.100" borderRadius="md" shadow="md">
+                  <CourseCard
+                    title="Object Oriented Programming"
+                    description="Learn the basics of OBJ."
+                    imageUrl="path-to-image.jpg"
+                    duration="4 weeks"
+                    level="Advance"
+                    onFavoriteToggle={(isFav) => console.log('Favorite status:', isFav)}
+                    isFavorite={false}
+                  />
+                </Box>
+              </Flex>
+
+              <Flex w="100%" gap={4}>
+                <Box w="100%" p={4} bg="gray.100" borderRadius="md" shadow="md">
+                  <StatisticsCard
+                    totalCourses={10}
+                    hoursSpent={120}
+                    achievements={5}
+                  />
+                </Box>
+              </Flex>
+            </Box>
+            <Box w="30%" p={4} bg={tableBG} borderRadius="md" shadow="md" >
+              <Box h="50%" bg="gray.100" borderRadius="md" shadow="md" mb={2}>
+                {/* Content for the first 50% height box */}
+                <Calendar />
+              </Box>
+            </Box>
+          </Flex>
+        </TwoColumnLayout>
+      </Box>;
+      break;
+    case 'students':
+      content = <div>Students Content</div>;
+      break;
+    case 'teachers':
+      content = <div>Teachers Content</div>;
+      break;
+    // Add cases for other views as needed
+    default:
+      content = <div>Default Content</div>;
+  }
+
+
   return (
     <Box bg={dashboardBG} justifyItems={'center'} >
-      <TwoColumnLayout >
-        <Flex align={"start"} p={6} gap={10} >
-          <Box>
-            <EmailBadge
-              width="40px"
-              height="40px"
-              bgColor="transparent"
-              count={emailCount}
-              textColor="white"
-              iconWidth="20px"  // Custom width for the icon
-              iconHeight="20px" // Custom height for the icon
-            />
-          </Box>
-          <Box>
-            <BellBadge
-              count={5}
-              width="40px"
-              height="40px"
-              bgColor="red"
-              textColor="white"
-            />
-          </Box>
-          <Box>
-            <GlobeBadge count={5} />
-          </Box>
-          <Box>
-            <UserMenu onMenuToggle={handleMenuToggle} />
-          </Box>
-        </Flex>
-      </TwoColumnLayout>
-
-      <TwoColumnLayout isMenuOpen={isMenuOpen} w="100%">
-        <Flex justifyContent="center" alignItems="center" w="100%">
-          {showWelcomeCard && (
-            <WelcomeCard
-              backgroundImage="/path-to-your-background-image.jpg"
-              onAnalyticsClick={handleAnalyticsClick}
-              onClose={handleClose}
-            />
-          )}
-        </Flex>
-      </TwoColumnLayout>
-
-      <TwoColumnLayout isMenuOpen={isMenuOpen}>
-        <Flex align={"start"} px={["2em"]} >
-          <Heading as="h2" size="md">
-            Admin Dashboard
-          </Heading>
-        </Flex>
-      </TwoColumnLayout>
-
-      <TwoColumnLayout isMenuOpen={isMenuOpen}>
-        <Flex align={"start"} justifyContent={'center'} px={6} gap={4} flexWrap="wrap">
-          <Box shadow='md' >
-            <CardInfo
-              icon={<FaCoins />}
-              heading="Due Fees"
-              iconSize={35}
-              iconBgColor="orange.400"
-              iconColor="white"
-              text="$4503"
-              bgColor="gray.100"
-              textColor="gray.700"
-              height="100px"
-            />
-          </Box>
-          <Box shadow='md'>
-            <CardInfo
-              icon={<FaBell />}
-              heading="Notifications"
-              iconSize={35}
-              iconBgColor="red.400"
-              iconColor="white"
-              text="12"
-              bgColor="gray.100"
-              textColor="gray.700"
-              height="100px"
-            />
-          </Box>
-          <Box shadow='md'>
-            <CardInfo
-              icon={<FaGraduationCap />}
-              heading="Result"
-              iconBgColor="yellow.400"
-              iconSize={35}
-              text="16"
-              bgColor="gray.100"
-              textColor="gray.700"
-              height="100px"
-            />
-          </Box>
-
-          <Box shadow='md'>
-            <CardInfo
-              icon={<FaMoneyBillWave />}
-              heading="Expenses"
-              iconBgColor="purple.400"
-              iconColor="white"
-              iconSize={35}
-              text="$193000"
-              bgColor="gray.100"
-              textColor="gray.700"
-              height="100px"
-            />
-          </Box>
-          <Box shadow='md'>
-            <CardInfo
-              icon={<FaUser />}
-              heading="Total Students"
-              iconBgColor="green.400"
-              iconColor="white"
-              iconSize={35}
-              text="35000"
-              bgColor="gray.100"
-              textColor="gray.700"
-              height="100px"
-            />
-          </Box>
-          <Box shadow='md'>
-            <CardInfo
-              icon={<FaBook />}
-              iconBgColor="pink.400"
-              iconColor="white"
-              heading="Total Exams"
-              iconSize={35}
-              text="19050"
-              bgColor="gray.100"
-              textColor="gray.700"
-              height="100px"
-            />
-          </Box>
-        </Flex>
-      </TwoColumnLayout>
-
-      {/* Content code collumns */}
-      <TwoColumnLayout isMenuOpen={isMenuOpen}>
-        <Flex
-          direction={['column', 'column', 'row']}
-          overflowX={['auto', 'auto', 'visible']}
-          style={{ paddingLeft: '5px', paddingRight: '5px' }}
-        >
-          <Box
-            flex={1}
-            bg={tableBG}
-            p={[2, 4]}
-            borderRadius="md"
-            shadow="md"
-          >
-            <Flex justifyContent="space-between" alignItems="center" mb={[2, 4]}>
-              <Heading
-                color={textColor}
-                as='h6'
-                fontSize={['md', 'lg', 'xl']}
-              >
-                My Students
-              </Heading>
-              <Box>
-                <ThreeDotsMenu />
-              </Box>
-            </Flex>
-
-            <Box>
-              <SearchComponent />
-              <DataTable data={studentsData} fetchData={fetchData} />
-            </Box>
-          </Box>
-        </Flex>
-      </TwoColumnLayout>
-
-
-      <TwoColumnLayout isMenuOpen={isMenuOpen}>
-        <Flex direction={['column', 'row']} w="100%" gap={1}>
-          <Box flex={1} p={4} borderRadius="md" shadow="md" bg={tableBG}>
-            <Attendance
-              onDateRangeChange={handleDateRangeChange}
-              presentCount={presentCount}
-              absentCount={absentCount}
-              bgBack={'linear(to-r, #ff7e5f, #feb47b)'}
-              bordeRad={4}
-
-            />
-          </Box>
-          <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
-            <AssignmentCard
-              assignments={assignments}
-            />
-          </Box>
-          <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
-            <PerformanceCard
-              title="Performance"
-              initialData={initialData}
-              options={options}
-            />
-          </Box>
-          <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
-            <LeaderBoard students={students} />
-          </Box>
-        </Flex>
-      </TwoColumnLayout>
-
-      <TwoColumnLayout>
-        <Flex w="100%" gap={2}>
-          <Box w="70%" p={4} bg={tableBG} borderRadius="md" shadow="md">
-            <Heading as="h3" size="md">Available Course For You</Heading>
-            <Flex w="100%" gap={4} my={2}>
-              <Box w="50%" p={4} bg="gray.100" borderRadius="md" shadow="md">
-                <CourseCard
-                  title="Introduction to React"
-                  description="Learn the basics of React, including components, state, and props."
-                  imageUrl="path-to-image.jpg"
-                  duration="4 weeks"
-                  level="Beginner"
-                  onFavoriteToggle={(isFav) => console.log('Favorite status:', isFav)}
-                  isFavorite={false}
-                />
-              </Box>
-              <Box w="50%" p={4} bg="gray.100" borderRadius="md" shadow="md">
-                <CourseCard
-                  title="Object Oriented Programming"
-                  description="Learn the basics of OBJ."
-                  imageUrl="path-to-image.jpg"
-                  duration="4 weeks"
-                  level="Advance"
-                  onFavoriteToggle={(isFav) => console.log('Favorite status:', isFav)}
-                  isFavorite={false}
-                />
-              </Box>
-            </Flex>
-
-            <Flex w="100%" gap={4}>
-              <Box w="100%" p={4} bg="gray.100" borderRadius="md" shadow="md">
-                <StatisticsCard
-                  totalCourses={10}
-                  hoursSpent={120}
-                  achievements={5}
-                />
-              </Box>
-            </Flex>
-          </Box>
-          <Box w="30%" p={4} bg={tableBG} borderRadius="md" shadow="md" >
-            <Box h="50%" bg="gray.100" borderRadius="md" shadow="md" mb={2}>
-              {/* Content for the first 50% height box */}
-              <Calendar />
-            </Box>
-          </Box>
-        </Flex>
-      </TwoColumnLayout>
+      {content}
     </Box>
-
   );
-
 };
 
 export default Dashboard;
