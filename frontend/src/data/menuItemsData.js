@@ -71,11 +71,6 @@ export default [
     icon: FaGraduationCap,
   },
   { 
-    label: "Events", 
-    path: "/events", 
-    icon: FaCalendarAlt 
-  },
-  { 
     label: "Task", 
     path: "/tasks", 
     icon: FaTasks 

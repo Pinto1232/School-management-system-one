@@ -532,6 +532,146 @@ const Dashboard = () => {
         <Box>Course</Box>
       </Box>;
       break;
+    case 'attendance':
+      content = <Box>
+        <TwoColumnLayout >
+          <Flex align={"start"} p={6} gap={10} >
+            <Box>
+              <EmailBadge
+                width="40px"
+                height="40px"
+                bgColor="transparent"
+                count={emailCount}
+                textColor="white"
+                iconWidth="20px"  // Custom width for the icon
+                iconHeight="20px" // Custom height for the icon
+              />
+            </Box>
+            <Box>
+              <BellBadge
+                count={5}
+                width="40px"
+                height="40px"
+                bgColor="red"
+                textColor="white"
+              />
+            </Box>
+            <Box>
+              <GlobeBadge count={5} />
+            </Box>
+            <Box>
+              <UserMenu onMenuToggle={handleMenuToggle} changeView={changeView} />
+            </Box>
+          </Flex>
+        </TwoColumnLayout>
+        <Box>Attendance</Box>
+      </Box>;
+      break;
+    case 'calendar/events':
+      content = <Box>
+        <TwoColumnLayout >
+          <Flex align={"start"} p={6} gap={10} >
+            <Box>
+              <EmailBadge
+                width="40px"
+                height="40px"
+                bgColor="transparent"
+                count={emailCount}
+                textColor="white"
+                iconWidth="20px"  // Custom width for the icon
+                iconHeight="20px" // Custom height for the icon
+              />
+            </Box>
+            <Box>
+              <BellBadge
+                count={5}
+                width="40px"
+                height="40px"
+                bgColor="red"
+                textColor="white"
+              />
+            </Box>
+            <Box>
+              <GlobeBadge count={5} />
+            </Box>
+            <Box>
+              <UserMenu onMenuToggle={handleMenuToggle} changeView={changeView} />
+            </Box>
+          </Flex>
+        </TwoColumnLayout>
+        <Box>Events</Box>
+      </Box>;
+      break;
+    case 'lesson planning':
+      content = <Box>
+        <TwoColumnLayout >
+          <Flex align={"start"} p={6} gap={10} >
+            <Box>
+              <EmailBadge
+                width="40px"
+                height="40px"
+                bgColor="transparent"
+                count={emailCount}
+                textColor="white"
+                iconWidth="20px"  // Custom width for the icon
+                iconHeight="20px" // Custom height for the icon
+              />
+            </Box>
+            <Box>
+              <BellBadge
+                count={5}
+                width="40px"
+                height="40px"
+                bgColor="red"
+                textColor="white"
+              />
+            </Box>
+            <Box>
+              <GlobeBadge count={5} />
+            </Box>
+            <Box>
+              <UserMenu onMenuToggle={handleMenuToggle} changeView={changeView} />
+            </Box>
+          </Flex>
+        </TwoColumnLayout>
+        <Box>Lesson Planning</Box>
+      </Box>;
+      break;
+    case 'admissions':
+      content = <Box>
+        <TwoColumnLayout >
+          <Flex align={"start"} p={6} gap={10} >
+            <Box>
+              <EmailBadge
+                width="40px"
+                height="40px"
+                bgColor="transparent"
+                count={emailCount}
+                textColor="white"
+                iconWidth="20px"  // Custom width for the icon
+                iconHeight="20px" // Custom height for the icon
+              />
+            </Box>
+            <Box>
+              <BellBadge
+                count={5}
+                width="40px"
+                height="40px"
+                bgColor="red"
+                textColor="white"
+              />
+            </Box>
+            <Box>
+              <GlobeBadge count={5} />
+            </Box>
+            <Box>
+              <UserMenu onMenuToggle={handleMenuToggle} changeView={changeView} />
+            </Box>
+          </Flex>
+        </TwoColumnLayout>
+        <Box>Admission</Box>
+      </Box>;
+      break;
     default:
       content = <div>Default Content</div>;
   }
