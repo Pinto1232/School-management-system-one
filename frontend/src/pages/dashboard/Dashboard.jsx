@@ -170,6 +170,7 @@ const Dashboard = () => {
   ];
 
 
+  /* Views model rendering */
   let content;
   switch (currentView) {
     case 'dashboard':
