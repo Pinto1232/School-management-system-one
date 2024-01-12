@@ -423,14 +423,115 @@ const Dashboard = () => {
           </Flex>
         </TwoColumnLayout>
       </Box>;
+
       break;
     case 'students':
-      content = <div>Students Content</div>;
+      content = <Box>
+        <TwoColumnLayout >
+          <Flex align={"start"} p={6} gap={10} >
+            <Box>
+              <EmailBadge
+                width="40px"
+                height="40px"
+                bgColor="transparent"
+                count={emailCount}
+                textColor="white"
+                iconWidth="20px"  // Custom width for the icon
+                iconHeight="20px" // Custom height for the icon
+              />
+            </Box>
+            <Box>
+              <BellBadge
+                count={5}
+                width="40px"
+                height="40px"
+                bgColor="red"
+                textColor="white"
+              />
+            </Box>
+            <Box>
+              <GlobeBadge count={5} />
+            </Box>
+            <Box>
+              <UserMenu onMenuToggle={handleMenuToggle} changeView={changeView} />
+            </Box>
+          </Flex>
+        </TwoColumnLayout>
+        <Box>
+          Students
+        </Box>
+      </Box>;
       break;
     case 'teachers':
-      content = <div>Teachers Content</div>;
+      content = <Box>
+        <TwoColumnLayout >
+          <Flex align={"start"} p={6} gap={10} >
+            <Box>
+              <EmailBadge
+                width="40px"
+                height="40px"
+                bgColor="transparent"
+                count={emailCount}
+                textColor="white"
+                iconWidth="20px"  // Custom width for the icon
+                iconHeight="20px" // Custom height for the icon
+              />
+            </Box>
+            <Box>
+              <BellBadge
+                count={5}
+                width="40px"
+                height="40px"
+                bgColor="red"
+                textColor="white"
+              />
+            </Box>
+            <Box>
+              <GlobeBadge count={5} />
+            </Box>
+            <Box>
+              <UserMenu onMenuToggle={handleMenuToggle} changeView={changeView} />
+            </Box>
+          </Flex>
+        </TwoColumnLayout>
+        <Box>Teachers</Box>
+      </Box>;
       break;
-    // Add cases for other views as needed
+    case 'courses':
+      content = <Box>
+        <TwoColumnLayout >
+          <Flex align={"start"} p={6} gap={10} >
+            <Box>
+              <EmailBadge
+                width="40px"
+                height="40px"
+                bgColor="transparent"
+                count={emailCount}
+                textColor="white"
+                iconWidth="20px"  // Custom width for the icon
+                iconHeight="20px" // Custom height for the icon
+              />
+            </Box>
+            <Box>
+              <BellBadge
+                count={5}
+                width="40px"
+                height="40px"
+                bgColor="red"
+                textColor="white"
+              />
+            </Box>
+            <Box>
+              <GlobeBadge count={5} />
+            </Box>
+            <Box>
+              <UserMenu onMenuToggle={handleMenuToggle} changeView={changeView} />
+            </Box>
+          </Flex>
+        </TwoColumnLayout>
+        <Box>Course</Box>
+      </Box>;
+      break;
     default:
       content = <div>Default Content</div>;
   }
