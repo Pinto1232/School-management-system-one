@@ -16,6 +16,7 @@ import {
     Badge
 } from '@chakra-ui/react';
 import InteractiveCourseMap from './InteractiveCourseMap';
+import RemindersAndAlerts from './RemindersAndAlerts';
 
 
 const CourseOverview = ({ courses = [], onCourseClick }) => {
@@ -58,6 +59,30 @@ const CourseOverview = ({ courses = [], onCourseClick }) => {
             ],
         },
     ];
+
+
+    const reminderData = [
+        {
+          title: 'Assignment Due',
+          dueDate: 'April 30, 2023',
+          message: 'Don\'t forget to submit your assignment by the end of this week.'
+        },
+        {
+          title: 'Upcoming Exam',
+          dueDate: 'May 5, 2023',
+          message: 'Your next exam is scheduled for May 5th. Start preparing!'
+        },
+        {
+            title: 'Upcoming Exam',
+            dueDate: 'May 12, 2023',
+            message: 'Your next exam is scheduled for May 5th. Start preparing!'
+          },
+          {
+            title: 'Upcoming Exam',
+            dueDate: 'May 13, 2023',
+            message: 'Your next exam is scheduled for May 5th. Start preparing!'
+          },
+      ];
 
 
 
@@ -112,6 +137,7 @@ const CourseOverview = ({ courses = [], onCourseClick }) => {
                     />
                 </Box>
                 {/* Reminders and Alerts */}
+                <RemindersAndAlerts reminders={reminderData} />
                 <Box>
 
                 </Box>
