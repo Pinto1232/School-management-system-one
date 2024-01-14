@@ -23,6 +23,7 @@ import Calendar from "../../components/common/Calendar";
 import CourseCard from "../../components/common/CourseCard";
 import StatisticsCard from "../../components/common/StatisticsCard";
 import { TopBar } from "./TopBar";
+import CourseOverview from "../../components/common/CourseOverview";
 
 
 
@@ -167,6 +168,37 @@ const Dashboard = () => {
       imageUrl: 'path/to/image2.jpg',
       percentage: 20,
       changeDirection: 'up',
+    },
+  ];
+
+
+  const dummyCourses = [
+    {
+      id: 'course1',
+      name: 'Introduction to Programming',
+      progress: 75,
+      assignments: [
+        { id: 'assignment1', name: 'Homework #1', dueDate: '2023-05-10' },
+        { id: 'assignment2', name: 'Project #1', dueDate: '2023-05-24' },
+      ],
+    },
+    {
+      id: 'course2',
+      name: 'Advanced Mathematics',
+      progress: 60,
+      assignments: [
+        { id: 'assignment3', name: 'Quiz #2', dueDate: '2023-05-15' },
+        { id: 'assignment4', name: 'Midterm Exam', dueDate: '2023-06-01' },
+      ],
+    },
+    {
+      id: 'course3',
+      name: 'World History',
+      progress: 85,
+      assignments: [
+        { id: 'assignment5', name: 'Essay on Ancient Civilizations', dueDate: '2023-05-20' },
+        { id: 'assignment6', name: 'Group Presentation', dueDate: '2023-06-05' },
+      ],
     },
   ];
 
@@ -401,6 +433,9 @@ const Dashboard = () => {
       content = <Box>
         <Box>
           <TopBar emailCount={emailCount} handleMenuToggle={handleMenuToggle} changeView={changeView} />
+        </Box>
+        <Box>
+          <CourseOverview courses={dummyCourses} onCourseClick={(courseId) => console.log(`Course clicked: ${courseId}`)} />
         </Box>
         <Box>
           Students
