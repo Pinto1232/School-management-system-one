@@ -43,7 +43,7 @@ const CommunicationSupport = ({ onMessageClick, onForumClick, faqUrl, contactUrl
                         </Button>
                     </Link>
                 </Stack>
-                <Divider my={5} />
+                <Divider/>
                 <VStack alignItems="start" spacing={2}>
                     <Text fontWeight="bold" color={textColor}>
                         Additional Resources:
