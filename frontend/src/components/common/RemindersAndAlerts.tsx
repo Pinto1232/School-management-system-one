@@ -24,7 +24,7 @@ const RemindersAndAlerts = ({ reminders }) => {
       </Heading>
       <VStack spacing={4}>
         {reminders.map((reminder, index) => (
-          <Box key={index} p={4} bg={bgColor} borderRadius="md" boxShadow="md" width="100%" display="flex" alignItems="center" justifyContent="space-between">
+          <Box key={index} p={4} bg={bgColor} borderRadius="md" backgroundColor="white" boxShadow="md" width="100%" display="flex" alignItems="center" justifyContent="space-between">
             <Text fontWeight="bold" color={textColor}>
               {reminder.title}
             </Text>

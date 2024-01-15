@@ -35,7 +35,7 @@ const LeaderBoardItem = ({ imageUrl, percentage, changeDirection }) => (
 );
 
 const LeaderBoard = ({ students }) => (
-  <Box p={3} boxShadow="md" borderRadius="md" bgGradient="linear(to-r, green.700, blue.800)" h={"289px"} display="flex" flexDirection="column" justifyContent="space-between">
+  <Box p={3} boxShadow="md" borderRadius="md" bgGradient="linear(to-r, green.400, blue.500)" h={"289px"} display="flex" flexDirection="column" justifyContent="space-between">
     <Box>
       <Flex justify="space-between" align="center" mb={1}>
         <Heading as="h3" size="lg">Leaderboard</Heading>

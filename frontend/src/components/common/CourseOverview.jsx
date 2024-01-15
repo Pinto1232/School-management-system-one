@@ -17,6 +17,7 @@ import {
 } from '@chakra-ui/react';
 import InteractiveCourseMap from './InteractiveCourseMap';
 import RemindersAndAlerts from './RemindersAndAlerts';
+import LearningAnalytics from './LearningAnalytics';
 
 
 const CourseOverview = ({ courses = [], onCourseClick }) => {
@@ -58,41 +59,84 @@ const CourseOverview = ({ courses = [], onCourseClick }) => {
                 { id: 'sub8', name: 'Lesson 8' },
             ],
         },
+        {
+            id: 'module5',
+            name: 'Module 4: Main Topics',
+            subModules: [
+                { id: 'sub7', name: 'Lesson 7' },
+                { id: 'sub8', name: 'Lesson 8' },
+            ],
+        },
+        {
+            id: 'module6',
+            name: 'Module 4: Main Topics',
+            subModules: [
+                { id: 'sub7', name: 'Lesson 7' },
+                { id: 'sub8', name: 'Lesson 8' },
+            ],
+        },
+        {
+            id: 'module7',
+            name: 'Module 4: Main Topics',
+            subModules: [
+                { id: 'sub7', name: 'Lesson 7' },
+                { id: 'sub8', name: 'Lesson 8' },
+            ],
+        },
     ];
 
 
     const reminderData = [
         {
-          title: 'Assignment Due',
-          dueDate: 'April 30, 2023',
-          message: 'Don\'t forget to submit your assignment by the end of this week.'
+            title: 'Assignment Due',
+            dueDate: 'April 30, 2023',
+            message: 'Don\'t forget to submit your assignment by the end of this week.'
         },
         {
-          title: 'Upcoming Exam',
-          dueDate: 'May 5, 2023',
-          message: 'Your next exam is scheduled for May 5th. Start preparing!'
+            title: 'Upcoming Exam',
+            dueDate: 'May 5, 2023',
+            message: 'Your next exam is scheduled for May 5th. Start preparing!'
         },
         {
             title: 'Upcoming Exam',
             dueDate: 'May 12, 2023',
             message: 'Your next exam is scheduled for May 5th. Start preparing!'
-          },
-          {
+        },
+        {
             title: 'Upcoming Exam',
             dueDate: 'May 13, 2023',
             message: 'Your next exam is scheduled for May 5th. Start preparing!'
-          },
-      ];
+        },
+        {
+            title: 'Upcoming Exam',
+            dueDate: 'May 13, 2023',
+            message: 'Your next exam is scheduled for May 5th. Start preparing!'
+        },
+        {
+            title: 'Upcoming Exam',
+            dueDate: 'May 13, 2023',
+            message: 'Your next exam is scheduled for May 5th. Start preparing!'
+        },
+        {
+            title: 'Upcoming Exam',
+            dueDate: 'May 13, 2023',
+            message: 'Your next exam is scheduled for May 5th. Start preparing!'
+        },
+    ];
+
+
+
+
 
 
 
 
     return (
-        <Box p={5} bg={bgColor} borderRadius="lg" boxShadow="2xl">
-            <Heading as="h3" size="lg" mb={6} color={textColor} textAlign="center">
+        <Box p={5} bg={bgColor} borderRadius="lg" boxShadow="2xl" >
+            <Heading as="h3" size="lg" mb={6} color={textColor} textAlign="start">
                 Course Overview
             </Heading>
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10}>
+            <Flex columns={{ base: 1, md: 2, lg: 3 }} spacing={10} gap={8}>
                 {/* Upcoming Assignments */}
                 <Box bg={bgColor} p={5} borderRadius="lg" boxShadow="md">
                     <Heading as="h4" size="md" mb={4} color={textColor}>
@@ -104,11 +148,12 @@ const CourseOverview = ({ courses = [], onCourseClick }) => {
                                 <Box
                                     key={assignment.id}
                                     p={4}
-
+                                    bg="white"
                                     borderRadius="lg"
                                     boxShadow="base"
                                     border="1px solid"
                                     borderColor={borderColor}
+                                   
                                 >
                                     <Text fontWeight="bold" color={textColor} mb={2}>
                                         {course.name}
@@ -130,20 +175,18 @@ const CourseOverview = ({ courses = [], onCourseClick }) => {
                 </Box>
 
                 {/* Interactive Course Map */}
-                <Box>
+                <Box flex={2}>
                     <InteractiveCourseMap
                         courseModules={courseModules}
                         onModuleClick={(subModuleId) => console.log(`Submodule clicked: ${subModuleId}`)}
                     />
                 </Box>
                 {/* Reminders and Alerts */}
-                <RemindersAndAlerts reminders={reminderData} />
                 <Box>
-
+                    <RemindersAndAlerts reminders={reminderData} />
                 </Box>
-                {/* Learning Analytics */}
                 {/* Additional components as described in the task */}
-            </SimpleGrid>
+            </Flex>
             {/* ... */}
         </Box>
     );

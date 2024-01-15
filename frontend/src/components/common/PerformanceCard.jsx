@@ -42,18 +42,10 @@ const PerformanceCard = ({ title, data, initialData, options = {} }) => {
         updateChartDataForSeason(selectedSeason);
     }, [selectedSeason, initialData]);
 
-
     const mergedOptions = {
         scales: {
             y: {
                 beginAtZero: true,
-            },
-        },
-        plugins: {
-            legend: {
-                labels: {
-                    color: 'black',
-                },
             },
         },
         ...options,

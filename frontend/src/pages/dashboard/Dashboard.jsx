@@ -24,6 +24,7 @@ import CourseCard from "../../components/common/CourseCard";
 import StatisticsCard from "../../components/common/StatisticsCard";
 import { TopBar } from "./TopBar";
 import CourseOverview from "../../components/common/CourseOverview";
+import LearningAnalytics from "../../components/common/LearningAnalytics";
 
 
 
@@ -203,6 +204,42 @@ const Dashboard = () => {
   ];
 
 
+  const analyticsData = [
+    {
+      component: 'Videos',
+      timeSpent: 120 // Time spent in minutes
+    },
+    {
+      component: 'Quizzes',
+      timeSpent: 60
+    },
+    {
+      component: 'Discussions',
+      timeSpent: 90
+    },
+    {
+      component: 'Books',
+      timeSpent: 120
+    },
+    {
+      component: 'Public discusions',
+      timeSpent: 90
+    },
+    {
+      component: 'Oral Debate',
+      timeSpent: 90
+    },
+    {
+      component: 'Art discusions',
+      timeSpent: 90
+    },
+    {
+      component: 'Public speech',
+      timeSpent: 90
+    },
+  ];
+
+
   /* Views model rendering */
   let content;
   switch (currentView) {
@@ -366,16 +403,21 @@ const Dashboard = () => {
                 assignments={assignments}
               />
             </Box>
+          </Flex>
+        </TwoColumnLayout>
+
+        <TwoColumnLayout isMenuOpen={isMenuOpen}>
+          <Flex direction={['column', 'row']} w="100%" gap={1}>
             <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
               <PerformanceCard
                 title="Performance"
                 initialData={initialData}
                 options={options}
               />
-            </Box>
+            </Box> 
             <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
               <LeaderBoard students={students} />
-            </Box>
+            </Box> 
           </Flex>
         </TwoColumnLayout>
 
@@ -434,11 +476,11 @@ const Dashboard = () => {
         <Box>
           <TopBar emailCount={emailCount} handleMenuToggle={handleMenuToggle} changeView={changeView} />
         </Box>
+        <TwoColumnLayout>
+                <LearningAnalytics analyticsData={analyticsData} />
+        </TwoColumnLayout>
         <Box>
           <CourseOverview courses={dummyCourses} onCourseClick={(courseId) => console.log(`Course clicked: ${courseId}`)} />
-        </Box>
-        <Box>
-          Students
         </Box>
       </Box>;
       break;
