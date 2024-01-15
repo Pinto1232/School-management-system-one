@@ -554,14 +554,9 @@ const Dashboard = () => {
         <Box>
           <CourseOverview courses={courses} onCourseClick={(courseId) => console.log(`Course clicked: ${courseId}`)} />
         </Box>
-        <Flex>
-          <Box>
-            <AssignmentManagement assignmentData={assignmentData} />
-          </Box>
-          <Box>
-            <Announcements announcements={announcements} />
-          </Box>
-        </Flex>
+        <Box>
+          <AssignmentManagement assignmentData={assignmentData} />
+        </Box>
       </Box>;
       break;
     case 'teachers':

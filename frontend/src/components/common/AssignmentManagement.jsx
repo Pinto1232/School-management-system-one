@@ -111,11 +111,11 @@ const AssignmentCard = ({ assignment }) => {
 
 const AssignmentManagement = ({ assignmentData }) => {
   return (
-    <SimpleGrid p={5}>
-      <Heading as="h3" size="lg" mb={6} >
+    <SimpleGrid p={5} justifyContent={'center'} alignItems={'center'}>
+      <Heading as="h3" size="lg" mb={6}  >
         Assignment Management
       </Heading>
-      <Flex gap={4}>
+      <Flex gap={4} justifyContent={'center'} alignItems={'center'}>
         {assignmentData.map((assignment) => (
           <AssignmentCard key={assignment.id} assignment={assignment} />
         ))}
