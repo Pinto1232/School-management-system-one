@@ -28,6 +28,7 @@ import LearningAnalytics from "../../components/common/LearningAnalytics";
 import AssignmentManagement from "../../components/common/AssignmentManagement";
 import Announcements from "../../components/common/Announcements";
 import PdfGallery from "../../components/common/PdfGallery";
+import CommunicationSupport from "../../components/common/CommunicationSupport";
 
 
 
@@ -176,7 +177,7 @@ const Dashboard = () => {
       changeDirection: 'up',
     },
   ];
-  console.log("Student data",students )
+  console.log("Student data", students)
 
   const courses = [
     {
@@ -635,6 +636,14 @@ const Dashboard = () => {
           </Heading>
           <PdfGallery files={pdfFiles} />
         </Box>
+        <Flex>
+          <CommunicationSupport
+            onMessageClick={() => console.log('Open messaging system')}
+            onForumClick={() => console.log('Navigate to discussion forum')}
+            faqUrl="https://www.example.com/faqs"
+            contactUrl="https://www.example.com/contact"
+          />
+        </Flex>
       </Box>;
       break;
     case 'teachers':
