@@ -13,7 +13,7 @@ import ThreeDotsMenu from "../../components/common/ThreeDotsMenu";
 import { useUserContext } from '../../contexts/UserContext';
 import axios from "axios";
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import WelcomeCard from "../../components/common/WelcomeCard";
 import Attendance from "../../components/common/Attendance";
 import AssignmentCard from "../../components/common/AssignmentCard";
@@ -34,6 +34,7 @@ const Dashboard = () => {
   const { user } = useUserContext();
   console.log("User Dashboard", user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { view } = useParams();
 
   const [showWelcomeCard, setShowWelcomeCard] = useState(true);
 
@@ -173,34 +174,41 @@ const Dashboard = () => {
   ];
 
 
-  const dummyCourses = [
+  const courses  = [
     {
       id: 'course1',
       name: 'Introduction to Programming',
-      progress: 75,
+      description: 'Learn the basics of programming with this introductory course.',
       assignments: [
         { id: 'assignment1', name: 'Homework #1', dueDate: '2023-05-10' },
         { id: 'assignment2', name: 'Project #1', dueDate: '2023-05-24' },
       ],
+      materialsLink: '/course1/materials',
+      gradesLink: '/course1/grades',
     },
     {
       id: 'course2',
-      name: 'Advanced Mathematics',
-      progress: 60,
+      name: 'Introduction to Programming',
+      description: 'Learn the basics of programming with this introductory course.',
       assignments: [
-        { id: 'assignment3', name: 'Quiz #2', dueDate: '2023-05-15' },
-        { id: 'assignment4', name: 'Midterm Exam', dueDate: '2023-06-01' },
+        { id: 'assignment1', name: 'Homework #1', dueDate: '2023-05-10' },
+        { id: 'assignment2', name: 'Project #1', dueDate: '2023-05-24' },
       ],
+      materialsLink: '/course1/materials',
+      gradesLink: '/course1/grades',
     },
     {
       id: 'course3',
-      name: 'World History',
-      progress: 85,
+      name: 'Introduction to Programming',
+      description: 'Learn the basics of programming with this introductory course.',
       assignments: [
-        { id: 'assignment5', name: 'Essay on Ancient Civilizations', dueDate: '2023-05-20' },
-        { id: 'assignment6', name: 'Group Presentation', dueDate: '2023-06-05' },
+        { id: 'assignment1', name: 'Homework #1', dueDate: '2023-05-10' },
+        { id: 'assignment2', name: 'Project #1', dueDate: '2023-05-24' },
       ],
+      materialsLink: '/course1/materials',
+      gradesLink: '/course1/grades',
     },
+
   ];
 
 
@@ -469,8 +477,8 @@ const Dashboard = () => {
           </Flex>
         </TwoColumnLayout>
       </Box>;
-
       break;
+      
     case 'students':
       content = <Box>
         <Box>
@@ -480,7 +488,7 @@ const Dashboard = () => {
                 <LearningAnalytics analyticsData={analyticsData} />
         </TwoColumnLayout>
         <Box>
-          <CourseOverview courses={dummyCourses} onCourseClick={(courseId) => console.log(`Course clicked: ${courseId}`)} />
+          <CourseOverview courses={courses} onCourseClick={(courseId) => console.log(`Course clicked: ${courseId}`)} />
         </Box>
       </Box>;
       break;

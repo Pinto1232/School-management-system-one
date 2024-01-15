@@ -16,7 +16,7 @@ const LearningAnalytics = ({ analyticsData, title }) => {
   const calculateAnimationBegin = (index) => index * 150;
 
   return (
-    <Box bg={bgColor} p={4} borderRadius="lg" boxShadow="xl">
+    <Box bg={bgColor} p={4}  boxShadow="xl">
       <Heading as="h2" size="lg" textAlign="center" mb={4}>
         {title}
       </Heading>
