@@ -1,10 +1,6 @@
 import React from 'react';
-import { ComposedChart, Bar, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { ComposedChart, Bar, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { Box, useColorModeValue, Heading } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
-
-// Wrap the Bar component with motion to apply animations
-const MotionBar = motion(Bar);
 
 const LearningAnalytics = ({ analyticsData, title }) => {
   const bgColor = useColorModeValue('white', 'gray.800');
@@ -16,33 +12,72 @@ const LearningAnalytics = ({ analyticsData, title }) => {
     halfTimeSpent: item.timeSpent * 0.5,
   }));
 
+  // Calculate staggered animation begin times based on index
+  const calculateAnimationBegin = (index) => index * 150;
+
   return (
     <Box bg={bgColor} p={4} borderRadius="lg" boxShadow="xl">
       <Heading as="h2" size="lg" textAlign="center" mb={4}>
         {title}
       </Heading>
       <ResponsiveContainer width="100%" height={400}>
-        <ComposedChart data={data}>
+        <ComposedChart
+          data={data}
+          margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+        >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
-          <MotionBar
+          <Bar
             dataKey="timeSpent"
             stackId="a"
-            barSize={160}
             fill={colors[0]}
-            whileHover={{ scale: 1.1 }}
-          />
-          <MotionBar
+            animationDuration={2000}
+            animationEasing="ease-out"
+          >
+            {data.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={colors[index % colors.length]}
+                animationBegin={calculateAnimationBegin(index)}
+              />
+            ))}
+          </Bar>
+          <Bar
             dataKey="halfTimeSpent"
             stackId="a"
-            barSize={20}
             fill={colors[1]}
-            whileHover={{ scale: 1.1 }}
+            animationDuration={2000}
+            animationEasing="ease-out"
+          >
+            {data.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={colors[(index + 1) % colors.length]}
+                animationBegin={calculateAnimationBegin(index)}
+              />
+            ))}
+          </Bar>
+          <Area
+            type="monotone"
+            dataKey="halfTimeSpent"
+            fill={colors[1]}
+            stroke={colors[1]}
+            animationBegin={500}
+            animationDuration={2000}
+            animationEasing="ease-out"
           />
-          <Area dataKey="halfTimeSpent" fill={colors[1]} stroke={colors[1]} stackId="a" />
-          <Line type="monotone" dataKey="timeSpent" stroke={colors[2]} />
+          <Line
+            type="monotone"
+            dataKey="timeSpent"
+            stroke={colors[2]}
+            animationBegin={1000}
+            animationDuration={2000}
+            animationEasing="ease-out"
+            strokeWidth={2}
+            dot={{ stroke: colors[2], strokeWidth: 2 }}
+          />
         </ComposedChart>
       </ResponsiveContainer>
     </Box>
