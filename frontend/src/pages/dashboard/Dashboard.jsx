@@ -552,10 +552,10 @@ const Dashboard = () => {
           <LearningAnalytics analyticsData={analyticsData} />
         </TwoColumnLayout>
         <Box>
-          <CourseOverview courses={courses} onCourseClick={(courseId) => console.log(`Course clicked: ${courseId}`)} />
+          <AssignmentManagement assignmentData={assignmentData} />
         </Box>
         <Box>
-          <AssignmentManagement assignmentData={assignmentData} />
+          <CourseOverview courses={courses} onCourseClick={(courseId) => console.log(`Course clicked: ${courseId}`)} />
         </Box>
         <Box>
           <Announcements announcements={announcements} />
