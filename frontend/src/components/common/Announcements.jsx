@@ -10,6 +10,8 @@ import {
   Link,
   Icon,
   Flex,
+  SimpleGrid,
+  Grid,
 } from '@chakra-ui/react';
 import { MdAnnouncement } from 'react-icons/md';
 
@@ -22,7 +24,7 @@ const AnnouncementCard = ({ announcement }) => {
       <HStack justifyContent="space-between">
         <HStack>
           <Icon as={MdAnnouncement} color="orange.400" />
-          <Text fontWeight="bold">{announcement.title}</Text>
+          <Text whiteSpace={'nowrap'} fontWeight="bold">{announcement.title}</Text>
         </HStack>
         <Badge colorScheme="blue">{announcement.date}</Badge>
       </HStack>
@@ -30,7 +32,7 @@ const AnnouncementCard = ({ announcement }) => {
         {announcement.content}
       </Text>
       {announcement.link && (
-        <Link color="blue.500" href={announcement.link} isExternal>
+        <Link whiteSpace={'nowrap'} color="blue.500" href={announcement.link} isExternal>
           Read more
         </Link>
       )}
@@ -40,16 +42,16 @@ const AnnouncementCard = ({ announcement }) => {
 
 const Announcements = ({ announcements }) => {
   return (
-    <Box>
-      <Heading as="h3" size="lg" mb={6}>
+    <Grid justifyContent={'center'} alignItems={'center'}>
+      <Heading as="h3" size="lg" mb={2} p={4} >
         Announcements
       </Heading>
-      <VStack p={4}>
+      <Flex p={2} gap={4}>
         {announcements.map((announcement) => (
           <AnnouncementCard key={announcement.id} announcement={announcement} />
         ))}
-      </VStack>
-    </Box>
+      </Flex>
+    </Grid>
   );
 };
 

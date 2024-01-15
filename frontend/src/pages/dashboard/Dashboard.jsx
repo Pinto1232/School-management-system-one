@@ -334,7 +334,7 @@ const Dashboard = () => {
         </TwoColumnLayout>
 
         <TwoColumnLayout isMenuOpen={isMenuOpen}>
-          <Flex align={"start"} px={["2em"]} >
+          <Flex align={"start"} px={["2em"]} justifyContent={'center'} alignItems={'center'} >
             <Heading as="h2" size="md">
               Admin Dashboard
             </Heading>
@@ -556,6 +556,9 @@ const Dashboard = () => {
         </Box>
         <Box>
           <AssignmentManagement assignmentData={assignmentData} />
+        </Box>
+        <Box>
+          <Announcements announcements={announcements} />
         </Box>
       </Box>;
       break;
