@@ -42,11 +42,11 @@ const AnnouncementCard = ({ announcement }) => {
 
 const Announcements = ({ announcements }) => {
   return (
-    <Grid justifyContent={'center'} alignItems={'center'}>
+    <Grid justifyContent={'center'} alignItems={'center'} spacing={8}>
       <Heading as="h3" size="lg" mb={2} p={4} >
         Announcements
       </Heading>
-      <Flex p={2} gap={4}>
+      <Flex p={4} gap={4} >
         {announcements.map((announcement) => (
           <AnnouncementCard key={announcement.id} announcement={announcement} />
         ))}

@@ -27,6 +27,7 @@ import CourseOverview from "../../components/common/CourseOverview";
 import LearningAnalytics from "../../components/common/LearningAnalytics";
 import AssignmentManagement from "../../components/common/AssignmentManagement";
 import Announcements from "../../components/common/Announcements";
+import PdfGallery from "../../components/common/PdfGallery";
 
 
 
@@ -120,6 +121,7 @@ const Dashboard = () => {
     { subject: "Programming", percentage: 90 },
     { subject: "Biology", percentage: 50 },
   ];
+  console.log("Assignment data", assignments)
 
   // Define the initial data for the chart
   const initialData = {
@@ -134,6 +136,7 @@ const Dashboard = () => {
       },
     ],
   };
+  console.log("Initial data", initialData)
 
   // Define the options for the chart
   const options = {
@@ -143,6 +146,7 @@ const Dashboard = () => {
       },
     },
   };
+  console.log("Chart options data", options)
 
 
   // Leadership
@@ -172,6 +176,7 @@ const Dashboard = () => {
       changeDirection: 'up',
     },
   ];
+  console.log("Student data",students )
 
   const courses = [
     {
@@ -209,6 +214,7 @@ const Dashboard = () => {
     },
 
   ];
+  console.log("Course data", courses)
 
 
   const analyticsData = [
@@ -245,6 +251,7 @@ const Dashboard = () => {
       timeSpent: 90
     },
   ];
+  console.log("Analytics data", analyticsData)
 
 
   // Assignment Management
@@ -285,6 +292,7 @@ const Dashboard = () => {
       isSubmitted: false,
     },
   ];
+  console.log("Assignment data", assignmentData)
 
   // Anouncement Data
   const announcements = [
@@ -310,6 +318,67 @@ const Dashboard = () => {
       link: 'https://www.example.com/event-details',
     },
   ];
+  console.log("Announcement", announcements)
+
+  //pdf Viewer
+  const pdfFiles = [
+    {
+      id: 'pdf1',
+      title: 'Introduction to Algorithms',
+      thumbnail: '/thumbnails/algorithms-thumbnail.jpg',
+      url: '/pdfs/introduction-to-algorithms.pdf',
+      isFree: true
+    },
+    {
+      id: 'pdf2',
+      title: 'Introduction to Algorithms',
+      thumbnail: '/thumbnails/algorithms-thumbnail.jpg',
+      url: '/pdfs/introduction-to-algorithms.pdf',
+      isFree: true
+    },
+    {
+      id: 'pdf3',
+      title: 'Advanced Chemistry',
+      thumbnail: '/thumbnails/advanced-chemistry-thumbnail.jpg',
+      url: '/pdfs/advanced-chemistry.pdf',
+      isFree: false,
+      price: '30.99',
+      onPurchase: () => {
+        console.log('Initiate purchase for Advanced Chemistry');
+      }
+    },
+    {
+      id: 'pdf4',
+      title: 'Advanced Chemistry',
+      thumbnail: '/thumbnails/advanced-chemistry-thumbnail.jpg',
+      url: '/pdfs/advanced-chemistry.pdf',
+      isFree: false,
+      price: '20.99',
+      onPurchase: () => {
+        console.log('Initiate purchase for Advanced Chemistry');
+      }
+    },
+    {
+      id: 'pdf5',
+      title: 'Introduction to Algorithms',
+      thumbnail: '/thumbnails/algorithms-thumbnail.jpg',
+      url: '/pdfs/introduction-to-algorithms.pdf',
+      isFree: true
+    },
+    {
+      id: 'pdf6',
+      title: 'Advanced Chemistry',
+      thumbnail: '/thumbnails/advanced-chemistry-thumbnail.jpg',
+      url: '/pdfs/advanced-chemistry.pdf',
+      isFree: false,
+      price: '19.99',
+      onPurchase: () => {
+        console.log('Initiate purchase for Advanced Chemistry');
+      }
+    },
+  ];
+
+  console.log("pdf files", pdfFiles)
 
 
   /* Views model rendering */
@@ -557,8 +626,14 @@ const Dashboard = () => {
         <Box>
           <CourseOverview courses={courses} onCourseClick={(courseId) => console.log(`Course clicked: ${courseId}`)} />
         </Box>
-        <Box>
+        <Box bg={'gray.200'}>
           <Announcements announcements={announcements} />
+        </Box>
+        <Box p={4} bg={'gray.200'}>
+          <Heading as="h3" size="lg" mb={4}>
+            Materials
+          </Heading>
+          <PdfGallery files={pdfFiles} />
         </Box>
       </Box>;
       break;
