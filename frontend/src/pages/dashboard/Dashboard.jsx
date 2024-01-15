@@ -25,6 +25,8 @@ import StatisticsCard from "../../components/common/StatisticsCard";
 import { TopBar } from "./TopBar";
 import CourseOverview from "../../components/common/CourseOverview";
 import LearningAnalytics from "../../components/common/LearningAnalytics";
+import AssignmentManagement from "../../components/common/AssignmentManagement";
+import Announcements from "../../components/common/Announcements";
 
 
 
@@ -119,8 +121,6 @@ const Dashboard = () => {
     { subject: "Biology", percentage: 50 },
   ];
 
-  //Peformance
-
   // Define the initial data for the chart
   const initialData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -173,8 +173,7 @@ const Dashboard = () => {
     },
   ];
 
-
-  const courses  = [
+  const courses = [
     {
       id: 'course1',
       name: 'Introduction to Programming',
@@ -244,6 +243,71 @@ const Dashboard = () => {
     {
       component: 'Public speech',
       timeSpent: 90
+    },
+  ];
+
+
+  // Assignment Management
+  const assignmentData = [
+    {
+      id: 'assignment1',
+      name: 'Essay on History',
+      dueDate: '2023-05-10',
+      description: 'Write an essay on the history of...',
+      isSubmitted: false,
+    },
+    {
+      id: 'assignment2',
+      name: 'Essay on History',
+      dueDate: '2023-05-10',
+      description: 'Write an essay on the history of...',
+      isSubmitted: false,
+    },
+    {
+      id: 'assignment3',
+      name: 'Essay on History',
+      dueDate: '2023-05-10',
+      description: 'Write an essay on the history of...',
+      isSubmitted: false,
+    },
+    {
+      id: 'assignment4',
+      name: 'Essay on History',
+      dueDate: '2023-05-10',
+      description: 'Write an essay on the history of...',
+      isSubmitted: false,
+    },
+    {
+      id: 'assignment5',
+      name: 'Essay on History',
+      dueDate: '2023-05-10',
+      description: 'Write an essay on the history of...',
+      isSubmitted: false,
+    },
+  ];
+
+  // Anouncement Data
+  const announcements = [
+    {
+      id: 'announcement1',
+      title: 'Campus Event Next Week',
+      date: '2023-04-25',
+      content: 'Join us for an exciting campus event next week. There will be guest speakers, workshops, and food!',
+      link: 'https://www.example.com/event-details',
+    },
+    {
+      id: 'announcement2',
+      title: 'Campus Event Next Week',
+      date: '2023-04-25',
+      content: 'Join us for an exciting campus event next week. There will be guest speakers, workshops, and food!',
+      link: 'https://www.example.com/event-details',
+    },
+    {
+      id: 'announcement3',
+      title: 'Campus Event Next Week',
+      date: '2023-04-25',
+      content: 'Join us for an exciting campus event next week. There will be guest speakers, workshops, and food!',
+      link: 'https://www.example.com/event-details',
     },
   ];
 
@@ -422,10 +486,10 @@ const Dashboard = () => {
                 initialData={initialData}
                 options={options}
               />
-            </Box> 
+            </Box>
             <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
               <LeaderBoard students={students} />
-            </Box> 
+            </Box>
           </Flex>
         </TwoColumnLayout>
 
@@ -478,18 +542,26 @@ const Dashboard = () => {
         </TwoColumnLayout>
       </Box>;
       break;
-      
+
     case 'students':
       content = <Box>
         <Box>
           <TopBar emailCount={emailCount} handleMenuToggle={handleMenuToggle} changeView={changeView} />
         </Box>
         <TwoColumnLayout>
-                <LearningAnalytics analyticsData={analyticsData} />
+          <LearningAnalytics analyticsData={analyticsData} />
         </TwoColumnLayout>
         <Box>
           <CourseOverview courses={courses} onCourseClick={(courseId) => console.log(`Course clicked: ${courseId}`)} />
         </Box>
+        <Flex>
+          <Box>
+            <AssignmentManagement assignmentData={assignmentData} />
+          </Box>
+          <Box>
+            <Announcements announcements={announcements} />
+          </Box>
+        </Flex>
       </Box>;
       break;
     case 'teachers':
