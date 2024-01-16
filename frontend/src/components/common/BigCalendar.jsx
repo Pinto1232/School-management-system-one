@@ -40,18 +40,20 @@ const BigCalendar = ({ events }) => {
   };
 
   const EventModal = () => (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered motionPreset="scale">
+    <Modal isOpen={isOpen} onClose={onClose} isCentered motionPreset="slideInBottom">
       <ModalOverlay />
-      <ModalContent borderRadius="lg">
-        <ModalHeader fontSize="lg" fontWeight="bold">{selectedEvent?.title}</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody pb={6}>
-          <Text mb={2}>{selectedEvent?.description}</Text>
-          <Text fontWeight="medium">
-            Date: {moment(selectedEvent?.start).format("dddd, MMMM Do YYYY")}
+      <ModalContent borderRadius="xl" mx={4} bg={useColorModeValue('white', 'gray.800')} boxShadow="2xl">
+        <ModalHeader borderBottomWidth="1px" fontWeight="bold" fontSize="2xl" bg={useColorModeValue('blue.500', 'blue.600')} color="white">
+          {selectedEvent?.title}
+        </ModalHeader>
+        <ModalCloseButton size="lg" color="white" />
+        <ModalBody py={6} px={4}>
+          <Text fontSize="lg" mb={4}>{selectedEvent?.description}</Text>
+          <Text fontSize="md" fontWeight="medium" mb={2}>
+            <strong>Date:</strong> {moment(selectedEvent?.start).format("dddd, MMMM Do YYYY")}
           </Text>
-          <Text fontWeight="medium">
-            Time: {moment(selectedEvent?.start).format("h:mm a")} -{" "}
+          <Text fontSize="md" fontWeight="medium">
+            <strong>Time:</strong> {moment(selectedEvent?.start).format("h:mm a")} -{" "}
             {moment(selectedEvent?.end).format("h:mm a")}
           </Text>
         </ModalBody>
