@@ -294,6 +294,13 @@ const Dashboard = () => {
       description: 'Write an essay on the history of...',
       isSubmitted: false,
     },
+    {
+      id: 'assignment6',
+      name: 'Essay on History',
+      dueDate: '2023-05-10',
+      description: 'Write an essay on the history of...',
+      isSubmitted: false,
+    },
   ];
   console.log("Assignment data", assignmentData)
 
@@ -315,6 +322,13 @@ const Dashboard = () => {
     },
     {
       id: 'announcement3',
+      title: 'Campus Event Next Week',
+      date: '2023-04-25',
+      content: 'Join us for an exciting campus event next week. There will be guest speakers, workshops, and food!',
+      link: 'https://www.example.com/event-details',
+    },
+    {
+      id: 'announcement4',
       title: 'Campus Event Next Week',
       date: '2023-04-25',
       content: 'Join us for an exciting campus event next week. There will be guest speakers, workshops, and food!',
