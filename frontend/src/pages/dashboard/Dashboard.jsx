@@ -674,7 +674,7 @@ const Dashboard = () => {
         <TwoColumnLayout>
           <LearningAnalytics analyticsData={analyticsData} />
         </TwoColumnLayout>
-        <Box>
+        <Box> 
           <AssignmentManagement assignmentData={assignmentData} />
         </Box>
         <Box>

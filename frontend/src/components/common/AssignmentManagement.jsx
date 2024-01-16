@@ -115,7 +115,7 @@ const AssignmentManagement = ({ assignmentData }) => {
       <Heading as="h3" size="lg" mb={6} textAlign="center">
         Assignment Management
       </Heading>
-      <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={2}>
+      <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={2} >
         {assignmentData.map((assignment) => (
           <AssignmentCard key={assignment.id} assignment={assignment} />
         ))}
