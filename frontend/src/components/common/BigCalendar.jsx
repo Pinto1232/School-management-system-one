@@ -2,176 +2,93 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
   Box,
-  Flex,
-  useTheme,
   Heading,
   Button,
   IconButton,
   Tooltip,
   useColorMode,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
-  PopoverHeader,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  Text,
+  useDisclosure,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
+import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
+const localizer = momentLocalizer(moment);
+
 const BigCalendar = ({ events }) => {
-  const localizer = momentLocalizer(moment);
-  const theme = useTheme();
   const { colorMode } = useColorMode();
-  const [popoverEvent, setPopoverEvent] = useState(null);
-  const [showDetails, setShowDetails] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedEvent, setSelectedEvent] = useState(null);
 
-  const customToolbar = (toolbar) => {
-    const goToToday = () => {
-      toolbar.onViewChange("month");
-      toolbar.onNavigate(new Date());
-    };
-
-    return (
-      <Flex
-        justifyContent="space-between"
-        alignItems="center"
-        mb={4}
-        px={4}
-        color={colorMode === "light" ? "gray.700" : "gray.400"}
-      >
-        <Heading as="h3" size="md">
-          {toolbar.label}
-        </Heading>
-
-        <Flex>
-          <Button
-            size="sm"
-            variant="solid"
-            colorScheme="primary"
-            mr={2}
-            onClick={goToToday}
-          >
-            Today
-          </Button>
-
-          <Tooltip label="Previous" placement="top">
-            <IconButton
-              icon={<i className="fas fa-chevron-left" />}
-              size="sm"
-              variant="ghost"
-              aria-label="Previous"
-              onClick={() => toolbar.onNavigate("PREV")}
-            />
-          </Tooltip>
-
-          <Tooltip label="Next" placement="top">
-            <IconButton
-              icon={<i className="fas fa-chevron-right" />}
-              size="sm"
-              variant="ghost"
-              aria-label="Next"
-              onClick={() => toolbar.onNavigate("NEXT")}
-            />
-          </Tooltip>
-        </Flex>
-      </Flex>
-    );
-  };
+  // Define the styles using useColorModeValue at the top level of the component
+  const selectedBackgroundColor = useColorModeValue("#2b6cb0", "#63b3ed");
+  const defaultBackgroundColor = useColorModeValue("#3182ce", "#90cdf4");
 
   const handleEventClick = (event) => {
-    setPopoverEvent(event);
-    setShowDetails(true);
+    setSelectedEvent(event);
+    onOpen();
   };
 
-  const handleClosePopover = () => {
-    setPopoverEvent(null);
-    setShowDetails(true);
-  };
+  const EventModal = () => (
+    <Modal isOpen={isOpen} onClose={onClose} isCentered motionPreset="scale">
+      <ModalOverlay />
+      <ModalContent borderRadius="lg">
+        <ModalHeader fontSize="lg" fontWeight="bold">{selectedEvent?.title}</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody pb={6}>
+          <Text mb={2}>{selectedEvent?.description}</Text>
+          <Text fontWeight="medium">
+            Date: {moment(selectedEvent?.start).format("dddd, MMMM Do YYYY")}
+          </Text>
+          <Text fontWeight="medium">
+            Time: {moment(selectedEvent?.start).format("h:mm a")} -{" "}
+            {moment(selectedEvent?.end).format("h:mm a")}
+          </Text>
+        </ModalBody>
+      </ModalContent>
+    </Modal>
+  );
 
-  const handleCloseDetails = () => {
-    setShowDetails(false);
+  const eventStyleGetter = (event, start, end, isSelected) => {
+    const backgroundColor = isSelected ? selectedBackgroundColor : defaultBackgroundColor;
+    const style = {
+      backgroundColor,
+      borderRadius: "5px",
+      opacity: 0.8,
+      color: "white",
+      border: "0",
+      display: "block",
+    };
+    return {
+      style,
+    };
   };
 
   return (
-    <Box
-      borderWidth={1}
-      borderRadius="md"
-      boxShadow="md"
-      borderColor={colorMode === "light" ? "gray.200" : "gray.600"}
-      p={4}
-    >
-      {!showDetails && (
-        <Calendar
-          localizer={localizer}
-          events={events}
-          startAccessor="start"
-          endAccessor="end"
-          components={{ toolbar: customToolbar }}
-          style={{ height: 500 }}
-          onSelectEvent={handleEventClick}
-        />
-      )}
-
-      {showDetails && (
-        <Box>
-          <Flex
-            justifyContent="space-between"
-            maxW="4xl"
-            border={0}
-            mx="auto"
-            mt={10}
-            borderWidth={1}
-            rounded="md"
-          >
-            <Button onClick={handleCloseDetails}>Back to Events</Button>
-            <Box>Pinto</Box>
-          </Flex>
-
-          <Box mt={4}>
-            {selectedEvent && (
-              <Heading as="h3" size="md">
-                {selectedEvent.title}
-              </Heading>
-            )}
-            <Box>
-              {selectedEvent && <Text>{selectedEvent.description}</Text>}
-              {selectedEvent && (
-                <Text>
-                  {moment(selectedEvent.start).format("dddd, MMMM Do YYYY")}
-                </Text>
-              )}
-
-              {selectedEvent && (
-                <Text>
-                  {moment(selectedEvent.start).format("h:mm a")} -{" "}
-                  {moment(selectedEvent.end).format("h:mm a")}
-                </Text>
-              )}
-            </Box>
-          </Box>
-        </Box>
-      )}
-
-      <Popover
-        isOpen={!!popoverEvent}
-        onClose={handleClosePopover}
-        placement="auto"
-        closeOnBlur={true}
-      >
-        <PopoverTrigger>
-          <div style={{ display: "none" }}></div>
-        </PopoverTrigger>
-        <PopoverContent>
-          <PopoverHeader>{popoverEvent?.title}</PopoverHeader>
-          <PopoverBody>
-            <p>Start Time: {moment(popoverEvent?.start).format("h:mm a")}</p>
-            <p>End Time: {moment(popoverEvent?.end).format("h:mm a")}</p>
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
+    <Box bg={useColorModeValue("white", "gray.800")} p={4} boxShadow="lg">
+      <Heading as="h2" size="xl" mb={4} textAlign="center">
+        Event Calendar
+      </Heading>
+      <Calendar
+        localizer={localizer}
+        events={events}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: "40vh" }}
+        onSelectEvent={handleEventClick}
+        eventPropGetter={eventStyleGetter}
+      />
+      {selectedEvent && <EventModal />}
     </Box>
   );
 };
@@ -179,9 +96,10 @@ const BigCalendar = ({ events }) => {
 BigCalendar.propTypes = {
   events: PropTypes.arrayOf(
     PropTypes.shape({
-      title: PropTypes.string,
-      start: PropTypes.instanceOf(Date),
-      end: PropTypes.instanceOf(Date),
+      title: PropTypes.string.isRequired,
+      start: PropTypes.instanceOf(Date).isRequired,
+      end: PropTypes.instanceOf(Date).isRequired,
+      description: PropTypes.string,
     })
   ).isRequired,
 };
