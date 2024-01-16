@@ -18,7 +18,7 @@ const CommunicationSupport = ({ onMessageClick, onForumClick, faqUrl, contactUrl
     const textColor = useColorModeValue('gray.600', 'gray.200');
 
     return (
-        <Box bg={bgColor} p={5} borderRadius="sm" boxShadow="xl" my={4} mx={4} h={'50vh'}>
+        <Box bg={bgColor} p={5} borderRadius="sm" boxShadow="2xl" my={4} mx={4} h={'50vh'}>
             <VStack spacing={8} align="stretch">
                 <Heading as="h3" size="lg" mb={4}>
                     Communication & Support
