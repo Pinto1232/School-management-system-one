@@ -3,12 +3,12 @@ import * as React from "react";
 import { Box, Icon, Text } from "@chakra-ui/react";
 import { useColorModeValue } from "@chakra-ui/react";
 
-const IconColumn = ({ icon, title, textColor }) => {
+const IconColumn = ({ icon, title, textColor, bgColor }) => {
   const IconColor = useColorModeValue("#fff", "#3182ce");
   const IncosBgColor = useColorModeValue("#319795", "#fff");
 
   return (
-    <Box textAlign="center">
+    <Box textAlign="center" bg={bgColor} p={10} boxShadow="2xl">
       <Icon
         borderRadius="full"
         border="2px solid white"

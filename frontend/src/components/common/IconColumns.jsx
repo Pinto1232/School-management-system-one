@@ -23,32 +23,35 @@ const IconColumns = () => {
   const buttonWidth = useBreakpointValue(BUTTON_WIDTH);
   const textColor = useColorModeValue("#fff", "#fff");
   const containerBackground = useColorModeValue("#319795", "#3182ce");
+  const iconColors = ['#e53e3e', '#dd6b20', '#38a169', '#3182ce']; 
+
 
   return (
     <>
       <Flex
         direction="column" 
         bg={containerBackground}
-        padding={35}
+        padding={10}
         align="center"
         justify="space-between" 
         wrap="wrap"
-        gap={8}
+        gap={20}
       >
         <Heading color={textColor} as={'h3'} mb={15}>What We Offer</Heading>
         <Flex
           wrap="wrap"
           justify="center"
           align="center"
-          gap={20}
+          gap={10}
         >
           {Array.isArray(iconsData) &&
-            iconsData.map((iconData) => (
+            iconsData.map((iconData, index) => (
               <IconColumn
                 key={iconData.id}
                 icon={iconData.icon}
                 title={iconData.title}
                 textColor={iconsTextColor}
+                bgColor={iconColors[index % iconColors.length]}
               />
             ))}
         </Flex>
@@ -57,6 +60,7 @@ const IconColumns = () => {
           width={buttonWidth}
           textColor="#fff"
           mt={10}
+          boxShadow="sm"
         >
           learn more
         </CustomButton>
