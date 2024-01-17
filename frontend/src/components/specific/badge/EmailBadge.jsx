@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Tag, TagLabel, TagLeftIcon } from '@chakra-ui/react';
+import { Box, Tag, TagLabel, TagLeftIcon, useColorModePreference } from '@chakra-ui/react';
 import { EmailIcon } from '@chakra-ui/icons';
 
 const EmailBadge = ({ 
@@ -10,20 +10,23 @@ const EmailBadge = ({
   textColor = "white",
   iconWidth = "12px",
   iconHeight = "12px",
-  count  // Added new prop for the count
+  count
 }) => {
+  const gobleIconBgColor = useColorModePreference("#fff", "#3182ce");
+
+
   return (
     <Tag 
       size="md" 
       width={width}
       height={height}
       bgColor={bgColor}
-      color={textColor}
+      color={gobleIconBgColor}
       variant="subtle" 
       colorScheme="blue"
       justifyContent="center"
       alignItems="center"
-      position="relative"  // Added for positioning the count
+      position="relative" 
     >
       {/* Added Box to display the count */}
       <Box 

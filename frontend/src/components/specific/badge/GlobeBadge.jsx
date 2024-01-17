@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Text, Menu, MenuButton, Button, MenuList, MenuItem } from '@chakra-ui/react';
+import { Box, Text, Menu, MenuButton, Button, MenuList, MenuItem, useColorModePreference } from '@chakra-ui/react';
 import { FaGlobe } from 'react-icons/fa'; // Using react-icons for demonstration
 
 const GlobeBadge = ({
@@ -10,6 +10,7 @@ const GlobeBadge = ({
   textColor = "white",
 }) => {
   const [selectedLanguage, setSelectedLanguage] = useState('English');
+  const gobleIconBgColor = useColorModePreference("#fff", "#3182ce");
 
   return (
     <Box
@@ -19,7 +20,7 @@ const GlobeBadge = ({
       justifyContent="center"
     >
       <Menu>
-        <MenuButton as={Button}>
+        <MenuButton as={Button} bg={gobleIconBgColor}>
           <Box
             width={width}
             height={height}
@@ -27,10 +28,10 @@ const GlobeBadge = ({
             alignItems="center"
             justifyContent="center"
             borderRadius="full"
-            bgColor={bgColor}
-            color={textColor}
+            bgColor={gobleIconBgColor}
+            color={gobleIconBgColor}
           >
-            <FaGlobe /> {/* Using FaGlobe icon */}
+            <FaGlobe />
           </Box>
         </MenuButton>
         <MenuList>
@@ -46,11 +47,11 @@ const GlobeBadge = ({
           position="absolute"
           top="0"
           right="0"
-          bg={bgColor}
-          color={textColor}
+          bg="red.500"
+          color="white"
           borderRadius="full"
-          width="16px"
-          height="16px"
+          width="20px"
+          height="20px"
           display="flex"
           alignItems="center"
           justifyContent="center"
