@@ -9,9 +9,9 @@ function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();
   const backgroundColor = useColorModeValue("white", "gray.900");
   const textColor = useColorModeValue("gray.800", "white");
-  const isLoggedIn = false; // Replace with your authentication logic
-  const location = useLocation(); // Get the current location
-  const onDashboard = location.pathname === '/dashboard'; // Check if the current location is the dashboard
+  const isLoggedIn = false; 
+  const location = useLocation(); 
+  const onDashboard = location.pathname === '/dashboard'; 
   const darkIconBg = useColorModeValue('#319795', 'black.300');
 
   return (
