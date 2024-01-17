@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import IconColumn from "./IconColumn";
 import CustomButton from "./CustomButton";
-import iconsData from "../../data/IconsData"; // import the iconsData array
+import iconsData from "../../data/IconsData";
 
 const ICON_COLUMNS = [4, 3, 2, 1];
 const BUTTON_WIDTH = ["100%", "150px", "200px"];
@@ -37,7 +37,7 @@ const IconColumns = () => {
         wrap="wrap"
         gap={20}
       >
-        <Heading color={textColor} as={'h3'} mb={15}>What We Offer</Heading>
+        <Heading color={textColor} as={'h2'} mb={15}>What We Offer</Heading>
         <Flex
           wrap="wrap"
           justify="center"

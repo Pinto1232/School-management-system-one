@@ -8,7 +8,7 @@ const IconColumn = ({ icon, title, textColor, bgColor }) => {
   const IncosBgColor = useColorModeValue("#319795", "#fff");
 
   return (
-    <Box textAlign="center" bg={bgColor} p={10} boxShadow="2xl">
+    <Box textAlign="center" bg={bgColor} p={10} boxShadow="2xl" borderRadius={'sm'}>
       <Icon
         borderRadius="full"
         border="2px solid white"
@@ -18,7 +18,7 @@ const IconColumn = ({ icon, title, textColor, bgColor }) => {
         color={IconColor}
         p={1}
       />
-      <Text mt={1} color={textColor}>
+      <Text mt={1} fontSize={'larger'} color={textColor}>
         {title}
       </Text>
     </Box>

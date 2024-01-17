@@ -39,6 +39,8 @@ const Footer = ({ SubmitNewsletter }) => {
   );
 
   const [showBanner, setShowBanner] = useState(false);
+  const bgButtonColor = useColorModeValue("#319795", "#3182ce");
+  const innerBgFooter = useColorModeValue("#319795", "#1a202c"); 
 
   useEffect(() => {
     const cookieExists = document.cookie
@@ -59,145 +61,151 @@ const Footer = ({ SubmitNewsletter }) => {
     SubmitNewsletter();
   };
 
-  
+
   const responsivePadding = useBreakpointValue({ base: '16px', md: '263px', lg: '453px' });
 
 
   return (
-    <Box
-      bg={colorModeStyles.backgroundColor}
-      color={colorModeStyles.textColor}
-      p={{ base: 4, md: 8 }}
-      mt={8}
-      w="full"
-    >
-      <Flex
-        direction={{ base: "column", md: "row" }}
-        wrap="wrap"
-        justifyContent="center"
-        alignItems="center"
-        maxW="6xl"
-        mx="auto"
-        mb={4}
-      >
-        {footerLinks.map(({ title, subLinks }, index) => (
-          <VStack
-            key={index}
-            textAlign="center"
-            p={{ base: 4, sm: 6, md: 12 }}
-            spacing={2}
-            alignItems="start"
-          >
-            <Text
-              fontSize={{ base: "sm", sm: "md", md: "xl" }}
-              fontWeight="bold"
-              mb={2}
-            >
-              {title}
-            </Text>
-            {subLinks.map(({ label, href }, index) => (
-              <Link
-                key={index}
-                href={href}
-                fontSize={{ base: "sm", sm: "md", md: "sm" }}
-              >
-                {label}
-              </Link>
-            ))}
-          </VStack>
-        ))}
-      </Flex>
-
-      <Flex
-        justify="flex-start"
-        align="flex-start"
+    <>
+      <Box
+        bg={bgButtonColor}
+        color={colorModeStyles.textColor}
+        p={{ base: 4, md: 8 }}
+        mt={8}
         w="full"
-        px={{ base: 4, md: 8 }}
-        mb={{ base: 4, md: 8 }}
+
       >
-        <AdjustableColumnLayout columns={{ base: 1, md: 2, lg: 5 }}>
-          <Flex align="flex-start" pl={responsivePadding}>
-            <InputFieldComponent
-              placeholder="Subscribe for our newsletter"
-              placeholderTextColor="gray.600"
-              icon={FaEnvelope}
-              inpuFieldWidth="280px"
-              inpuFieldBackgroundColor="gray.200"
-            />
-            <CustomButton
-              bgColor={colorModeStyles.buttonColor}
-              textColor="#fff"
-              width="full"
-              borderRadiusTopRight="10px"
-              borderRadiusBottomRight="10px"
-              borderRadiusTopLeft="0px"
-              borderRadiusBottomLeft="0px"
-
+        <Flex
+          direction={{ base: "column", md: "row" }}
+          wrap="wrap"
+          justifyContent="center"
+          alignItems="center"
+          maxW="6xl"
+          mx="auto"
+          mb={4}
+        >
+          {footerLinks.map(({ title, subLinks }, index) => (
+            <VStack
+              key={index}
+              textAlign="center"
+              p={{ base: 4, sm: 6, md: 12 }}
+              spacing={2}
+              alignItems="start"
             >
-              Submit
-            </CustomButton>
-          </Flex>
-        </AdjustableColumnLayout>
-      </Flex>
+              <Text
+                fontSize={{ base: "sm", sm: "md", md: "xl" }}
+                fontWeight="bold"
+                mb={2}
+              >
+                {title}
+              </Text>
+              {subLinks.map(({ label, href }, index) => (
+                <Link
+                  key={index}
+                  href={href}
+                  fontSize={{ base: "sm", sm: "md", md: "sm" }}
+                >
+                  {label}
+                </Link>
+              ))}
+            </VStack>
+          ))}
+        </Flex>
+
+        <Flex
+          justify="flex-start"
+          align="flex-start"
+          w="full"
+          px={{ base: 4, md: 8 }}
+          mb={{ base: 4, md: 8 }}
+        >
+          <AdjustableColumnLayout columns={{ base: 1, md: 2, lg: 5 }}>
+            <Flex align="flex-start" pl={responsivePadding}>
+              <InputFieldComponent
+                placeholder="Subscribe for our newsletter"
+                placeholderTextColor="gray.600"
+                icon={FaEnvelope}
+                inpuFieldWidth="280px"
+                inpuFieldBackgroundColor="gray.200"
+              />
+              <CustomButton
+                bgColor={colorModeStyles.buttonColor}
+                textColor="#fff"
+                width="full"
+                borderRadiusTopRight="10px"
+                borderRadiusBottomRight="10px"
+                borderRadiusTopLeft="0px"
+                borderRadiusBottomLeft="0px"
+
+              >
+                Submit
+              </CustomButton>
+            </Flex>
+          </AdjustableColumnLayout>
+        </Flex>
 
 
-      {/* {showBanner && (
+        {/* {showBanner && (
         <CookieConsentBanner
           onAccept={handleAccept}
           CookieWidth="full"
           buttonColor="blue"
         />
       )} */}
-      <Divider borderColor="gray.300" my={8} />
-      <Flex
-        direction={{ base: "column-reverse", md: "row" }}
-        justifyContent="space-between"
-        alignItems="center"
-        maxW="1200px"
-        mx="auto"
-        pt={4}
-        px={{ base: 4, md: 8 }}
-      >
-        <Text fontSize={{ base: "sm", sm: "md" }} color="gray.500">
-          © 2023 PintoEd Management. All rights reserved.
-        </Text>
-        <Flex gap={2}>
-          <ShippingAndPaymentIcons
-            icons={ShippingAndPaymentData}
-            iconSize={12}
-          />
-          <HStack spacing={4}>
-            <IconButton
-              aria-label="Facebook"
-              icon={<FaFacebook />}
-              size="md"
-              variant="ghost"
-              colorScheme="gray"
-              color={colorModeStyles.footerIcons}
-              fontSize={25}
+        <Divider borderColor="gray.300" />
+      </Box>
+
+      <Box bg={innerBgFooter}p={2}>
+        <Flex
+          direction={{ base: "column-reverse", md: "row" }}
+          justifyContent="space-between"
+          alignItems="center"
+          maxW="1200px"
+          mx="auto"
+          pt={4}
+          px={{ base: 4, md: 8 }}
+        >
+          <Text fontSize={{ base: "sm", sm: "md" }} color="gray.500">
+            © 2023 PintoEd Management. All rights reserved.
+          </Text>
+          <Flex gap={2}>
+            <ShippingAndPaymentIcons
+              icons={ShippingAndPaymentData}
+              iconSize={12}
             />
-            <IconButton
-              aria-label="Twitter"
-              icon={<FaTwitter />}
-              size="md"
-              variant="ghost"
-              colorScheme="gray"
-              color={colorModeStyles.footerIcons}
-              fontSize={25}
-            />
-            <IconButton
-              aria-label="Instagram"
-              icon={<FaInstagram />}
-              size="sm"
-              variant="ghost"
-              colorScheme="gray"
-              color={colorModeStyles.footerIcons}
-              fontSize={25}
-            />
-          </HStack>
+            <HStack spacing={4}>
+              <IconButton
+                aria-label="Facebook"
+                icon={<FaFacebook />}
+                size="md"
+                variant="ghost"
+                colorScheme="gray"
+                color={colorModeStyles.footerIcons}
+                fontSize={25}
+              />
+              <IconButton
+                aria-label="Twitter"
+                icon={<FaTwitter />}
+                size="md"
+                variant="ghost"
+                colorScheme="gray"
+                color={colorModeStyles.footerIcons}
+                fontSize={25}
+              />
+              <IconButton
+                aria-label="Instagram"
+                icon={<FaInstagram />}
+                size="sm"
+                variant="ghost"
+                colorScheme="gray"
+                color={colorModeStyles.footerIcons}
+                fontSize={25}
+              />
+            </HStack>
+          </Flex>
         </Flex>
-      </Flex>
-    </Box>
+      </Box>
+    </>
   );
 };
 
