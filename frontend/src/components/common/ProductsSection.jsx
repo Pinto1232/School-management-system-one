@@ -38,12 +38,12 @@ const ProductsSection = ({
   console.log('Unique products:', uniqueProducts);
 
   return (
-    <Box py={12} minW={gridCard} mx="auto">
+    <Box py={12} minW={gridCard} mx="auto"> 
       <Box textAlign="center" mb={12}>
         <Heading as="h2" size="xl" mb={4}>{heading}</Heading>
         <Text fontSize="xl">{subheading}</Text>
       </Box>
-      <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={3}>
+      <SimpleGrid  columns={{ base: 1, sm: 2, md: 3 }} spacing={3}>
       {uniqueProducts.map((product) => (
           <Flex
             key={product._id}
@@ -53,6 +53,7 @@ const ProductsSection = ({
             borderRadius="lg"
             color={textColor}
             overflow="hidden"
+            boxShadow="2xl"
           >
             {product.images.map((image, id) => (
               <Image

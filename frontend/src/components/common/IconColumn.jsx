@@ -16,9 +16,9 @@ const IconColumn = ({ icon, title, textColor }) => {
         boxSize={16}
         bg={IncosBgColor}
         color={IconColor}
-        p={2}
+        p={1}
       />
-      <Text mt={2} color={textColor}>
+      <Text mt={1} color={textColor}>
         {title}
       </Text>
     </Box>
