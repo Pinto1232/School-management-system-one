@@ -30,6 +30,7 @@ import Announcements from "../../components/common/Announcements";
 import PdfGallery from "../../components/common/PdfGallery";
 import CommunicationSupport from "../../components/common/CommunicationSupport";
 import BigCalendar from "../../components/common/BigCalendar";
+import Collaborative from "../../components/common/Collaborative";
 
 
 
@@ -716,6 +717,12 @@ const Dashboard = () => {
             <BigCalendar events={myEvents} />
           </Box>
         </Flex>
+        <Box p={5}>
+            <Collaborative 
+                 documentId="doc1"
+                 currentUser={{ id: 'user1', name: 'Alice', avatarUrl: 'https://i.pravatar.cc/150?img=1', role: 'instructor' }}
+            />
+          </Box>
       </Box>;
       break;
     case 'teachers':

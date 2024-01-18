@@ -52,7 +52,7 @@ function Navbar() {
           )}
 
           {/* Right-aligned items */}
-          <Flex align="center" ml={320} flex="1" justifyContent={onDashboard ? "flex-end" : "space-between"}>
+          <Flex align="center" flex="1" justifyContent={onDashboard ? "flex-end" : "space-between"}>
             {/* SearchBar */}
             <Box minWidth="0" flexGrow={1}>
               <SearchBar />

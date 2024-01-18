@@ -86,7 +86,7 @@ const BigCalendar = ({ events }) => {
         events={events}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: "45vh" }}
+        style={{ minHeight: "48vh" }}
         onSelectEvent={handleEventClick}
         eventPropGetter={eventStyleGetter}
       />
