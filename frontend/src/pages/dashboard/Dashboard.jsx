@@ -310,6 +310,31 @@ const pdfFiles = [
 ];
 console.log("pdf files", pdfFiles)
 
+// Grade Data
+const GradeData = {
+  studentName: 'John Doe',
+  GPA: 3.8,
+  cumulativeGrade: 'A',
+  courses: [
+    {
+      name: 'Mathematics',
+      grade: 'A',
+      assessments: [
+        { type: 'Assignment', name: 'Homework 1', grade: 'A', dueDate: '2023-04-10', submitted: true, feedback: 'Great work!' },
+        { type: 'Quiz', name: 'Quiz 1', grade: 'B+', dueDate: '2023-04-15', submitted: true, feedback: 'Good effort, but watch out for minor errors.' },
+      ],
+    },
+    {
+      name: 'History',
+      grade: 'B+',
+      assessments: [
+        { type: 'Essay', name: 'Essay on WWI', grade: 'B', dueDate: '2023-04-20', submitted: true, feedback: 'Well-researched essay.' },
+        { type: 'Exam', name: 'Midterm Exam', grade: 'A-', dueDate: '2023-04-25', submitted: true, feedback: 'Excellent understanding of the material.' },
+      ],
+    },
+  ],
+};
+
 
 
 
@@ -696,7 +721,8 @@ const Dashboard = () => {
             assignmentData={assignmentData}
             courses={courses}
             announcements={announcements}
-            myEvents={myEvents} 
+            myEvents={myEvents}
+            GradeData={GradeData} 
           />
         </Box>
         <Box p={4} bg={'gray.200'}>
