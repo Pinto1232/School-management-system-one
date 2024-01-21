@@ -343,7 +343,7 @@ const allGradeData = {
     ],
   },
 };
-
+console.log("Grade data", allGradeData)
 
 
 const Dashboard = () => {
