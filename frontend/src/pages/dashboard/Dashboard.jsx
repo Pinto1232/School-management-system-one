@@ -23,14 +23,13 @@ import Calendar from "../../components/common/Calendar";
 import CourseCard from "../../components/common/CourseCard";
 import StatisticsCard from "../../components/common/StatisticsCard";
 import { TopBar } from "./TopBar";
-import CourseOverview from "../../components/common/CourseOverview";
 import LearningAnalytics from "../../components/common/LearningAnalytics";
-import AssignmentManagement from "../../components/common/AssignmentManagement";
 import Announcements from "../../components/common/Announcements";
 import PdfGallery from "../../components/common/PdfGallery";
 import CommunicationSupport from "../../components/common/CommunicationSupport";
 import BigCalendar from "../../components/common/BigCalendar";
 import Collaborative from "../../components/common/Collaborative";
+import StudentTabs from "../../components/specific/studentTab/StudentTabs";
 
 
 
@@ -182,44 +181,6 @@ const Dashboard = () => {
   ];
   console.log("Student data", students)
 
-  const courses = [
-    {
-      id: 'course1',
-      name: 'Introduction to Programming',
-      description: 'Learn the basics of programming with this introductory course.',
-      assignments: [
-        { id: 'assignment1', name: 'Homework #1', dueDate: '2023-05-10' },
-        { id: 'assignment2', name: 'Project #1', dueDate: '2023-05-24' },
-      ],
-      materialsLink: '/course1/materials',
-      gradesLink: '/course1/grades',
-    },
-    {
-      id: 'course2',
-      name: 'Introduction to Programming',
-      description: 'Learn the basics of programming with this introductory course.',
-      assignments: [
-        { id: 'assignment1', name: 'Homework #1', dueDate: '2023-05-10' },
-        { id: 'assignment2', name: 'Project #1', dueDate: '2023-05-24' },
-      ],
-      materialsLink: '/course1/materials',
-      gradesLink: '/course1/grades',
-    },
-    {
-      id: 'course3',
-      name: 'Introduction to Programming',
-      description: 'Learn the basics of programming with this introductory course.',
-      assignments: [
-        { id: 'assignment1', name: 'Homework #1', dueDate: '2023-05-10' },
-        { id: 'assignment2', name: 'Project #1', dueDate: '2023-05-24' },
-      ],
-      materialsLink: '/course1/materials',
-      gradesLink: '/course1/grades',
-    },
-
-  ];
-  console.log("Course data", courses)
-
 
   const analyticsData = [
     {
@@ -257,53 +218,6 @@ const Dashboard = () => {
   ];
   console.log("Analytics data", analyticsData)
 
-
-  // Assignment Management
-  const assignmentData = [
-    {
-      id: 'assignment1',
-      name: 'Essay on History',
-      dueDate: '2023-05-10',
-      description: 'Write an essay on the history of...',
-      isSubmitted: false,
-    },
-    {
-      id: 'assignment2',
-      name: 'Essay on History',
-      dueDate: '2023-05-10',
-      description: 'Write an essay on the history of...',
-      isSubmitted: false,
-    },
-    {
-      id: 'assignment3',
-      name: 'Essay on History',
-      dueDate: '2023-05-10',
-      description: 'Write an essay on the history of...',
-      isSubmitted: false,
-    },
-    {
-      id: 'assignment4',
-      name: 'Essay on History',
-      dueDate: '2023-05-10',
-      description: 'Write an essay on the history of...',
-      isSubmitted: false,
-    },
-    {
-      id: 'assignment5',
-      name: 'Essay on History',
-      dueDate: '2023-05-10',
-      description: 'Write an essay on the history of...',
-      isSubmitted: false,
-    },
-    {
-      id: 'assignment6',
-      name: 'Essay on History',
-      dueDate: '2023-05-10',
-      description: 'Write an essay on the history of...',
-      isSubmitted: false,
-    },
-  ];
-  console.log("Assignment data", assignmentData)
 
   // Anouncement Data
   const announcements = [
@@ -689,12 +603,10 @@ const Dashboard = () => {
         <TwoColumnLayout>
           <LearningAnalytics analyticsData={analyticsData} />
         </TwoColumnLayout>
-        <Box> 
-          <AssignmentManagement assignmentData={assignmentData} />
+        <Box p={5} bg={'white'}>
+          <StudentTabs />
         </Box>
-        <Box>
-          <CourseOverview courses={courses} onCourseClick={(courseId) => console.log(`Course clicked: ${courseId}`)} />
-        </Box>
+        
         <Box bg={'gray.200'}>
           <Announcements announcements={announcements} />
         </Box>
@@ -718,11 +630,11 @@ const Dashboard = () => {
           </Box>
         </Flex>
         <Box p={5}>
-            <Collaborative 
-                 documentId="doc1"
-                 currentUser={{ id: 'user1', name: 'Alice', avatarUrl: 'https://i.pravatar.cc/150?img=1', role: 'instructor' }}
-            />
-          </Box>
+          <Collaborative
+            documentId="doc1"
+            currentUser={{ id: 'user1', name: 'Alice', avatarUrl: 'https://i.pravatar.cc/150?img=1', role: 'instructor' }}
+          />
+        </Box>
       </Box>;
       break;
     case 'teachers':
