@@ -42,7 +42,7 @@ const BigCalendar = ({ events }) => {
   const EventModal = () => (
     <Modal isOpen={isOpen} onClose={onClose} isCentered motionPreset="slideInBottom">
       <ModalOverlay />
-      <ModalContent borderRadius="xl" mx={4} bg={useColorModeValue('white', 'gray.800')} boxShadow="2xl">
+      <ModalContent mx={4} bg={useColorModeValue('white', 'gray.800')} boxShadow="2xl">
         <ModalHeader borderBottomWidth="1px" fontWeight="bold" fontSize="2xl" bg={useColorModeValue('blue.500', 'blue.600')} color="white">
           {selectedEvent?.title}
         </ModalHeader>

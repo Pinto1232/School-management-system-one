@@ -262,7 +262,7 @@ const pdfFiles = [
   },
   {
     id: 'pdf2',
-    title: 'Introduction to Algorithms',
+    title: 'Introduction to Java',
     thumbnail: '/thumbnails/algorithms-thumbnail.jpg',
     url: '/pdfs/introduction-to-algorithms.pdf',
     isFree: true
@@ -280,7 +280,7 @@ const pdfFiles = [
   },
   {
     id: 'pdf4',
-    title: 'Advanced Chemistry',
+    title: 'Advanced React Js',
     thumbnail: '/thumbnails/advanced-chemistry-thumbnail.jpg',
     url: '/pdfs/advanced-chemistry.pdf',
     isFree: false,
@@ -291,14 +291,14 @@ const pdfFiles = [
   },
   {
     id: 'pdf5',
-    title: 'Introduction to Algorithms',
+    title: 'Introduction to MuSQL',
     thumbnail: '/thumbnails/algorithms-thumbnail.jpg',
     url: '/pdfs/introduction-to-algorithms.pdf',
     isFree: true
   },
   {
     id: 'pdf6',
-    title: 'Advanced Chemistry',
+    title: 'Advanced JavaScript',
     thumbnail: '/thumbnails/advanced-chemistry-thumbnail.jpg',
     url: '/pdfs/advanced-chemistry.pdf',
     isFree: false,
@@ -309,6 +309,7 @@ const pdfFiles = [
   },
 ];
 console.log("pdf files", pdfFiles)
+
 
 
 
