@@ -8,7 +8,7 @@ import { FaUserCircle, FaBookOpen, FaCalendarAlt, FaBullhorn, FaTasks, FaChalkbo
 import StudentGrades from '../grade/StudentGrades';
 
 
-const StudentTabs = ({ assignmentData, courses, announcements, myEvents, GradeData }) => {
+const StudentTabs = ({ assignmentData, courses, announcements, myEvents, allGradeData  }) => {
     return (
         <Tabs isFitted variant="enclosed" colorScheme="teal">
             <TabList mb="1em" border="none">
@@ -47,7 +47,7 @@ const StudentTabs = ({ assignmentData, courses, announcements, myEvents, GradeDa
                 <TabPanel>
                     <Box p={5} shadow="sm" borderWidth="1px" borderRadius="md">
                         <Text fontSize="lg" fontWeight="semibold">Student Grades</Text>
-                        <StudentGrades  GradeData={GradeData}/>
+                        <StudentGrades  allGradeData={allGradeData} />
                     </Box>
                 </TabPanel>
                 <TabPanel>

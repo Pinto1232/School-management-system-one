@@ -1,8 +1,9 @@
-import React from 'react';
-import { Box, Text, VStack, HStack, Progress, Divider, Badge, Icon } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Box, Text, VStack, HStack, Progress, Divider, Badge, Icon, Select } from '@chakra-ui/react';
 import { CheckCircleIcon, TimeIcon } from '@chakra-ui/icons';
 import GradeDistributionChart from './GradeDistributionChart';
 
+// Example grade distribution data
 const gradeDistributionData = {
     'A': 10,
     'B+': 15,
@@ -13,7 +14,11 @@ const gradeDistributionData = {
     'F': 1,
 };
 
-const StudentGrades = ({ GradeData }) => {
+
+
+const StudentGrades = ({ allGradeData }) => {
+    const [selectedSemester, setSelectedSemester] = useState(Object.keys(allGradeData)[0]);
+    const GradeData = allGradeData[selectedSemester];
     return (
         <VStack spacing={8} align="stretch">
             <Box p={6} shadow="2xl" borderWidth="1px" borderRadius="2xl" borderColor="gray.300" bgGradient="linear(to-r, blue.200, blue.100)">
@@ -27,6 +32,13 @@ const StudentGrades = ({ GradeData }) => {
             <Box p={6} shadow="2xl" borderWidth="1px" borderRadius="2xl" borderColor="gray.300" bg="white">
                 <Text fontSize="2xl" fontWeight="bold" mb={4}>Grade Distribution</Text>
                 <GradeDistributionChart distributionData={gradeDistributionData} />
+            </Box>
+            <Box p={4}>
+                <Select placeholder="Select semester" value={selectedSemester} onChange={(e) => setSelectedSemester(e.target.value)}>
+                    {Object.keys(allGradeData).map((semester) => (
+                        <option key={semester} value={semester}>{semester}</option>
+                    ))}
+                </Select>
             </Box>
             {GradeData.courses.map((course) => (
                 <Box key={course.name} p={6} shadow="2xl" borderWidth="1px" borderRadius="2xl" borderColor="gray.300" bg="white" width="100%">
