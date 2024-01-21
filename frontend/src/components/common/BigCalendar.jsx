@@ -78,9 +78,6 @@ const BigCalendar = ({ events }) => {
 
   return (
     <Box bg={useColorModeValue("white", "gray.800")} p={4} boxShadow="2lg">
-      <Heading as="h2" size="xl" mb={4} textAlign="center">
-        Event Calendar
-      </Heading>
       <Calendar
         localizer={localizer}
         events={events}

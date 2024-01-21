@@ -24,12 +24,291 @@ import CourseCard from "../../components/common/CourseCard";
 import StatisticsCard from "../../components/common/StatisticsCard";
 import { TopBar } from "./TopBar";
 import LearningAnalytics from "../../components/common/LearningAnalytics";
-import Announcements from "../../components/common/Announcements";
 import PdfGallery from "../../components/common/PdfGallery";
 import CommunicationSupport from "../../components/common/CommunicationSupport";
 import BigCalendar from "../../components/common/BigCalendar";
 import Collaborative from "../../components/common/Collaborative";
 import StudentTabs from "../../components/specific/studentTab/StudentTabs";
+
+
+
+// Attendance
+const assignments = [
+  { subject: "Mathematics", percentage: 75 },
+  { subject: "Programming", percentage: 90 },
+  { subject: "Biology", percentage: 50 },
+];
+console.log("Assignment data", assignments)
+
+// Define the initial data for the chart
+const initialData = {
+  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  datasets: [
+    {
+      label: 'Performance',
+      data: [65, 59, 80, 81, 56, 55, 40],
+      fill: false,
+      borderColor: 'rgb(75, 192, 192)',
+      tension: 0.1,
+    },
+  ],
+};
+console.log("Initial data", initialData)
+
+// Define the options for the chart
+const options = {
+  scales: {
+    y: {
+      beginAtZero: true,
+    },
+  },
+};
+console.log("Chart options data", options)
+
+
+// Leadership
+const students = [
+  {
+    id: 1,
+    imageUrl: 'path/to/image1.jpg',
+    percentage: 85,
+    changeDirection: 'up',
+  },
+  {
+    id: 2,
+    imageUrl: 'path/to/image2.jpg',
+    percentage: 5,
+    changeDirection: 'down',
+  },
+  {
+    id: 3,
+    imageUrl: 'path/to/image2.jpg',
+    percentage: 40,
+    changeDirection: 'up',
+  },
+  {
+    id: 4,
+    imageUrl: 'path/to/image2.jpg',
+    percentage: 20,
+    changeDirection: 'up',
+  },
+];
+console.log("Student data", students)
+
+const courses = [
+  {
+    id: 'course1',
+    name: 'Introduction to Programming',
+    description: 'Learn the basics of programming with this introductory course.',
+    assignments: [
+      { id: 'assignment1', name: 'Homework #1', dueDate: '2023-05-10' },
+      { id: 'assignment2', name: 'Project #1', dueDate: '2023-05-24' },
+    ],
+    materialsLink: '/course1/materials',
+    gradesLink: '/course1/grades',
+  },
+  {
+    id: 'course2',
+    name: 'Introduction to Programming',
+    description: 'Learn the basics of programming with this introductory course.',
+    assignments: [
+      { id: 'assignment1', name: 'Homework #1', dueDate: '2023-05-10' },
+      { id: 'assignment2', name: 'Project #1', dueDate: '2023-05-24' },
+    ],
+    materialsLink: '/course1/materials',
+    gradesLink: '/course1/grades',
+  },
+  {
+    id: 'course3',
+    name: 'Introduction to Programming',
+    description: 'Learn the basics of programming with this introductory course.',
+    assignments: [
+      { id: 'assignment1', name: 'Homework #1', dueDate: '2023-05-10' },
+      { id: 'assignment2', name: 'Project #1', dueDate: '2023-05-24' },
+    ],
+    materialsLink: '/course1/materials',
+    gradesLink: '/course1/grades',
+  },
+
+];
+console.log("Course data", courses)
+
+
+const analyticsData = [
+  {
+    component: 'Videos',
+    timeSpent: 120 // Time spent in minutes
+  },
+  {
+    component: 'Quizzes',
+    timeSpent: 60
+  },
+  {
+    component: 'Discussions',
+    timeSpent: 90
+  },
+  {
+    component: 'Books',
+    timeSpent: 120
+  },
+  {
+    component: 'Public discusions',
+    timeSpent: 90
+  },
+  {
+    component: 'Oral Debate',
+    timeSpent: 90
+  },
+  {
+    component: 'Art discusions',
+    timeSpent: 90
+  },
+  {
+    component: 'Public speech',
+    timeSpent: 90
+  },
+];
+console.log("Analytics data", analyticsData)
+
+
+// Assignment Management
+const assignmentData = [
+  {
+    id: 'assignment1',
+    name: 'Essay on History',
+    dueDate: '2023-05-10',
+    description: 'Write an essay on the history of...',
+    isSubmitted: false,
+  },
+  {
+    id: 'assignment2',
+    name: 'Essay on History',
+    dueDate: '2023-05-10',
+    description: 'Write an essay on the history of...',
+    isSubmitted: false,
+  },
+  {
+    id: 'assignment3',
+    name: 'Essay on History',
+    dueDate: '2023-05-10',
+    description: 'Write an essay on the history of...',
+    isSubmitted: false,
+  },
+  {
+    id: 'assignment4',
+    name: 'Essay on History',
+    dueDate: '2023-05-10',
+    description: 'Write an essay on the history of...',
+    isSubmitted: false,
+  },
+  {
+    id: 'assignment5',
+    name: 'Essay on History',
+    dueDate: '2023-05-10',
+    description: 'Write an essay on the history of...',
+    isSubmitted: false,
+  },
+  {
+    id: 'assignment6',
+    name: 'Essay on History',
+    dueDate: '2023-05-10',
+    description: 'Write an essay on the history of...',
+    isSubmitted: false,
+  },
+];
+console.log("Assignment data", assignmentData)
+
+// Anouncement Data
+const announcements = [
+  {
+    id: 'announcement1',
+    title: 'Campus Event Next Week',
+    date: '2023-04-25',
+    content: 'Join us for an exciting campus event next week. There will be guest speakers, workshops, and food!',
+    link: 'https://www.example.com/event-details',
+  },
+  {
+    id: 'announcement2',
+    title: 'Campus Event Next Week',
+    date: '2023-04-25',
+    content: 'Join us for an exciting campus event next week. There will be guest speakers, workshops, and food!',
+    link: 'https://www.example.com/event-details',
+  },
+  {
+    id: 'announcement3',
+    title: 'Campus Event Next Week',
+    date: '2023-04-25',
+    content: 'Join us for an exciting campus event next week. There will be guest speakers, workshops, and food!',
+    link: 'https://www.example.com/event-details',
+  },
+  {
+    id: 'announcement4',
+    title: 'Campus Event Next Week',
+    date: '2023-04-25',
+    content: 'Join us for an exciting campus event next week. There will be guest speakers, workshops, and food!',
+    link: 'https://www.example.com/event-details',
+  },
+];
+console.log("Announcement", announcements)
+
+//pdf Viewer
+const pdfFiles = [
+  {
+    id: 'pdf1',
+    title: 'Introduction to Algorithms',
+    thumbnail: '/thumbnails/algorithms-thumbnail.jpg',
+    url: '/pdfs/introduction-to-algorithms.pdf',
+    isFree: true
+  },
+  {
+    id: 'pdf2',
+    title: 'Introduction to Algorithms',
+    thumbnail: '/thumbnails/algorithms-thumbnail.jpg',
+    url: '/pdfs/introduction-to-algorithms.pdf',
+    isFree: true
+  },
+  {
+    id: 'pdf3',
+    title: 'Advanced Chemistry',
+    thumbnail: '/thumbnails/advanced-chemistry-thumbnail.jpg',
+    url: '/pdfs/advanced-chemistry.pdf',
+    isFree: false,
+    price: '30.99',
+    onPurchase: () => {
+      console.log('Initiate purchase for Advanced Chemistry');
+    }
+  },
+  {
+    id: 'pdf4',
+    title: 'Advanced Chemistry',
+    thumbnail: '/thumbnails/advanced-chemistry-thumbnail.jpg',
+    url: '/pdfs/advanced-chemistry.pdf',
+    isFree: false,
+    price: '20.99',
+    onPurchase: () => {
+      console.log('Initiate purchase for Advanced Chemistry');
+    }
+  },
+  {
+    id: 'pdf5',
+    title: 'Introduction to Algorithms',
+    thumbnail: '/thumbnails/algorithms-thumbnail.jpg',
+    url: '/pdfs/introduction-to-algorithms.pdf',
+    isFree: true
+  },
+  {
+    id: 'pdf6',
+    title: 'Advanced Chemistry',
+    thumbnail: '/thumbnails/advanced-chemistry-thumbnail.jpg',
+    url: '/pdfs/advanced-chemistry.pdf',
+    isFree: false,
+    price: '19.99',
+    onPurchase: () => {
+      console.log('Initiate purchase for Advanced Chemistry');
+    }
+  },
+];
+console.log("pdf files", pdfFiles)
 
 
 
@@ -118,198 +397,6 @@ const Dashboard = () => {
   /* Email count */
   const emailCount = 5;
 
-  // Attendance
-  const assignments = [
-    { subject: "Mathematics", percentage: 75 },
-    { subject: "Programming", percentage: 90 },
-    { subject: "Biology", percentage: 50 },
-  ];
-  console.log("Assignment data", assignments)
-
-  // Define the initial data for the chart
-  const initialData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-      {
-        label: 'Performance',
-        data: [65, 59, 80, 81, 56, 55, 40],
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1,
-      },
-    ],
-  };
-  console.log("Initial data", initialData)
-
-  // Define the options for the chart
-  const options = {
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  };
-  console.log("Chart options data", options)
-
-
-  // Leadership
-  const students = [
-    {
-      id: 1,
-      imageUrl: 'path/to/image1.jpg',
-      percentage: 85,
-      changeDirection: 'up',
-    },
-    {
-      id: 2,
-      imageUrl: 'path/to/image2.jpg',
-      percentage: 5,
-      changeDirection: 'down',
-    },
-    {
-      id: 3,
-      imageUrl: 'path/to/image2.jpg',
-      percentage: 40,
-      changeDirection: 'up',
-    },
-    {
-      id: 4,
-      imageUrl: 'path/to/image2.jpg',
-      percentage: 20,
-      changeDirection: 'up',
-    },
-  ];
-  console.log("Student data", students)
-
-
-  const analyticsData = [
-    {
-      component: 'Videos',
-      timeSpent: 120 // Time spent in minutes
-    },
-    {
-      component: 'Quizzes',
-      timeSpent: 60
-    },
-    {
-      component: 'Discussions',
-      timeSpent: 90
-    },
-    {
-      component: 'Books',
-      timeSpent: 120
-    },
-    {
-      component: 'Public discusions',
-      timeSpent: 90
-    },
-    {
-      component: 'Oral Debate',
-      timeSpent: 90
-    },
-    {
-      component: 'Art discusions',
-      timeSpent: 90
-    },
-    {
-      component: 'Public speech',
-      timeSpent: 90
-    },
-  ];
-  console.log("Analytics data", analyticsData)
-
-
-  // Anouncement Data
-  const announcements = [
-    {
-      id: 'announcement1',
-      title: 'Campus Event Next Week',
-      date: '2023-04-25',
-      content: 'Join us for an exciting campus event next week. There will be guest speakers, workshops, and food!',
-      link: 'https://www.example.com/event-details',
-    },
-    {
-      id: 'announcement2',
-      title: 'Campus Event Next Week',
-      date: '2023-04-25',
-      content: 'Join us for an exciting campus event next week. There will be guest speakers, workshops, and food!',
-      link: 'https://www.example.com/event-details',
-    },
-    {
-      id: 'announcement3',
-      title: 'Campus Event Next Week',
-      date: '2023-04-25',
-      content: 'Join us for an exciting campus event next week. There will be guest speakers, workshops, and food!',
-      link: 'https://www.example.com/event-details',
-    },
-    {
-      id: 'announcement4',
-      title: 'Campus Event Next Week',
-      date: '2023-04-25',
-      content: 'Join us for an exciting campus event next week. There will be guest speakers, workshops, and food!',
-      link: 'https://www.example.com/event-details',
-    },
-  ];
-  console.log("Announcement", announcements)
-
-  //pdf Viewer
-  const pdfFiles = [
-    {
-      id: 'pdf1',
-      title: 'Introduction to Algorithms',
-      thumbnail: '/thumbnails/algorithms-thumbnail.jpg',
-      url: '/pdfs/introduction-to-algorithms.pdf',
-      isFree: true
-    },
-    {
-      id: 'pdf2',
-      title: 'Introduction to Algorithms',
-      thumbnail: '/thumbnails/algorithms-thumbnail.jpg',
-      url: '/pdfs/introduction-to-algorithms.pdf',
-      isFree: true
-    },
-    {
-      id: 'pdf3',
-      title: 'Advanced Chemistry',
-      thumbnail: '/thumbnails/advanced-chemistry-thumbnail.jpg',
-      url: '/pdfs/advanced-chemistry.pdf',
-      isFree: false,
-      price: '30.99',
-      onPurchase: () => {
-        console.log('Initiate purchase for Advanced Chemistry');
-      }
-    },
-    {
-      id: 'pdf4',
-      title: 'Advanced Chemistry',
-      thumbnail: '/thumbnails/advanced-chemistry-thumbnail.jpg',
-      url: '/pdfs/advanced-chemistry.pdf',
-      isFree: false,
-      price: '20.99',
-      onPurchase: () => {
-        console.log('Initiate purchase for Advanced Chemistry');
-      }
-    },
-    {
-      id: 'pdf5',
-      title: 'Introduction to Algorithms',
-      thumbnail: '/thumbnails/algorithms-thumbnail.jpg',
-      url: '/pdfs/introduction-to-algorithms.pdf',
-      isFree: true
-    },
-    {
-      id: 'pdf6',
-      title: 'Advanced Chemistry',
-      thumbnail: '/thumbnails/advanced-chemistry-thumbnail.jpg',
-      url: '/pdfs/advanced-chemistry.pdf',
-      isFree: false,
-      price: '19.99',
-      onPurchase: () => {
-        console.log('Initiate purchase for Advanced Chemistry');
-      }
-    },
-  ];
-  console.log("pdf files", pdfFiles)
 
   // My events
   const currentDate = new Date();
@@ -604,16 +691,14 @@ const Dashboard = () => {
           <LearningAnalytics analyticsData={analyticsData} />
         </TwoColumnLayout>
         <Box p={5} bg={'white'}>
-          <StudentTabs />
-        </Box>
-        
-        <Box bg={'gray.200'}>
-          <Announcements announcements={announcements} />
+          <StudentTabs
+            assignmentData={assignmentData}
+            courses={courses}
+            announcements={announcements}
+            events={myEvents}
+          />
         </Box>
         <Box p={4} bg={'gray.200'}>
-          <Heading as="h3" size="lg" mb={4}>
-            Materials
-          </Heading>
           <PdfGallery files={pdfFiles} />
         </Box>
         <Flex w="100%">
@@ -625,16 +710,7 @@ const Dashboard = () => {
               contactUrl="https://www.example.com/contact"
             />
           </Box>
-          <Box flex="7" minW="0" p={5}>
-            <BigCalendar events={myEvents} />
-          </Box>
         </Flex>
-        <Box p={5}>
-          <Collaborative
-            documentId="doc1"
-            currentUser={{ id: 'user1', name: 'Alice', avatarUrl: 'https://i.pravatar.cc/150?img=1', role: 'instructor' }}
-          />
-        </Box>
       </Box>;
       break;
     case 'teachers':

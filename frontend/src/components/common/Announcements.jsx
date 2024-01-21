@@ -39,11 +39,13 @@ const AnnouncementCard = ({ announcement }) => {
 };
 
 const Announcements = ({ announcements }) => {
+    if (!Array.isArray(announcements)) {
+        // Handle the case where announcements is not an array
+        return <Box p={5}>No announcements available.</Box>;
+    }
+
     return (
         <Box p={5}>
-            <Heading as="h3" size="lg" mb={6} textAlign="start">
-                Announcements
-            </Heading>
             <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing={5}>
                 {announcements.map((announcement) => (
                     <AnnouncementCard key={announcement.id} announcement={announcement} />

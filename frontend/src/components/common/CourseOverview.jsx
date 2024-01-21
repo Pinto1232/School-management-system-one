@@ -45,9 +45,6 @@ const CourseCard = ({ course }) => {
 const CourseOverview = ({ courses }) => {
   return (
     <Box p={3}>
-      <Heading as="h3" size="lg" mb={6}>
-        Course Overview
-      </Heading>
       <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5}>
         {courses.map((course) => (
           <CourseCard key={course.id} course={course} />
