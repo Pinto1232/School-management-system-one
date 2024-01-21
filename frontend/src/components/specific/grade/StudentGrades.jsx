@@ -3,7 +3,6 @@ import { Box, Text, VStack, HStack, Progress, Divider, Badge, Icon } from '@chak
 import { CheckCircleIcon, TimeIcon } from '@chakra-ui/icons';
 import GradeDistributionChart from './GradeDistributionChart';
 
-
 const gradeDistributionData = {
     'A': 10,
     'B+': 15,
@@ -30,17 +29,17 @@ const StudentGrades = ({ GradeData }) => {
                 <GradeDistributionChart distributionData={gradeDistributionData} />
             </Box>
             {GradeData.courses.map((course) => (
-                <Box key={course.name} p={6} shadow="2xl" borderWidth="1px" borderRadius="2xl" borderColor="gray.300" bg="white">
+                <Box key={course.name} p={6} shadow="2xl" borderWidth="1px" borderRadius="2xl" borderColor="gray.300" bg="white" width="100%">
                     <Text fontSize="2xl" fontWeight="bold" color="gray.800">{course.name}</Text>
                     <Text fontSize="lg" fontWeight="medium" color="gray.600" mt={2}>Course Grade: <Badge colorScheme="blue" ml={1}>{course.grade}</Badge></Text>
                     <Divider my={4} borderColor="gray.400" />
-                    <VStack spacing={5}>
+                    <VStack spacing={5} width="100%">
                         {course.assessments.map((assessment) => (
-                            <HStack key={assessment.name} justify="space-between" p={4} borderWidth="1px" borderRadius="lg" borderColor="gray.300" bg="gray.50" transition="background-color 0.2s">
-                                <VStack align="start" spacing={2}>
-                                    <HStack>
+                            <HStack key={assessment.name} justify="space-between" p={4} borderWidth="1px" borderRadius="lg" borderColor="gray.300" bg="gray.50" transition="background-color 0.2s" width="100%">
+                                <VStack align="start" spacing={2} width="100%">
+                                    <HStack width="100%">
                                         <Icon as={assessment.submitted ? CheckCircleIcon : TimeIcon} color={assessment.submitted ? "green.500" : "yellow.500"} />
-                                        <Text fontSize="lg" fontWeight="semibold">{assessment.type}: {assessment.name}</Text>
+                                        <Text fontSize="lg" fontWeight="semibold" flex="1">{assessment.type}: {assessment.name}</Text>
                                     </HStack>
                                     <Text fontSize="sm" color="gray.600">Due: {assessment.dueDate}</Text>
                                     <Text fontSize="sm" color="gray.600">Feedback: {assessment.feedback}</Text>
