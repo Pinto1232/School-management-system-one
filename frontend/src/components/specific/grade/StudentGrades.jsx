@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Text, VStack, HStack, Progress, Divider, Badge, Icon, Select } from '@chakra-ui/react';
+import { Box, Text, VStack, HStack, Progress, Divider, Badge, Icon, Select, Button } from '@chakra-ui/react';
 import { CheckCircleIcon, TimeIcon } from '@chakra-ui/icons';
 import GradeDistributionChart from './GradeDistributionChart';
+import jsPDF from 'jspdf';
+import Papa from 'papaparse';
 
 // Example grade distribution data
 const gradeDistributionData = {
@@ -19,6 +21,35 @@ const gradeDistributionData = {
 const StudentGrades = ({ allGradeData }) => {
     const [selectedSemester, setSelectedSemester] = useState(Object.keys(allGradeData)[0]);
     const GradeData = allGradeData[selectedSemester];
+
+    const downloadPDF = () => {
+        const doc = new jsPDF();
+        doc.text(`Grade Report for ${GradeData.studentName}`, 10, 10);
+        doc.text(`GPA: ${GradeData.GPA}`, 10, 20);
+        doc.text(`Cumulative Grade: ${GradeData.cumulativeGrade}`, 10, 30);
+        // Add more content as needed
+        doc.save(`Grade_Report_${GradeData.studentName}_${selectedSemester}.pdf`);
+    };
+
+    const downloadCSV = () => {
+        const csvData = GradeData.courses.map(course => ({
+            Course: course.name,
+            Grade: course.grade,
+            Assessments: course.assessments.map(assessment => `${assessment.type}: ${assessment.name}, Grade: ${assessment.grade}, Due: ${assessment.dueDate}, Feedback: ${assessment.feedback}`).join('; ')
+        }));
+        const csv = Papa.unparse(csvData);
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', `Grade_Report_${GradeData.studentName}_${selectedSemester}.csv`);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+
     return (
         <VStack spacing={8} align="stretch">
             <Box p={6} shadow="2xl" borderWidth="1px" borderRadius="2xl" borderColor="gray.300" bgGradient="linear(to-r, blue.200, blue.100)">
@@ -65,6 +96,10 @@ const StudentGrades = ({ allGradeData }) => {
                     </VStack>
                 </Box>
             ))}
+            <Box display="flex" justifyContent="space-between" p={4}>
+                <Button onClick={downloadPDF} colorScheme="teal">Download PDF</Button>
+                <Button onClick={downloadCSV} colorScheme="teal">Download CSV</Button>
+            </Box>
         </VStack>
     );
 };
