@@ -345,6 +345,19 @@ const allGradeData = {
 };
 console.log("Grade data", allGradeData)
 
+// Student profile data
+const studentData = {
+  name: 'Jane Doe',
+  avatarUrl: 'https://via.placeholder.com/150',
+  major: 'Computer Science',
+  email: 'jane.doe@example.com',
+  bio: 'A passionate computer science student with an interest in AI and machine learning.',
+  enrollmentDate: 'August 23, 2020',
+  GPA: '3.8',
+  phone: '(123) 456-7890',
+  address: '123 Main St, Anytown, USA',
+};
+
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -729,6 +742,7 @@ const Dashboard = () => {
             announcements={announcements}
             myEvents={myEvents}
             allGradeData={allGradeData}
+            studentData={studentData}
           />
         </Box>
         <Box p={4} bg={'gray.200'}>

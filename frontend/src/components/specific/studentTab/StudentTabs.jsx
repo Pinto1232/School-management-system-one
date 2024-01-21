@@ -6,9 +6,10 @@ import Announcements from '../../common/Announcements';
 import BigCalendar from '../../common/BigCalendar';
 import { FaUserCircle, FaBookOpen, FaCalendarAlt, FaBullhorn, FaTasks, FaChalkboardTeacher } from 'react-icons/fa';
 import StudentGrades from '../grade/StudentGrades';
+import StudentProfileInformation from '../profileInformation/StudentProfileInformation';
 
 
-const StudentTabs = ({ assignmentData, courses, announcements, myEvents, allGradeData  }) => {
+const StudentTabs = ({ assignmentData, courses, announcements, myEvents, allGradeData, studentData   }) => {
     return (
         <Tabs isFitted variant="enclosed" colorScheme="teal">
             <TabList mb="1em" border="none">
@@ -41,7 +42,7 @@ const StudentTabs = ({ assignmentData, courses, announcements, myEvents, allGrad
                 <TabPanel>
                     <Box p={5} shadow="sm" borderWidth="1px" borderRadius="md">
                         <Text fontSize="lg" fontWeight="semibold">Student Profile Information</Text>
-                        {/* Profile content goes here */}
+                        <StudentProfileInformation studentData={studentData} />
                     </Box>
                 </TabPanel>
                 <TabPanel>
