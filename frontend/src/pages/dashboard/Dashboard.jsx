@@ -695,7 +695,7 @@ const Dashboard = () => {
             assignmentData={assignmentData}
             courses={courses}
             announcements={announcements}
-            events={myEvents}
+            myEvents={myEvents} 
           />
         </Box>
         <Box p={4} bg={'gray.200'}>
