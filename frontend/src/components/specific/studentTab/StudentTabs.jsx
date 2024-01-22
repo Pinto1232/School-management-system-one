@@ -1,86 +1,61 @@
 import React from 'react';
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Text, Icon } from '@chakra-ui/react';
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Text, Icon, useColorModeValue } from '@chakra-ui/react';
+import { FaUserCircle, FaBookOpen, FaCalendarAlt, FaBullhorn, FaTasks, FaChalkboardTeacher } from 'react-icons/fa';
 import AssignmentManagement from '../../common/AssignmentManagement';
 import CourseOverview from '../../common/CourseOverview';
 import Announcements from '../../common/Announcements';
 import BigCalendar from '../../common/BigCalendar';
-import { FaUserCircle, FaBookOpen, FaCalendarAlt, FaBullhorn, FaTasks, FaChalkboardTeacher } from 'react-icons/fa';
 import StudentGrades from '../grade/StudentGrades';
 import StudentProfileInformation from '../profileInformation/StudentProfileInformation';
 
+const StudentTabs = ({ assignmentData, courses, announcements, myEvents, allGradeData, studentData }) => {
+    const tabBackgroundColor = useColorModeValue('gray.100', 'gray.700');
+    const tabSelectedColor = useColorModeValue('teal.600', 'teal.200');
 
-const StudentTabs = ({ assignmentData, courses, announcements, myEvents, allGradeData, studentData   }) => {
     return (
         <Tabs isFitted variant="enclosed" colorScheme="teal">
             <TabList mb="1em" border="none">
-                <Tab _selected={{ color: 'white', bg: 'teal.500', borderTopRadius: 'md', boxShadow: 'sm' }}>
-                    <Icon as={FaUserCircle} boxSize="2em" borderRadius="full" bg="#e2e8f0" p="2" color="teal.500" mr="2" />
-                    Profile
-                </Tab>
-                <Tab _selected={{ color: 'white', bg: 'teal.500', borderTopRadius: 'md', boxShadow: 'sm' }}>
-                    <Icon as={FaBookOpen} boxSize="2em" borderRadius="full" bg="#e2e8f0" p="2" color="teal.500" mr="2" />
-                    Grades
-                </Tab>
-                <Tab _selected={{ color: 'white', bg: 'teal.500', borderTopRadius: 'md', boxShadow: 'sm' }}>
-                    <Icon as={FaCalendarAlt} boxSize="2em" borderRadius="full" bg="#e2e8f0" p="2" color="teal.500" mr="2" />
-                    Schedule/Events
-                </Tab>
-                <Tab _selected={{ color: 'white', bg: 'teal.500', borderTopRadius: 'md', boxShadow: 'sm' }}>
-                    <Icon as={FaBullhorn} boxSize="2em" borderRadius="full" bg="#e2e8f0" p="2" color="teal.500" mr="2" />
-                    Announcements
-                </Tab>
-                <Tab _selected={{ color: 'white', bg: 'teal.500', borderTopRadius: 'md', boxShadow: 'sm' }}>
-                    <Icon as={FaTasks} boxSize="2em" borderRadius="full" bg="#e2e8f0" p="2" color="teal.500" mr="2" />
-                    Assignments
-                </Tab>
-                <Tab _selected={{ color: 'white', bg: 'teal.500', borderTopRadius: 'md', boxShadow: 'sm' }}>
-                    <Icon as={FaChalkboardTeacher} boxSize="2em" borderRadius="full" bg="#e2e8f0" p="2" color="teal.500" mr="2" />
-                    Course Overview
-                </Tab>
+                {[
+                    { icon: FaUserCircle, label: 'Profile' },
+                    { icon: FaBookOpen, label: 'Grades' },
+                    { icon: FaCalendarAlt, label: 'Schedule/Events' },
+                    { icon: FaBullhorn, label: 'Announcements' },
+                    { icon: FaTasks, label: 'Assignments' },
+                    { icon: FaChalkboardTeacher, label: 'Course Overview' },
+                ].map((tab, index) => (
+                    <Tab
+                        key={index}
+                        _selected={{ color: 'white', bg: tabSelectedColor }}
+                        _focus={{ boxShadow: 'none' }}
+                        bg={tabBackgroundColor}
+                        borderRadius="md"
+                        mr={2}
+                        py={2}
+                        px={4}
+                    >
+                        <Icon as={tab.icon} boxSize="1.5em" mr="2" />
+                        {tab.label}
+                    </Tab>
+                ))}
             </TabList>
             <TabPanels>
                 <TabPanel>
-                    <Box p={5} shadow="sm" borderWidth="1px" borderRadius="md">
-                        <Text fontSize="lg" fontWeight="semibold">Student Profile Information</Text>
-                        <StudentProfileInformation studentData={studentData} />
-                    </Box>
+                    <StudentProfileInformation studentData={studentData} />
                 </TabPanel>
                 <TabPanel>
-                    <Box p={5} shadow="sm" borderWidth="1px" borderRadius="md">
-                        <Text fontSize="lg" fontWeight="semibold">Student Grades</Text>
-                        <StudentGrades  allGradeData={allGradeData} />
-                    </Box>
+                    <StudentGrades allGradeData={allGradeData} />
                 </TabPanel>
                 <TabPanel>
-                    <Box p={5} shadow="sm" borderWidth="1px" borderRadius="md">
-                        <Text fontSize="lg" fontWeight="semibold">Event Calendar</Text>
-                        <BigCalendar events={myEvents} />
-                    </Box>
-                </TabPanel>
-
-                <TabPanel>
-                    <Box p={5} shadow="sm" borderWidth="1px" borderRadius="md">
-                        <Text fontSize="lg" fontWeight="semibold">Announcements</Text>
-                        <Box>
-                            <Announcements announcements={announcements} />
-                        </Box>
-                    </Box>
+                    <BigCalendar events={myEvents} />
                 </TabPanel>
                 <TabPanel>
-                    <Box p={5} shadow="sm" borderWidth="1px" borderRadius="md">
-                        <Text fontSize="lg" fontWeight="semibold">Student Assignments</Text>
-                        <Box>
-                            <AssignmentManagement assignmentData={assignmentData} />
-                        </Box>
-                    </Box>
+                    <Announcements announcements={announcements} />
                 </TabPanel>
                 <TabPanel>
-                    <Box p={5} shadow="sm" borderWidth="1px" borderRadius="md">
-                        <Text fontSize="lg" fontWeight="semibold">Course Overview</Text>
-                        <Box>
-                            <CourseOverview courses={courses} onCourseClick={(courseId) => console.log(`Course clicked: ${courseId}`)} />
-                        </Box>
-                    </Box>
+                    <AssignmentManagement assignmentData={assignmentData} />
+                </TabPanel>
+                <TabPanel>
+                    <CourseOverview courses={courses} onCourseClick={(courseId) => console.log(`Course clicked: ${courseId}`)} />
                 </TabPanel>
             </TabPanels>
         </Tabs>
