@@ -8,7 +8,14 @@ import BigCalendar from '../../common/BigCalendar';
 import StudentGrades from '../grade/StudentGrades';
 import StudentProfileInformation from '../profileInformation/StudentProfileInformation';
 
-const StudentTabs = ({ assignmentData, courses, announcements, myEvents, allGradeData, studentData }) => {
+const StudentTabs = (
+    { 
+        assignmentData, 
+        courses, 
+        announcements, 
+        myEvents, 
+        allGradeData, 
+        studentData  }) => {
     const tabBackgroundColor = useColorModeValue('gray.100', 'gray.700');
     const tabSelectedColor = useColorModeValue('teal.600', 'teal.200');
 

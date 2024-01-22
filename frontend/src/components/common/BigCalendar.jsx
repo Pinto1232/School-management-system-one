@@ -1,12 +1,7 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   Box,
-  Heading,
-  Button,
-  IconButton,
-  Tooltip,
-  useColorMode,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -16,21 +11,17 @@ import {
   Text,
   useDisclosure,
   useColorModeValue,
-} from "@chakra-ui/react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import moment from "moment";
-import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-
-import "react-big-calendar/lib/css/react-big-calendar.css";
+} from '@chakra-ui/react';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const localizer = momentLocalizer(moment);
 
 const BigCalendar = ({ events }) => {
-  const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedEvent, setSelectedEvent] = useState(null);
 
-  // Define the styles using useColorModeValue at the top level of the component
   const selectedBackgroundColor = useColorModeValue("#2b6cb0", "#63b3ed");
   const defaultBackgroundColor = useColorModeValue("#3182ce", "#90cdf4");
 
@@ -42,17 +33,17 @@ const BigCalendar = ({ events }) => {
   const EventModal = () => (
     <Modal isOpen={isOpen} onClose={onClose} isCentered motionPreset="slideInBottom">
       <ModalOverlay />
-      <ModalContent mx={4} bg={useColorModeValue('white', 'gray.800')} boxShadow="2xl">
-        <ModalHeader borderBottomWidth="1px" fontWeight="bold" fontSize="2xl" bg={useColorModeValue('blue.500', 'blue.600')} color="white">
+      <ModalContent mx={4} bg={useColorModeValue('white', 'gray.800')} boxShadow="sm">
+        <ModalHeader borderBottomWidth="1px" fontWeight="bold" fontSize="lg" bg={useColorModeValue('blue.500', 'blue.600')} color="white" borderRadius="md">
           {selectedEvent?.title}
         </ModalHeader>
-        <ModalCloseButton size="lg" color="white" />
-        <ModalBody py={6} px={4}>
-          <Text fontSize="lg" mb={4}>{selectedEvent?.description}</Text>
-          <Text fontSize="md" fontWeight="medium" mb={2}>
+        <ModalCloseButton size="md" color="white" />
+        <ModalBody py={4} px={3}>
+          <Text fontSize="md" mb={3}>{selectedEvent?.description}</Text>
+          <Text fontSize="sm" fontWeight="medium" mb={1}>
             <strong>Date:</strong> {moment(selectedEvent?.start).format("dddd, MMMM Do YYYY")}
           </Text>
-          <Text fontSize="md" fontWeight="medium">
+          <Text fontSize="sm" fontWeight="medium">
             <strong>Time:</strong> {moment(selectedEvent?.start).format("h:mm a")} -{" "}
             {moment(selectedEvent?.end).format("h:mm a")}
           </Text>
@@ -65,11 +56,12 @@ const BigCalendar = ({ events }) => {
     const backgroundColor = isSelected ? selectedBackgroundColor : defaultBackgroundColor;
     const style = {
       backgroundColor,
-      borderRadius: "5px",
-      opacity: 0.8,
+      borderRadius: "0.375rem", // 6px
+      opacity: 0.9,
       color: "white",
       border: "0",
       display: "block",
+      padding: "0.2rem",
     };
     return {
       style,
@@ -77,13 +69,13 @@ const BigCalendar = ({ events }) => {
   };
 
   return (
-    <Box bg={useColorModeValue("white", "gray.800")} p={4} boxShadow="2lg">
+    <Box bg={useColorModeValue("white", "gray.800")} p={6} boxShadow="base" borderRadius="lg">
       <Calendar
         localizer={localizer}
         events={events}
         startAccessor="start"
         endAccessor="end"
-        style={{ minHeight: "48vh" }}
+        style={{ minHeight: "60vh", borderRadius: "lg" }}
         onSelectEvent={handleEventClick}
         eventPropGetter={eventStyleGetter}
       />
