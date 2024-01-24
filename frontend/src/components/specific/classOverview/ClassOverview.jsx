@@ -21,6 +21,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import AlertToast from '../../common/AlertToast';
 import RecentActivities from '../../../../../RecentActivities';
+import { motion } from 'framer-motion';
 
 const itemsPerPage = 4;
 
@@ -186,19 +187,26 @@ const ClassOverview = ({
                 />
             </InputGroup>
             {showAlert && (
-                <Box
-                    padding="1em"
-                    marginTop="1em"
-                    borderRadius="md"
-                    backgroundColor={exportStatus === "success" ? "green" : "red"}
-                    color="white"
-                    width="100%"
+                <motion.div
+                    initial={{ x: "100vw" }} // Start from the right
+                    animate={{ x: 0 }} // End at the center
+                    transition={{ duration: 0.5 }} // Animation duration
+                    style={{ position: "fixed", top: 0, right: 0, zIndex: 1000 }} // Position the alert at the top right
                 >
-                    <Flex justifyContent={"space-between"} justifyItems={"center"}>
-                        <Text>{exportMessage}</Text>
-                        <CloseButton onClick={() => setShowAlert(false)} />
-                    </Flex>
-                </Box>
+                    <Box
+                        padding="1em"
+                        marginTop="1em"
+                        borderRadius="md"
+                        backgroundColor={exportStatus === "success" ? "green" : "red"}
+                        color="white"
+                        width="540px"
+                    >
+                        <Flex justifyItems={'center'} gap={2} justifyContent={'space-between'}>
+                            <Text>{exportMessage}</Text>
+                            <CloseButton onClick={() => setShowAlert(false)} />
+                        </Flex>
+                    </Box>
+                </motion.div>
             )}
             {currentClasses.map((classItem) => (
                 <Box key={classItem.id} p={5} shadow="xl" borderWidth="1px" borderRadius="lg" bg={'white'}>

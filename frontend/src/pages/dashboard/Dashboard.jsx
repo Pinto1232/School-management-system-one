@@ -1,12 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import UserMenu from "../../pages/dashboard/UserMenu";
 import { Box, Button, Center, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Input, VStack, useColorModeValue } from "@chakra-ui/react";
 import TwoColumnLayout from "../../components/specific/twoColumnLayout/TwoColumnLayout";
-import EmailBadge from "../../components/specific/badge/EmailBadge";
-import BellBadge from "../../components/specific/badge/BellBadge";
-import GlobeBadge from "../../components/specific/badge/GlobeBadge";
 import CardInfo from "../../components/common/CardInfo";
-import { FaBell, FaBook, FaCoins, FaGraduationCap, FaMoneyBill, FaMoneyBillWave, FaReact, FaUser } from "react-icons/fa";
+import { FaBell, FaBook, FaCoins, FaGraduationCap, FaMoneyBill, FaMoneyBillWave, FaReact, FaRegLightbulb, FaUser, FaUsersCog } from "react-icons/fa";
 import DataTable from "../../components/common/DataTable";
 import SearchComponent from "../../components/common/SearchComponent";
 import ThreeDotsMenu from "../../components/common/ThreeDotsMenu";
@@ -26,10 +22,9 @@ import { TopBar } from "./TopBar";
 import LearningAnalytics from "../../components/common/LearningAnalytics";
 import PdfGallery from "../../components/common/PdfGallery";
 import CommunicationSupport from "../../components/common/CommunicationSupport";
-import BigCalendar from "../../components/common/BigCalendar";
-import Collaborative from "../../components/common/Collaborative";
 import StudentTabs from "../../components/specific/studentTab/StudentTabs";
 import ClassOverview from "../../components/specific/classOverview/ClassOverview";
+import StudentRoster from "../../components/specific/studentRoast/StudentRoster";
 
 
 
@@ -452,6 +447,73 @@ const classesData = [
     recentActivity: 'Lab safety video uploaded'
   },
 ];
+
+const studentsRoastData = [
+  {
+    id: 1,
+    name: 'John Doe',
+    profilePicture: 'https://via.placeholder.com/150',
+    contactInformation: 'johndoe@example.com',
+    age: 20,
+    class: '10A',
+    course: 'Mathematics'
+  },
+  {
+    id: 2,
+    name: 'Jane Doe',
+    profilePicture: 'https://via.placeholder.com/150',
+    contactInformation: 'janedoe@example.com',
+    age: 19,
+    class: '10B',
+    course: 'Science'
+  },
+  {
+    id: 3,
+    name: 'Jane Doe',
+    profilePicture: 'https://via.placeholder.com/150',
+    contactInformation: 'janedoe@example.com',
+    age: 19,
+    class: '10B',
+    course: 'Science'
+  },
+  {
+    id: 4,
+    name: 'Jane Doe',
+    profilePicture: 'https://via.placeholder.com/150',
+    contactInformation: 'janedoe@example.com',
+    age: 19,
+    class: '10B',
+    course: 'Science'
+  },
+  {
+    id: 5,
+    name: 'Jane Doe',
+    profilePicture: 'https://via.placeholder.com/150',
+    contactInformation: 'janedoe@example.com',
+    age: 19,
+    class: '10B',
+    course: 'Science'
+  },
+  {
+    id: 6,
+    name: 'Jane Doe',
+    profilePicture: 'https://via.placeholder.com/150',
+    contactInformation: 'janedoe@example.com',
+    age: 19,
+    class: '10B',
+    course: 'Science'
+  },
+  {
+    id: 7,
+    name: 'Jane Doe',
+    profilePicture: 'https://via.placeholder.com/150',
+    contactInformation: 'janedoe@example.com',
+    age: 19,
+    class: '10B',
+    course: 'Science'
+  },
+
+];
 console.log("Teacher Classes data", classesData)
 
 const Dashboard = () => {
@@ -612,6 +674,7 @@ const Dashboard = () => {
     // You can also use analytics tracking here, for example:
     // trackEvent('view_class_details', { classId: classItem.id });
   };
+
 
 
   /* Views model rendering */
@@ -892,6 +955,9 @@ const Dashboard = () => {
           <Box>
             <TopBar emailCount={emailCount} handleMenuToggle={handleMenuToggle} changeView={changeView} />
           </Box>
+          <Box >
+            <StudentRoster studentsRoastData={studentsRoastData} />
+          </Box>
           <Box p={5} bg={'gray.200'}>
             <ClassOverview
               classes={classesData}
@@ -903,6 +969,7 @@ const Dashboard = () => {
               onClassClick={(classItem) => console.log('Class clicked:', classItem)}
             />
           </Box>
+         
         </TwoColumnLayout>
       </Box>;
       break;
