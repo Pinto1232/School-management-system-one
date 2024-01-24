@@ -10,7 +10,8 @@ import {
     InputLeftElement,
     Spinner,
     Flex,
-    Center
+    Center,
+    CloseButton
 } from '@chakra-ui/react';
 import { FaUsers, FaTasks, FaRegLightbulb } from 'react-icons/fa';
 import { MdEventNote, MdOutlineSubject, MdOutlineInfo } from 'react-icons/md';
@@ -80,6 +81,7 @@ const ClassOverview = ({
     const totalPages = Math.ceil(filteredClasses.length / itemsPerPage);
     const [exportStatus, setExportStatus] = useState(null);
     const [exportMessage, setExportMessage] = useState("");
+    const [showAlert, setShowAlert] = useState(false);
 
     const handleViewDetails = (classItem) => {
         setSelectedClass(classItem);
@@ -138,19 +140,29 @@ const ClassOverview = ({
                 tableRows.push(row);
             });
 
-            doc.autoTable(tableColumn, tableRows, { startY: 20 });
+            // New autoTable syntax
+            doc.autoTable({
+                head: [tableColumn],
+                body: tableRows,
+                startY: 20
+            });
+
             doc.save('classes.pdf');
 
             // Update export status and message
             setExportStatus("success");
             setExportMessage("PDF exported successfully!");
+            setShowAlert(true);
+
+            setTimeout(() => {
+                setShowAlert(false);
+            }, 5000);
         } catch (error) {
             // Update export status and message
             setExportStatus("failure");
             setExportMessage("Failed to export PDF!");
         }
     };
-
 
 
     return (
@@ -173,7 +185,7 @@ const ClassOverview = ({
                     _focus={{ bg: "white", borderColor: "blue.500" }}
                 />
             </InputGroup>
-            {exportMessage && (
+            {showAlert && (
                 <Box
                     padding="1em"
                     marginTop="1em"
@@ -182,7 +194,10 @@ const ClassOverview = ({
                     color="white"
                     width="100%"
                 >
-                    <Text>{exportMessage}</Text>
+                    <Flex justifyContent={"space-between"} justifyItems={"center"}>
+                        <Text>{exportMessage}</Text>
+                        <CloseButton onClick={() => setShowAlert(false)} />
+                    </Flex>
                 </Box>
             )}
             {currentClasses.map((classItem) => (
@@ -308,7 +323,7 @@ const ClassOverview = ({
             <Modal isOpen={isOpenActivity} onClose={onCloseAct} isCentered motionPreset="slideInBottom">
                 <ModalOverlay />
                 <ModalContent bg="white" borderRadius="lg" boxShadow="lg">
-                    <ModalHeader bg={useColorModeValue('blue.500', 'blue.600')} color="white"  p={4} borderBottomWidth="1px" borderBottomColor="gray.200">
+                    <ModalHeader bg={useColorModeValue('blue.500', 'blue.600')} color="white" p={4} borderBottomWidth="1px" borderBottomColor="gray.200">
                         Recent Activities
                     </ModalHeader>
                     <ModalCloseButton />
