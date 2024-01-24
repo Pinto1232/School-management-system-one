@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Box, Text, VStack, HStack, Progress, Divider, Badge, Icon, Select, Button } from '@chakra-ui/react';
-import { CheckCircleIcon, TimeIcon } from '@chakra-ui/icons';
+import { CheckCircleIcon, InfoIcon, TimeIcon } from '@chakra-ui/icons';
 import GradeDistributionChart from './GradeDistributionChart';
 import jsPDF from 'jspdf';
 import Papa from 'papaparse';
+import { MdSchool } from 'react-icons/md';
+import { FaFileCsv } from 'react-icons/fa';
+import { FaFilePdf } from 'react-icons/fa';
 
 // Example grade distribution data
 const gradeDistributionData = {
@@ -65,6 +68,9 @@ const StudentGrades = ({ allGradeData }) => {
                 <GradeDistributionChart distributionData={gradeDistributionData} />
             </Box>
             <Box p={4}>
+                <Text fontSize="2xl" fontWeight="bold" mb={4}>
+                    <Icon as={MdSchool} mr={2} /> Grade/Semester
+                </Text>
                 <Select placeholder="Select semester" value={selectedSemester} onChange={(e) => setSelectedSemester(e.target.value)}>
                     {Object.keys(allGradeData).map((semester) => (
                         <option key={semester} value={semester}>{semester}</option>
@@ -97,8 +103,12 @@ const StudentGrades = ({ allGradeData }) => {
                 </Box>
             ))}
             <Box display="flex" justifyContent="space-between" p={4}>
-                <Button onClick={downloadPDF} colorScheme="teal">Download PDF</Button>
-                <Button onClick={downloadCSV} colorScheme="teal">Download CSV</Button>
+                <Button onClick={downloadPDF} colorScheme="teal" leftIcon={<Icon as={FaFilePdf} />}>
+                    Download PDF
+                </Button>
+                <Button onClick={downloadCSV} colorScheme="teal" leftIcon={<Icon as={FaFileCsv} />}>
+                    Download CSV
+                </Button>
             </Box>
         </VStack>
     );

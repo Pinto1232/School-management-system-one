@@ -25,7 +25,7 @@ const Footer = ({ SubmitNewsletter }) => {
     {
       textColor: "#4A5568",
       backgroundColor: "#F7FAFC",
-      buttonColor: "#319795",
+      buttonColor: "#171923",
       textButton: "#4A5568",
       footerIcons: "#319795",
     },

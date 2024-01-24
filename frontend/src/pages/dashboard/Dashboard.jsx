@@ -29,6 +29,7 @@ import CommunicationSupport from "../../components/common/CommunicationSupport";
 import BigCalendar from "../../components/common/BigCalendar";
 import Collaborative from "../../components/common/Collaborative";
 import StudentTabs from "../../components/specific/studentTab/StudentTabs";
+import ClassOverview from "../../components/specific/classOverview/ClassOverview";
 
 
 
@@ -358,6 +359,100 @@ const studentData = {
   address: '123 Main St, Anytown, USA',
 };
 
+// Define some example class data
+const classesData = [
+  {
+    id: 'class1',
+    name: 'Introduction to Programming',
+    numberOfStudents: 30,
+    upcomingAssignments: [
+      { id: 'assignment1', name: 'Homework #1', dueDate: '2023-05-10' },
+      { id: 'assignment2', name: 'Project #1', dueDate: '2023-05-24' },
+    ],
+    recentActivity: 'New lecture material available'
+  },
+  {
+    id: 'class2',
+    name: 'Advanced Mathematics',
+    numberOfStudents: 25,
+    upcomingAssignments: [
+      { id: 'assignment1', name: 'Calculus Homework', dueDate: '2023-05-15' },
+      { id: 'assignment2', name: 'Algebra Quiz', dueDate: '2023-05-20' },
+    ],
+    recentActivity: 'Graded the midterm exam'
+  },
+  {
+    id: 'class3',
+    name: 'World History',
+    numberOfStudents: 28,
+    upcomingAssignments: [
+      { id: 'assignment1', name: 'Essay on Ancient Civilizations', dueDate: '2023-05-18' },
+      { id: 'assignment2', name: 'Group Presentation', dueDate: '2023-06-01' },
+    ],
+    recentActivity: 'Discussion on World War II'
+  },
+  {
+    id: 'class4',
+    name: 'Chemistry Lab',
+    numberOfStudents: 20,
+    upcomingAssignments: [
+      { id: 'assignment1', name: 'Lab Report on Acids and Bases', dueDate: '2023-05-12' },
+      { id: 'assignment2', name: 'Periodic Table Quiz', dueDate: '2023-05-26' },
+    ],
+    recentActivity: 'Lab safety video uploaded'
+  },
+  {
+    id: 'class5',
+    name: 'Chemistry Lab',
+    numberOfStudents: 20,
+    upcomingAssignments: [
+      { id: 'assignment1', name: 'Lab Report on Acids and Bases', dueDate: '2023-05-12' },
+      { id: 'assignment2', name: 'Periodic Table Quiz', dueDate: '2023-05-26' },
+    ],
+    recentActivity: 'Lab safety video uploaded'
+  },
+  {
+    id: 'class6',
+    name: 'Chemistry Lab',
+    numberOfStudents: 20,
+    upcomingAssignments: [
+      { id: 'assignment1', name: 'Lab Report on Acids and Bases', dueDate: '2023-05-12' },
+      { id: 'assignment2', name: 'Periodic Table Quiz', dueDate: '2023-05-26' },
+    ],
+    recentActivity: 'Lab safety video uploaded'
+  },
+  {
+    id: 'class7',
+    name: 'Chemistry Lab',
+    numberOfStudents: 20,
+    upcomingAssignments: [
+      { id: 'assignment1', name: 'Lab Report on Acids and Bases', dueDate: '2023-05-12' },
+      { id: 'assignment2', name: 'Periodic Table Quiz', dueDate: '2023-05-26' },
+    ],
+    recentActivity: 'Lab safety video uploaded'
+  },
+  {
+    id: 'class8',
+    name: 'Chemistry Lab',
+    numberOfStudents: 20,
+    upcomingAssignments: [
+      { id: 'assignment1', name: 'Lab Report on Acids and Bases', dueDate: '2023-05-12' },
+      { id: 'assignment2', name: 'Periodic Table Quiz', dueDate: '2023-05-26' },
+    ],
+    recentActivity: 'Lab safety video uploaded'
+  },
+  {
+    id: 'class9',
+    name: 'Chemistry Lab',
+    numberOfStudents: 20,
+    upcomingAssignments: [
+      { id: 'assignment1', name: 'Lab Report on Acids and Bases', dueDate: '2023-05-12' },
+      { id: 'assignment2', name: 'Periodic Table Quiz', dueDate: '2023-05-26' },
+    ],
+    recentActivity: 'Lab safety video uploaded'
+  },
+];
+console.log("Teacher Classes data", classesData)
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -404,8 +499,6 @@ const Dashboard = () => {
     setCurrentView(view);
   };
 
-
-
   const fetchData = async () => {
     try {
       const response = await axios.get('http://localhost:3001/api/users');
@@ -420,12 +513,28 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { formState: { errors } } = useForm();
 
   const onSubmit = data => {
     // Process the form data
     console.log(data);
   };
+
+
+  // Class data api
+  useEffect(() => {
+    const fetchClassesData = async () => {
+      try {
+        const response = await fetch('/api/classes');
+        const data = await response.json();
+        setClassesData(data);
+      } catch (error) {
+        console.error('Failed to fetch classes data:', error);
+      }
+    };
+    fetchClassesData();
+  }, []);
+
 
 
   // Attendance code
@@ -449,6 +558,7 @@ const Dashboard = () => {
   const currentMonth = currentDate.getMonth(); // Note: January is 0, February is 1, and so on.
   const currentDay = currentDate.getDate();
 
+  // myEvents data
   const myEvents = [
     {
       title: 'Meeting with Prof. Smith',
@@ -494,6 +604,14 @@ const Dashboard = () => {
     },
   ];
   console.log("My events", myEvents)
+
+  // Class Overview function
+  const handleClassClick = (classItem) => {
+    // Perform any additional actions here, such as:
+    console.log('Class clicked:', classItem);
+    // You can also use analytics tracking here, for example:
+    // trackEvent('view_class_details', { classId: classItem.id });
+  };
 
 
   /* Views model rendering */
@@ -729,43 +847,63 @@ const Dashboard = () => {
 
     case 'students':
       content = <Box>
-        <Box>
-          <TopBar emailCount={emailCount} handleMenuToggle={handleMenuToggle} changeView={changeView} />
-        </Box>
-        <TwoColumnLayout>
-          <LearningAnalytics analyticsData={analyticsData} />
-        </TwoColumnLayout>
-        <Box p={5} bg={'white'}>
-          <StudentTabs
-            assignmentData={assignmentData}
-            courses={courses}
-            announcements={announcements}
-            myEvents={myEvents}
-            allGradeData={allGradeData}
-            studentData={studentData}
-          />
-        </Box>
-        <Box p={4} bg={'gray.200'}>
-          <PdfGallery files={pdfFiles} />
-        </Box>
-        <Flex w="100%">
-          <Box flex="3" minW="0">
-            <CommunicationSupport
-              onMessageClick={() => console.log('Open messaging system')}
-              onForumClick={() => console.log('Navigate to discussion forum')}
-              faqUrl="https://www.example.com/faqs"
-              contactUrl="https://www.example.com/contact"
+        <TwoColumnLayout isMenuOpen={isMenuOpen}>
+          <Box>
+            <TopBar
+              emailCount={emailCount}
+              handleMenuToggle={handleMenuToggle}
+              changeView={changeView}
             />
           </Box>
-        </Flex>
+          <Box>
+            <LearningAnalytics
+              analyticsData={analyticsData}
+            />
+          </Box>
+          <Box p={5} bg={'white'}>
+            <StudentTabs
+              assignmentData={assignmentData}
+              courses={courses}
+              announcements={announcements}
+              myEvents={myEvents}
+              allGradeData={allGradeData}
+              studentData={studentData}
+            />
+          </Box>
+          <Box p={4} bg={'gray.200'}>
+            <PdfGallery files={pdfFiles} />
+          </Box>
+          <Flex w="100%">
+            <Box flex="3" minW="0">
+              <CommunicationSupport
+                onMessageClick={() => console.log('Open messaging system')}
+                onForumClick={() => console.log('Navigate to discussion forum')}
+                faqUrl="https://www.example.com/faqs"
+                contactUrl="https://www.example.com/contact"
+              />
+            </Box>
+          </Flex>
+        </TwoColumnLayout>
       </Box>;
       break;
     case 'teachers':
       content = <Box>
-        <Box>
-          <TopBar emailCount={emailCount} handleMenuToggle={handleMenuToggle} changeView={changeView} />
-        </Box>
-        <Box>Teachers</Box>
+        <TwoColumnLayout isMenuOpen={isMenuOpen}>
+          <Box>
+            <TopBar emailCount={emailCount} handleMenuToggle={handleMenuToggle} changeView={changeView} />
+          </Box>
+          <Box p={5} bg={'gray.200'}>
+            <ClassOverview
+              classes={classesData}
+              headingSize="md"
+              classTextSize="lg"
+              detailTextSize="sm"
+              badgeColorScheme="blue"
+              buttonColorScheme="orange"
+              onClassClick={(classItem) => console.log('Class clicked:', classItem)}
+            />
+          </Box>
+        </TwoColumnLayout>
       </Box>;
       break;
     case 'courses':

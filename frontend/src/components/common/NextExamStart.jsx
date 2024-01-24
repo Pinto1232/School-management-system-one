@@ -45,7 +45,6 @@ const NextExamStart = ({ title, examDate }) => {
                                 <Box
                                     pt={2}
                                     pb={1}
-                                    borderTop="1px solid"
                                     borderBottom="1px solid"
                                     borderColor="gray.200"
                                 >
