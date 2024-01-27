@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Box, Button, Center, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Input, VStack, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Center, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Input, Text, VStack, useColorModeValue } from "@chakra-ui/react";
 import TwoColumnLayout from "../../components/specific/twoColumnLayout/TwoColumnLayout";
 import CardInfo from "../../components/common/CardInfo";
 import { FaBell, FaBook, FaCoins, FaGraduationCap, FaMoneyBill, FaMoneyBillWave, FaReact, FaRegLightbulb, FaUser, FaUsersCog } from "react-icons/fa";
@@ -25,6 +25,8 @@ import CommunicationSupport from "../../components/common/CommunicationSupport";
 import StudentTabs from "../../components/specific/studentTab/StudentTabs";
 import ClassOverview from "../../components/specific/classOverview/ClassOverview";
 import StudentRoster from "../../components/specific/studentRoast/StudentRoster";
+import AssignmentManagement from "../../components/common/AssignmentManagement";
+import AttendanceTracker from "../../components/specific/attendanceTracker/AttendanceTracker";
 
 
 
@@ -524,6 +526,20 @@ const Dashboard = () => {
   const { view } = useParams();
 
   const [showWelcomeCard, setShowWelcomeCard] = useState(true);
+  const [myIsLoading, setMyIsLoading] = useState(true);
+  const [attendance, setAttendance] = useState([]);
+
+  const myGetColorScheme = (percentage) => {
+    if (percentage <= 25) {
+      return 'red';
+    } else if (percentage <= 50) {
+      return 'yellow';
+    } else if (percentage <= 75) {
+      return 'orange';
+    } else {
+      return 'green';
+    }
+  };
 
   const handleAnalyticsClick = () => {
     // Handle the analytics click event
@@ -674,6 +690,13 @@ const Dashboard = () => {
     // You can also use analytics tracking here, for example:
     // trackEvent('view_class_details', { classId: classItem.id });
   };
+
+  //Attendance tracker
+  const handleAttendanceRecorded = (studentId) => {
+    console.log(`Attendance recorded for student ${studentId}`);
+    // Update local state
+    setAttendance([...attendance, studentId]);
+};
 
 
 
@@ -969,7 +992,23 @@ const Dashboard = () => {
               onClassClick={(classItem) => console.log('Class clicked:', classItem)}
             />
           </Box>
-         
+
+          <Flex gap={2} p={1}>
+            <Box flex={3}>
+              <AssignmentCard
+                assignments={assignments}
+                isLoading={myIsLoading}
+                getColorScheme={myGetColorScheme}
+                backgroundColor='linear-gradient(to right, #90EEEE90, #D8BFD7)'
+              />
+            </Box>
+            <Box flex={4} bg={"gray.100"}>
+              <AttendanceTracker
+                students={students}
+                onAttendanceRecorded={handleAttendanceRecorded}
+              />
+            </Box>
+          </Flex>
         </TwoColumnLayout>
       </Box>;
       break;

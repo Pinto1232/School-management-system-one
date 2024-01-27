@@ -252,31 +252,31 @@ const ClassOverview = ({
 
             {/* Pagination controls */}
             {totalPages > 1 && (
-                <ButtonGroup variant="outline" spacing="2" justifyContent="center">
-                    <IconButton
-                        icon={<ChevronLeftIcon />}
-                        onClick={() => handlePageChange(currentPage - 1)}
-                        isDisabled={currentPage === 1}
-                        aria-label="Previous page"
-                    />
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNumber => (
-                        <Button
-                            key={pageNumber}
-                            onClick={() => handlePageChange(pageNumber)}
-                            isActive={currentPage === pageNumber}
-                            _active={{ bg: useColorModeValue('blue.600', 'blue.200'), color: useColorModeValue('white', 'gray.800') }}
-                            _hover={{ bg: useColorModeValue('blue.200', 'blue.500'), color: useColorModeValue('gray.800', 'white') }}
-                        >
-                            {pageNumber}
-                        </Button>
-                    ))}
-                    <IconButton
-                        icon={<ChevronRightIcon />}
-                        onClick={() => handlePageChange(currentPage + 1)}
-                        isDisabled={currentPage === totalPages}
-                        aria-label="Next page"
-                    />
-                </ButtonGroup>
+               <ButtonGroup variant="outline" spacing="2" justifyContent="flex-end">
+               <IconButton
+                   icon={<ChevronLeftIcon />}
+                   onClick={() => handlePageChange(currentPage - 1)}
+                   isDisabled={currentPage === 1}
+                   aria-label="Previous page"
+               />
+               {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNumber => (
+                   <Button
+                       key={pageNumber}
+                       onClick={() => handlePageChange(pageNumber)}
+                       isActive={currentPage === pageNumber}
+                       _active={{ bg: useColorModeValue('blue.600', 'blue.200'), color: useColorModeValue('white', 'gray.800') }}
+                       _hover={{ bg: useColorModeValue('blue.200', 'blue.500'), color: useColorModeValue('gray.800', 'white') }}
+                   >
+                       {pageNumber}
+                   </Button>
+               ))}
+               <IconButton
+                   icon={<ChevronRightIcon />}
+                   onClick={() => handlePageChange(currentPage + 1)}
+                   isDisabled={currentPage === totalPages}
+                   aria-label="Next page"
+               />
+           </ButtonGroup>
             )}
 
             {/* Modal for class details */}

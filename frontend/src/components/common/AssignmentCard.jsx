@@ -14,8 +14,8 @@ const getColorScheme = (percentage) => {
     }
 };
 
-const AssignmentCard = ({ assignments }) => {
-    const [isLoading, setIsLoading] = useState(true);
+const AssignmentCard = ({ assignments, isLoading, getColorScheme, backgroundColor  }) => {
+    /* const [isLoading, setIsLoading] = useState(true); */
     const [progressValues, setProgressValues] = useState({});
 
     useEffect(() => {
@@ -41,15 +41,16 @@ const AssignmentCard = ({ assignments }) => {
     if (isLoading) {
         return (
             <Box
-                p={4}
-                borderRadius="md"
-                boxShadow="md"
+                borderRadius="0"
+                boxShadow="2xl" 
                 style={{
-                    background: 'linear-gradient(to right, #90EEEE90, #D8BFD7)' // Using inline styles for gradient
+                    background: backgroundColor // Use the passed backgroundColor prop
                 }}
                 w="full"
                 h={'290px'}
                 position="relative"
+                gap={2}
+                padding={4}
             >
                 <Menu>
                     <MenuButton
@@ -80,7 +81,7 @@ const AssignmentCard = ({ assignments }) => {
                             <Box width="100%" mx={7}>
                                 <Progress value={progressValues[assignment.subject] || 0} colorScheme={getColorScheme(assignment.percentage)} size="sm" />
                             </Box>
-                            <Box shadow={'md'} bg={"white"} borderRadius={'md'} flexShrink={0} width="10%" textAlign="right" >
+                            <Box p={2} shadow={'md'} bg={"white"} borderRadius={'md'} flexShrink={0} width="10%" textAlign="right" >
                                 <Text fontSize="sm" fontWeight={'bold'} color="gray.600">{progressValues[assignment.subject] || 0}%</Text>
                             </Box>
                         </Flex>

@@ -199,7 +199,7 @@ const StudentRoster = ({ studentsRoastData }) => {
                     <ModalHeader>{selectedStudent?.name}</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <Image src={selectedStudent?.profilePicture} alt={selectedStudent?.name} boxSize="100px" objectFit="cover" />
+                        <Image borderRadius="full" src={selectedStudent?.profilePicture} alt={selectedStudent?.name} boxSize="60px" objectFit="cover" />
                         <Text>{selectedStudent?.contactInformation}</Text>
                         <Text>Age: {selectedStudent?.age}</Text>
                         <Text>Class: {selectedStudent?.class}</Text>
