@@ -211,7 +211,7 @@ const StudentRoster = ({ initialStudentsData }) => {
                     <Tbody>
                         {filteredStudents.map((student, index) => (
                             <Tr key={student.id} bg={index % 2 === 0 ? bgColor : 'gray.200'} color={color} _hover={{ bg: 'gray.100' }}>
-                                
+
                                 <Td><Image borderRadius="full" src={student.profilePicture} alt={student.name} boxSize="50px" objectFit="cover" /></Td>
                                 <Td>{student.name}</Td>
                                 <Td>{student.contactInformation}</Td>
@@ -222,6 +222,8 @@ const StudentRoster = ({ initialStudentsData }) => {
                                     <IconButton
                                         icon={<FaTrash />}
                                         aria-label="Delete student"
+                                        bg="red.500"
+                                        color={'#fff'}
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             handleDeleteStudent(student.id);
@@ -232,9 +234,11 @@ const StudentRoster = ({ initialStudentsData }) => {
                                 <Td>
                                     <IconButton
                                         icon={<FaSave />}
+                                        bg={"primary"}
+                                        color={"#fff"}
                                         aria-label="Edit student"
                                         onClick={(e) => {
-                                            e.stopPropagation(); 
+                                            e.stopPropagation();
                                             handleSelectStudent(student);
                                         }}
                                     />

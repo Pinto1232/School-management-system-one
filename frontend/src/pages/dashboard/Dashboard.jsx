@@ -574,6 +574,15 @@ const studentsRoastData = [
     class: '10B',
     course: 'Science'
   },
+  {
+    id: 8,
+    name: 'Pinto Manuel',
+    profilePicture: 'https://via.placeholder.com/150',
+    contactInformation: 'pintotnet@gmail.com',
+    age: 19,
+    class: '10B',
+    course: 'Science'
+  },
 
 ];
 console.log("Teacher Classes data", classesData)
