@@ -33,9 +33,10 @@ const CustomButton = ({
     borderBottomLeftRadius: borderRadiusBottomLeft,
     zIndex: zIndex,
   };
+  
 
   return (
-    <Button boxShadow={boxShadow} {...rest} sx={buttonStyle}>
+    <Button bg={bgColor} boxShadow={boxShadow} {...rest} sx={buttonStyle}>
       {children}
     </Button>
   );

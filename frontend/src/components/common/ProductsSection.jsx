@@ -23,8 +23,9 @@ const ProductsSection = ({
 }) => {
   const bottomBgColor = useColorModeValue("#319795", "#3182ce");
   const textColor = useColorModeValue("#fff", "#fff");
-  const btnTextColor = useColorModeValue("#000", "#fff");
+  const btnTextColor = useColorModeValue("#fff", "#fff");
   const textFontSize = useBreakpointValue({ base: '10px', sm: '12px', md: '13px' });
+  const bgReadMore = useColorModeValue("#171923", "#2D3748");
 
   console.log('Original products:', products);
 
@@ -92,6 +93,7 @@ const ProductsSection = ({
                 textColor={btnTextColor}
                 fontSize={textFontSize}
                 width="full"
+                bgColor={bgReadMore}
               >
                 Read more...
               </CustomButton>
