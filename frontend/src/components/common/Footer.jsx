@@ -40,7 +40,7 @@ const Footer = ({ SubmitNewsletter }) => {
 
   const [showBanner, setShowBanner] = useState(false);
   const bgButtonColor = useColorModeValue("#319795", "#3182ce");
-  const innerBgFooter = useColorModeValue("#319795", "#1a202c"); 
+  const innerBgFooter = useColorModeValue("#000", "#1a202c"); 
 
   useEffect(() => {
     const cookieExists = document.cookie
@@ -83,6 +83,7 @@ const Footer = ({ SubmitNewsletter }) => {
           maxW="6xl"
           mx="auto"
           mb={4}
+          color={"#fff"}
         >
           {footerLinks.map(({ title, subLinks }, index) => (
             <VStack
@@ -155,7 +156,7 @@ const Footer = ({ SubmitNewsletter }) => {
         <Divider borderColor="gray.300" />
       </Box>
 
-      <Box bg={innerBgFooter}p={2}>
+      <Box bg={innerBgFooter}p={2} >
         <Flex
           direction={{ base: "column-reverse", md: "row" }}
           justifyContent="space-between"
