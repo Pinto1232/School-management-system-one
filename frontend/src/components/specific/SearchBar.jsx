@@ -13,15 +13,16 @@ const SearchBar = () => {
 
   return (
     <InputGroup maxW='100%'>
-      <ScaleFade in={showInput} initialScale={0.9}>
+      <ScaleFade in={showInput} initialScale={0.9} unmountOnExit style={{ width: '100%' }}>
         <Input
           placeholder="Search..."
           borderRadius="md"
-          w={['100%', '100%', '100%', '73em']}
+          w='full'
           bg={textFieldBackgroundColor}
+          pr='4.5rem'
         />
       </ScaleFade>
-      <InputRightElement>
+      <InputRightElement width="4.5rem" height="100%">
         <IconButton
           aria-label="Search"
           icon={<SearchIcon />}
@@ -29,6 +30,8 @@ const SearchBar = () => {
           borderRadius="md"
           bg={iconsColorBg}
           color={'white'}
+          mr={"-2em"}
+          zIndex={1}
         />
       </InputRightElement>
     </InputGroup>

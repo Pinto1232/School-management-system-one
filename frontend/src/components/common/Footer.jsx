@@ -21,6 +21,7 @@ import ShippingAndPaymentIcons from "../specific/ShippingAndPaymentIcons";
 import ShippingAndPaymentData from "../../data/ShippingAndPaymentData";
 
 const Footer = ({ SubmitNewsletter }) => {
+  const buttonColors = useColorModeValue("#000", "primary")
   const colorModeStyles = useColorModeValue(
     {
       textColor: "#4A5568",
@@ -130,7 +131,7 @@ const Footer = ({ SubmitNewsletter }) => {
                 inpuFieldBackgroundColor="gray.200"
               />
               <CustomButton
-                bgColor={colorModeStyles.buttonColor}
+                bgColor={buttonColors}
                 textColor="#fff"
                 width="full"
                 borderRadiusTopRight="10px"
@@ -153,7 +154,7 @@ const Footer = ({ SubmitNewsletter }) => {
           buttonColor="blue"
         />
       )} */}
-        <Divider borderColor="gray.300" />
+        {/* <Divider borderColor="gray.300" /> */}
       </Box>
 
       <Box bg={innerBgFooter}p={2} >
