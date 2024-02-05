@@ -1039,7 +1039,7 @@ const Dashboard = () => {
             <TopBar emailCount={emailCount} handleMenuToggle={handleMenuToggle} changeView={changeView} />
           </Box>
           <Box >
-            <StudentRoster studentsRoastData={studentsRoastData} />
+            <StudentRoster initialStudentsData={studentsRoastData} />
           </Box>
           <Box p={5} bg={'gray.200'}>
             <ClassOverview

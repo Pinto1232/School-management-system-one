@@ -3,14 +3,14 @@ import { Box, Image, Text, Input, Button, VStack, Table, Thead, Tbody, Tr, Th, T
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import html2canvas from 'html2canvas';
-import { FaChevronLeft, FaChevronRight, FaSearch, FaUsersCog } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaPlus, FaSave, FaSearch, FaTrash, FaUsersCog } from 'react-icons/fa';
 
-const StudentRoster = ({ studentsRoastData }) => {
+const StudentRoster = ({ initialStudentsData }) => {
     const bgColor = useColorModeValue('white', 'gray.800');
     const color = useColorModeValue('black', 'white');
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [filter, setFilter] = useState('');
-    const [filteredStudents, setFilteredStudents] = useState(studentsRoastData);
+    const [filteredStudents, setFilteredStudents] = useState(initialStudentsData);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 6;
@@ -18,6 +18,48 @@ const StudentRoster = ({ studentsRoastData }) => {
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
     const currentRecords = filteredStudents.slice(indexOfFirstRecord, indexOfLastRecord);
     const totalPages = Math.ceil(filteredStudents.length / recordsPerPage);
+    const [newStudentData, setNewStudentData] = useState({ name: '', profilePicture: '', contactInformation: '', age: '', class: '', course: '' });
+    const [isAdding, setIsAdding] = useState(false);
+    const [studentsData, setStudentsData] = useState(initialStudentsData);
+
+    const handleDeleteStudent = (id) => {
+        setStudentsData(studentsData.filter(student => student.id !== id));
+    };
+
+    const handleSelectStudent = (student) => {
+        setSelectedStudent(student);
+        setNewStudentData(student);
+        setIsEditModalOpen(true);
+        setIsAdding(false);
+    };
+
+    const handleSaveStudent = () => {
+        if (isAdding) {
+            setStudentsData([...studentsData, { ...newStudentData, id: Date.now() }]);
+        } else {
+            setStudentsData(studentsData.map(student => student.id === newStudentData.id ? newStudentData : student));
+        }
+        closeEditModal();
+    };
+
+    const handleAddStudent = () => {
+        setIsAdding(true);
+        setSelectedStudent(null);
+        setNewStudentData({ name: '', profilePicture: '', contactInformation: '', age: '', class: '', course: '' });
+        setIsEditModalOpen(true);
+    };
+
+    const closeEditModal = () => {
+        setIsEditModalOpen(false);
+        setSelectedStudent(null);
+        setIsAdding(false);
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setNewStudentData(prev => ({ ...prev, [name]: value }));
+    };
+
 
     const handlePrevPage = () => {
         setCurrentPage(currentPage - 1);
@@ -41,7 +83,7 @@ const StudentRoster = ({ studentsRoastData }) => {
         const pdf = new jsPDF({
             orientation: 'landscape',
         });
-    
+
         // Define the columns for the table
         const columns = [
             { header: 'Profile Picture', dataKey: 'profilePicture' },
@@ -51,7 +93,7 @@ const StudentRoster = ({ studentsRoastData }) => {
             { header: 'Class', dataKey: 'class' },
             { header: 'Course', dataKey: 'course' },
         ];
-    
+
         // Convert images to base64
         const loadImage = (url) => {
             return new Promise((resolve, reject) => {
@@ -72,7 +114,7 @@ const StudentRoster = ({ studentsRoastData }) => {
                 img.src = url;
             });
         };
-    
+
         const base64Images = await Promise.all(
             studentsRoastData.map((student) => loadImage(student.profilePicture))
         ).then((images) => {
@@ -85,7 +127,7 @@ const StudentRoster = ({ studentsRoastData }) => {
                 return canvas.toDataURL('image/jpeg');
             });
         });
-    
+
         // Map through the students data to format it for the table
         const tableData = studentsRoastData.map((student, index) => ({
             profilePicture: base64Images[index], // Base64 image data
@@ -95,7 +137,7 @@ const StudentRoster = ({ studentsRoastData }) => {
             class: student.class,
             course: student.course,
         }));
-    
+
         // Add the table to the PDF
         pdf.autoTable({
             columns: columns,
@@ -116,7 +158,7 @@ const StudentRoster = ({ studentsRoastData }) => {
                 profilePicture: { cellWidth: 20 },
             },
         });
-    
+
         // Save the PDF
         pdf.save('students.pdf');
     };
@@ -131,6 +173,9 @@ const StudentRoster = ({ studentsRoastData }) => {
                     <FaUsersCog /> Student Roster
                 </Flex>
             </Heading>
+            <Button leftIcon={<FaPlus />} colorScheme="teal" onClick={handleAddStudent}>
+                Add Student
+            </Button>
             <VStack spacing={4} align="stretch">
                 <InputGroup>
                     <InputLeftElement
@@ -159,17 +204,41 @@ const StudentRoster = ({ studentsRoastData }) => {
                             <Th bg="black" color="white" fontWeight="bold" px={4} py={2}>Age</Th>
                             <Th bg="black" color="white" fontWeight="bold" px={4} py={2}>Class</Th>
                             <Th bg="black" color="white" fontWeight="bold" px={4} py={2}>Course</Th>
+                            <Th bg="black" color="white" fontWeight="bold" px={4} py={2}>Delete</Th>
+                            <Th bg="black" color="white" fontWeight="bold" px={4} py={2}>Edit</Th>
                         </Tr>
                     </Thead>
-                    <Tbody cursor={'pointer'}>
+                    <Tbody>
                         {filteredStudents.map((student, index) => (
-                            <Tr key={student.id} bg={index % 2 === 0 ? bgColor : 'gray.200'} color={color} _hover={{ bg: 'gray.100' }} onClick={() => { setSelectedStudent(student); onOpen(); }}>
+                            <Tr key={student.id} bg={index % 2 === 0 ? bgColor : 'gray.200'} color={color} _hover={{ bg: 'gray.100' }}>
+                                
                                 <Td><Image borderRadius="full" src={student.profilePicture} alt={student.name} boxSize="50px" objectFit="cover" /></Td>
                                 <Td>{student.name}</Td>
                                 <Td>{student.contactInformation}</Td>
                                 <Td>{student.age}</Td>
                                 <Td>{student.class}</Td>
                                 <Td>{student.course}</Td>
+                                <Td>
+                                    <IconButton
+                                        icon={<FaTrash />}
+                                        aria-label="Delete student"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleDeleteStudent(student.id);
+                                        }}
+                                        mr={2}
+                                    />
+                                </Td>
+                                <Td>
+                                    <IconButton
+                                        icon={<FaSave />}
+                                        aria-label="Edit student"
+                                        onClick={(e) => {
+                                            e.stopPropagation(); 
+                                            handleSelectStudent(student);
+                                        }}
+                                    />
+                                </Td>
                             </Tr>
                         ))}
                     </Tbody>
