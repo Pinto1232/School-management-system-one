@@ -68,27 +68,87 @@ console.log("Chart options data", options)
 const students = [
   {
     id: 1,
+    name: 'Alice Wonderland',
     imageUrl: 'path/to/image1.jpg',
     percentage: 85,
     changeDirection: 'up',
   },
   {
     id: 2,
+    name: 'Bob Builder',
     imageUrl: 'path/to/image2.jpg',
     percentage: 5,
     changeDirection: 'down',
   },
   {
     id: 3,
-    imageUrl: 'path/to/image2.jpg',
+    name: 'Charlie Brown',
+    imageUrl: 'path/to/image3.jpg',
     percentage: 40,
     changeDirection: 'up',
   },
   {
     id: 4,
-    imageUrl: 'path/to/image2.jpg',
+    name: 'Diana Prince',
+    imageUrl: 'path/to/image4.jpg',
     percentage: 20,
     changeDirection: 'up',
+  },
+  {
+    id: 5,
+    name: 'Evan Almighty',
+    imageUrl: 'path/to/image5.jpg',
+    percentage: 75,
+    changeDirection: 'down',
+  },
+  {
+    id: 6,
+    name: 'Fiona Shrek',
+    imageUrl: 'path/to/image6.jpg',
+    percentage: 60,
+    changeDirection: 'up',
+  },
+  {
+    id: 7,
+    name: 'George Jungle',
+    imageUrl: 'path/to/image7.jpg',
+    percentage: 30,
+    changeDirection: 'down',
+  },
+  {
+    id: 8,
+    name: 'Hannah Montana',
+    imageUrl: 'path/to/image8.jpg',
+    percentage: 90,
+    changeDirection: 'up',
+  },
+  {
+    id: 9,
+    name: 'Ian Lightfoot',
+    imageUrl: 'path/to/image9.jpg',
+    percentage: 10,
+    changeDirection: 'down',
+  },
+  {
+    id: 10,
+    name: 'Judy Hopps',
+    imageUrl: 'path/to/image10.jpg',
+    percentage: 95,
+    changeDirection: 'up',
+  },
+  {
+    id: 11,
+    name: 'Kevin McCallister',
+    imageUrl: 'path/to/image11.jpg',
+    percentage: 50,
+    changeDirection: 'up',
+  },
+  {
+    id: 12,
+    name: 'Lilo Pelekai',
+    imageUrl: 'path/to/image12.jpg',
+    percentage: 45,
+    changeDirection: 'down',
   },
 ];
 console.log("Student data", students)
@@ -600,7 +660,7 @@ const Dashboard = () => {
 
 
   // Class data api
-  useEffect(() => {
+  /* useEffect(() => {
     const fetchClassesData = async () => {
       try {
         const response = await fetch('/api/classes');
@@ -611,7 +671,7 @@ const Dashboard = () => {
       }
     };
     fetchClassesData();
-  }, []);
+  }, []); */
 
 
 
@@ -696,7 +756,7 @@ const Dashboard = () => {
     console.log(`Attendance recorded for student ${studentId}`);
     // Update local state
     setAttendance([...attendance, studentId]);
-};
+  };
 
 
 

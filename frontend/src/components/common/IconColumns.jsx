@@ -13,6 +13,7 @@ import {
 import IconColumn from "./IconColumn";
 import CustomButton from "./CustomButton";
 import iconsData from "../../data/IconsData";
+import imageBg from "../../assets/images/about-us.jpg";
 
 const ICON_COLUMNS = [4, 3, 2, 1];
 const BUTTON_WIDTH = ["100%", "150px", "200px"];
@@ -31,7 +32,11 @@ const IconColumns = () => {
       <Flex
         direction="column" 
         bg={containerBackground}
+        bgImage={`linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${imageBg})`}
         padding={10}
+        backgroundPosition={"center"}
+        backgroundRepeat={"no-repeat"}
+        backgroundSize={"cover"}
         align="center"
         justify="space-between" 
         wrap="wrap"
