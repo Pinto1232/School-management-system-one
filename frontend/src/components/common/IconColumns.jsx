@@ -24,13 +24,15 @@ const IconColumns = () => {
   const buttonWidth = useBreakpointValue(BUTTON_WIDTH);
   const textColor = useColorModeValue("#fff", "#fff");
   const containerBackground = useColorModeValue("#319795", "#3182ce");
-  const iconColors = ['#e53e3e', '#dd6b20', '#38a169', '#3182ce']; 
+  const iconColors = ['#e53e3e', '#dd6b20', '#38a169', '#3182ce'];
+
+  
 
 
   return (
     <>
       <Flex
-        direction="column" 
+        direction="column"
         bg={containerBackground}
         bgImage={`linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${imageBg})`}
         padding={10}
@@ -38,7 +40,7 @@ const IconColumns = () => {
         backgroundRepeat={"no-repeat"}
         backgroundSize={"cover"}
         align="center"
-        justify="space-between" 
+        justify="space-between"
         wrap="wrap"
         gap={20}
       >
@@ -51,13 +53,21 @@ const IconColumns = () => {
         >
           {Array.isArray(iconsData) &&
             iconsData.map((iconData, index) => (
-              <IconColumn
+              <Box
                 key={iconData.id}
-                icon={iconData.icon}
-                title={iconData.title}
-                textColor={iconsTextColor}
-                bgColor={iconColors[index % iconColors.length]}
-              />
+                transition="transform 0.3s ease"
+                cursor={"pointer"}
+                _hover={{
+                  transform: 'scale(1.1)',
+                }}
+              >
+                <IconColumn
+                  icon={iconData.icon}
+                  title={iconData.title}
+                  textColor={iconsTextColor}
+                  bgColor={iconColors[index % iconColors.length]}
+                />
+              </Box>
             ))}
         </Flex>
         <CustomButton

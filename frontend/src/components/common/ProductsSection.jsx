@@ -30,21 +30,21 @@ const ProductsSection = ({
 
   // Ensure unique products by using a Set (if there are duplicates in the original array)
   const uniqueProducts = products
-  .filter((product, index, self) =>
-    index === self.findIndex((p) => p._id === product._id)
-  )
-  .slice(0, 3);
+    .filter((product, index, self) =>
+      index === self.findIndex((p) => p._id === product._id)
+    )
+    .slice(0, 3);
 
   console.log('Unique products:', uniqueProducts);
 
   return (
-    <Box py={12} minW={gridCard} mx="auto"> 
+    <Box py={12} minW={gridCard} mx="auto">
       <Box textAlign="center" mb={12}>
         <Heading as="h2" size="xl" mb={4}>{heading}</Heading>
         <Text fontSize="xl">{subheading}</Text>
       </Box>
-      <SimpleGrid  columns={{ base: 1, sm: 2, md: 3 }} spacing={3}>
-      {uniqueProducts.map((product) => (
+      <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={3}>
+        {uniqueProducts.map((product) => (
           <Flex
             key={product._id}
             direction="column"
@@ -54,11 +54,17 @@ const ProductsSection = ({
             color={textColor}
             overflow="hidden"
             boxShadow="2xl"
+            transition="transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out"
+            cursor={"pointer"}
+            _hover={{
+              transform: 'scale(1.05)',
+              boxShadow: '3xl',
+            }}
           >
             {product.images.map((image, id) => (
               <Image
                 key={`image-${id}`}
-                width="100%" // Set image width to 100%
+                width="100%"
                 src={image.url}
                 mx="auto"
                 backgroundSize="cover"
