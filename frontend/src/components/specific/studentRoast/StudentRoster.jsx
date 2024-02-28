@@ -190,7 +190,10 @@ const StudentRoster = ({ initialStudentsData }) => {
                         variant="filled"
                         focusBorderColor="teal.400"
                         _placeholder={{ opacity: 1, color: 'gray.500' }}
-                        borderRadius="0"
+                        borderRadius="6px 6px 0px 0px" 
+                        _hover={{ bg: "gray.200" }} 
+                        boxShadow="lg"
+                        bg="gray.200" 
                     />
                 </InputGroup>
             </VStack>

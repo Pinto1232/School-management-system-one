@@ -26,7 +26,7 @@ const AttendanceTracker = ({ students = [], onAttendanceRecorded }) => {
         }
         onAttendanceRecorded(attendance);
         onClose();
-        
+
         const studentNames = attendance.filter(student => student.status !== 'unmarked').map(student => student.name).join(", ");
         toast({
             title: 'Attendance recorded successfully.',
@@ -51,9 +51,9 @@ const AttendanceTracker = ({ students = [], onAttendanceRecorded }) => {
             <Button colorScheme="blue" onClick={onOpen} width="full">
                 Record Attendance
             </Button>
-            <Modal isOpen={isOpen} onClose={onClose} isCentered>
+            <Modal isOpen={isOpen} onClose={onClose} isCentered >
                 <ModalOverlay />
-                <ModalContent boxShadow="2xl" borderRadius="lg">
+                <ModalContent boxShadow="2xl" bg={'gray.200'} borderRadius="lg">
                     <ModalHeader>Select Students</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
@@ -67,10 +67,12 @@ const AttendanceTracker = ({ students = [], onAttendanceRecorded }) => {
                                             {student.status.charAt(0).toUpperCase() + student.status.slice(1)}
                                         </Badge>
                                     </Box>
-                                    <Switch isChecked={student.status === 'present'} onChange={() => toggleStudentStatus(student.id)} size="lg">
-                                        {student.status === 'present' ? <FaCheck /> : <FaTimes />}
-                                    </Switch>
+                                    <Flex align="center">
+                                        <Box mr={2}>{student.status === 'present' ? <FaCheck color="green" /> : <FaTimes color="red" />}</Box>
+                                        <Switch isChecked={student.status === 'present'} onChange={() => toggleStudentStatus(student.id)} size="lg" />
+                                    </Flex>
                                 </Flex>
+
                             ))}
                         </Stack>
                     </ModalBody>

@@ -27,6 +27,7 @@ import ClassOverview from "../../components/specific/classOverview/ClassOverview
 import StudentRoster from "../../components/specific/studentRoast/StudentRoster";
 import AssignmentManagement from "../../components/common/AssignmentManagement";
 import AttendanceTracker from "../../components/specific/attendanceTracker/AttendanceTracker";
+import LessonPlanner from "../../components/specific/LessonPlanner/LessonPlanner";
 
 
 
@@ -915,26 +916,6 @@ const Dashboard = () => {
           </Flex>
         </TwoColumnLayout>
 
-        {/* <TwoColumnLayout isMenuOpen={isMenuOpen}>
-          <Flex direction={['column', 'row']} w="100%" gap={1}>
-            <Box flex={1} p={4} borderRadius="md" shadow="md" bg={tableBG}>
-              <Attendance
-                onDateRangeChange={handleDateRangeChange}
-                presentCount={presentCount}
-                absentCount={absentCount}
-                bgBack={'linear(to-r, #ff7e5f, #feb47b)'}
-                bordeRad={4}
-
-              />
-            </Box>
-            <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
-              <AssignmentCard
-                assignments={assignments}
-              />
-            </Box>
-          </Flex>
-        </TwoColumnLayout>
- */}
         <TwoColumnLayout isMenuOpen={isMenuOpen}>
           <Flex direction={['column', 'row']} w="100%" gap={1}>
             <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
@@ -1076,6 +1057,7 @@ const Dashboard = () => {
                 students={students}
                 onAttendanceRecorded={handleAttendanceRecorded}
               />
+              <LessonPlanner />
             </Box>
           </Flex>
         </TwoColumnLayout>
