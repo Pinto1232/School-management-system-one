@@ -1,4 +1,3 @@
-
 const express = require('express');
 const router = express.Router();
 const { register, login, deleteUser } = require('../controllers/users');
@@ -8,8 +7,40 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+/**
+ * @swagger
+ * /users/register:
+ *   post:
+ *     summary: Register a new user
+ *     description: Registers a new user with a profile image.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               firstName:
+ *                 type: string
+ *                 example: John
+ *               lastName:
+ *                 type: string
+ *                 example: Doe
+ *               email:
+ *                 type: string
+ *                 example: johndoe@example.com
+ *               password:
+ *                 type: string
+ *                 example: password123
+ *               profileImage:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       201:
+ *         description: User registered successfully.
+ */
 router.post('/register', upload.single('profileImage'), async (req, res) => {
-    if (!req.file) {
+     if (!req.file) {
         return res.status(400).json({ error: 'No file uploaded' });
     }
     console.log(req.file);
@@ -47,8 +78,31 @@ router.post('/register', upload.single('profileImage'), async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /users/login:
+ *   post:
+ *     summary: Login a user
+ *     description: Logs in a user and returns a token.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: johndoe@example.com
+ *               password:
+ *                 type: string
+ *                 example: password123
+ *     responses:
+ *       200:
+ *         description: Login successful.
+ */
 router.post('/login', async (req, res) => {
-    try {
+     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
 
@@ -77,8 +131,18 @@ router.post('/login', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Get all users
+ *     description: Returns a list of all users.
+ *     responses:
+ *       200:
+ *         description: A list of users.
+ */
 router.get('/users', async (req, res) => {
-    try {
+     try {
         const users = await User.find({});
         res.status(200).json(users);
     } catch (error) {
@@ -86,8 +150,24 @@ router.get('/users', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /users/{userId}:
+ *   get:
+ *     summary: Get a user by ID
+ *     description: Returns a single user by ID.
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: A user object.
+ */
 router.get('/users/:userId', async (req, res) => {
-    try {
+   try {
         const user = await User.findById(req.params.userId);
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
@@ -98,6 +178,22 @@ router.get('/users/:userId', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /users/{id}:
+ *   delete:
+ *     summary: Delete a user
+ *     description: Deletes a user by ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       204:
+ *         description: User deleted successfully.
+ */
 router.delete('/:id', deleteUser);
 
 module.exports = router;

@@ -29,6 +29,8 @@ const subscriptionRoutes = require('./src/routes/subscription');
 const resetPasswordRoutes = require('./src/routes/resetPasswordRoutes')
 const packagesRoutes = require('./src/routes/packages')
 const iconsRoutes = require('./src/routes/icons');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swaggerConfig');
 /* const userRoutes = require('./routes/userRoutes'); */
 
 
@@ -41,6 +43,13 @@ connectDB();
 // Middlewares
 app.use(express.json()); // Parse JSON request body
 app.use(cors());
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+
+app.get('/', (req, res) => {
+    res.send('Backend is running');
+});
 
 // Use user routes
 app.use('/api/users', userRoutes);
@@ -123,6 +132,6 @@ console.log(path.join(__dirname, 'uploads'));
 
 
 // Start the server
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
     console.log(`Server is running on port ${port}`);
 });
