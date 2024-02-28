@@ -1,85 +1,78 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
-    Box, Button, Checkbox, Text, Flex, Image, useDisclosure,
-    Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter
+    Box, Button, Switch, Text, Flex, Image, useDisclosure,
+    Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useToast,
+    Stack, FormControl, FormLabel, Badge, useColorModeValue
 } from '@chakra-ui/react';
+import { FaCheck, FaTimes } from 'react-icons/fa';
 
 const AttendanceTracker = ({ students = [], onAttendanceRecorded }) => {
-    const [attendance, setAttendance] = useState([]);
-    const [selectedStudents, setSelectedStudents] = useState(new Set());
-    const [absentStudents, setAbsentStudents] = useState(new Set());
+    const [attendance, setAttendance] = useState(students.map(student => ({ ...student, status: 'unmarked' })));
     const { isOpen, onOpen, onClose } = useDisclosure();
-    
+    const toast = useToast();
+    const bgColor = useColorModeValue('gray.50', 'gray.700');
+    const textColor = useColorModeValue('gray.600', 'gray.200');
 
     const recordAttendance = () => {
-        const currentDate = new Date().toLocaleDateString(); 
-        const newAttendance = students.map(student => ({
-            id: student.id,
-            name: student.name, 
-            status: selectedStudents.has(student.id) ? 'present' : absentStudents.has(student.id) ? 'absent' : 'unmarked',
-            timestamp: Date.now(),
-            date: currentDate
-        }));
-        setAttendance([...attendance, ...newAttendance]);
-
-        // Filter and log names of present students
-        const presentStudents = newAttendance.filter(record => record.status === 'present').map(record => record.name);
-        console.log("Present Students:", presentStudents);
-
-        // Filter and log names of absent students
-        const absentStudentsList = newAttendance.filter(record => record.status === 'absent').map(record => record.name);
-        console.log("Absent Students:", absentStudentsList);
-
-        onAttendanceRecorded(newAttendance);
-        onClose();
-    };
-
-    const toggleStudentSelection = (studentId, status) => {
-        if (status === 'present') {
-            setSelectedStudents(prev => {
-                const newSet = new Set(prev);
-                newSet.has(studentId) ? newSet.delete(studentId) : newSet.add(studentId);
-                setAbsentStudents(absent => new Set([...absent].filter(id => id !== studentId)));
-                return newSet;
+        if (!attendance.some(student => student.status !== 'unmarked')) {
+            toast({
+                title: 'No attendance marked',
+                description: "Please mark attendance for at least one student.",
+                status: 'warning',
+                duration: 5000,
+                isClosable: true,
             });
-        } else if (status === 'absent') {
-            setAbsentStudents(prev => {
-                const newSet = new Set(prev);
-                newSet.has(studentId) ? newSet.delete(studentId) : newSet.add(studentId);
-                setSelectedStudents(present => new Set([...present].filter(id => id !== studentId)));
-                return newSet;
-            });
+            return;
         }
+        onAttendanceRecorded(attendance);
+        onClose();
+        
+        const studentNames = attendance.filter(student => student.status !== 'unmarked').map(student => student.name).join(", ");
+        toast({
+            title: 'Attendance recorded successfully.',
+            description: `Attendance recorded for students: ${studentNames}`,
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+        });
     };
+
+    const toggleStudentStatus = useCallback((studentId) => {
+        setAttendance(currentAttendance =>
+            currentAttendance.map(student =>
+                student.id === studentId ? { ...student, status: student.status === 'present' ? 'absent' : 'present' } : student
+            )
+        );
+    }, []);
 
     return (
-        <Box p={5} borderRadius="md" boxShadow="lg" w="full" bg="white">
-            <Text fontSize="2xl" fontWeight="bold" mb={4} textAlign="center">Attendance Tracker</Text>
+        <Box p={5} borderRadius="md" boxShadow="lg" w="full" bg={bgColor}>
+            <Text fontSize="2xl" fontWeight="bold" mb={4} textAlign="center" color={textColor}>Attendance Tracker</Text>
             <Button colorScheme="blue" onClick={onOpen} width="full">
                 Record Attendance
             </Button>
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
-                <ModalContent boxShadow="2xl" borderRadius="lg" bg="blue.50" color="blue.900">
-                    <ModalHeader bg={'blue'} color={'white'}>Select Students</ModalHeader>
+                <ModalContent boxShadow="2xl" borderRadius="lg">
+                    <ModalHeader>Select Students</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        {students.map((student) => (
-                            <Flex key={student.id} align="center" mb={3}>
-                                <Image src={student.imageUrl} alt={student.name} boxSize="50px" borderRadius="full" mr={3} />
-                                <Text flex="1" fontSize="md">{student.name}</Text>
-                                <Checkbox mr={2} isChecked={selectedStudents.has(student.id)} onChange={() => toggleStudentSelection(student.id, 'present')}>
-                                    Present
-                                </Checkbox>
-                                <Checkbox
-                                    isChecked={absentStudents.has(student.id)}
-                                    onChange={() => toggleStudentSelection(student.id, 'absent')}
-                                    colorScheme={absentStudents.has(student.id) ? 'red' : 'gray'} // This line applies the conditional color scheme
-                                >
-                                    Absent
-                                </Checkbox>
-                            </Flex>
-                        ))}
+                        <Stack spacing={4}>
+                            {attendance.map((student) => (
+                                <Flex key={student.id} align="center" p={3} bg={bgColor} borderRadius="md" boxShadow="base">
+                                    <Image src={student.imageUrl} alt={student.name} boxSize="50px" borderRadius="full" mr={3} />
+                                    <Box flex="1">
+                                        <Text fontSize="md" fontWeight="bold" color={textColor}>{student.name}</Text>
+                                        <Badge colorScheme={student.status === 'present' ? 'green' : student.status === 'absent' ? 'red' : 'gray'}>
+                                            {student.status.charAt(0).toUpperCase() + student.status.slice(1)}
+                                        </Badge>
+                                    </Box>
+                                    <Switch isChecked={student.status === 'present'} onChange={() => toggleStudentStatus(student.id)} size="lg">
+                                        {student.status === 'present' ? <FaCheck /> : <FaTimes />}
+                                    </Switch>
+                                </Flex>
+                            ))}
+                        </Stack>
                     </ModalBody>
                     <ModalFooter>
                         <Button colorScheme="green" mr={3} onClick={recordAttendance}>

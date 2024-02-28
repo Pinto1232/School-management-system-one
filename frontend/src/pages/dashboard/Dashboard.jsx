@@ -915,7 +915,7 @@ const Dashboard = () => {
           </Flex>
         </TwoColumnLayout>
 
-        <TwoColumnLayout isMenuOpen={isMenuOpen}>
+        {/* <TwoColumnLayout isMenuOpen={isMenuOpen}>
           <Flex direction={['column', 'row']} w="100%" gap={1}>
             <Box flex={1} p={4} borderRadius="md" shadow="md" bg={tableBG}>
               <Attendance
@@ -934,7 +934,7 @@ const Dashboard = () => {
             </Box>
           </Flex>
         </TwoColumnLayout>
-
+ */}
         <TwoColumnLayout isMenuOpen={isMenuOpen}>
           <Flex direction={['column', 'row']} w="100%" gap={1}>
             <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
