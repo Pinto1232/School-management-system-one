@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
   Box,
   Flex,
@@ -9,39 +9,39 @@ import {
   Stack,
   useColorModeValue,
   Container,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react'
 
-import PersonalInfo from "./PersonalInfo";
-import PropertyDetails from "./PropertyDetails";
-import PricingOptions from "./PricingOptions";
+import PersonalInfo from './PersonalInfo'
+import PropertyDetails from './PropertyDetails'
+import PricingOptions from './PricingOptions'
 
-const stepsComponents = [PersonalInfo, PropertyDetails, PricingOptions];
+const stepsComponents = [PersonalInfo, PropertyDetails, PricingOptions]
 
-const stepTitles = ["Personal Info", "Package Details", "Pricing Options"];
+const stepTitles = ['Personal Info', 'Package Details', 'Pricing Options']
 
 const MultiStepForm = () => {
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const CurrentStep = stepsComponents[currentStepIndex];
+  const [currentStepIndex, setCurrentStepIndex] = useState(0)
+  const CurrentStep = stepsComponents[currentStepIndex]
 
   const nextStep = () => {
     if (currentStepIndex < stepsComponents.length - 1) {
-      setCurrentStepIndex(currentStepIndex + 1);
+      setCurrentStepIndex(currentStepIndex + 1)
     }
-  };
+  }
 
   const prevStep = () => {
     if (currentStepIndex > 0) {
-      setCurrentStepIndex(currentStepIndex - 1);
+      setCurrentStepIndex(currentStepIndex - 1)
     }
-  };
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted");
-  };
+    e.preventDefault()
+    console.log('Form submitted')
+  }
 
-  const bgColor = useColorModeValue("gray.200", "gray.700");
-  const progressValue = ((currentStepIndex + 1) / stepsComponents.length) * 100;
+  const bgColor = useColorModeValue('gray.200', 'gray.700')
+  const progressValue = ((currentStepIndex + 1) / stepsComponents.length) * 100
 
   return (
     <Container maxW="100%">
@@ -52,7 +52,7 @@ const MultiStepForm = () => {
             <Flex direction="row" gap={4} align="center" key={title}>
               <Circle
                 size="30px"
-                bg={currentStepIndex >= index ? "#319795" : "gray.200"}
+                bg={currentStepIndex >= index ? '#319795' : 'gray.300'}
                 color="white"
               >
                 {index + 1}
@@ -72,7 +72,7 @@ const MultiStepForm = () => {
 
         {/* Navigation Buttons */}
         <Stack
-          bg={"#171923"}
+          bg={'#171923'}
           direction="row"
           mt={5}
           padding={8}
@@ -80,20 +80,27 @@ const MultiStepForm = () => {
           mb={12}
         >
           {currentStepIndex > 0 && (
-            <Button w={"170px"} onClick={prevStep}>
+            <Button w={'130px'} fontSize={14} onClick={prevStep}>
               Back
             </Button>
           )}
           {currentStepIndex < stepsComponents.length - 1 ? (
-            <Button bg="#319795" color={"white"} w={"170px"} onClick={nextStep}>
+            <Button
+              bg="#319795"
+              fontSize={14}
+              color={'white'}
+              w={'130px'}
+              onClick={nextStep}
+            >
               Next
             </Button>
           ) : (
             <Button
               bg="#319795"
-              w={"170px"}
-              color={"white"}
+              w={'130px'}
+              color={'white'}
               onClick={handleSubmit}
+              fontSize={14}
             >
               Submit
             </Button>
@@ -101,7 +108,7 @@ const MultiStepForm = () => {
         </Stack>
       </Box>
     </Container>
-  );
-};
+  )
+}
 
-export default MultiStepForm;
+export default MultiStepForm

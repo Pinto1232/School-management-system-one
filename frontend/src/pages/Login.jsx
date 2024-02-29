@@ -132,7 +132,7 @@ const Login = () => {
                                 type={showPassword ? "text" : "password"}
                                 name="password"
                                 placeholder="Password"
-                                value={values.password || ''} // Make sure the value is taken from the state
+                                value={values.password || ''} 
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 isInvalid={!!errors.password}

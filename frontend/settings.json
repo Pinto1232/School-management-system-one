@@ -1,0 +1,14 @@
+{
+    "path-intellisense.extensionOnImport": true,
+    "eslint.autoFixOnSave": true,
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact"
+    ],
+    "editor.formatOnSave": true,
+    "[javascript]": {
+    },
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    "prettier.enable": true
+  }

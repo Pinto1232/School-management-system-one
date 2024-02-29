@@ -679,6 +679,7 @@ const Dashboard = () => {
     }
   };
 
+
   const handleAnalyticsClick = () => {
     // Handle the analytics click event
     // For example, navigate to the analytics page or display analytics
@@ -693,11 +694,6 @@ const Dashboard = () => {
       navigate("/login");
     }
   }, [user, navigate]);
-
-  const breadcrumbItems = [
-    { label: "Home", path: "/" },
-    { label: "Dashboard", path: "/dashboard" },
-  ];
 
   const handleMenuToggle = (newState) => {
     setIsMenuOpen(newState);

@@ -5,7 +5,7 @@ import { Link as RouterLink, useLocation } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import Navibar from "./NavigationBar/Navibar";
 
-function Navbar() {
+const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const backgroundColor = useColorModeValue("white", "gray.900");
   const textColor = useColorModeValue("gray.800", "white");

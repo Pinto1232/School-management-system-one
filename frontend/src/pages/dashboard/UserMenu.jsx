@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useState, useRef, useEffect, useContext } from 'react'
 import {
   IconButton,
   useDisclosure,
@@ -13,107 +13,98 @@ import {
   Box,
   Link,
   Tooltip,
-} from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
-import { useNavigate } from "react-router-dom";
-import { IoLogOut } from "react-icons/io5";
-import menuItemsData from "../../data/menuItemsData";
-import { useColorModeValue } from "@chakra-ui/react";
-import { useToast } from "@chakra-ui/react";
-import { css } from "@emotion/react";
-import UserProfileInfo from "./UserProfileInfo";
-import { CloseButton } from "@chakra-ui/react";
-import { useUserContext } from '../../contexts/UserContext';
-import NextExamStart from "../../components/common/NextExamStart";
-
+} from '@chakra-ui/react'
+import { HamburgerIcon } from '@chakra-ui/icons'
+import { useNavigate } from 'react-router-dom'
+import { IoLogOut } from 'react-icons/io5'
+import menuItemsData from '../../data/menuItemsData'
+import { useColorModeValue } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react'
+import { css } from '@emotion/react'
+import UserProfileInfo from './UserProfileInfo'
+import { CloseButton } from '@chakra-ui/react'
+import { useUserContext } from '../../contexts/UserContext'
+import NextExamStart from '../../components/common/NextExamStart'
 
 const thinScrollbar = css`
   &::-webkit-scrollbar {
-    width: 8px; 
+    width: 8px;
   }
   &::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 255); 
+    background: rgba(255, 255, 255, 255);
   }
   &::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2); 
-    border-radius: 8px; 
-    cursor: pointer; 
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    cursor: pointer;
   }
   &::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.3); 
+    background: rgba(0, 0, 0, 0.3);
   }
-`;
-
+`
 
 const UserMenu = ({ onMenuToggle, changeView }) => {
+  console.log('Change View', typeof changeView)
 
-  console.log("Change View", typeof changeView);
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef();
-  const [isLoading, setIsLoading] = useState(false);
-  const toast = useToast();
-  const iconsColor = useColorModeValue("#319795", "#3182ce");
-  const btColor = useColorModeValue("#319795", "#3182ce");
-  const textColor = useColorModeValue("#000", "#fff");
-  const bgMenuColor = useColorModeValue("#171923", "#171923");
-  const navigate = useNavigate();
-  const { user } = useUserContext();
-  const { logout } = useUserContext();
-  const examDate = new Date('2024-05-30T15:00:00Z');
-
-
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const btnRef = useRef()
+  const [isLoading, setIsLoading] = useState(false)
+  const toast = useToast()
+  const iconsColor = useColorModeValue('#319795', '#3182ce')
+  const btColor = useColorModeValue('#319795', '#3182ce')
+  const textColor = useColorModeValue('#000', '#fff')
+  const bgMenuColor = useColorModeValue('#171923', '#171923')
+  const navigate = useNavigate()
+  const { user } = useUserContext()
+  const { logout } = useUserContext()
+  const examDate = new Date('2024-05-30T15:00:00Z')
 
   /*  console.log("User Image", user); */
 
-
   const handleLogout = async () => {
-    setIsLoading(true);
+    setIsLoading(true)
 
     // Simulate an asynchronous action (like a server request)
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await new Promise((resolve) => setTimeout(resolve, 3000))
 
     // Invoke the logout function from UserContext
-    logout();
+    logout()
     // Display a toast notification
     toast({
-      title: "You have logged out!",
-      status: "info",
+      title: 'You have logged out!',
+      status: 'info',
       duration: 3000,
       isClosable: true,
-      position: "top-right",
-    });
+      position: 'top-right',
+    })
 
     // Redirect to the home page
-    navigate('/');
-  };
+    navigate('/')
+  }
 
   const handleNavigation = (view) => {
     if (typeof changeView === 'function') {
-      changeView(view);
+      changeView(view)
     } else {
-      console.error('changeView is not a function', changeView);
+      console.error('changeView is not a function', changeView)
     }
-    onMenuToggle(false);
-    onClose();
-  };
-
+    onMenuToggle(false)
+    onClose()
+  }
 
   const handleMenuToggle = () => {
     if (isOpen) {
-      onClose();
-      onMenuToggle(false); // Setting menu to close
+      onClose()
+      onMenuToggle(false) // Setting menu to close
     } else {
-      onOpen();
-      onMenuToggle(true);  // Setting menu to open
+      onOpen()
+      onMenuToggle(true) // Setting menu to open
     }
-  };
+  }
 
   const handleOverlayClick = (e) => {
-    e.stopPropagation();
-  };
-
-
+    e.stopPropagation()
+  }
 
   return (
     <>
@@ -125,6 +116,7 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
             onClick={handleMenuToggle}
             icon={<HamburgerIcon />}
             variant="outline"
+            _hover={'#000'}
           />
         </Tooltip>
       </Box>
@@ -135,27 +127,29 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
         onClose={onClose}
         isCloseable={false}
         size="xs"
-        closeOnOverlayClick={false} 
-        trapFocus={false} 
+        closeOnOverlayClick={false}
+        trapFocus={false}
       >
-        <DrawerOverlay >
+        <DrawerOverlay>
           <DrawerContent bg={'#319795'}>
-            <DrawerHeader borderBottomWidth="1px">
+            <DrawerHeader borderBottomWidth="">
               <Flex justifyContent="space-between" alignItems="center">
                 <UserProfileInfo
-                  /* avatarSrc={user.image} */
                   user={user}
                   imageWidth="60px"
                   imageHeight="60px"
                 />
                 <CloseButton
                   onClick={() => {
-                    onClose();
-                    onMenuToggle(false);
+                    onClose()
+                    onMenuToggle(false)
                   }}
-                  bg={'red'}
-                  color={"white"}
-                  borderRadius="full"
+                  bg={'#319795'}
+                  mr={'-50px!important'}
+                  mt={'14'}
+                  p={5}
+                  color={'white'}
+                  borderRadius="0px 10px 10px 0px"
                 />
               </Flex>
             </DrawerHeader>
@@ -174,22 +168,22 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
                       alignItems="center"
                       spacing="12"
                       gap={4}
-                      color={"white"}
+                      color={'white'}
                     >
                       <item.icon boxsize="0" fontSize={20} color={'white'} />
                       <Link
                         textDecoration="none"
                         _hover={{
-                          textDecoration: "none",
-                          paddingTop: "1",
-                          paddingBottom: "1",
-                          paddingLeft: "2",
-                          paddingRight: "2",
+                          textDecoration: 'none',
+                          paddingTop: '1',
+                          paddingBottom: '1',
+                          paddingLeft: '2',
+                          paddingRight: '2',
                           transition:
-                            "all 0.50s cubic-bezier(0.25, 0.1, 0.25, 1)",
-                          width: "230px",
-                          whiteSpace: "nowrap",
-                          borderRadius: "4",
+                            'all 0.50s cubic-bezier(0.25, 0.1, 0.25, 1)',
+                          width: '230px',
+                          whiteSpace: 'nowrap',
+                          borderRadius: '4',
                         }}
                       >
                         <span>{item.label}</span>
@@ -217,7 +211,7 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
         </DrawerOverlay>
       </Drawer>
     </>
-  );
-};
+  )
+}
 
-export default UserMenu;
+export default UserMenu
