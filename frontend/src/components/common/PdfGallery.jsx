@@ -34,6 +34,8 @@ const PdfGalleryItem = ({ file }) => {
             transition="all 0.3s ease-in-out"
             overflow="hidden"
             position="relative"
+            width="450px" 
+            height="450px"
         >
             {isLoading && (
                 <Spinner
@@ -57,7 +59,7 @@ const PdfGalleryItem = ({ file }) => {
             {!isLoading && (
                 <Center
                     position="absolute"
-                    top="-20"
+                    top="-150"
                     right="0"
                     bottom="0"
                     left="0"
@@ -113,8 +115,8 @@ const PdfGalleryItem = ({ file }) => {
                                 </Modal>
                             </Modal>
                             {/* Test Button to Open Modal */}
-                            <Button onClick={onOpen} colorScheme="pink" size="sm" position="absolute" top="2" right="2">
-                                On Sale 50%
+                            <Button onClick={onOpen} colorScheme="green" size="sm" position="absolute" top="2" right="2">
+                                On Sale  <Text bg={'black'} p={'12px'} mt={2} ml={2} borderRadius={'0px 0px 15px 15px'}> 50%</Text>
                             </Button>
                         </>
                     )}
@@ -125,12 +127,16 @@ const PdfGalleryItem = ({ file }) => {
 };
 
 const PdfGallery = ({ files }) => {
+    const safeFiles = Array.isArray(files) ? files : [];
+
     return (
-        <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={5}>
-            {files.map((file) => (
-                <PdfGalleryItem key={file.id} file={file} />
-            ))}
-        </SimpleGrid>
+        <Box display="flex" justifyContent="center" > 
+            <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={2}> 
+                {safeFiles.map((file) => (
+                    <PdfGalleryItem key={file.id} file={file} />
+                ))}
+            </SimpleGrid>
+        </Box>
     );
 };
 

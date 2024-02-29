@@ -1,35 +1,33 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Box, Button, Center, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Input, Text, VStack, useColorModeValue } from "@chakra-ui/react";
-import TwoColumnLayout from "../../components/specific/twoColumnLayout/TwoColumnLayout";
-import CardInfo from "../../components/common/CardInfo";
-import { FaBell, FaBook, FaCoins, FaGraduationCap, FaMoneyBill, FaMoneyBillWave, FaReact, FaRegLightbulb, FaUser, FaUsersCog } from "react-icons/fa";
-import DataTable from "../../components/common/DataTable";
-import SearchComponent from "../../components/common/SearchComponent";
-import ThreeDotsMenu from "../../components/common/ThreeDotsMenu";
+import React, { useEffect, useState } from "react";
+import { Box, Flex, Heading, useColorModeValue } from "@chakra-ui/react";
+import { FaBell, FaBook, FaCoins, FaGraduationCap, FaMoneyBillWave, FaUser } from "react-icons/fa";
 import { useUserContext } from '../../contexts/UserContext';
 import axios from "axios";
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import WelcomeCard from "../../components/common/WelcomeCard";
-import Attendance from "../../components/common/Attendance";
-import AssignmentCard from "../../components/common/AssignmentCard";
-import PerformanceCard from "../../components/common/PerformanceCard";
-import LeaderBoard from "../../components/common/LeaderBoard";
-import Calendar from "../../components/common/Calendar";
-import CourseCard from "../../components/common/CourseCard";
-import StatisticsCard from "../../components/common/StatisticsCard";
 import { TopBar } from "./TopBar";
-import LearningAnalytics from "../../components/common/LearningAnalytics";
-import PdfGallery from "../../components/common/PdfGallery";
-import CommunicationSupport from "../../components/common/CommunicationSupport";
-import StudentTabs from "../../components/specific/studentTab/StudentTabs";
-import ClassOverview from "../../components/specific/classOverview/ClassOverview";
-import StudentRoster from "../../components/specific/studentRoast/StudentRoster";
-import AssignmentManagement from "../../components/common/AssignmentManagement";
-import AttendanceTracker from "../../components/specific/attendanceTracker/AttendanceTracker";
-import LessonPlanner from "../../components/specific/LessonPlanner/LessonPlanner";
 
-
+import {
+  AssignmentCard,
+  AttendanceTracker,
+  Calendar,
+  CardInfo,
+  ClassOverview,
+  CommunicationSupport,
+  CourseCard,
+  DataTable,
+  LeaderBoard,
+  LearningAnalytics,
+  LessonPlanner,
+  PerformanceCard,
+  SearchComponent,
+  StatisticsCard,
+  StudentRoster,
+  StudentTabs,
+  ThreeDotsMenu,
+  TwoColumnLayout,
+  WelcomeCard
+} from "../dashboard/index"
 
 // Attendance
 const assignments = [
@@ -1004,10 +1002,8 @@ const Dashboard = () => {
               myEvents={myEvents}
               allGradeData={allGradeData}
               studentData={studentData}
+              pdfFiles={pdfFiles}
             />
-          </Box>
-          <Box p={4} bg={'gray.200'}>
-            <PdfGallery files={pdfFiles} />
           </Box>
           <Flex w="100%">
             <Box flex="3" minW="0">

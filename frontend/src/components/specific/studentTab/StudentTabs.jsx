@@ -7,15 +7,17 @@ import Announcements from '../../common/Announcements';
 import BigCalendar from '../../common/BigCalendar';
 import StudentGrades from '../grade/StudentGrades';
 import StudentProfileInformation from '../profileInformation/StudentProfileInformation';
+import PdfGallery from '../../common/PdfGallery';
 
 const StudentTabs = (
-    { 
-        assignmentData, 
-        courses, 
-        announcements, 
-        myEvents, 
-        allGradeData, 
-        studentData  }) => {
+    {
+        assignmentData,
+        courses,
+        announcements,
+        myEvents,
+        allGradeData,
+        pdfFiles,
+        studentData }) => {
     const tabBackgroundColor = useColorModeValue('gray.100', 'gray.700');
     const tabSelectedColor = useColorModeValue('teal.600', 'teal.200');
 
@@ -29,6 +31,7 @@ const StudentTabs = (
                     { icon: FaBullhorn, label: 'Announcements' },
                     { icon: FaTasks, label: 'Assignments' },
                     { icon: FaChalkboardTeacher, label: 'Course Overview' },
+                    { icon: FaChalkboardTeacher, label: 'Course Streamming' },
                 ].map((tab, index) => (
                     <Tab
                         key={index}
@@ -63,6 +66,11 @@ const StudentTabs = (
                 </TabPanel>
                 <TabPanel>
                     <CourseOverview courses={courses} onCourseClick={(courseId) => console.log(`Course clicked: ${courseId}`)} />
+                </TabPanel>
+                <TabPanel>
+                    <Box bg={'gray.200'} p={10}>
+                        <PdfGallery files={pdfFiles} />
+                    </Box>
                 </TabPanel>
             </TabPanels>
         </Tabs>
