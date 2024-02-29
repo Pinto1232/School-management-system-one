@@ -16,7 +16,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import FormMultiStep from "../components/specific/MultiStepForm/FormMultiStep";
+/* import FormMultiStep from "../components/specific/MultiStepForm/FormMultiStep"; */
 import FormToogle from "../components/specific/FormToogle";
 import MultiToggleForm from "../components/specific/MultiToggleForm";
 import ReusableForm from "../components/specific/FormPanel/ReusableForm";
@@ -497,7 +497,7 @@ const TesPage = () => {
     <Box>
       {
         <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">
-          <FormMultiStep />
+          {/* <FormMultiStep /> */}
         </Box>
       }
       <Box maxW="4xl" mx="auto" mt={10} p={6} borderWidth={1} rounded="md">

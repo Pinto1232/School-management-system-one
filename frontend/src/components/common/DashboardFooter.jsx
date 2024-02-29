@@ -6,7 +6,7 @@ const DashboardFooter = ({ children, ...props }) => {
   const textColor = useColorModeValue('gray.600', 'gray.200');
 
   return (
-    <Box as="footer" w="100%" bg={bgColor} p={4} {...props}>
+    <Box mt={10} as="footer" w="100%" bg={bgColor} p={4} {...props}>
       <Flex justifyContent="center" alignItems="center" flexDirection="column">
         {children ? (
           children
