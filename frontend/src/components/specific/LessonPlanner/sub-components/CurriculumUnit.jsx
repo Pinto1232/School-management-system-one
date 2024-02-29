@@ -6,7 +6,7 @@ const CurriculumUnit = ({ unit, onUpdate, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedUnit, setEditedUnit] = useState({ ...unit });
 
-  
+
   const handleEdit = () => setIsEditing(true);
 
   const handleSave = () => {

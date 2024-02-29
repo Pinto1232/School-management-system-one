@@ -120,6 +120,7 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
       <Box position="absolute" right="0" shadow="md" borderRadius="md" m={4}>
         <Tooltip label="Open Sidebar" fontSize="xs">
           <IconButton
+            color={'white'}
             ref={btnRef}
             onClick={handleMenuToggle}
             icon={<HamburgerIcon />}
@@ -134,11 +135,11 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
         onClose={onClose}
         isCloseable={false}
         size="xs"
-        closeOnOverlayClick={false} // Add this
-        trapFocus={false} // Add this
+        closeOnOverlayClick={false} 
+        trapFocus={false} 
       >
         <DrawerOverlay >
-          <DrawerContent>
+          <DrawerContent bg={'#319795'}>
             <DrawerHeader borderBottomWidth="1px">
               <Flex justifyContent="space-between" alignItems="center">
                 <UserProfileInfo
@@ -152,8 +153,8 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
                     onClose();
                     onMenuToggle(false);
                   }}
-                  bg="#3182ce"
-                  color="white"
+                  bg={'red'}
+                  color={"white"}
                   borderRadius="full"
                 />
               </Flex>
@@ -173,8 +174,9 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
                       alignItems="center"
                       spacing="12"
                       gap={4}
+                      color={"white"}
                     >
-                      <item.icon boxsize="0" fontSize={20} color={iconsColor} />
+                      <item.icon boxsize="0" fontSize={20} color={'white'} />
                       <Link
                         textDecoration="none"
                         _hover={{

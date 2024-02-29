@@ -1,10 +1,10 @@
 import React from 'react';
-import { Box, Avatar, Text, VStack, HStack, useBreakpointValue, Tag, useColorModeValue, ScaleFade } from '@chakra-ui/react';
+import { Box, Avatar, Text, VStack, HStack, useBreakpointValue, Tag, useColorModeValue, ScaleFade, Icon } from '@chakra-ui/react';
+import { EmailIcon, PhoneIcon } from '@chakra-ui/icons';
 
 const StudentProfileInformation = ({ studentData, isLoading, isError }) => {
     const avatarSize = useBreakpointValue({ base: 'md', md: 'xl' });
-    const bgCard = useColorModeValue('gray.50', 'gray.700');
-    const borderColor = useColorModeValue('gray.200', 'gray.600');
+    const bgGradient = useColorModeValue('linear(to-r, pink.50, orange.100)', 'linear(to-r, pink.700, orange.600)');
 
     if (isLoading) {
         return (
@@ -31,8 +31,9 @@ const StudentProfileInformation = ({ studentData, isLoading, isError }) => {
                 shadow="xl"
                 borderWidth="1px"
                 borderRadius="lg"
-                bg={bgCard}
-                borderColor={borderColor}
+                bgGradient={bgGradient}
+                transition="all 0.3s ease-in-out"
+                _hover={{ transform: 'scale(1.05)', shadow: '2xl' }}
             >
                 <VStack spacing={4} align="stretch">
                     <HStack spacing={5} align="center">
@@ -46,33 +47,13 @@ const StudentProfileInformation = ({ studentData, isLoading, isError }) => {
                         <VStack align="start" spacing={1}>
                             <Text fontSize="2xl" fontWeight="bold" color="teal.600">{studentData.name}</Text>
                             <Text fontSize="md" color="gray.500">{studentData.major}</Text>
-                            <Text fontSize="sm" color="gray.400">{studentData.email}</Text>
+                            <HStack spacing={2}>
+                                <Icon as={EmailIcon} color="teal.500" />
+                                <Text fontSize="sm" color="gray.400">{studentData.email}</Text>
+                            </HStack>
                         </VStack>
                     </HStack>
-                    <Box>
-                        <Text fontSize="md" fontWeight="semibold" color="gray.600">About Me:</Text>
-                        <Text fontSize="sm" color="gray.500">{studentData.bio}</Text>
-                    </Box>
-                    <Box>
-                        <Text fontSize="md" fontWeight="semibold" color="gray.600">Enrollment Date:</Text>
-                        <Text fontSize="sm" color="gray.500">{studentData.enrollmentDate}</Text>
-                    </Box>
-                    <Box>
-                        <Text fontSize="md" fontWeight="semibold" color="gray.600">GPA:</Text>
-                        <Text fontSize="sm" color="gray.500">{studentData.GPA}</Text>
-                    </Box>
-                    <Box>
-                        <Text fontSize="md" fontWeight="semibold" color="gray.600">Contact Information:</Text>
-                        <HStack spacing={2}>
-                            <Text fontSize="sm" color="gray.500">Phone:</Text>
-                            <Tag size="sm" borderRadius="full" variant="solid" colorScheme="teal">{studentData.phone}</Tag>
-                        </HStack>
-                        <HStack spacing={2}>
-                            <Text fontSize="sm" color="gray.500">Address:</Text>
-                            <Tag size="sm" borderRadius="full" variant="solid" colorScheme="teal">{studentData.address}</Tag>
-                        </HStack>
-                    </Box>
-                    {/* You can add more sections here as needed */}
+                    {/* Additional student information goes here */}
                 </VStack>
             </Box>
         </ScaleFade>

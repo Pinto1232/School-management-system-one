@@ -1,109 +1,43 @@
-import React from "react";
-import bgImage from "../assets/images/about-us.jpg";
-import Jumbotron from "../components/specific/Jumbotron";
-import { Box, Flex, Grid, InputGroup } from "@chakra-ui/react";
-import ServicesSections from "../components/common/ServicesSections";
-import services from "../data/ServicesSectionsData";
-import BlogPostSection from "../components/common/BlogPostSection";
-import AdjustableColumnLayout from "../components/specific/twocolumns/AdjustableColumnLayout";
-import ImageData from "../assets/images/about-us.jpg";
-import InputFieldComponent from "../components/common/InputFieldComponent";
-import CustomButton from "../components/common/CustomButton";
+import React from 'react';
+import { Box, Text, VStack, Heading, Image, Button, Container, Flex, useColorModeValue } from '@chakra-ui/react';
 
 const About = () => {
+  // Use color mode value to adjust colors based on the theme (light or dark mode)
+  const bgColor = useColorModeValue('gray.50', 'gray.700');
+  const textColor = useColorModeValue('gray.600', 'gray.200');
+
   return (
-    <Box>
-      <Jumbotron
-        title="Knowing Our Product"
-        subtitle="This is a simple Jumbotron-like component built using Chakra UI."
-        buttonText="learn more"
-        bgImage={bgImage}
-      />
-
-      <Box
-        maxW="7xl"
-        border={0}
-        textAlign={"start"}
-        mx="auto"
-        p={6}
-        mt={-10}
-        borderWidth={1}
-        rounded="md"
-      >
-        <ServicesSections title="Product Value" services={services} />
-      </Box>
-
-      <AdjustableColumnLayout columns={{ md: 3, sm: 2, lg: 4 }}>
-        <Grid
-          border={0}
-          maxW="4xl"
-          mx="auto"
-          mt={-20}
-          p={6}
-          borderWidth={1}
-          rounded="md"
-        >
-          <Box>
-            <BlogPostSection
-              title="My First Blog Post"
-              author="John Doe"
-              date="April 20, 2023"
-              excerpt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent blandit justo eget sem blandit, in rutrum purus interdum. Fusce aliquam, est sit amet dapibus pellentesque, lorem neque dictum mi, vel rutrum nisi urna in lectus."
-              imageUrl={ImageData}
-            />
-          </Box>
-
-          <Box>
-            <BlogPostSection
-              title="My First Blog Post"
-              author="John Doe"
-              date="April 20, 2023"
-              excerpt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent blandit justo eget sem blandit, in rutrum purus interdum. Fusce aliquam, est sit amet dapibus pellentesque, lorem neque dictum mi, vel rutrum nisi urna in lectus."
-              imageUrl={ImageData}
-            />
-          </Box>
-        </Grid>
-      </AdjustableColumnLayout>
-
-      <AdjustableColumnLayout
-        bgBoxColor="#fff"
-        columns={{ md: 3, sm: 2, lg: 3 }}
-      >
-        <Grid
-          shadow={"md"}
-          maxW="4xl"
-          mx="auto"
-          mt={6}
-          p="20px"
-          borderWidth={1}
-          rounded="md"
-        >
-          <Flex gap={4} mb={2}>
-            <InputGroup>
-              <InputFieldComponent placeholder="Name" />
-            </InputGroup>
-
-            <InputGroup>
-              <InputFieldComponent placeholder="Name" />
-            </InputGroup>
-          </Flex>
-
-          <Flex gap={4} mb={2}>
-            <InputGroup>
-              <InputFieldComponent placeholder="Name" />
-            </InputGroup>
-
-            <InputGroup>
-              <InputFieldComponent placeholder="Name" />
-            </InputGroup>
-          </Flex>
-
-          <Box maxW="xl" mx="auto" mt={3}>
-            <CustomButton width={300}>Submit</CustomButton>
-          </Box>
-        </Grid>
-      </AdjustableColumnLayout>
-    </Box>
+    <Container maxW="container.xl" py={10}>
+      <Flex direction={{ base: 'column', md: 'row' }} align="center" justify="space-between" bg={bgColor} p={8} borderRadius="lg" boxShadow="2xl">
+        <VStack spacing={5} align="flex-start" flex="1">
+          <Heading as="h1" size="2xl" color={textColor}>
+            About Us
+          </Heading>
+          <Text fontSize="lg" color={textColor} textAlign="justify">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse
+            lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum
+            ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
+          </Text>
+          <Text fontSize="lg" color={textColor} textAlign="justify">
+            Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam
+            nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in,
+            pretium a, enim. Pellentesque congue.
+          </Text>
+          <Button colorScheme="teal" size="lg">
+            Learn More
+          </Button>
+        </VStack>
+        <Box flexShrink={0} mt={{ base: 6, md: 0 }} ml={{ md: 6 }} align="center">
+          <Image
+            borderRadius="lg"
+            width={{ md: '80%' }}
+            src="https://via.placeholder.com/600"
+            alt="Placeholder image"
+            boxShadow="lg"
+          />
+        </Box>
+      </Flex>
+    </Container>
   );
 };
 

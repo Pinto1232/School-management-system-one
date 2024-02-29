@@ -18,6 +18,13 @@ const CurriculumMap = () => {
     onClose();
   };
 
+  const handleDeleteUnit = (unitId) => {
+    const updatedUnits = curriculumUnits.filter(unit => unit.id !== unitId);
+    setCurriculumUnits(updatedUnits);
+
+    localStorage.setItem('curriculumUnits', JSON.stringify(updatedUnits));
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewUnit({ ...newUnit, [name]: value });
@@ -36,7 +43,7 @@ const CurriculumMap = () => {
 
   return (
     <Box p={5}>
-      <Heading mb={4}>Curriculum Mapping</Heading>
+      <Heading mb={4} fontSize={'lg'}>Curriculum Mapping</Heading>
       <Button leftIcon={<AddIcon />} colorScheme="teal" onClick={onOpen}>
         Add Curriculum Unit
       </Button>
@@ -79,11 +86,13 @@ const CurriculumMap = () => {
 
 
       <VStack spacing={4} mt={4}>
-        <Flex gap={2} wrap={curriculumUnits.length > 5 ? "wrap" : "nowrap"} style={{ justifyContent: curriculumUnits.length <= 5 ? 'flex-start' : 'space-between' }}>
-          {curriculumUnits.map((unit) => (
-            <CurriculumUnit key={unit.id} unit={unit} />
-          ))}
-        </Flex>
+        <div style={{ maxHeight: '500px', overflowY: 'auto', width: '100%' }}>
+          <Flex gap={2} wrap={curriculumUnits.length > 5 ? "wrap" : "nowrap"} style={{ justifyContent: curriculumUnits.length <= 5 ? 'flex-start' : 'space-between' }}>
+            {curriculumUnits.map((unit) => (
+              <CurriculumUnit key={unit.id} unit={unit} onDelete={handleDeleteUnit} />
+            ))}
+          </Flex>
+        </div>
       </VStack>
     </Box>
   );
