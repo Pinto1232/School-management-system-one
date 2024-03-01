@@ -35,10 +35,10 @@ import {
   TwoColumnLayout,
   WelcomeCard,
 } from "../dashboard/index";
-import MultiStepForm from "../../components/specific/MultiStepForm/MultiStepForm";
-import PersonalInfo from "../../components/specific/MultiStepForm/PersonalInfo";
-import PropertyDetails from "../../components/specific/MultiStepForm//PropertyDetails";
-import PricingOptions from "../../components/specific/MultiStepForm/PricingOptions";
+import MultiStepForm from "../../components/specific/MultiStepForm/MultiStepPaymentForm";
+import PersonalInfo from "../../components/specific/MultiStepForm/UserInfo";
+import PropertyDetails from "../../components/specific/MultiStepForm/UserSummary";
+import PricingOptions from "../../components/specific/MultiStepForm/UserPlan";
 
 // Attendance
 const assignments = [

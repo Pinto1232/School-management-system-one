@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react'
 import {
   Box,
   Flex,
@@ -10,8 +10,17 @@ import {
   ListItem,
   useColorModeValue,
   useBreakpointValue,
-} from "@chakra-ui/react";
-import CustomButton from "./CustomButton";
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Button,
+} from '@chakra-ui/react'
+import CustomButton from './CustomButton'
+import MultiStepForm from '../specific/MultiStepForm/MultiStepPaymentForm'
 
 const ProductsSection = ({
   heading,
@@ -21,27 +30,45 @@ const ProductsSection = ({
   cardShadow,
   gridCard,
 }) => {
-  const bottomBgColor = useColorModeValue("#319795", "#3182ce");
-  const textColor = useColorModeValue("#fff", "#fff");
-  const btnTextColor = useColorModeValue("#fff", "#fff");
-  const textFontSize = useBreakpointValue({ base: '10px', sm: '12px', md: '13px' });
-  const bgReadMore = useColorModeValue("#171923", "#2D3748");
+  const bottomBgColor = useColorModeValue('#319795', '#3182ce')
+  const textColor = useColorModeValue('#fff', '#fff')
+  const btnTextColor = useColorModeValue('#fff', '#fff')
+  const textFontSize = useBreakpointValue({
+    base: '10px',
+    sm: '12px',
+    md: '13px',
+  })
+  const bgReadMore = useColorModeValue('#171923', '#2D3748')
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState(null)
 
-  console.log('Original products:', products);
+  console.log('Original products:', products)
 
   // Ensure unique products by using a Set (if there are duplicates in the original array)
   const uniqueProducts = products
-    .filter((product, index, self) =>
-      index === self.findIndex((p) => p._id === product._id)
+    .filter(
+      (product, index, self) =>
+        index === self.findIndex((p) => p._id === product._id)
     )
-    .slice(0, 3);
+    .slice(0, 3)
 
-  console.log('Unique products:', uniqueProducts);
+  const openModal = (product) => {
+    setSelectedProduct(product)
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
+
+  console.log('Unique products:', uniqueProducts)
 
   return (
     <Box py={12} minW={gridCard} mx="auto">
       <Box textAlign="center" mb={12}>
-        <Heading as="h2" size="xl" mb={4}>{heading}</Heading>
+        <Heading as="h2" size="xl" mb={4}>
+          {heading}
+        </Heading>
         <Text fontSize="xl">{subheading}</Text>
       </Box>
       <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={3}>
@@ -56,7 +83,7 @@ const ProductsSection = ({
             overflow="hidden"
             boxShadow="2xl"
             transition="transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out"
-            cursor={"pointer"}
+            cursor={'pointer'}
             _hover={{
               transform: 'scale(1.05)',
               boxShadow: '3xl',
@@ -94,6 +121,7 @@ const ProductsSection = ({
                 fontSize={textFontSize}
                 width="full"
                 bgColor={bgReadMore}
+                onClick={() => openModal(product)}
               >
                 Read more...
               </CustomButton>
@@ -101,8 +129,22 @@ const ProductsSection = ({
           </Flex>
         ))}
       </SimpleGrid>
-    </Box>
-  );
-};
 
-export default ProductsSection;
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <ModalOverlay />
+        <ModalContent h={{ sm: 780 }} bg={{ md: 'gray.900' }} mt={{ sm: 40 }}>
+          <ModalHeader textAlign={{ sm: 'center' }} pl={{ sm:14}} fontSize={{ sm: 22 }} >
+            {selectedProduct?.name}
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody w={450}>
+            <MultiStepForm />
+          </ModalBody>
+          <ModalFooter></ModalFooter>
+        </ModalContent>
+      </Modal>
+    </Box>
+  )
+}
+
+export default ProductsSection

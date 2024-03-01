@@ -9,15 +9,16 @@ import {
   Stack,
   useColorModeValue,
   Container,
+  useBreakpointValue,
 } from '@chakra-ui/react'
 
-import PersonalInfo from './PersonalInfo'
-import PropertyDetails from './PropertyDetails'
-import PricingOptions from './PricingOptions'
+import PersonalInfo from './UserInfo'
+import PropertyDetails from './UserSummary'
+import PricingOptions from './UserPlan'
 
 const stepsComponents = [PersonalInfo, PropertyDetails, PricingOptions]
 
-const stepTitles = ['Personal Info', 'Package Details', 'Pricing Options']
+const stepTitles = ['Your Info', 'Select Plan', 'Summary']
 
 const MultiStepForm = () => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
@@ -40,24 +41,37 @@ const MultiStepForm = () => {
     console.log('Form submitted')
   }
 
-  const bgColor = useColorModeValue('gray.200', 'gray.700')
+  const bgColor = useColorModeValue('gray.50', 'gray.700')
   const progressValue = ((currentStepIndex + 1) / stepsComponents.length) * 100
 
   return (
     <Container maxW="100%">
-      <Box bg={bgColor} p={8} borderRadius="lg">
-        {/* Step Indicator */}
-        <Flex justifyContent="space-start" gap={8} m={8}>
+      <Box bg={bgColor} p={6} borderRadius="lg" boxShadow={'sm'}>
+        <Flex
+          justifyContent={{ base: 'center', sm: 'space-between' }}
+          gap={{ base: 2, sm: 4, md: 8 }}
+          m={{ base: 4, sm: 8 }}
+        >
           {stepTitles.map((title, index) => (
-            <Flex direction="row" gap={4} align="center" key={title}>
+            <Flex
+              direction={{ base: 'column', sm: 'column-reverse' }}
+              gap={2}
+              align="center"
+              key={title}
+            >
               <Circle
-                size="30px"
+                size={{ base: '24px', md: '34px' }}
                 bg={currentStepIndex >= index ? '#319795' : 'gray.300'}
                 color="white"
               >
                 {index + 1}
               </Circle>
-              <Text fontSize="sm" mt={2}>
+              <Text
+                fontSize={{ base: 'xs', sm: 'sm' }}
+                mt={{ base: 1, sm: 2 }}
+                align={{ sm: 'center' }}
+                whiteSpace={{ sm: 'nowrap' }}
+              >
                 {title}
               </Text>
             </Flex>
@@ -70,7 +84,6 @@ const MultiStepForm = () => {
           handleSubmit={handleSubmit}
         />
 
-        {/* Navigation Buttons */}
         <Stack
           bg={'#171923'}
           direction="row"
@@ -89,8 +102,8 @@ const MultiStepForm = () => {
               bg="#319795"
               fontSize={14}
               color={'white'}
-              w={'130px'}
               onClick={nextStep}
+              w={currentStepIndex === 0 ? '100%' : '130px'}
             >
               Next
             </Button>
@@ -102,7 +115,7 @@ const MultiStepForm = () => {
               onClick={handleSubmit}
               fontSize={14}
             >
-              Submit
+              Pay
             </Button>
           )}
         </Stack>
