@@ -3,21 +3,22 @@ import { InputGroup, Input, InputRightElement, Button, useColorModeValue } from 
 import { SearchIcon } from '@chakra-ui/icons';
 
 const SearchBar = () => {
-    const bgColor = useColorModeValue('white', 'gray.200');
-    const color = useColorModeValue('gray.700', 'gray.700');
+    const bgColor = useColorModeValue('white', 'gray.500');
+    const Textcolor = useColorModeValue('#000', '#000');
 
     return (
         <InputGroup size="lg" w="full">
             <Input
                 pr="4.5rem"
-                placeholder="newsletter"
+                placeholder="Newsletter"
                 bg={bgColor}
-                color={color}
+                color={Textcolor}
+                h="3.1rem"
                 border="0"
                 _placeholder={{ color: useColorModeValue('gray.600', 'gray.200') }}
             />
             <InputRightElement width="5.5rem">
-                <Button h="3.1rem" size="md" bg="#000" color="white" _hover={{ bg: 'orage.600' }}>
+                <Button h="3.3rem" size="md" bg="#000" color="white" borderRadius={' 0px 10px 10px 0px '} _hover={{ bg: 'orage.600' }}>
                     Submit
                 </Button>
             </InputRightElement>

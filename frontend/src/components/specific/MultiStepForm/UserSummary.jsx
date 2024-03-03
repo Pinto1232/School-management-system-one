@@ -7,7 +7,7 @@ import {
   Heading,
 } from '@chakra-ui/react'
 import { FaUser, FaEnvelope, FaClipboardList } from 'react-icons/fa'
-import { useSelector } from 'react-redux'
+
 
 const UserSummary = ({ prevStep, handleSubmit }) => {
   const bgColor = useColorModeValue('gray.50', 'gray.700')
@@ -15,10 +15,6 @@ const UserSummary = ({ prevStep, handleSubmit }) => {
   const infoBgColor = useColorModeValue('gray.100', 'gray.600')
   const iconColor = useColorModeValue('blue.500', 'blue.300')
 
-  const userPlan = useSelector((state) => state.userForm?.userPlan || {})
-  const userInfo = useSelector((state) => state.userForm?.userInfo || {})
-
-  console.log("user Plan", userPlan);
 
   return (
     <Box
@@ -30,7 +26,7 @@ const UserSummary = ({ prevStep, handleSubmit }) => {
       mx="auto"
       my={5}
     >
-      <Heading as="h3"  size="sm" textAlign="start" color={textColor} mb={4}>
+      <Heading as="h3" size="sm" textAlign="start" color={textColor} mb={4}>
         Your Summary
       </Heading>
 
@@ -41,7 +37,7 @@ const UserSummary = ({ prevStep, handleSubmit }) => {
             Name:
           </Text>
           <Text as="span" ml={2} fontSize="md" color={textColor}>
-            {userInfo.name || 'N/A'}
+            
           </Text>
         </Box>
         <Box bg={infoBgColor} p={3} borderRadius="md" w="full">
@@ -50,7 +46,7 @@ const UserSummary = ({ prevStep, handleSubmit }) => {
             Email:
           </Text>
           <Text as="span" ml={2} fontSize="md" color={textColor}>
-            {userInfo.email || 'N/A'}
+            
           </Text>
         </Box>
         <Box bg={infoBgColor} p={3} borderRadius="md" w="full">
@@ -59,7 +55,7 @@ const UserSummary = ({ prevStep, handleSubmit }) => {
             Phone:
           </Text>
           <Text as="span" ml={2} fontSize="md" color={textColor}>
-            {userInfo.phoneNumber || 'N/A'}
+            
           </Text>
         </Box>
         <Box bg={infoBgColor} p={3} borderRadius="md" w="full">
@@ -68,7 +64,7 @@ const UserSummary = ({ prevStep, handleSubmit }) => {
             Plan Name:
           </Text>
           <Text as="span" ml={2} fontSize="md" color={textColor}>
-            {userPlan.planName || 'N/A'}
+           
           </Text>
         </Box>
       </VStack>

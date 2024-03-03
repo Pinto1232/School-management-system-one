@@ -2,14 +2,13 @@ import {
   Box,
   Heading,
   useColorModeValue,
-  Grid,
-  Flex,
   VStack,
   Input,
 } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-const UserInfo = ({ checkFormValidity }) => {
+
+const UserInfo = () => {
   const bgColor = useColorModeValue('gray.200', 'gray.700')
   const textColor = useColorModeValue('gray.800', 'gray.200')
 
