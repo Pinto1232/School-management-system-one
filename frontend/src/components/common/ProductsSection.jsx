@@ -26,7 +26,6 @@ const ProductsSection = ({
   heading,
   subheading,
   products,
-  imageMaxWidth,
   cardShadow,
   gridCard,
 }) => {
@@ -44,7 +43,7 @@ const ProductsSection = ({
 
   console.log('Original products:', products)
 
-  // Ensure unique products by using a Set (if there are duplicates in the original array)
+  // Ensure unique products by using a Set
   const uniqueProducts = products
     .filter(
       (product, index, self) =>
@@ -106,7 +105,7 @@ const ProductsSection = ({
                 <Text fontWeight="bold">{product.name}</Text>
               </Heading>
               <Text fontSize={textFontSize} mb={4}>
-                ${product.price}
+                R{product?.price}
               </Text>
               <UnorderedList styleType="disc" marginLeft={4}>
                 {product.features.slice(0, 2).map((feature, index) => (
@@ -123,7 +122,7 @@ const ProductsSection = ({
                 bgColor={bgReadMore}
                 onClick={() => openModal(product)}
               >
-                Read more...
+                Subscribe
               </CustomButton>
             </Box>
           </Flex>
@@ -133,8 +132,14 @@ const ProductsSection = ({
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <ModalOverlay />
         <ModalContent h={{ sm: 780 }} bg={{ md: 'gray.900' }} mt={{ sm: 40 }}>
-          <ModalHeader textAlign={{ sm: 'center' }} pl={{ sm:14}} fontSize={{ sm: 22 }} >
-            {selectedProduct?.name}
+          <ModalHeader
+            textAlign={{ sm: 'center' }}
+            fontSize={{ sm: 22 }}
+            display={'flex'}
+            justifyContent={'center'}
+          >
+            {selectedProduct?.name} R{selectedProduct?.price}{' '}
+            <Text textDecor={'underline'}>p/m</Text>
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody w={450}>

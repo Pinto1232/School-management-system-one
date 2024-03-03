@@ -35,10 +35,10 @@ import {
   TwoColumnLayout,
   WelcomeCard,
 } from "../dashboard/index";
-import MultiStepForm from "../../components/specific/MultiStepForm/MultiStepPaymentForm";
-import PersonalInfo from "../../components/specific/MultiStepForm/UserInfo";
-import PropertyDetails from "../../components/specific/MultiStepForm/UserSummary";
-import PricingOptions from "../../components/specific/MultiStepForm/UserPlan";
+import MultiStepPaymentForm from "../../components/specific/MultiStepForm/MultiStepPaymentForm";
+import UserInfo from "../../components/specific/MultiStepForm/UserInfo";
+import UserPlan from "../../components/specific/MultiStepForm/UserPlan";
+import UserSummary from "../../components/specific/MultiStepForm/UserSummary";
 
 // Attendance
 const assignments = [
@@ -1179,7 +1179,7 @@ const Dashboard = () => {
             />
           </Box>
           <Box bg={"gray.200"}>
-            <MultiStepForm steps={steps} />
+            <MultiStepPaymentForm steps={steps} />
           </Box>
         </Box>
       );

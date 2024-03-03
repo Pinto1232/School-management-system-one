@@ -2,25 +2,30 @@ import React, { useState } from 'react'
 import {
   Box,
   Flex,
-  Progress,
   Button,
   Circle,
   Text,
   Stack,
   useColorModeValue,
   Container,
-  useBreakpointValue,
 } from '@chakra-ui/react'
 
 import PersonalInfo from './UserInfo'
-import PropertyDetails from './UserSummary'
-import PricingOptions from './UserPlan'
+import PropertyDetails from './UserPlan'
+import PricingOptions from './UserSummary'
+import Confirmation from './Confirmation'
+import { FaCcVisa } from 'react-icons/fa'
 
-const stepsComponents = [PersonalInfo, PropertyDetails, PricingOptions]
+const stepsComponents = [
+  PersonalInfo,
+  PropertyDetails,
+  PricingOptions,
+  Confirmation,
+]
 
-const stepTitles = ['Your Info', 'Select Plan', 'Summary']
+const stepTitles = ['Your Info', 'Select Plan', 'Summary', 'Confirmation']
 
-const MultiStepForm = () => {
+const MultiStepPaymentForm = () => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
   const CurrentStep = stepsComponents[currentStepIndex]
 
@@ -46,11 +51,12 @@ const MultiStepForm = () => {
 
   return (
     <Container maxW="100%">
-      <Box bg={bgColor} p={6} borderRadius="lg" boxShadow={'sm'}>
+      <Box bg={bgColor} p={2} borderRadius="lg" boxShadow={'sm'}>
         <Flex
-          justifyContent={{ base: 'center', sm: 'space-between' }}
-          gap={{ base: 2, sm: 4, md: 8 }}
-          m={{ base: 4, sm: 8 }}
+          justifyContent={{ base: 'center', sm: 'center' }}
+          gap={{ base: 2, sm: 2, md: 5 }}
+          m={{ base: 4, sm: 3 }}
+          wrap="wrap"
         >
           {stepTitles.map((title, index) => (
             <Flex
@@ -58,10 +64,13 @@ const MultiStepForm = () => {
               gap={2}
               align="center"
               key={title}
+              mt={index === stepTitles.length - 1 ? '-28px' : '0'}
             >
               <Circle
-                size={{ base: '24px', md: '34px' }}
+                size={{ base: '24px', md: '24px' }}
                 bg={currentStepIndex >= index ? '#319795' : 'gray.300'}
+                fontSize={{ sm: '12px' }}
+                textAlign={{ sm: 'center' }}
                 color="white"
               >
                 {index + 1}
@@ -77,23 +86,31 @@ const MultiStepForm = () => {
             </Flex>
           ))}
         </Flex>
-
-        <CurrentStep
-          nextStep={nextStep}
-          prevStep={prevStep}
-          handleSubmit={handleSubmit}
-        />
+        <Box
+          mt={currentStepIndex === stepsComponents.length - 1 ? '20px' : '0'}
+        >
+          <CurrentStep
+            nextStep={nextStep}
+            prevStep={prevStep}
+            handleSubmit={handleSubmit}
+          />
+        </Box>
 
         <Stack
-          bg={'#171923'}
-          direction="row"
-          mt={5}
+          bg={'gray.800'}
+          direction={{ base: 'column', sm: 'row' }}
           padding={8}
           justifyContent="space-between"
           mb={12}
+          spacing={{ base: 4, md: 0 }}
         >
           {currentStepIndex > 0 && (
-            <Button w={'130px'} fontSize={14} onClick={prevStep}>
+            <Button
+              w={'130px'}
+              fontSize={14}
+              borderRadius={2}
+              onClick={prevStep}
+            >
               Back
             </Button>
           )}
@@ -103,13 +120,17 @@ const MultiStepForm = () => {
               fontSize={14}
               color={'white'}
               onClick={nextStep}
+              borderRadius={2}
               w={currentStepIndex === 0 ? '100%' : '130px'}
             >
               Next
             </Button>
           ) : (
             <Button
-              bg="#319795"
+              leftIcon={<FaCcVisa fontSize={20} width={20} />}
+              bg="transparent"
+              _hover={{ bg: '#319795' }}
+              borderRadius={2}
               w={'130px'}
               color={'white'}
               onClick={handleSubmit}
@@ -124,4 +145,4 @@ const MultiStepForm = () => {
   )
 }
 
-export default MultiStepForm
+export default MultiStepPaymentForm

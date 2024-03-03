@@ -9,11 +9,13 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 
-const PersonalInfo = ({ nextStep }) => {
+const UserInfo = ({ nextStep }) => {
   const bgColor = useColorModeValue('gray.200', 'gray.700')
   const textColor = useColorModeValue('gray.800', 'gray.200')
+
   const [formData, setFormData] = useState({
     name: '',
+    address: '',
     email: '',
     phoneNumber: '',
   })
@@ -26,27 +28,35 @@ const PersonalInfo = ({ nextStep }) => {
     }))
   }
 
+
   return (
     <Box bg={bgColor} borderRadius={{ sm: '2xl', md: '2xl', lg: 'sm' }}>
-      <Heading as="h3" size="sm" textAlign="start" ml={7} color={textColor}>
+      <Heading
+        as="h3"
+        size="sm"
+        textAlign="start"
+        ml={4}
+        mt={10}
+        color={textColor}
+      >
         Billing Info
       </Heading>
-      <Box maxW="400px" mx="auto" mt="20px">
+      <Box maxW="400px" mx="auto" mt="20px" mb={10} p={4}>
         <VStack spacing={4}>
           <Input
             id="name"
             name="name"
             placeholder="Full Name"
             value={formData.name}
-            onChange={handleChange}
+            onChange={handleChange} 
             bg={'gray.600'}
           />
           <Input
             id="address"
             name="address"
             placeholder="Address"
-            value={formData.name}
-            onChange={handleChange}
+            value={formData.address}
+            onChange={handleChange} 
             bg={'gray.600'}
           />
           <Input
@@ -54,7 +64,7 @@ const PersonalInfo = ({ nextStep }) => {
             name="email"
             placeholder="Email Address"
             value={formData.email}
-            onChange={handleChange}
+            onChange={handleChange} 
             bg={'gray.600'}
           />
           <Input
@@ -62,7 +72,7 @@ const PersonalInfo = ({ nextStep }) => {
             name="phoneNumber"
             placeholder="Phone Number"
             value={formData.phoneNumber}
-            onChange={handleChange}
+            onChange={handleChange} 
             bg={'gray.600'}
           />
         </VStack>
@@ -71,4 +81,4 @@ const PersonalInfo = ({ nextStep }) => {
   )
 }
 
-export default PersonalInfo
+export default UserInfo

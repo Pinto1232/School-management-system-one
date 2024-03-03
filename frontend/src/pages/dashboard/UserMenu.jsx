@@ -116,7 +116,7 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
             onClick={handleMenuToggle}
             icon={<HamburgerIcon />}
             variant="outline"
-            _hover={'#000'}
+            _hover={{bg : '#000'}}
           />
         </Tooltip>
       </Box>
@@ -149,7 +149,8 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
                   mt={'14'}
                   p={5}
                   color={'white'}
-                  borderRadius="0px 10px 10px 0px"
+                  borderRadius="full"
+                  _hover={{bg : '#000'}}
                 />
               </Flex>
             </DrawerHeader>
