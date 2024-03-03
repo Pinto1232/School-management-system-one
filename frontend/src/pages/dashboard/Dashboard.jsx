@@ -36,6 +36,7 @@ import {
   WelcomeCard,
 } from "../dashboard/index";
 import MultiStepPaymentForm from "../../components/specific/MultiStepForm/MultiStepPaymentForm";
+import { Confirmation, UserInfo, UserPlan, UserSummary } from "../../components/specific/MultiStepForm";
 
 
 // Attendance
@@ -661,7 +662,7 @@ const Dashboard = () => {
   const { view } = useParams();
 
   const [showWelcomeCard, setShowWelcomeCard] = useState(true);
-  const steps = [PersonalInfo, PropertyDetails, PricingOptions];
+  const steps = [UserInfo, UserPlan, UserSummary, Confirmation];
   const [myIsLoading, setMyIsLoading] = useState(true);
   const [attendance, setAttendance] = useState([]);
 
@@ -1177,7 +1178,7 @@ const Dashboard = () => {
             />
           </Box>
           <Box bg={"gray.200"}>
-            <MultiStepPaymentForm steps={steps} />
+            {/* <MultiStepPaymentForm steps={steps} /> */}
           </Box>
         </Box>
       );
