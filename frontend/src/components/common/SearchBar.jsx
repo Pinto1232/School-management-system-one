@@ -3,7 +3,7 @@ import { InputGroup, Input, InputRightElement, Button, useColorModeValue } from 
 import { SearchIcon } from '@chakra-ui/icons';
 
 const SearchBar = () => {
-    const bgColor = useColorModeValue('white', 'gray.500');
+    const bgColor = useColorModeValue('white', 'gray.510');
     const Textcolor = useColorModeValue('#000', '#000');
 
     return (
