@@ -1,3 +1,4 @@
-export {default as PersonalInfo} from './components/FormSteps/PersonalInfo';
-export { default as PropertyDetails} from './components/FormSteps/PropertyDetails';
-export { default as PricingOptions} from './components/FormSteps/PricingOptions';
+export {default as UserInfo} from './UserInfo';
+export { default as UserPlan} from './UserPlan';
+export { default as UserSummary} from './UserSummary';
+export { default as Confirmation } from './Confirmation'

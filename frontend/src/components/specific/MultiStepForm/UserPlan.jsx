@@ -1,20 +1,16 @@
 import {
   Box,
-  VStack,
   Heading,
   useColorModeValue,
   useToast,
   RadioGroup,
-  Stack,
   Radio,
-  Button,
-  FormLabel,
-  FormControl,
   Container,
   Flex,
+  Text 
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import { Text } from 'recharts'
+
 
 const UserPlan = ({ nextStep, prevStep }) => {
   const bgColor = useColorModeValue('gray.50', 'gray.700')

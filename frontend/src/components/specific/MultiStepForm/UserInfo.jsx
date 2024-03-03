@@ -7,9 +7,9 @@ import {
   VStack,
   Input,
 } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-const UserInfo = ({ nextStep }) => {
+const UserInfo = ({ checkFormValidity }) => {
   const bgColor = useColorModeValue('gray.200', 'gray.700')
   const textColor = useColorModeValue('gray.800', 'gray.200')
 
@@ -27,7 +27,6 @@ const UserInfo = ({ nextStep }) => {
       [name]: value,
     }))
   }
-
 
   return (
     <Box bg={bgColor} borderRadius={{ sm: '2xl', md: '2xl', lg: 'sm' }}>
@@ -48,7 +47,7 @@ const UserInfo = ({ nextStep }) => {
             name="name"
             placeholder="Full Name"
             value={formData.name}
-            onChange={handleChange} 
+            onChange={handleChange}
             bg={'gray.600'}
           />
           <Input
@@ -56,7 +55,7 @@ const UserInfo = ({ nextStep }) => {
             name="address"
             placeholder="Address"
             value={formData.address}
-            onChange={handleChange} 
+            onChange={handleChange}
             bg={'gray.600'}
           />
           <Input
@@ -64,7 +63,7 @@ const UserInfo = ({ nextStep }) => {
             name="email"
             placeholder="Email Address"
             value={formData.email}
-            onChange={handleChange} 
+            onChange={handleChange}
             bg={'gray.600'}
           />
           <Input
@@ -72,7 +71,7 @@ const UserInfo = ({ nextStep }) => {
             name="phoneNumber"
             placeholder="Phone Number"
             value={formData.phoneNumber}
-            onChange={handleChange} 
+            onChange={handleChange}
             bg={'gray.600'}
           />
         </VStack>

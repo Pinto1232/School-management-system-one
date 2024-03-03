@@ -36,9 +36,7 @@ import {
   WelcomeCard,
 } from "../dashboard/index";
 import MultiStepPaymentForm from "../../components/specific/MultiStepForm/MultiStepPaymentForm";
-import UserInfo from "../../components/specific/MultiStepForm/UserInfo";
-import UserPlan from "../../components/specific/MultiStepForm/UserPlan";
-import UserSummary from "../../components/specific/MultiStepForm/UserSummary";
+
 
 // Attendance
 const assignments = [

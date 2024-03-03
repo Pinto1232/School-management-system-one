@@ -9,19 +9,11 @@ import {
   useColorModeValue,
   Container,
 } from '@chakra-ui/react'
+import { UserInfo, UserPlan, UserSummary, Confirmation } from './index'
 
-import PersonalInfo from './UserInfo'
-import PropertyDetails from './UserPlan'
-import PricingOptions from './UserSummary'
-import Confirmation from './Confirmation'
 import { FaCcVisa } from 'react-icons/fa'
 
-const stepsComponents = [
-  PersonalInfo,
-  PropertyDetails,
-  PricingOptions,
-  Confirmation,
-]
+const stepsComponents = [UserInfo, UserPlan, UserSummary, Confirmation]
 
 const stepTitles = ['Your Info', 'Select Plan', 'Summary', 'Confirmation']
 
@@ -44,6 +36,13 @@ const MultiStepPaymentForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log('Form submitted')
+  }
+
+  const checkFormValidity = (formData) => {
+    const allFieldsFilled = Object.values(formData).every(
+      (field) => field.trim() !== ''
+    )
+    setIsFormValid(allFieldsFilled)
   }
 
   const bgColor = useColorModeValue('gray.50', 'gray.700')
@@ -93,6 +92,7 @@ const MultiStepPaymentForm = () => {
             nextStep={nextStep}
             prevStep={prevStep}
             handleSubmit={handleSubmit}
+            checkFormValidity={checkFormValidity}
           />
         </Box>
 

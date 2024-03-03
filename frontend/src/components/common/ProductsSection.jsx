@@ -41,7 +41,7 @@ const ProductsSection = ({
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState(null)
 
-  console.log('Original products:', products)
+  /* console.log('Original products:', products) */
 
   // Ensure unique products by using a Set
   const uniqueProducts = products
@@ -60,7 +60,7 @@ const ProductsSection = ({
     setIsModalOpen(false)
   }
 
-  console.log('Unique products:', uniqueProducts)
+  /* console.log('Unique products:', uniqueProducts) */
 
   return (
     <Box py={12} minW={gridCard} mx="auto">
