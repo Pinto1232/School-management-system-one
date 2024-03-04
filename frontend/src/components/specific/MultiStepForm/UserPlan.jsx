@@ -7,10 +7,9 @@ import {
   Radio,
   Container,
   Flex,
-  Text
+  Text,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-
 
 const UserPlan = ({ nextStep, prevStep }) => {
   const bgColor = useColorModeValue('gray.50', 'gray.700')

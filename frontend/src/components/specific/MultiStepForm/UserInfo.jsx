@@ -7,7 +7,6 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 
-
 const UserInfo = () => {
   const bgColor = useColorModeValue('gray.200', 'gray.700')
   const textColor = useColorModeValue('gray.800', 'gray.200')

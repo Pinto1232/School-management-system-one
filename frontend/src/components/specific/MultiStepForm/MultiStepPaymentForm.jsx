@@ -21,8 +21,6 @@ const MultiStepPaymentForm = () => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
   const CurrentStep = stepsComponents[currentStepIndex]
 
- 
-
   const nextStep = () => {
     if (currentStepIndex < stepsComponents.length - 1) {
       setCurrentStepIndex(currentStepIndex + 1)
@@ -41,9 +39,11 @@ const MultiStepPaymentForm = () => {
   }
 
   const checkFormValidity = (formData) => {
-    const allFieldsFilled = Object.values(formData).every((field) => field.trim() !== '');
-    setIsFormValid(allFieldsFilled);
-  };
+    const allFieldsFilled = Object.values(formData).every(
+      (field) => field.trim() !== ''
+    )
+    setIsFormValid(allFieldsFilled)
+  }
 
   const bgColor = useColorModeValue('gray.50', 'gray.700')
   const progressValue = ((currentStepIndex + 1) / stepsComponents.length) * 100

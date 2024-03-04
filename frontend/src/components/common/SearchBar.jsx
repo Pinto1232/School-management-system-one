@@ -1,8 +1,9 @@
 import React from 'react';
 import { InputGroup, Input, InputRightElement, Button, useColorModeValue } from '@chakra-ui/react';
-import { SearchIcon } from '@chakra-ui/icons';
+
 
 const SearchBar = () => {
+    
     const bgColor = useColorModeValue('white', 'gray.510');
     const Textcolor = useColorModeValue('#000', '#000');
 

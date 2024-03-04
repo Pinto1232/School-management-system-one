@@ -8,13 +8,11 @@ import {
 } from '@chakra-ui/react'
 import { FaUser, FaEnvelope, FaClipboardList } from 'react-icons/fa'
 
-
 const UserSummary = ({ prevStep, handleSubmit }) => {
   const bgColor = useColorModeValue('gray.50', 'gray.700')
   const textColor = useColorModeValue('gray.800', 'gray.100')
   const infoBgColor = useColorModeValue('gray.100', 'gray.600')
   const iconColor = useColorModeValue('blue.500', 'blue.300')
-
 
   return (
     <Box
@@ -36,36 +34,28 @@ const UserSummary = ({ prevStep, handleSubmit }) => {
           <Text as="span" fontSize="md" fontWeight="bold" color={textColor}>
             Name:
           </Text>
-          <Text as="span" ml={2} fontSize="md" color={textColor}>
-            
-          </Text>
+          <Text as="span" ml={2} fontSize="md" color={textColor}></Text>
         </Box>
         <Box bg={infoBgColor} p={3} borderRadius="md" w="full">
           <Icon as={FaEnvelope} color={iconColor} mr={2} />
           <Text as="span" fontSize="md" fontWeight="bold" color={textColor}>
             Email:
           </Text>
-          <Text as="span" ml={2} fontSize="md" color={textColor}>
-            
-          </Text>
+          <Text as="span" ml={2} fontSize="md" color={textColor}></Text>
         </Box>
         <Box bg={infoBgColor} p={3} borderRadius="md" w="full">
           <Icon as={FaEnvelope} color={iconColor} mr={2} />
           <Text as="span" fontSize="md" fontWeight="bold" color={textColor}>
             Phone:
           </Text>
-          <Text as="span" ml={2} fontSize="md" color={textColor}>
-            
-          </Text>
+          <Text as="span" ml={2} fontSize="md" color={textColor}></Text>
         </Box>
         <Box bg={infoBgColor} p={3} borderRadius="md" w="full">
           <Icon as={FaClipboardList} color={iconColor} mr={2} />
           <Text as="span" fontSize="md" fontWeight="bold" color={textColor}>
             Plan Name:
           </Text>
-          <Text as="span" ml={2} fontSize="md" color={textColor}>
-           
-          </Text>
+          <Text as="span" ml={2} fontSize="md" color={textColor}></Text>
         </Box>
       </VStack>
     </Box>
