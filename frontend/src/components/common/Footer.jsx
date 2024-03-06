@@ -123,7 +123,7 @@ const Footer = ({ SubmitNewsletter }) => {
           px={{ base: 4, md: 8 }}
         >
           <Text fontSize={{ base: "sm", sm: "md" }} color="gray.500">
-            © 2023 PintoEd Management. All rights reserved.
+            © 2023 Educare Management. All rights reserved.
           </Text>
           <Flex gap={2}>
             <ShippingAndPaymentIcons

@@ -22,7 +22,6 @@ const validateStudentData = (
   return errors;
 };
 
-
 // Create a new student
 const createStudent = async (req, res, next) => {
   try {

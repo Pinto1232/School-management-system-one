@@ -20,6 +20,7 @@ const stepTitles = ['Your Info', 'Select Plan', 'Summary', 'Confirmation']
 const MultiStepPaymentForm = () => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
   const CurrentStep = stepsComponents[currentStepIndex]
+  const [isFormValid, setIsFormValid] = useState(false)
 
   const nextStep = () => {
     if (currentStepIndex < stepsComponents.length - 1) {
@@ -38,11 +39,9 @@ const MultiStepPaymentForm = () => {
     console.log('Form submitted')
   }
 
-  const checkFormValidity = (formData) => {
-    const allFieldsFilled = Object.values(formData).every(
-      (field) => field.trim() !== ''
-    )
-    setIsFormValid(allFieldsFilled)
+  // This is a new code added
+  const handleUserInfoValidity = (isValid) => {
+    setIsFormValid(isValid)
   }
 
   const bgColor = useColorModeValue('gray.50', 'gray.700')
@@ -118,7 +117,9 @@ const MultiStepPaymentForm = () => {
               bg="#319795"
               fontSize={14}
               color={'white'}
-              onClick={nextStep}
+              /* onClick={nextStep} */
+              onClick={() => setCurrentStepIndex(currentStepIndex + 1)}
+              disabled={!isFormValid}
               borderRadius={2}
               w={currentStepIndex === 0 ? '100%' : '130px'}
             >

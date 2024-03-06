@@ -5,9 +5,9 @@ import {
   VStack,
   Input,
 } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-const UserInfo = () => {
+const UserInfo = ( ) => {
   const bgColor = useColorModeValue('gray.200', 'gray.700')
   const textColor = useColorModeValue('gray.800', 'gray.200')
 
@@ -18,14 +18,15 @@ const UserInfo = () => {
     phoneNumber: '',
   })
 
+ /*  useEffect(() => {
+    const isValid = formData.name.trim() && formData.email.trim()
+    onFormValidityChange(isValid)
+  }, [formData, onFormValidityChange]) */
+
   const handleChange = (e) => {
     const { name, value } = e.target
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }))
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
-
   return (
     <Box bg={bgColor} borderRadius={{ sm: '2xl', md: '2xl', lg: 'sm' }}>
       <Heading

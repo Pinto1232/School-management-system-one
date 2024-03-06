@@ -1,4 +1,3 @@
-// src/hooks/useFormValidation.js
 import { useState, useEffect } from 'react';
 
 const useFormValidation = (initialState, validate, onValidSubmit) => {
