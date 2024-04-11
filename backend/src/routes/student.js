@@ -15,9 +15,7 @@ router
 
 // Student controller routes
 router.route("/student/register").post(studentController.createStudent);
-router
-  .route("/student/all")
-  .get(
+router.route("/student/all").get(
     authenticate,
     authorize(allowedRolesStudent),
     studentController.getAllStudents

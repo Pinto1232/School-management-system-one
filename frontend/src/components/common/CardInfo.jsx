@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, useBreakpointValue, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 
 const CardInfo = ({
@@ -8,33 +8,31 @@ const CardInfo = ({
   iconColor = "white",
   imageSrc,
   heading,
-  text,
-  bgColor = "white",
-  textColor = "black",
-  width = "auto",
+  price,
   height = "auto",
 }) => {
   const flexDirection = useBreakpointValue({ base: "column", md: "row" });
   const dynamicWidth = useBreakpointValue({ base: "225px", md: "230px" });
-
+  const cardBg = useColorModeValue('white', 'gray.800');
+  const cardColor = useColorModeValue('gray.700', 'white');
 
   const IconComponent = icon ? React.cloneElement(icon, { size: iconSize, color: iconColor }) : null;
 
   return (
     <Flex
       direction={flexDirection}
-      bg={bgColor}
-      color={textColor}
-      p={4}
-      borderRadius="md"
-      boxShadow="md"
+      bg={cardBg}
+      color={cardColor}
+      p={6}
+      borderRadius="lg"
+      boxShadow="2xl"
       alignItems="center"
       justifyContent="space-between"
       width={dynamicWidth}
       minWidth={dynamicWidth}
       height={height}
       transition="all 0.3s ease-in-out"
-      _hover={{ boxShadow: "xl" }}
+      _hover={{ transform: "scale(1.02)" }}
     >
       <Box flexShrink={0}>
         {IconComponent && (
@@ -55,7 +53,7 @@ const CardInfo = ({
         <Heading size="md" mb={2}>
           {heading}
         </Heading>
-        <Text>{text}</Text>
+        <Text>R{price}</Text>
       </Box>
     </Flex>
   );

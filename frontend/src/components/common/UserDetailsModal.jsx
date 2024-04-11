@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Spinner } from '@chakra-ui/react';
+import { useToast } from "@chakra-ui/react"
 import {
   Modal,
   ModalOverlay,
@@ -13,8 +16,10 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
+
 const UserDetailsModal = ({ isOpen, onClose, user, modalWidth }) => {
   const [imageBlobUrl, setImageBlobUrl] = useState(null);
+
 
   useEffect(() => {
     if (user?.image) {
@@ -36,36 +41,46 @@ const UserDetailsModal = ({ isOpen, onClose, user, modalWidth }) => {
   }, [user]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered > 
-      <ModalOverlay
-        bg="blackAlpha.300" // Semi-transparent background
-        backdropFilter="blur(2px)" // Apply blur effect
-      />
-      <ModalContent width={modalWidth} maxWidth={modalWidth}>
-        <ModalHeader>User Details</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody bg={'whiteAlpha.300'}>
-          <VStack spacing={4} align="stretch">
-            {imageBlobUrl && (
-              <Image
-                borderRadius="full"
-                boxSize="100px"
-                src={imageBlobUrl}
-                alt={`${user?.firstName} ${user?.lastName}`}
-              />
-            )}
-            <Text fontSize="lg">Name: {user?.firstName}</Text>
-            <Text fontSize="lg">Last Name: {user?.lastName}</Text>
-            <Text fontSize="lg">Email: {user?.email}</Text>
-          </VStack>
-        </ModalBody>
-        <ModalFooter>
-          {/* <Button colorScheme="blue" mr={3} onClick={onClose}>
-            Close
-          </Button> */}
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+    <Modal isOpen={isOpen} onClose={onClose} isCentered>
+  <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(2px)" />
+  <ModalContent
+    width={modalWidth}
+    maxWidth={modalWidth}
+    bg="white"
+    boxShadow="2xl"
+    borderRadius="lg"
+    p={6}
+  >
+    <ModalHeader fontSize="2xl" fontWeight="bold" borderBottomWidth="1px">
+      User Details
+    </ModalHeader>
+    <ModalCloseButton />
+    <ModalBody>
+      <VStack spacing={4} align="stretch">
+        {imageBlobUrl && (
+          <Image
+            borderRadius="full"
+            boxSize="100px"
+            src={imageBlobUrl}
+            alt={`${user?.firstName} ${user?.lastName}`}
+            objectFit="cover"
+            border="2px"
+            borderColor="gray.200"
+          />
+        )}
+        <Text fontSize="lg" fontWeight="semibold">Name: {user?.firstName}</Text>
+        <Text fontSize="lg" fontWeight="semibold">Last Name: {user?.lastName}</Text>
+        <Text fontSize="lg" fontWeight="semibold">Email: {user?.email}</Text>
+      </VStack>
+    </ModalBody>
+    <ModalFooter justifyContent="center" borderTopWidth="1px">
+      <Button colorScheme="blue" mr={3} onClick={onClose}>
+        Close
+      </Button>
+    </ModalFooter>
+  </ModalContent>
+</Modal>
+
   );
 };
 

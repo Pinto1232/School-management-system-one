@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 
 const TwoColumnLayout = ({ children, isMenuOpen }) => {
-  const containerBackground = useColorModeValue("#319795", "#3182ce");
+  const containerBackground = useColorModeValue("", "");
   const marginLeft = isMenuOpen ? '320px' : '0'; 
 
 

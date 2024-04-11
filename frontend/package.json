@@ -23,6 +23,7 @@
     "@fullcalendar/interaction": "^6.1.5",
     "@fullcalendar/react": "^6.1.5",
     "@fullcalendar/timegrid": "^6.1.10",
+    "@nextui-org/react": "^2.2.10",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",

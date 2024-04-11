@@ -108,7 +108,7 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
 
   return (
     <>
-      <Box position="absolute" right="0" shadow="md" borderRadius="md" m={4}>
+      <Box position="absolute" right="0" shadow="md" borderRadius="md" m={4} zIndex={999}>
         <Tooltip label="Open Sidebar" fontSize="xs">
           <IconButton
             color={'white'}
@@ -116,6 +116,7 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
             onClick={handleMenuToggle}
             icon={<HamburgerIcon />}
             variant="outline"
+            bg={'teal.500'}
             _hover={{bg : '#000'}}
           />
         </Tooltip>
@@ -131,7 +132,7 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
         trapFocus={false}
       >
         <DrawerOverlay>
-          <DrawerContent bg={'#319795'}>
+          <DrawerContent bg={'#fff'}>
             <DrawerHeader borderBottomWidth="">
               <Flex justifyContent="space-between" alignItems="center">
                 <UserProfileInfo
@@ -169,9 +170,9 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
                       alignItems="center"
                       spacing="12"
                       gap={4}
-                      color={'white'}
+                      color={'black'}
                     >
-                      <item.icon boxsize="0" fontSize={20} color={'white'} />
+                      <item.icon boxsize="0" fontSize={20} color={'teal'} />
                       <Link
                         textDecoration="none"
                         _hover={{

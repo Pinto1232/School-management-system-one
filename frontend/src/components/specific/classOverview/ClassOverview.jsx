@@ -20,7 +20,6 @@ import { CSVLink } from 'react-csv';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import AlertToast from '../../common/AlertToast';
-import RecentActivities from '../../../../../RecentActivities';
 import { motion } from 'framer-motion';
 
 const itemsPerPage = 4;
@@ -336,7 +335,7 @@ const ClassOverview = ({
                     </ModalHeader>
                     <ModalCloseButton />
                     <ModalBody p={4}>
-                        <RecentActivities />
+                        {/* <RecentActivities /> */}
                     </ModalBody>
                 </ModalContent>
             </Modal>

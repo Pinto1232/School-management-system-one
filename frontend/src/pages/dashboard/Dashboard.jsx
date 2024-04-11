@@ -42,6 +42,8 @@ import {
   UserPlan,
   UserSummary,
 } from '../../components/specific/MultiStepForm'
+import GridLayout from '../../components/common/GridLayout'
+import UserMenu from './UserMenu'
 
 // Attendance
 const assignments = [
@@ -64,6 +66,7 @@ const initialData = {
     },
   ],
 }
+
 console.log('Initial data', initialData)
 
 // Define the options for the chart
@@ -701,8 +704,8 @@ const Dashboard = () => {
     setIsMenuOpen(newState)
   }
 
-  const dashboardBG = useColorModeValue('#319795', '#3182ce')
-  const tableBG = useColorModeValue('#171923', '#2d3748')
+  const dashboardBG = useColorModeValue('', '')
+  const tableBG = useColorModeValue('', '#2d3748')
   const textColor = useColorModeValue('#fff', '#fff')
   const [studentsData, setStudentsData] = useState([])
   const [currentView, setCurrentView] = useState('dashboard')
@@ -830,19 +833,11 @@ const Dashboard = () => {
     case 'dashboard':
       content = (
         <Box>
-          <Box>
-            <TopBar
-              emailCount={emailCount}
-              handleMenuToggle={handleMenuToggle}
-              changeView={changeView}
-            />
-          </Box>
-
-          <TwoColumnLayout isMenuOpen={isMenuOpen} w="100%">
-            <Flex justifyContent="center" alignItems="center" w="100%">
+          <UserMenu onMenuToggle={handleMenuToggle} changeView={changeView} />
+          <TwoColumnLayout isMenuOpen={isMenuOpen}>
+            <Flex>
               {showWelcomeCard && (
                 <WelcomeCard
-                  backgroundImage="/path-to-your-background-image.jpg"
                   onAnalyticsClick={handleAnalyticsClick}
                   onClose={handleClose}
                 />
@@ -854,13 +849,9 @@ const Dashboard = () => {
             <Flex
               align={'start'}
               px={['2em']}
-              justifyContent={'center'}
-              alignItems={'center'}
-            >
-              <Heading as="h2" size="md">
-                Admin Dashboard
-              </Heading>
-            </Flex>
+              justifyContent={'start'}
+              alignItems={'start'}
+            ></Flex>
           </TwoColumnLayout>
 
           <TwoColumnLayout isMenuOpen={isMenuOpen}>
@@ -878,7 +869,7 @@ const Dashboard = () => {
                   iconSize={35}
                   iconBgColor="orange.400"
                   iconColor="white"
-                  text="$4503"
+                  price="4503"
                   bgColor="gray.100"
                   textColor="gray.700"
                   height="100px"
@@ -891,7 +882,7 @@ const Dashboard = () => {
                   iconSize={35}
                   iconBgColor="red.400"
                   iconColor="white"
-                  text="12"
+                  price="12"
                   bgColor="gray.100"
                   textColor="gray.700"
                   height="100px"
@@ -903,7 +894,7 @@ const Dashboard = () => {
                   heading="Result"
                   iconBgColor="yellow.400"
                   iconSize={35}
-                  text="16"
+                  price="16"
                   bgColor="gray.100"
                   textColor="gray.700"
                   height="100px"
@@ -917,7 +908,7 @@ const Dashboard = () => {
                   iconBgColor="purple.400"
                   iconColor="white"
                   iconSize={35}
-                  text="$193000"
+                  price="193000"
                   bgColor="gray.100"
                   textColor="gray.700"
                   height="100px"
@@ -930,7 +921,7 @@ const Dashboard = () => {
                   iconBgColor="green.400"
                   iconColor="white"
                   iconSize={35}
-                  text="35000"
+                  price="35000"
                   bgColor="gray.100"
                   textColor="gray.700"
                   height="100px"
@@ -943,7 +934,7 @@ const Dashboard = () => {
                   iconColor="white"
                   heading="Total Exams"
                   iconSize={35}
-                  text="19050"
+                  price="19050"
                   bgColor="gray.100"
                   textColor="gray.700"
                   height="100px"
@@ -974,6 +965,7 @@ const Dashboard = () => {
                     color={textColor}
                     as="h6"
                     fontSize={['md', 'lg', 'xl']}
+                    style={{ color: 'black' }}
                   >
                     My Students
                   </Heading>
@@ -991,7 +983,11 @@ const Dashboard = () => {
           </TwoColumnLayout>
 
           <TwoColumnLayout isMenuOpen={isMenuOpen}>
-            <Flex direction={['column', 'row']} w="100%" gap={1}>
+            <Flex
+              direction={['column', 'column', 'row', 'row']}
+              w="100%"
+              gap={1}
+            >
               <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
                 <PerformanceCard
                   title="Performance"
@@ -1022,7 +1018,7 @@ const Dashboard = () => {
                     <CourseCard
                       title="Introduction to React"
                       description="Learn the basics of React, including components, state, and props."
-                      imageUrl="path-to-image.jpg"
+                      imageUrl="https://bs-uploads.toptal.io/blackfish-uploads/components/seo/5923684/og_image/optimized/react-context-api-4929b3703a1a7082d99b53eb1bbfc31f.png"
                       duration="4 weeks"
                       level="Beginner"
                       onFavoriteToggle={(isFav) =>
@@ -1041,7 +1037,7 @@ const Dashboard = () => {
                     <CourseCard
                       title="Object Oriented Programming"
                       description="Learn the basics of OBJ."
-                      imageUrl="path-to-image.jpg"
+                      imageUrl="https://via.placeholder.com/150"
                       duration="4 weeks"
                       level="Advance"
                       onFavoriteToggle={(isFav) =>
@@ -1075,6 +1071,8 @@ const Dashboard = () => {
                 </Box>
               </Box>
             </Flex>
+
+            {/*  <GridLayout /> */}
           </TwoColumnLayout>
         </Box>
       )

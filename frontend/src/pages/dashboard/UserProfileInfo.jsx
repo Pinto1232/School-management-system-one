@@ -10,11 +10,10 @@ const UserProfileInfo = () => {
 
   useEffect(() => {
     if (user?.image) {
-      // Extract the filename from the path and construct the URL
       const filename = user.image.split('\\').pop().split('/').pop();
       const imageUrl = `http://localhost:3001/api/users/uploads/${filename}`;
 
-      // Fetch the image blob from the server
+      
       fetch(imageUrl)
         .then((response) => response.blob())
         .then((blob) => {
