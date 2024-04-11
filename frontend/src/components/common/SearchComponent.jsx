@@ -22,7 +22,7 @@ const SearchComponent = () => {
   };
 
   return (
-    <Box p={4} boxShadow="md" borderRadius="md" bg="white">
+    <Box p={6} boxShadow="2xl"  bg="white">
       <Flex direction={["column", "row"]} alignItems="center" justifyContent="space-between">
         <FormControl mr={4}>
           <Input
@@ -30,8 +30,8 @@ const SearchComponent = () => {
             placeholder="Search by Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            bg="gray.100"
-            borderRadius="md"
+            bg="gray.200"
+            borderRadius="lg"
           />
         </FormControl>
 
@@ -40,8 +40,8 @@ const SearchComponent = () => {
             placeholder="Search by Gender"
             value={gender}
             onChange={(e) => setGender(e.target.value)}
-            bg="gray.100"
-            borderRadius="md"
+            bg="gray.200"
+            borderRadius="lg"
           >
             <option value="male">Male</option>
             <option value="female">Female</option>
@@ -55,8 +55,8 @@ const SearchComponent = () => {
             placeholder="Search by Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            bg="gray.100"
-            borderRadius="md"
+            bg="gray.200"
+            borderRadius="lg"
           />
         </FormControl>
 

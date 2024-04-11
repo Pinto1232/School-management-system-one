@@ -28,6 +28,7 @@ const CardInfo = ({
       boxShadow="2xl"
       alignItems="center"
       justifyContent="space-between"
+      cursor={"pointer"}
       width={dynamicWidth}
       minWidth={dynamicWidth}
       height={height}
@@ -49,11 +50,12 @@ const CardInfo = ({
         )}
         {imageSrc ? <img src={imageSrc} alt={heading} /> : null}
       </Box>
-      <Box ml={{ base: 0, md: 4 }} mt={{ base: 4, md: 0 }}>
+      <Box ml={{ base: 0, md: 2 }} mt={{ base: 2, md: 0 }} whiteSpace={"nowrap"}>
         <Heading size="md" mb={2}>
           {heading}
         </Heading>
-        <Text>R{price}</Text>
+        <Text>R{parseFloat(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+
       </Box>
     </Flex>
   );

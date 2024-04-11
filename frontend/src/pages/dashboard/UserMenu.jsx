@@ -108,7 +108,14 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
 
   return (
     <>
-      <Box position="absolute" right="0" shadow="md" borderRadius="md" m={4} zIndex={999}>
+      <Box
+        position="absolute"
+        right="0"
+        shadow="md"
+        borderRadius="md"
+        m={4}
+        zIndex={999}
+      >
         <Tooltip label="Open Sidebar" fontSize="xs">
           <IconButton
             color={'white'}
@@ -117,7 +124,7 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
             icon={<HamburgerIcon />}
             variant="outline"
             bg={'teal.500'}
-            _hover={{bg : '#000'}}
+            _hover={{ bg: '#000' }}
           />
         </Tooltip>
       </Box>
@@ -151,18 +158,22 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
                   p={5}
                   color={'white'}
                   borderRadius="full"
-                  _hover={{bg : '#000'}}
+                  _hover={{ bg: '#000' }}
                 />
               </Flex>
             </DrawerHeader>
             <DrawerBody css={thinScrollbar}>
               <VStack spacing={4} align="stretch">
-                {menuItemsData?.map((item) => (
+                {menuItemsData?.map((item, index) => (
                   <Flex
                     key={item.label}
-                    fontSize="lg"
+                    fontSize="sm"
                     onClick={() => handleNavigation(item.label.toLowerCase())}
                     alignItems="center"
+                    bg={index === 0 ? 'gray.200' : ''}
+                    px={index === 0 ? '6px' : ''}
+                    py={index === 0 ? '4px' : ''}
+                    borderRadius={index === 0 ? '20px' : ''}
                   >
                     <Box
                       as="span"
@@ -172,7 +183,18 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
                       gap={4}
                       color={'black'}
                     >
-                      <item.icon boxsize="0" fontSize={20} color={'teal'} />
+                      <Box
+                        border="2px solid teal"
+                        borderRadius="50%"
+                        p="2"
+                        bg={index === 0 ? 'teal' : ''}
+                      >
+                        <item.icon
+                          boxsize="0"
+                          fontSize={15}
+                          color={index === 0 ? 'white' : 'black'}
+                        />
+                      </Box>
                       <Link
                         textDecoration="none"
                         _hover={{
@@ -188,7 +210,9 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
                           borderRadius: '4',
                         }}
                       >
-                        <span>{item.label}</span>
+                        <span fontSize={index === 0 ? 'white' : 'normal'}>
+                          {item.label}
+                        </span>
                       </Link>
                     </Box>
                   </Flex>

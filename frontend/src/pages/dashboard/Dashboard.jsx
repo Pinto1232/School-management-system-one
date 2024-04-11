@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { FaUserGraduate } from 'react-icons/fa'
 import { Box, Flex, Heading, useColorModeValue } from '@chakra-ui/react'
 import {
   FaBell,
@@ -961,16 +962,20 @@ const Dashboard = () => {
                   alignItems="center"
                   mb={[2, 4]}
                 >
-                  <Heading
-                    color={textColor}
-                    as="h6"
-                    fontSize={['md', 'lg', 'xl']}
-                    style={{ color: 'black' }}
-                  >
-                    My Students
-                  </Heading>
                   <Box>
-                    <ThreeDotsMenu />
+                    <Heading
+                      color={textColor}
+                      as="h6"
+                      fontSize={['md', 'lg', 'xl']}
+                      style={{ color: 'black' }}
+                    >
+                      <Flex alignItems="center">
+                        <FaUserGraduate />
+                        <span style={{ marginLeft: '0.5rem' }}>
+                          My Students
+                        </span>
+                      </Flex>
+                    </Heading>
                   </Box>
                 </Flex>
 
@@ -984,7 +989,7 @@ const Dashboard = () => {
 
           <TwoColumnLayout isMenuOpen={isMenuOpen}>
             <Flex
-              direction={['column', 'column', 'row', 'row']}
+              direction={['column', 'column', 'column', 'row']}
               w="100%"
               gap={1}
             >
@@ -1037,7 +1042,7 @@ const Dashboard = () => {
                     <CourseCard
                       title="Object Oriented Programming"
                       description="Learn the basics of OBJ."
-                      imageUrl="https://via.placeholder.com/150"
+                      imageUrl="https://qph.cf2.quoracdn.net/main-qimg-4af0af5b88b278ab393a969b2c30ce28-lq"
                       duration="4 weeks"
                       level="Advance"
                       onFavoriteToggle={(isFav) =>

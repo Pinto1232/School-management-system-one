@@ -58,8 +58,8 @@ const Calendar = ({ onDateSelect }) => {
         key={day}
         flex="1"
         textAlign="center"
-        fontWeight="bold"
-        color="gray.600"
+        fontWeight="semibold"
+        color="teal.500"
       >
         {day}
       </Text>
@@ -78,19 +78,19 @@ const Calendar = ({ onDateSelect }) => {
           <Box
             key={day.toString()}
             flex="1"
-            height="40px"
+            height="45px"
             display="flex"
             alignItems="center"
             justifyContent="center"
             bg={
               isSelected
-                ? 'teal.600'
+                ? 'teal.500'
                 : dayIsInMonth(day)
                 ? 'teal.100'
-                : 'gray.50'
+                : 'gray.200'
             }
             color={
-              isSelected ? 'white' : isCurrentDay ? 'teal.600' : 'gray.800'
+              isSelected ? 'white' : isCurrentDay ? 'teal.500' : 'gray.500'
             }
             p={3}
             m={0.5}
@@ -111,7 +111,7 @@ const Calendar = ({ onDateSelect }) => {
     return days
   }
 
-  const gridHeight = useBreakpointValue({ base: '43vh', lg: '70vh' })
+  const gridHeight = useBreakpointValue({ base: '43vh', lg: '80vh' })
 
   return (
     <Box
@@ -127,12 +127,14 @@ const Calendar = ({ onDateSelect }) => {
         alignItems="center"
         bg="teal.500"
         color="white"
-        p={4}
-        borderRadius="lg"
+        p={1}
+        borderRadius="sm"
       >
         <IconButton
           aria-label="Previous month"
           icon={<ChevronLeftIcon />}
+          size={20}
+          padding={1}
           variant="outline"
           onClick={prevMonth}
           bg={'white'}
@@ -142,14 +144,15 @@ const Calendar = ({ onDateSelect }) => {
         />
         <Box textAlign="center" flex="1">
           {' '}
-          {/* Center the text */}
-          <Text fontSize="2xl" fontWeight="semibold">
+          <Text fontSize="xl" fontWeight="semibold">
             {format(currentDate, 'MMMM yyyy')}
           </Text>
         </Box>
         <IconButton
           aria-label="Next month"
           icon={<ChevronRightIcon />}
+          size={20}
+          padding={1}
           variant="outline"
           onClick={nextMonth}
           bg={'white'}
@@ -158,10 +161,10 @@ const Calendar = ({ onDateSelect }) => {
           colorScheme="teal"
         />
       </Flex>
-      <Flex bg="gray.100" color={'black'} p={8}>
+      <Flex bg="gray.100" color={'black'} fontSize={15} p={8}>
         {renderDaysOfWeek()}
       </Flex>
-      <Flex flexWrap="wrap" p={2}>
+      <Flex flexWrap="wrap" p={1}>
         {renderDays()}
       </Flex>
     </Box>

@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Spinner } from '@chakra-ui/react';
-import { useToast } from "@chakra-ui/react"
 import {
   Modal,
   ModalOverlay,
@@ -51,7 +48,7 @@ const UserDetailsModal = ({ isOpen, onClose, user, modalWidth }) => {
     borderRadius="lg"
     p={6}
   >
-    <ModalHeader fontSize="2xl" fontWeight="bold" borderBottomWidth="1px">
+    <ModalHeader fontSize="2xl" fontWeight="bold" borderBottomWidth="1px" >
       User Details
     </ModalHeader>
     <ModalCloseButton />
@@ -74,7 +71,7 @@ const UserDetailsModal = ({ isOpen, onClose, user, modalWidth }) => {
       </VStack>
     </ModalBody>
     <ModalFooter justifyContent="center" borderTopWidth="1px">
-      <Button colorScheme="blue" mr={3} onClick={onClose}>
+      <Button colorScheme="blue" mr={3} w="full" onClick={onClose}>
         Close
       </Button>
     </ModalFooter>

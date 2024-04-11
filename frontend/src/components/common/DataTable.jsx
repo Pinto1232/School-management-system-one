@@ -6,10 +6,12 @@ import {
   Tr,
   Th,
   Td,
-  Text,
   Icon,
   ButtonGroup,
   Button,
+  useToast,
+  Text,
+  Flex,
 } from '@chakra-ui/react'
 import { useMemo, useState } from 'react'
 import { useTable, useSortBy } from 'react-table'
@@ -18,10 +20,12 @@ import axios from 'axios'
 import { useUserContext } from '../../contexts/UserContext'
 import UserDetailsModal from './UserDetailsModal'
 
+
 const DataTable = ({ data, fetchData }) => {
   const { user } = useUserContext()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedUser, setSelectedUser] = useState(null)
+  const toast = useToast()
 
   const handleView = (user) => {
     setSelectedUser(user)
@@ -81,22 +85,45 @@ const DataTable = ({ data, fetchData }) => {
   )
 
   const handleDelete = async (id) => {
-    // Show a confirmation popup
-    const confirmDelete = window.confirm(
-      'Are you sure you want to delete this user?'
-    )
-
-    // If the user clicked OK, proceed with the deletion
-    if (confirmDelete) {
-      try {
-        await axios.delete(`http://localhost:3001/api/users/${id}`)
-        // After deleting the user, fetch the data again to update the table
-        fetchData()
-      } catch (error) {
-        console.error('Delete error:', error)
-      }
-    }
-  }
+    const toastId = toast({
+      position: "bottom",
+      render: () => (
+        <Box
+          width="100%"
+          position="relative"
+          bottom={0}
+          color="white"
+          p={2}
+          bg="red.500"
+          borderRadius="md"
+        >
+          <Flex justifyContent="space-between" alignItems="center">
+            <Text>Are you sure?</Text>
+            <ButtonGroup size="sm">
+              <Button
+                colorScheme="green"
+                onClick={async () => {
+                  toast.close(toastId);
+                  try {
+                    await axios.delete(`http://localhost:3001/api/users/${id}`);
+                    fetchData();
+                  } catch (error) {
+                    console.error('Delete error:', error);
+                  }
+                }}
+              >
+                Yes
+              </Button>
+              <Button colorScheme="red" onClick={() => toast.close(toastId)}>
+                No
+              </Button>
+            </ButtonGroup>
+          </Flex>
+        </Box>
+      ),
+    });
+  };
+  
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data }, useSortBy)
@@ -165,7 +192,7 @@ const DataTable = ({ data, fetchData }) => {
                 <Td bg={bgColor}>
                   <ButtonGroup spacing={2}>
                     <Button
-                      colorScheme="blue"
+                      colorScheme="teal"
                       onClick={() => handleView(row.original)}
                       leftIcon={<FaEye />}
                     >
@@ -189,16 +216,17 @@ const DataTable = ({ data, fetchData }) => {
         <Box display="flex" justifyContent="flex-end" mt={4}>
           <ButtonGroup spacing={2}>
             <Button
-              colorScheme="blue"
+              colorScheme="teal"
+              bg={'teal'}
               onClick={() => handleView(row.original)}
-              leftIcon={<FaEye />} // Add the "View" icon
+              leftIcon={<FaEye />} 
             >
               View
             </Button>
             <Button
               colorScheme="red"
               onClick={() => handleDelete(row.original._id)}
-              leftIcon={<FaTrash />} // Add the "Delete" icon
+              leftIcon={<FaTrash />} 
             >
               Delete
             </Button>
