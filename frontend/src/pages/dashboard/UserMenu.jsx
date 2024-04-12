@@ -141,7 +141,11 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
         <DrawerOverlay>
           <DrawerContent bg={'#fff'}>
             <DrawerHeader borderBottomWidth="">
-              <Flex justifyContent="space-between" alignItems="center">
+              <Flex
+                justifyContent="space-between"
+                alignItems="center"
+                borderBottom={'solid 1px gray'}
+              >
                 <UserProfileInfo
                   user={user}
                   imageWidth="60px"
@@ -153,11 +157,12 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
                     onMenuToggle(false)
                   }}
                   bg={'#319795'}
-                  mr={'-50px!important'}
+                  mr={'-72px!important'}
                   mt={'14'}
                   p={5}
                   color={'white'}
-                  borderRadius="full"
+                  borderRadius="0px 15px 15px 0px"
+                  w={'4em'}
                   _hover={{ bg: '#000' }}
                 />
               </Flex>
@@ -170,10 +175,13 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
                     fontSize="sm"
                     onClick={() => handleNavigation(item.label.toLowerCase())}
                     alignItems="center"
-                    bg={index === 0 ? 'gray.200' : ''}
-                    px={index === 0 ? '6px' : ''}
-                    py={index === 0 ? '4px' : ''}
-                    borderRadius={index === 0 ? '20px' : ''}
+                    bg={index === 0 ? 'black' : ''}
+                    px={index === 0 ? '5px' : ''}
+                    py={index === 0 ? '7px' : ''}
+                    w={index === 0 ? '20em' : ''}
+                    borderRadius={index === 0 ? '40px' : ''}
+                    _hover={index === 0 ? { bg: 'green.400' } : {}}
+                    cursor={index === 0 ? 'pointer' : 'default'}
                   >
                     <Box
                       as="span"
@@ -184,10 +192,11 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
                       color={'black'}
                     >
                       <Box
-                        border="2px solid teal"
                         borderRadius="50%"
-                        p="2"
+                        p="1"
                         bg={index === 0 ? 'teal' : ''}
+                        border={index === 0 ? '' : '2px solid teal'}
+                        boxShadow={index === 0 ? 'md' : 'md'}
                       >
                         <item.icon
                           boxsize="0"
@@ -195,25 +204,32 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
                           color={index === 0 ? 'white' : 'black'}
                         />
                       </Box>
-                      <Link
+                      <Box
                         textDecoration="none"
-                        _hover={{
-                          textDecoration: 'none',
-                          paddingTop: '1',
-                          paddingBottom: '1',
-                          paddingLeft: '2',
-                          paddingRight: '2',
-                          transition:
-                            'all 0.50s cubic-bezier(0.25, 0.1, 0.25, 1)',
-                          width: '230px',
-                          whiteSpace: 'nowrap',
-                          borderRadius: '4',
-                        }}
+                        _hover={index === 0 ? { color: 'white' } : {}}
+                        fontWeight={index === 0 ? 'bold' : ''}
+                        color={index === 0 ? 'white' : 'teal'}
                       >
-                        <span fontSize={index === 0 ? 'white' : 'normal'}>
-                          {item.label}
-                        </span>
-                      </Link>
+                        <Link
+                          textDecoration="none"
+                          _hover={{
+                            textDecoration: 'none',
+                            paddingTop: '1',
+                            paddingBottom: '1',
+                            paddingLeft: '2',
+                            paddingRight: '2',
+                            transition:
+                              'all 0.50s cubic-bezier(0.25, 0.1, 0.25, 1)',
+                            width: '230px',
+                            whiteSpace: 'nowrap',
+                            borderRadius: '4',
+                          }}
+                        >
+                          <span fontSize={index === 0 ? 'white' : 'normal'}>
+                            {item.label}
+                          </span>
+                        </Link>
+                      </Box>
                     </Box>
                   </Flex>
                 ))}

@@ -56,17 +56,44 @@ const WelcomeCard = ({ backgroundImage, onAnalyticsClick, onClose }) => {
             Access your personalized dashboard for all your educational needs
             and updates
           </Heading>
-          <Button
+          <Flex
+            gap={1}
+            bg={'white'}
+            py={2}
+            px={2}
+            w={'20.3em'}
             mt={4}
-            w={200}
-            colorScheme="teal"
-            onClick={() => {
-              onAnalyticsClick()
-              onClose()
-            }}
+            borderRadius={8}
+            boxShadow={'lg'}
           >
-            View Analytics
-          </Button>
+            <Box>
+              <Button
+                w={150}
+                colorScheme="teal"
+                borderRadius={0}
+                onClick={() => {
+                  onAnalyticsClick()
+                  onClose()
+                }}
+              >
+                View Analytics
+              </Button>
+            </Box>
+            <Box>
+              <Button
+                w={150}
+                bg={'#e53e3e'}
+                colorScheme="teal"
+                borderRadius={0}
+                onClick={() => {
+                  onAnalyticsClick()
+                  onClose()
+                }}
+              >
+                Analytics
+              </Button>
+            </Box>
+          </Flex>
         </Flex>
         <Flex direction="column" justifyContent="center" w="50%" h="full" p={0}>
           <Image

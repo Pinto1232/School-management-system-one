@@ -27,10 +27,11 @@ const SearchComponent = () => {
         <FormControl mr={4}>
           <Input
             type="text"
+            fontSize={15}
             placeholder="Search by Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            bg="gray.200"
+            bg="gray.50"
             borderRadius="lg"
           />
         </FormControl>
@@ -40,8 +41,9 @@ const SearchComponent = () => {
             placeholder="Search by Gender"
             value={gender}
             onChange={(e) => setGender(e.target.value)}
-            bg="gray.200"
+            bg="gray.50"
             borderRadius="lg"
+            fontSize={15}
           >
             <option value="male">Male</option>
             <option value="female">Female</option>
@@ -52,10 +54,11 @@ const SearchComponent = () => {
         <FormControl mr={4}>
           <Input
             type="email"
+            fontSize={15}
             placeholder="Search by Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            bg="gray.200"
+            bg="gray.50"
             borderRadius="lg"
           />
         </FormControl>
@@ -65,12 +68,10 @@ const SearchComponent = () => {
           size="md"
           px={9}
           py={4}
-          fontSize="md"
-          fontWeight="bold"
-          _hover={{ bg: "teal.600" }}
-          _active={{ bg: "teal.700" }}
+          fontSize="sm"
+          _hover={{ bg: "teal.500" }}
           onClick={handleSearch}
-          leftIcon={<SearchIcon />}
+          leftIcon={<SearchIcon fontWeight={'bold'} fontSize={18}/>}
         >
           Search
         </Button>

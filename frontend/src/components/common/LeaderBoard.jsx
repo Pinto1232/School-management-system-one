@@ -18,11 +18,16 @@ import { MdMoreHoriz } from 'react-icons/md'
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa'
 
 // LeaderBoardItem component represents each student in the leaderboard
-const LeaderBoardItem = ({  percentage, changeDirection, index  }) => {
+const LeaderBoardItem = ({ percentage, changeDirection, index }) => {
   const color = useColorModeValue('gray.700', 'gray.200')
-  const bgColors = ['red.100', 'blue.100', 'green.100', 'yellow.100', 'purple.100'];
-  const bg = useColorModeValue(bgColors[index % bgColors.length], 'gray.900');
-
+  const bgColors = [
+    'red.100',
+    'blue.100',
+    'green.100',
+    'yellow.100',
+    'purple.100',
+  ]
+  const bg = useColorModeValue(bgColors[index % bgColors.length], 'gray.900')
 
   return (
     <Flex
@@ -31,9 +36,10 @@ const LeaderBoardItem = ({  percentage, changeDirection, index  }) => {
       bg={bg}
       p={1}
       borderRadius="md"
+      boxshadow="2lg"
       color={color}
     >
-      <Box minWidth="56px">
+      <Box minWidth="56px" ml={1}>
         <Image
           borderRadius="full"
           boxSize="35px"
@@ -42,9 +48,17 @@ const LeaderBoardItem = ({  percentage, changeDirection, index  }) => {
           mr={4}
         />
       </Box>
-      <Flex align="center" justify="flex-end">
+      <Flex
+        align="center"
+        justify="flex-end"
+        bg={'black'}
+        color={'white'}
+        p={1}
+        mr={1}
+        borderRadius={'md'}
+      >
         <Tooltip label={`Performance: ${percentage}%`} hasArrow>
-          <Text fontSize="lg" mr={2}>
+          <Text fontSize="sm" mr={2}>
             {percentage}%
           </Text>
         </Tooltip>
@@ -122,8 +136,8 @@ const LeaderBoard = ({ students }) => {
       </Box>
       <Divider />
       <Box mx={8}>
-        <Button width="full" fontSize={14} colorScheme="teal" >
-          VIEW ALL STUDENTS
+        <Button width="full" fontSize={14} colorScheme="teal">
+          ALL STUDENTS
         </Button>
       </Box>
     </Box>
