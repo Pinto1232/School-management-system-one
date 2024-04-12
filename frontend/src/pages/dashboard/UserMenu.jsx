@@ -180,7 +180,7 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
                     py={index === 0 ? '7px' : ''}
                     w={index === 0 ? '20em' : ''}
                     borderRadius={index === 0 ? '40px' : ''}
-                    _hover={index === 0 ? { bg: 'green.400' } : {}}
+                    _hover={index === 0 ? { bg: 'teal' } : {}}
                     cursor={index === 0 ? 'pointer' : 'default'}
                   >
                     <Box
@@ -193,8 +193,8 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
                     >
                       <Box
                         borderRadius="50%"
-                        p="1"
-                        bg={index === 0 ? 'teal' : ''}
+                        p={index === 0 ? '1' : '1'}
+                        bg={index === 0 ? '' : ''}
                         border={index === 0 ? '' : '2px solid teal'}
                         boxShadow={index === 0 ? 'md' : 'md'}
                       >
@@ -209,6 +209,10 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
                         _hover={index === 0 ? { color: 'white' } : {}}
                         fontWeight={index === 0 ? 'bold' : ''}
                         color={index === 0 ? 'white' : 'teal'}
+                        borderBottom={index === 0 ? '' : '1px solid'}
+                        borderBottomColor={index === 0 ? '' : 'gray.200'}
+                        lineHeight={index === 0 ? '' : '35px'}
+                        w={210}
                       >
                         <Link
                           textDecoration="none"
@@ -240,10 +244,10 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
 
                 <Button
                   bg={btColor}
-                  color={textColor}
+                  color={'white'}
                   isLoading={isLoading}
                   onClick={handleLogout}
-                  leftIcon={<IoLogOut />}
+                  leftIcon={<IoLogOut color='black' />}
                 >
                   Logout
                 </Button>
