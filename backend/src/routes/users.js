@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { register, login, deleteUser } = require('../controllers/users');
-const upload = require('../middlewares/multer');
+const { register, deleteUser, login } = require('../controllers/users');
+const upload = require('../middlewares/multerConfig');
 const User = require('../models/User');
+const multer = require('multer');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -39,28 +40,32 @@ const saltRounds = 10;
  *       201:
  *         description: User registered successfully.
  */
-router.post('/register', upload.single('profileImage'), async (req, res) => {
-    if (!req.file) {
-        return res.status(400).json({ error: 'No file uploaded' });
+
+router.post('/register', upload.single('profileImage'), async (req, res, next) => {
+    const { firstName, lastName, email, password } = req.body;
+
+    // Check for the presence of all required fields including the file
+    if (!req.file || !firstName || !lastName || !email || !password) {
+        return res.status(400).json({ error: 'All fields including a profile image are required' });
     }
-    console.log(req.file);
-    console.log(req.body);
 
     try {
-        const hashedPassword = await bcrypt.hash(req.body['password '], saltRounds);
-        const imagePath = req.file.path.split('../../uploads')[1];
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-        
+        // Create a new user instance
         const newUser = new User({
-            firstName: req.body.firstname, 
-            lastName: req.body.lastname, 
-            email: req.body.email,
+            firstName,
+            lastName,
+            email,
             password: hashedPassword,
-            image: req.file.path
+            image: req.file.path  
         });
 
+        // Save the new user to the database
         await newUser.save();
 
+        // Respond with success message and user info (excluding password)
         res.status(201).json({
             message: 'User registered successfully',
             user: {
@@ -68,14 +73,24 @@ router.post('/register', upload.single('profileImage'), async (req, res) => {
                 firstName: newUser.firstName,
                 lastName: newUser.lastName,
                 email: newUser.email,
-                profileImage: newUser.profileImage
+                image: newUser.image
             }
         });
     } catch (error) {
-        console.error("Full error details:", error);
+        console.error("Registration error:", error);
         res.status(500).json({ message: 'Error registering user', error: error.message });
     }
+}, (error, req, res, next) => {
+    // Handle Multer errors
+    if (error instanceof multer.MulterError) {
+        return res.status(400).json({ error: error.message });
+    }
+    // Forward other errors to the next error handler
+    next(error);
 });
+
+
+
 
 /**
  * @swagger

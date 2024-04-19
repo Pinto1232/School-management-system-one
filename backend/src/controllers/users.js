@@ -15,78 +15,52 @@ if (!fs.existsSync(uploadDir)) {
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, uploadDir);
+      cb(null, uploadDir);  
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
+      cb(null, file.fieldname + '-' + Date.now());
+  }
 });
 
 const upload = multer({ storage: storage });
 const saltRounds = 10;
 
-exports.register = asyncHandler(
-  upload.single("profileImage"),
-  async (req, res) => {
-    console.log("Request body:", req.body);
-    // Adjusted to trim the password field name
-    let { "password ": password } = req.body;
-    password = password.trim();
+exports.register = async (req, res) => {
+  const { firstName, lastName, email, password } = req.body;
 
-    try {
+  try {
       if (!req.file) {
-        return res.status(400).json({ error: "Profile image upload failed" });
+          return res.status(400).json({ error: "Profile image upload failed" });
       }
 
-      const { email, firstName, lastName, role } = req.body;
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-      if (!password || password.trim() === "") {
-        return res.status(400).json({ error: "Password is required" });
-      }
-
-      // Check if user already exists
-      const existingUser = await User.findOne({ email });
-      if (existingUser) {
-        return res.status(400).json({ error: "Email already in use" });
-      }
-
-      console.log("Password before hashing:", password);
-      const hashedPassword = await bcrypt.hash(req.body['password '], saltRounds);
-
-      // Create and save the new user
-      const profileImage = req.file.path;
-      const user = new User({
-        email,
-        password: hashedPassword,
-        firstName,
-        lastName,
-        role,
-        image: profileImage,
+      const newUser = new User({
+          firstName,
+          lastName,
+          email,
+          password: hashedPassword,
+          image: req.file.path
       });
-      console.log("Saving user...");
-      await user.save();
-      console.log("User saved successfully");
 
-      // Respond with the new user's data
+      await newUser.save();
+
       res.status(201).json({
-        message: "User registered successfully",
-        user: {
-          id: user._id,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          role: user.role,
-          image: user.image,
-        },
+          message: "User registered successfully",
+          user: {
+              id: newUser._id,
+              firstName: newUser.firstName,
+              lastName: newUser.lastName,
+              email: newUser.email,
+              image: newUser.image
+          }
       });
-    } catch (error) {
-      console.error("Error details:", error);
-      res
-        .status(500)
-        .json({ error: "An error occurred during the registration process" });
-    }
+  } catch (error) {
+      console.error("Registration error:", error);
+      res.status(500).json({ message: 'Error registering user', error: error.message });
   }
-);
+};
+
 
 exports.login = asyncHandler(async (req, res) => {
   console.log(req.body);
