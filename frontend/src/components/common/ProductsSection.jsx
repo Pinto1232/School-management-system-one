@@ -29,15 +29,13 @@ const ProductsSection = ({
   cardShadow,
   gridCard,
 }) => {
-  const bottomBgColor = useColorModeValue('#319795', '#3182ce')
-  const textColor = useColorModeValue('#fff', '#fff')
-  const btnTextColor = useColorModeValue('#fff', '#fff')
-  const textFontSize = useBreakpointValue({
-    base: '10px',
-    sm: '12px',
-    md: '13px',
-  })
-  const bgReadMore = useColorModeValue('#171923', '#2D3748')
+  const colorWhite = '#fff';
+  const bottomBgColor = useColorModeValue('#319795', '#3182ce');
+  const textColor = colorWhite;
+  const btnTextColor = colorWhite;
+  const textFontSize = useBreakpointValue({ base: '10px', sm: '12px', md: '13px' });
+  const bgReadMore = useColorModeValue('#171923', '#2D3748');
+  
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState(null)
 
@@ -82,11 +80,8 @@ const ProductsSection = ({
             overflow="hidden"
             boxShadow="2xl"
             transition="transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out"
-            cursor={'pointer'}
-            _hover={{
-              transform: 'scale(1.05)',
-              boxShadow: '3xl',
-            }}
+            cursor="pointer"
+            _hover={{ transform: 'scale(1.05)', boxShadow: '3xl' }}
           >
             {product.images.map((image, id) => (
               <Image
@@ -99,7 +94,6 @@ const ProductsSection = ({
                 loading="lazy"
               />
             ))}
-
             <Flex direction="column" p={{ base: 2, sm: 4, md: 6 }} flex="1">
               <Heading as="h3" size="md" mb={2}>
                 <Text fontWeight="bold">{product.name}</Text>
@@ -113,7 +107,6 @@ const ProductsSection = ({
                 ))}
               </UnorderedList>
             </Flex>
-
             <Box mt="auto" p={{ base: 4, md: 8 }}>
               <CustomButton
                 textColor={btnTextColor}
@@ -128,18 +121,17 @@ const ProductsSection = ({
           </Flex>
         ))}
       </SimpleGrid>
-
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <ModalOverlay />
         <ModalContent h={{ sm: 780 }} bg={{ md: 'gray.900' }} mt={{ sm: 40 }}>
           <ModalHeader
-            textAlign={{ sm: 'center' }}
+            textAlign="center"
             fontSize={{ sm: 22 }}
-            display={'flex'}
-            justifyContent={'center'}
+            display="flex"
+            justifyContent="center"
           >
             {selectedProduct?.name} R{selectedProduct?.price}{' '}
-            <Text textDecor={'underline'}>p/m</Text>
+            <Text textDecor="underline">p/m</Text>
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody w={450}>

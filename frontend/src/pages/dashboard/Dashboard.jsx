@@ -1076,8 +1076,6 @@ const Dashboard = () => {
                 </Box>
               </Box>
             </Flex>
-
-            {/*  <GridLayout /> */}
           </TwoColumnLayout>
         </Box>
       )
@@ -1094,10 +1092,11 @@ const Dashboard = () => {
                 changeView={changeView}
               />
             </Box>
+
             <Box>
-              <LearningAnalytics analyticsData={analyticsData} />
+              <WelcomeCard />
             </Box>
-            <Box p={5} bg={'white'}>
+            <Box p={5} bg={'white'} direction={{ base: 'column', md: 'row' }} >
               <StudentTabs
                 assignmentData={assignmentData}
                 courses={courses}

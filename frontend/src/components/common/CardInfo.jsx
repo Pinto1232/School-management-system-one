@@ -1,22 +1,42 @@
-import { Box, Flex, Heading, Text, useBreakpointValue, useColorModeValue } from "@chakra-ui/react";
-import React from "react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Text,
+  useBreakpointValue,
+  useColorModeValue,
+} from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
 
 const CardInfo = ({
   icon,
   iconSize = 70,
-  iconBgColor = "blue.500",
-  iconColor = "white",
+  iconBgColor = 'blue.500',
+  iconColor = 'white',
   imageSrc,
   heading,
   price,
-  height = "auto",
+  height = 'auto',
 }) => {
-  const flexDirection = useBreakpointValue({ base: "column", md: "row" });
-  const dynamicWidth = useBreakpointValue({ base: "225px", md: "230px" });
-  const cardBg = useColorModeValue('white', 'gray.800');
-  const cardColor = useColorModeValue('gray.700', 'white');
+  const flexDirection = useBreakpointValue({ base: 'column', md: 'row' })
+  const dynamicWidth = useBreakpointValue({ base: '225px', md: '230px' })
+  const cardBg = useColorModeValue('white', 'gray.800')
+  const cardColor = useColorModeValue('gray.700', 'white')
+  const [counter, setCounter] = useState(0)
 
-  const IconComponent = icon ? React.cloneElement(icon, { size: iconSize, color: iconColor }) : null;
+  const IconComponent = icon
+    ? React.cloneElement(icon, { size: iconSize, color: iconColor })
+    : null
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (counter < parseFloat(price)) {
+        setCounter((counter) => counter + 1)
+      }
+    }, -500)
+
+    return () => clearInterval(intervalId)
+  }, [counter, price])
 
   return (
     <Flex
@@ -28,12 +48,12 @@ const CardInfo = ({
       boxShadow="2xl"
       alignItems="center"
       justifyContent="space-between"
-      cursor={"pointer"}
+      cursor={'pointer'}
       width={dynamicWidth}
       minWidth={dynamicWidth}
       height={height}
       transition="all 0.3s ease-in-out"
-      _hover={{ transform: "scale(1.02)" }}
+      _hover={{ transform: 'scale(1.02)' }}
     >
       <Box flexShrink={0}>
         {IconComponent && (
@@ -50,15 +70,24 @@ const CardInfo = ({
         )}
         {imageSrc ? <img src={imageSrc} alt={heading} /> : null}
       </Box>
-      <Box ml={{ base: 0, md: 2 }} mt={{ base: 2, md: 0 }} whiteSpace={"nowrap"}>
+      <Box
+        ml={{ base: 0, md: 2 }}
+        mt={{ base: 2, md: 0 }}
+        whiteSpace={'nowrap'}
+      >
         <Heading size="md" mb={2}>
           {heading}
         </Heading>
-        <Text>R{parseFloat(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
-
+        <Text fontSize="xl" fontWeight="semibold" color="teal.500">
+          R
+          {counter.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}
+        </Text>
       </Box>
     </Flex>
-  );
-};
+  )
+}
 
-export default CardInfo;
+export default CardInfo

@@ -67,49 +67,53 @@ const Calendar = ({ onDateSelect }) => {
   }
 
   const renderDays = () => {
-    const days = []
-    let day = startDay
-
-    while (day <= endDay) {
+    const days = [];
+    let currentDay = startDay;
+  
+    const getBackgroundColor = (day) => {
+      if (isSelectedDay(day)) return 'teal.500';
+      if (dayIsInMonth(day)) return 'teal.100';
+      return 'gray.200';
+    };
+  
+    const getTextColor = (day) => {
+      if (isSelectedDay(day)) return 'white';
+      if (isSameDay(day, new Date())) return 'teal.500';
+      return 'gray.500';
+    };
+  
+    while (currentDay <= endDay) {
       for (let i = 0; i < 7; i++) {
-        const isCurrentDay = isSameDay(day, new Date())
-        const isSelected = isSelectedDay(day)
         days.push(
           <Box
-            key={day.toString()}
+            key={currentDay.toString()}
             flex="1"
             height="45px"
             display="flex"
             alignItems="center"
             justifyContent="center"
-            bg={
-              isSelected
-                ? 'teal.500'
-                : dayIsInMonth(day)
-                ? 'teal.100'
-                : 'gray.200'
-            }
-            color={
-              isSelected ? 'white' : isCurrentDay ? 'teal.500' : 'gray.500'
-            }
+            bg={getBackgroundColor(currentDay)}
+            color={getTextColor(currentDay)}
             p={3}
             m={0.5}
             _hover={{
-              bg: isSelected ? 'teal.600' : 'teal.200',
+              bg: isSelectedDay(currentDay) ? 'teal.600' : 'teal.200',
               cursor: 'pointer',
             }}
-            onClick={() => onDayClick(day)}
+            onClick={() => onDayClick(currentDay)}
             borderRadius="md"
           >
-            <Text fontWeight="semibold">{format(day, 'd')}</Text>
+            <Text fontWeight="semibold">{format(currentDay, 'd')}</Text>
           </Box>
-        )
-        day = addDays(day, 1)
+        );
+        currentDay = addDays(currentDay, 1);
       }
     }
-
-    return days
-  }
+  
+    return days;
+  };
+  
+  
 
   const gridHeight = useBreakpointValue({ base: '43vh', lg: '80vh' })
 

@@ -42,6 +42,7 @@ const StudentTabs = (
                         mr={2}
                         py={2}
                         px={4}
+                        boxShadow={'2xl'}
                     >
                         <Icon as={tab.icon} boxSize="1.5em" mr="2" />
                         {tab.label}
@@ -68,7 +69,10 @@ const StudentTabs = (
                     <CourseOverview courses={courses} onCourseClick={(courseId) => console.log(`Course clicked: ${courseId}`)} />
                 </TabPanel>
                 <TabPanel>
-                    <Box bg={'gray.200'} p={10}>
+                    <Box bg={'gray.50'} py={5}>
+                        <PdfGallery files={pdfFiles} />
+                    </Box>
+                    <Box bg={'gray.50'}  py={5}>
                         <PdfGallery files={pdfFiles} />
                     </Box>
                 </TabPanel>

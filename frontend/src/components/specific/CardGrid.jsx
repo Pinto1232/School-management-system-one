@@ -11,54 +11,37 @@ const CardGrid = () => {
 
     return (
         <Grid
-            templateColumns={{
-                base: "repeat(1, 1fr)",
-                md: "repeat(2, 1fr)",
-                lg: "repeat(3, 1fr)"
-            }}
-            gap={4}
-            px={{ base: 4, md: 'auto' }}
-            py={6}
-            justifyContent="center"
-            maxWidth="1200px"
-            margin="0 auto"
-            p={10}
+        templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }}
+        gap={6}
+        p={10}
+        justifyContent="center"
+        maxWidth="1200px"
+        mx="auto"
+        my={6}
+      >
+        <Text
+          color={textColor}
+          fontSize="4xl"
+          fontWeight="bold"
+          textAlign="center"
+          my={6}
         >
-            <Text
-                color={textColor}
-                fontSize="4xl"
-                fontWeight="bold"
-                textAlign="center"
-                mt={8} mb={6}
-            >
-                Our Packages Plans
-            </Text>
-
-            <SubscriptionCard
-                title="Basic Plan"
-                price="10"
-                features={["Feature 1", "Feature 2", "Feature 3"]}
-                buttonText="Subscribe"
-                onSubscribe={() => console.log("Basic Plan subscribed")}
-                imageUrl={bgImageCardBasic}
-            />
-            <SubscriptionCard
-                title="Pro Plan"
-                price="20"
-                features={["Feature 1", "Feature 2", "Feature 3", "Feature 4"]}
-                buttonText="Subscribe"
-                onSubscribe={() => console.log("Pro Plan subscribed")}
-                imageUrl={bgImageCardPro}
-            />
-            <SubscriptionCard
-                title="Premium Plan"
-                price="30"
-                features={["Feature 1", "Feature 2", "Feature 3", "Feature 4", "Feature 5"]}
-                buttonText="Subscribe"
-                onSubscribe={() => console.log("Premium Plan subscribed")}
-                imageUrl={bgImageCardPremium}
-            />
-        </Grid>
+          Our Packages Plans
+        </Text>
+      
+        {['Basic', 'Pro', 'Premium'].map((plan, index) => (
+          <SubscriptionCard
+            key={plan}
+            title={`${plan} Plan`}
+            price={`${(index + 1) * 10}`}
+            features={Array.from({ length: index + 3 }, (_, i) => `Feature ${i + 1}`)}
+            buttonText="Subscribe"
+            onSubscribe={() => console.log(`${plan} Plan subscribed`)}
+            imageUrl={bgImageCardBasic}
+          />
+        ))}
+      </Grid>
+      
     )
 }
 

@@ -48,7 +48,7 @@ const UserPlan = ({ nextStep, prevStep }) => {
     cursor: 'pointer',
     borderWidth: '1px',
     borderRadius: 'full',
-    boxShadow: 'sm',
+    boxShadow: 'lg',
     _checked: {
       bg: 'teal.600',
       color: 'white',
@@ -57,34 +57,27 @@ const UserPlan = ({ nextStep, prevStep }) => {
     _focus: {
       boxShadow: 'outline',
     },
-    px: 2,
-    py: 2,
-  }
-
+    px: 3,
+    py: 3,
+  };
+  
   return (
     <Container maxW="container.md" centerContent>
-      <Box bg={bgColor} borderRadius={{ sm: '2xl', md: '2xl', lg: 'sm' }}>
-        <Heading
-          as="h3"
-          size="xs"
-          textAlign="start"
-          mt={10}
-          ml={1}
-          color={textColor}
-        >
+      <Box bg={bgColor} borderRadius="2xl" p={5}>
+        <Heading as="h3" size="md" textAlign="start" mt={5} ml={5} color={textColor}>
           Select Your Plan
         </Heading>
         <form onSubmit={handleSubmit}>
           <RadioGroup onChange={setSelectedPlan} value={selectedPlan}>
             <Flex
-              spacing={4}
+              spacing={5}
               mt={5}
-              bg={'gray.600'}
-              borderRadius={4}
-              boxShadow={'2xl'}
-              padding={10}
-              mb={50}
-              gap={4}
+              bg="gray.600"
+              borderRadius="lg"
+              boxShadow="2xl"
+              p={5}
+              mb={10}
+              gap={5}
               alignItems="stretch"
             >
               {['Basic', 'Pro', 'Premium'].map((plan) => (
@@ -99,7 +92,7 @@ const UserPlan = ({ nextStep, prevStep }) => {
         </form>
       </Box>
     </Container>
-  )
+  );  
 }
 
 export default UserPlan
