@@ -12,45 +12,34 @@ import {
   useToast,
   Text,
   Flex,
-} from '@chakra-ui/react'
-import { useMemo, useState } from 'react'
-import { useTable, useSortBy } from 'react-table'
-import { FaSort, FaSortUp, FaSortDown, FaTrash, FaEye } from 'react-icons/fa'
-import axios from 'axios'
-import { useUserContext } from '../../contexts/UserContext'
-import UserDetailsModal from './UserDetailsModal'
-
+} from '@chakra-ui/react';
+import { useMemo, useState } from 'react';
+import { useTable, useSortBy } from 'react-table';
+import { FaSort, FaSortUp, FaSortDown, FaTrash, FaEye } from 'react-icons/fa';
+import axios from 'axios';
+import { useUserContext } from '../../contexts/UserContext';
+import UserDetailsModal from './UserDetailsModal';
 
 const DataTable = ({ data, fetchData }) => {
-  const { user } = useUserContext()
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [selectedUser, setSelectedUser] = useState(null)
-  const toast = useToast()
+  const { user } = useUserContext();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const toast = useToast();
 
   const handleView = (user) => {
-    setSelectedUser(user)
-    setIsModalOpen(true)
-  }
-
-  console.log('User data table', user)
+    setSelectedUser(user);
+    setIsModalOpen(true);
+  };
 
   const columns = useMemo(
     () => [
-      /* {
-        Header: 'ID',
-        accessor: '_id',
-      }, */
       {
         Header: 'Photo',
         accessor: 'image',
         Cell: ({ value }) => {
           const imageUrl = value
-            ? `http://localhost:3001/api/users/uploads/${value
-                .split('\\')
-                .pop()
-                .split('/')
-                .pop()}`
-            : undefined
+            ? `http://localhost:3001/api/users/uploads/${value.split('\\').pop().split('/').pop()}`
+            : undefined;
           return (
             <Box>
               {imageUrl ? (
@@ -65,9 +54,9 @@ const DataTable = ({ data, fetchData }) => {
                 <span>No image</span>
               )}
             </Box>
-          )
+          );
         },
-      }, // Add this comma
+      },
       {
         Header: 'Name',
         accessor: 'firstName',
@@ -82,7 +71,7 @@ const DataTable = ({ data, fetchData }) => {
       },
     ],
     []
-  )
+  );
 
   const handleDelete = async (id) => {
     const toastId = toast({
@@ -123,22 +112,26 @@ const DataTable = ({ data, fetchData }) => {
       ),
     });
   };
-  
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data }, useSortBy)
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data }, useSortBy);
+
   // Pagination state
-  const [currentPage, setCurrentPage] = useState(0)
-  const itemsPerPage = 6
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 6;
+  const totalPages = Math.ceil(rows.length / itemsPerPage);
 
-  // Calculate total pages
-  const totalPages = Math.ceil(rows.length / itemsPerPage)
+  const handlePreviousPage = () => {
+    setCurrentPage((prev) => (prev > 0 ? prev - 1 : prev));
+  };
 
-  // Get current table body data
+  const handleNextPage = () => {
+    setCurrentPage((prev) => (prev < totalPages - 1 ? prev + 1 : prev));
+  };
+
   const currentTableBody = rows.slice(
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
-  )
+  );
 
   return (
     <Box width="100%" overflowX={{ base: 'scroll', md: 'auto' }}>
@@ -173,9 +166,9 @@ const DataTable = ({ data, fetchData }) => {
         </Thead>
         <Tbody {...getTableBodyProps()} bg="white">
           {currentTableBody.map((row, rowIndex) => {
-            prepareRow(row)
-            const isOddRow = rowIndex % 2 !== 0
-            const bgColor = isOddRow ? 'gray.50' : 'white'
+            prepareRow(row);
+            const isOddRow = rowIndex % 2 !== 0;
+            const bgColor = isOddRow ? 'gray.50' : 'white';
             return (
               <Tr {...row.getRowProps()} _hover={{ bg: 'gray.100' }}>
                 {row.cells.map((cell) => (
@@ -208,29 +201,21 @@ const DataTable = ({ data, fetchData }) => {
                   </ButtonGroup>
                 </Td>
               </Tr>
-            )
+            );
           })}
         </Tbody>
       </Table>
       {rows.length > itemsPerPage && (
-        <Box display="flex" justifyContent="flex-end" mt={4}>
+        <Box display="flex" justifyContent="space-between" mt={4}>
           <ButtonGroup spacing={2}>
-            <Button
-              colorScheme="teal"
-              bg={'teal'}
-              onClick={() => handleView(row.original)}
-              leftIcon={<FaEye />} 
-            >
-              View
+            <Button onClick={handlePreviousPage} disabled={currentPage === 0}>
+              Previous
             </Button>
-            <Button
-              colorScheme="red"
-              onClick={() => handleDelete(row.original._id)}
-              leftIcon={<FaTrash />} 
-            >
-              Delete
+            <Button onClick={handleNextPage} disabled={currentPage === totalPages - 1}>
+              Next
             </Button>
           </ButtonGroup>
+          <Text>Page {currentPage + 1} of {totalPages}</Text>
         </Box>
       )}
       <UserDetailsModal
@@ -240,7 +225,7 @@ const DataTable = ({ data, fetchData }) => {
         modalWidth="800px"
       />
     </Box>
-  )
-}
+  );
+};
 
-export default DataTable
+export default DataTable;
