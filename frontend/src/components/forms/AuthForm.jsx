@@ -57,6 +57,7 @@ const AuthForm = () => {
     formData.append('lastName', values.lastName);
     formData.append('email', values.email);
     formData.append('password', values.password);
+    
 
     // Check if profileImage is a File object before appending
     if (values.profileImage && values.profileImage instanceof File) {
