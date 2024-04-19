@@ -40,24 +40,23 @@ const saltRounds = 10;
  *         description: User registered successfully.
  */
 router.post('/register', upload.single('profileImage'), async (req, res) => {
-     if (!req.file) {
+    if (!req.file) {
         return res.status(400).json({ error: 'No file uploaded' });
     }
     console.log(req.file);
     console.log(req.body);
 
     try {
-
-        const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+        const hashedPassword = await bcrypt.hash(req.body['password '], saltRounds);
         const imagePath = req.file.path.split('../../uploads')[1];
 
+        
         const newUser = new User({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
+            firstName: req.body.firstname, 
+            lastName: req.body.lastname, 
             email: req.body.email,
             password: hashedPassword,
-           /*  image: `uploads${imagePath}` */
-           image: req.file.path
+            image: req.file.path
         });
 
         await newUser.save();
