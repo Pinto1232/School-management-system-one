@@ -28,8 +28,10 @@ const saltRounds = 10;
 exports.register = asyncHandler(
   upload.single("profileImage"),
   async (req, res) => {
-    console.log("Request body:", req.body); // Log the entire request body
-    console.log("Password received:", req.body.password); // Log the password field specifically
+    console.log("Request body:", req.body);
+    // Adjusted to trim the password field name
+    let { "password ": password } = req.body;
+    password = password.trim();
 
     try {
       if (!req.file) {
@@ -37,8 +39,10 @@ exports.register = asyncHandler(
       }
 
       const { email, firstName, lastName, role } = req.body;
-      let { password } = req.body;
-      password = password.trim();
+
+      if (!password || password.trim() === "") {
+        return res.status(400).json({ error: "Password is required" });
+      }
 
       // Check if user already exists
       const existingUser = await User.findOne({ email });
@@ -46,8 +50,8 @@ exports.register = asyncHandler(
         return res.status(400).json({ error: "Email already in use" });
       }
 
-      // Hash the password
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      console.log("Password before hashing:", password);
+      const hashedPassword = await bcrypt.hash(req.body['password '], saltRounds);
 
       // Create and save the new user
       const profileImage = req.file.path;
@@ -76,7 +80,7 @@ exports.register = asyncHandler(
         },
       });
     } catch (error) {
-      console.error("Error details:", error); // Log the full error
+      console.error("Error details:", error);
       res
         .status(500)
         .json({ error: "An error occurred during the registration process" });
