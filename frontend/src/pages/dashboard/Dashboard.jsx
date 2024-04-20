@@ -669,6 +669,11 @@ const Dashboard = () => {
   const steps = [UserInfo, UserPlan, UserSummary, Confirmation]
   const [myIsLoading, setMyIsLoading] = useState(true)
   const [attendance, setAttendance] = useState([])
+  const [searchCriteria, setSearchCriteria] = useState({})
+
+  const handleSearchCriteria = (criteria) => {
+    setSearchCriteria(criteria)
+  }
 
   const myGetColorScheme = (percentage) => {
     if (percentage <= 25) {
@@ -680,11 +685,6 @@ const Dashboard = () => {
     } else {
       return 'green'
     }
-  }
-
-  const handleAnalyticsClick = () => {
-    // Handle the analytics click event
-    // For example, navigate to the analytics page or display analytics
   }
 
   const handleClose = () => {
@@ -833,12 +833,7 @@ const Dashboard = () => {
           <UserMenu onMenuToggle={handleMenuToggle} changeView={changeView} />
           <TwoColumnLayout isMenuOpen={isMenuOpen}>
             <Flex>
-              {showWelcomeCard && (
-                <WelcomeCard
-                  onAnalyticsClick={handleAnalyticsClick}
-                  onClose={handleClose}
-                />
-              )}
+              {showWelcomeCard && <WelcomeCard onClose={handleClose} />}
             </Flex>
           </TwoColumnLayout>
 
@@ -979,30 +974,14 @@ const Dashboard = () => {
                   <SearchForm
                     fields={[
                       {
-                        name: 'name',
-                        placeholder: 'Search by name...',
+                        name: 'search',
+                        placeholder: 'Search...',
                         type: 'text',
-                        width: '840px',
-                      },
-                      {
-                        name: 'email',
-                        placeholder: 'Search by email...',
-                        type: 'text',
-                      },
-                      {
-                        name: 'surname',
-                        placeholder: 'Search by surname...',
-                        type: 'text',
-                      },
-                      {
-                        name: 'category',
-                        placeholder: 'Select Category',
-                        type: 'select',
-                        options: [{ value: 'books', label: 'Books' }],
-                        width: '840px',
+                        width: '1300px',
                       },
                     ]}
-                    onSearch={(data) => console.log(data)}
+                    handleSearchCriteria={handleSearchCriteria}
+                    onSearch={(data) => console.log('Search data:', data)}
                   />
                   <DataTable data={studentsData} fetchData={fetchData} />
                 </Box>

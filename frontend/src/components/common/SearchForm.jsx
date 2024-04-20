@@ -1,4 +1,3 @@
-// SearchForm.jsx
 import React, { useState } from 'react'
 import {
   Box,
@@ -11,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons'
 
-const SearchForm = ({ fields, onSearch }) => {
+const SearchForm = ({ fields, onSearch, handleSearchCriteria  }) => {
   const [formData, setFormData] = useState(() => {
     const initialState = {}
     fields.forEach((field) => {
@@ -27,15 +26,15 @@ const SearchForm = ({ fields, onSearch }) => {
   }
 
   const handleSubmit = () => {
+    handleSearchCriteria(formData);
     onSearch(formData)
-    setShowFields(false) // Optionally hide fields after search
+    setShowFields(false)
   }
 
   const toggleFields = () => {
-    setShowFields(!showFields) // Toggle visibility
+    setShowFields(!showFields) 
   }
 
-  // Determine if the fields should be displayed as flex
   const shouldUseFlexLayout = fields.length > 1
 
   return (
