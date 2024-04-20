@@ -60,9 +60,9 @@ const DataTable = ({ data, fetchData }) => {
                 <img
                   src={imageUrl}
                   alt="User Avatar"
-                  width={40}
-                  height={40}
-                  style={{ borderRadius: '50%' }}
+                  width={60}
+                  height={60}
+                  style={{ borderRadius: '50%', width: '40px', height: '40px', objectFit: 'cover' }}
                 />
               ) : (
                 <span>No image</span>
