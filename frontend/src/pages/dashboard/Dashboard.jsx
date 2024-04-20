@@ -976,7 +976,16 @@ const Dashboard = () => {
                 </Flex>
 
                 <Box>
-                  <SearchForm/>
+                  <SearchForm
+                    fields={[
+                      {
+                        name: 'search',
+                        placeholder: 'Search...',
+                        type: 'text',
+                      },
+                    ]}
+                    onSearch={(data) => console.log(data)}
+                  />
                   <DataTable data={studentsData} fetchData={fetchData} />
                 </Box>
               </Box>
@@ -1092,7 +1101,7 @@ const Dashboard = () => {
             <Box>
               <WelcomeCard />
             </Box>
-            <Box p={5} bg={'white'} direction={{ base: 'column', md: 'row' }} >
+            <Box p={5} bg={'white'} direction={{ base: 'column', md: 'row' }}>
               <StudentTabs
                 assignmentData={assignmentData}
                 courses={courses}
