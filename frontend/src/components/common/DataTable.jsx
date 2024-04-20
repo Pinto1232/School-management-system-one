@@ -48,7 +48,7 @@ const DataTable = ({ data, fetchData }) => {
                 .pop()
                 .split('/')
                 .pop()}`
-            : undefined
+            : undefined;
           return (
             <Box>
               {imageUrl ? (
@@ -68,24 +68,28 @@ const DataTable = ({ data, fetchData }) => {
                 <span>No image</span>
               )}
             </Box>
-          )
+          );
         },
+        width: 600, // Increased width for the photo column
       },
       {
         Header: 'Name',
         accessor: 'firstName',
+        width: 600, // Increased width for the name column
       },
       {
         Header: 'Last Name',
         accessor: 'lastName',
+        width: 600, // Increased width for the last name column
       },
       {
         Header: 'Email',
         accessor: 'email',
+        width: 600, // Increased width for the email column
       },
     ],
     []
-  )
+  );
 
   
   const handleDelete = (id) => {
@@ -225,6 +229,7 @@ const DataTable = ({ data, fetchData }) => {
                       leftIcon={<FaEye />}
                       shadow="md"
                       _hover={{ shadow: 'lg' }}
+                      w={'full'}
                     >
                       View
                     </Button>
@@ -234,6 +239,7 @@ const DataTable = ({ data, fetchData }) => {
                       leftIcon={<FaTrash />}
                       shadow="md"
                       _hover={{ shadow: 'lg' }}
+                      w={'full'}
                     >
                       Delete
                     </Button>
@@ -256,7 +262,7 @@ const DataTable = ({ data, fetchData }) => {
                 p={2}
                 h={7}
                 w={100}
-                borderRadius={2}
+                borderRadius={'sm'}
                 fontSize={12}
               >
                 Previous

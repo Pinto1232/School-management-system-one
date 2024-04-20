@@ -63,7 +63,7 @@ const SearchForm = ({ fields, onSearch }) => {
                     value={formData[field.name]}
                     onChange={(e) => handleChange(field.name, e.target.value)}
                     bg="gray.50"
-                    borderRadius="lg"
+                    borderRadius="md"
                     fontSize={15}
                     focusBorderColor="transparent"
                     cursor={'pointer'}
@@ -82,7 +82,7 @@ const SearchForm = ({ fields, onSearch }) => {
                     value={formData[field.name]}
                     onChange={(e) => handleChange(field.name, e.target.value)}
                     bg="gray.50"
-                    borderRadius="lg"
+                    borderRadius="md"
                     focusBorderColor="transparent"
                   />
                 )}
@@ -95,7 +95,9 @@ const SearchForm = ({ fields, onSearch }) => {
           size="md"
           px={9}
           py={4}
+          ml={3}
           fontSize="sm"
+          borderRadius={'md'}
           _hover={{ bg: 'teal.500' }}
           onClick={showFields ? handleSubmit : toggleFields}
           leftIcon={<SearchIcon fontWeight={'bold'} fontSize={18} />}
