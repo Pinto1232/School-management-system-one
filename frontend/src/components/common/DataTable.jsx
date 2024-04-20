@@ -269,7 +269,7 @@ const DataTable = ({ data, fetchData }) => {
                 colorScheme={currentPage === index ? 'teal' : 'gray'}
                 p={2}
                 h={7}
-                borderRadius={'none'}
+                borderRadius={2}
                 fontSize={12}
               >
                 {index + 1}
