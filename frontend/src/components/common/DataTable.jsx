@@ -15,18 +15,24 @@ import {
 } from '@chakra-ui/react'
 import { useMemo, useState } from 'react'
 import { useTable, useSortBy } from 'react-table'
-import { FaSort, FaSortUp, FaSortDown, FaTrash, FaEye, FaExclamationTriangle } from 'react-icons/fa'
+import {
+  FaSort,
+  FaSortUp,
+  FaSortDown,
+  FaTrash,
+  FaEye,
+  FaExclamationTriangle,
+} from 'react-icons/fa'
 import axios from 'axios'
 import { useUserContext } from '../../contexts/UserContext'
-import useConfirmationToast from '../../hooks/ConfirmationToast/ConfirmationToast';
+import useConfirmationToast from '../../hooks/ConfirmationToast/ConfirmationToast'
 import UserDetailsModal from './UserDetailsModal'
-
 
 const DataTable = ({ data, fetchData }) => {
   const { user } = useUserContext()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedUser, setSelectedUser] = useState(null)
-  const showToast = useConfirmationToast();
+  const showToast = useConfirmationToast()
 
   const toast = useToast()
 
@@ -81,23 +87,47 @@ const DataTable = ({ data, fetchData }) => {
     []
   )
 
-
   /* Function to delete toast */
+  // DataTable.jsx
   const handleDelete = (id) => {
-    showToast(id, async (toastId, userId) => {
-      try {
-        await axios.delete(`http://localhost:3001/api/users/${userId}`);
-        // fetchData or any other actions
-        toast.close(toastId);
-      } catch (error) {
-        console.error('Delete error:', error);
+    showToast(
+      id,
+      async (toastId, userId) => {
+        try {
+          const response = await axios.delete(
+            `http://localhost:3001/api/users/${userId}`
+          )
+          if (response.status === 200) {
+            fetchData()
+            toast({
+              title: 'User Deleted',
+              description: 'The user has been successfully deleted.',
+              status: 'success',
+              duration: 5000,
+              isClosable: true,
+            })
+          } else {
+            throw new Error('Failed to delete the user')
+          }
+        } catch (error) {
+          console.error('Delete error:', error)
+          toast({
+            title: 'Error',
+            description: 'Failed to delete the user.',
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+          })
+        } finally {
+          toast.close(toastId)
+        }
+      },
+      (toastId) => {
+        toast.close(toastId)
       }
-    }, (toastId) => {
-      toast.close(toastId);
-    });
-  };
+    )
+  }
 
- 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data }, useSortBy)
 
@@ -197,6 +227,15 @@ const DataTable = ({ data, fetchData }) => {
             <Button onClick={handlePreviousPage} disabled={currentPage === 0}>
               Previous
             </Button>
+            {Array.from({ length: totalPages }, (_, index) => (
+              <Button
+                key={index}
+                onClick={() => setCurrentPage(index)}
+                colorScheme={currentPage === index ? 'teal' : 'gray'}
+              >
+                {index + 1}
+              </Button>
+            ))}
             <Button
               onClick={handleNextPage}
               disabled={currentPage === totalPages - 1}
