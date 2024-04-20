@@ -1,9 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 
-
-
 const theme = extendTheme({
-    // Define breakpoints for different screen sizes
     breakpoints: {
         base: "0px",
         sm: "480px",
@@ -12,7 +9,6 @@ const theme = extendTheme({
         xl: "1200px",
         "2xl": "1600px",
     },
-    // Define the number of columns for different breakpoints
     grid: {
         templatesColumns: {
             sm: "repeat(1, 1fr)",
@@ -39,6 +35,31 @@ const theme = extendTheme({
         medium: 600,
         bold: 700,
     },
+    components: {
+        Select: {
+            baseStyle: {
+                field: {
+                    _focus: { boxShadow: 'none' },
+                    borderRadius: 'lg',
+                    bg: 'gray.50',
+                    border: 'none',
+                },
+                menu: {
+                    bg: 'white',
+                    border: 'none',
+                    boxShadow: 'sm',
+                    transition: 'opacity 0.2s ease, transform 0.2s ease',
+                    transformOrigin: 'top center',
+                    transform: 'scaleY(0.97)',
+                    opacity: 0,
+                    _focus: {
+                        transform: 'scaleY(1)',
+                        opacity: 1,
+                    }
+                }
+            }
+        }
+    }
 });
 
 export default theme;

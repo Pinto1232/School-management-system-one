@@ -979,9 +979,27 @@ const Dashboard = () => {
                   <SearchForm
                     fields={[
                       {
-                        name: 'search',
-                        placeholder: 'Search...',
+                        name: 'name',
+                        placeholder: 'Search by name...',
                         type: 'text',
+                        width: '840px',
+                      },
+                      {
+                        name: 'email',
+                        placeholder: 'Search by email...',
+                        type: 'text',
+                      },
+                      {
+                        name: 'surname',
+                        placeholder: 'Search by surname...',
+                        type: 'text',
+                      },
+                      {
+                        name: 'category',
+                        placeholder: 'Select Category',
+                        type: 'select',
+                        options: [{ value: 'books', label: 'Books' }],
+                        width: '840px',
                       },
                     ]}
                     onSearch={(data) => console.log(data)}

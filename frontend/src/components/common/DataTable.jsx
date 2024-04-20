@@ -87,7 +87,7 @@ const DataTable = ({ data, fetchData }) => {
     []
   )
 
-  /* DataTable.jsx */
+  
   const handleDelete = (id) => {
     showToast(
       id,
