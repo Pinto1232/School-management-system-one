@@ -27,7 +27,7 @@ const DataTable = ({ data, fetchData, searchCriteria }) => {
   const { user } = useUserContext()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedUser, setSelectedUser] = useState(null)
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
   const showToast = useConfirmationToast()
   const [studentsData, setStudentsData] = useState([])
   const toast = useToast()
@@ -169,8 +169,6 @@ const DataTable = ({ data, fetchData, searchCriteria }) => {
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
   )
-
-
 
   return (
     <Box width="100%" overflowX={{ base: 'scroll', md: 'auto' }}>
