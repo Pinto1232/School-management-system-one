@@ -48,10 +48,10 @@ const useConfirmationToast = () => {
                 <Text>Warning: This Action Cannot Be Undone!</Text>
               </Flex>
               <ButtonGroup size="sm">
-                <Button colorScheme="teal" onClick={() => onConfirm(toastId, id)}>
+                <Button colorScheme="teal" onClick={() => onConfirm(toastId, id)} w={100} p={4}>
                   Yes
                 </Button>
-                <Button colorScheme="red" onClick={() => onCancel(toastId)}>
+                <Button colorScheme="red" onClick={() => onCancel(toastId)}  w={100} p={4}>
                   No
                 </Button>
               </ButtonGroup>
