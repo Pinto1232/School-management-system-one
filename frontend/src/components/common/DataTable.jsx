@@ -18,13 +18,16 @@ import { useTable, useSortBy } from 'react-table'
 import { FaSort, FaSortUp, FaSortDown, FaTrash, FaEye, FaExclamationTriangle } from 'react-icons/fa'
 import axios from 'axios'
 import { useUserContext } from '../../contexts/UserContext'
+import useConfirmationToast from '../../hooks/ConfirmationToast/ConfirmationToast';
 import UserDetailsModal from './UserDetailsModal'
-import { motion } from 'framer-motion'
+
 
 const DataTable = ({ data, fetchData }) => {
   const { user } = useUserContext()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedUser, setSelectedUser] = useState(null)
+  const showToast = useConfirmationToast();
+
   const toast = useToast()
 
   const handleView = (user) => {
@@ -78,74 +81,23 @@ const DataTable = ({ data, fetchData }) => {
     []
   )
 
-  const handleDelete = async (id) => {
-    const toastId = toast({
-      position: 'bottom',
-      duration: 3500,
-      render: () => (
-        <motion.div
-          initial={{ x: -30, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{
-            x: {
-              type: 'spring',
-              stiffness: 900,
-              damping: 12,
-              repeat: 1,
-              repeatType: 'reverse',
-              duration: 0.15,
-            },
-            opacity: { duration: 0.1 },
-          }}
-        >
-          <Box
-            width="100vw"
-            maxWidth="1300px"
-            position="fixed"
-            left="50%"
-            transform="translateX(-50%)"
-            bottom="10px"
-            color="white"
-            p={3}
-            bg="red.500"
-            borderRadius="md"
-            boxShadow="0px 4px 10px rgba(0, 0, 0, 0.1)"
-          >
-            <Flex justifyContent="space-between" alignItems="center">
-              <Flex alignItems="center">
-                <Box pr={2}>
-                  <FaExclamationTriangle color="yellow" size="24px" />
-                </Box>
-                <Text>Warning: This Action Cannot Be Undone!</Text>
-              </Flex>
-              <ButtonGroup size="sm">
-                <Button
-                  colorScheme="teal"
-                  onClick={async () => {
-                    toast.close(toastId)
-                    try {
-                      await axios.delete(
-                        `http://localhost:3001/api/users/${id}`
-                      )
-                      fetchData()
-                    } catch (error) {
-                      console.error('Delete error:', error)
-                    }
-                  }}
-                >
-                  Yes
-                </Button>
-                <Button colorScheme="red" onClick={() => toast.close(toastId)}>
-                  No
-                </Button>
-              </ButtonGroup>
-            </Flex>
-          </Box>
-        </motion.div>
-      ),
-    })
-  }
+
+  /* Function to delete toast */
+  const handleDelete = (id) => {
+    showToast(id, async (toastId, userId) => {
+      try {
+        await axios.delete(`http://localhost:3001/api/users/${userId}`);
+        // fetchData or any other actions
+        toast.close(toastId);
+      } catch (error) {
+        console.error('Delete error:', error);
+      }
+    }, (toastId) => {
+      toast.close(toastId);
+    });
+  };
+
+ 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data }, useSortBy)
 
