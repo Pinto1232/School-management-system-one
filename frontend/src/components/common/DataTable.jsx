@@ -12,28 +12,23 @@ import {
   useToast,
   Text,
   Flex,
+  Spinner,
 } from '@chakra-ui/react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTable, useSortBy } from 'react-table'
-import {
-  FaSort,
-  FaSortUp,
-  FaSortDown,
-  FaTrash,
-  FaEye,
-  FaExclamationTriangle,
-} from 'react-icons/fa'
+import { FaSort, FaSortUp, FaSortDown, FaTrash, FaEye } from 'react-icons/fa'
 import axios from 'axios'
 import { useUserContext } from '../../contexts/UserContext'
-import useConfirmationToast from '../../hooks/ConfirmationToast/ConfirmationToast'
+import useConfirmationToast from '../../hooks/useConfirmationToast/useConfirmationToast'
 import UserDetailsModal from './UserDetailsModal'
+import useLoading from '../../hooks/useLoading/useLoading'
 
 const DataTable = ({ data, fetchData }) => {
   const { user } = useUserContext()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedUser, setSelectedUser] = useState(null)
+  const { isLoading, startLoading, stopLoading } = useLoading()
   const showToast = useConfirmationToast()
-
   const toast = useToast()
 
   const handleView = (user) => {
@@ -62,7 +57,12 @@ const DataTable = ({ data, fetchData }) => {
                   alt="User Avatar"
                   width={60}
                   height={60}
-                  style={{ borderRadius: '50%', width: '40px', height: '40px', objectFit: 'cover' }}
+                  style={{
+                    borderRadius: '50%',
+                    width: '40px',
+                    height: '40px',
+                    objectFit: 'cover',
+                  }}
                 />
               ) : (
                 <span>No image</span>
@@ -87,8 +87,7 @@ const DataTable = ({ data, fetchData }) => {
     []
   )
 
-  /* Function to delete toast */
-  // DataTable.jsx
+  /* DataTable.jsx */
   const handleDelete = (id) => {
     showToast(
       id,
@@ -149,8 +148,28 @@ const DataTable = ({ data, fetchData }) => {
     (currentPage + 1) * itemsPerPage
   )
 
+  const loadData = async () => {
+    startLoading()
+    try {
+      await fetchData()
+    } catch (error) {
+      console.error('Failed to fetch data:', error)
+    } finally {
+      stopLoading()
+    }
+  }
+
+  useEffect(() => {
+    loadData()
+  }, [])
+
   return (
     <Box width="100%" overflowX={{ base: 'scroll', md: 'auto' }}>
+         {isLoading ? (
+        <Flex justify="center" align="center" height="200px">
+          <Spinner size="xl" />
+        </Flex>
+      ) : (
       <Table {...getTableProps()} size="lg" variant="simple" colorScheme="blue">
         <Thead bg="gray.50" color="gray.800">
           {headerGroups.map((headerGroup) => (
@@ -204,6 +223,8 @@ const DataTable = ({ data, fetchData }) => {
                       colorScheme="teal"
                       onClick={() => handleView(row.original)}
                       leftIcon={<FaEye />}
+                      shadow="md"
+                      _hover={{ shadow: 'lg' }}
                     >
                       View
                     </Button>
@@ -211,6 +232,8 @@ const DataTable = ({ data, fetchData }) => {
                       colorScheme="red"
                       onClick={() => handleDelete(row.original._id)}
                       leftIcon={<FaTrash />}
+                      shadow="md"
+                      _hover={{ shadow: 'lg' }}
                     >
                       Delete
                     </Button>
@@ -221,27 +244,51 @@ const DataTable = ({ data, fetchData }) => {
           })}
         </Tbody>
       </Table>
+        )}
       {rows.length > itemsPerPage && (
         <Box display="flex" justifyContent="space-between" mt={4}>
           <ButtonGroup spacing={2}>
-            <Button onClick={handlePreviousPage} disabled={currentPage === 0}>
-              Previous
-            </Button>
+            {currentPage > 0 && (
+              <Button
+                onClick={handlePreviousPage}
+                colorScheme="teal"
+                _hover={{ bg: 'teal.600' }}
+                p={2}
+                h={7}
+                w={100}
+                borderRadius={2}
+                fontSize={12}
+              >
+                Previous
+              </Button>
+            )}
             {Array.from({ length: totalPages }, (_, index) => (
               <Button
                 key={index}
                 onClick={() => setCurrentPage(index)}
                 colorScheme={currentPage === index ? 'teal' : 'gray'}
+                p={2}
+                h={7}
+                borderRadius={'none'}
+                fontSize={12}
               >
                 {index + 1}
               </Button>
             ))}
-            <Button
-              onClick={handleNextPage}
-              disabled={currentPage === totalPages - 1}
-            >
-              Next
-            </Button>
+            {currentPage < totalPages - 1 && (
+              <Button
+                onClick={handleNextPage}
+                colorScheme="teal"
+                _hover={{ bg: 'teal.600' }}
+                p={2}
+                h={7}
+                w={100}
+                borderRadius={2}
+                fontSize={12}
+              >
+                Next
+              </Button>
+            )}
           </ButtonGroup>
           <Text>
             Page {currentPage + 1} of {totalPages}
