@@ -23,12 +23,13 @@ import useConfirmationToast from '../../hooks/useConfirmationToast/useConfirmati
 import UserDetailsModal from './UserDetailsModal'
 import useLoading from '../../hooks/useLoading/useLoading'
 
-const DataTable = ({ data, fetchData }) => {
+const DataTable = ({ data, fetchData, searchCriteria }) => {
   const { user } = useUserContext()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedUser, setSelectedUser] = useState(null)
-  const { isLoading, startLoading, stopLoading } = useLoading()
+  const [isLoading, setIsLoading] = useState(false)
   const showToast = useConfirmationToast()
+  const [studentsData, setStudentsData] = useState([])
   const toast = useToast()
 
   const handleView = (user) => {
@@ -70,24 +71,46 @@ const DataTable = ({ data, fetchData }) => {
             </Box>
           )
         },
+        width: 600, // Increased width for the photo column
       },
       {
         Header: 'Name',
         accessor: 'firstName',
+        width: 600, // Increased width for the name column
       },
       {
         Header: 'Last Name',
         accessor: 'lastName',
+        width: 600, // Increased width for the last name column
       },
       {
         Header: 'Email',
         accessor: 'email',
+        width: 600, // Increased width for the email column
       },
     ],
     []
   )
 
-  /* DataTable.jsx */
+  const fetchTableData = async () => {
+    setIsLoading(true) // Set loading to true before fetching data
+    try {
+      const params = new URLSearchParams(searchCriteria).toString()
+      const response = await axios.get(
+        `http://localhost:3001/api/users?${params}`
+      )
+      setStudentsData(response.data)
+    } catch (error) {
+      console.error('Fetch error:', error)
+    } finally {
+      setIsLoading(false) // Set loading to false after fetching data
+    }
+  }
+
+  useEffect(() => {
+    fetchTableData()
+  }, [searchCriteria]) // Dependency array includes searchCriteria to re-fetch when it changes
+
   const handleDelete = (id) => {
     showToast(
       id,
@@ -130,9 +153,8 @@ const DataTable = ({ data, fetchData }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data }, useSortBy)
 
-  // Pagination state
   const [currentPage, setCurrentPage] = useState(0)
-  const itemsPerPage = 6
+  const itemsPerPage = 5
   const totalPages = Math.ceil(rows.length / itemsPerPage)
 
   const handlePreviousPage = () => {
@@ -148,103 +170,95 @@ const DataTable = ({ data, fetchData }) => {
     (currentPage + 1) * itemsPerPage
   )
 
-  const loadData = async () => {
-    startLoading()
-    try {
-      await fetchData()
-    } catch (error) {
-      console.error('Failed to fetch data:', error)
-    } finally {
-      stopLoading()
-    }
-  }
-
-  useEffect(() => {
-    loadData()
-  }, [])
-
   return (
     <Box width="100%" overflowX={{ base: 'scroll', md: 'auto' }}>
-         {isLoading ? (
+      {isLoading ? (
         <Flex justify="center" align="center" height="200px">
           <Spinner size="xl" />
         </Flex>
       ) : (
-      <Table {...getTableProps()} size="lg" variant="simple" colorScheme="blue">
-        <Thead bg="gray.50" color="gray.800">
-          {headerGroups.map((headerGroup) => (
-            <Tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <Th
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                  isNumeric={column.isNumeric}
-                >
-                  <Box display="flex" alignItems="center">
-                    {column.render('Header')}
-                    <Box pl={2}>
-                      {column.isSorted ? (
-                        column.isSortedDesc ? (
-                          <Icon as={FaSortDown} />
-                        ) : (
-                          <Icon as={FaSortUp} />
-                        )
-                      ) : (
-                        <Icon as={FaSort} />
-                      )}
-                    </Box>
-                  </Box>
-                </Th>
-              ))}
-              <Th>Actions</Th>
-            </Tr>
-          ))}
-        </Thead>
-        <Tbody {...getTableBodyProps()} bg="white">
-          {currentTableBody.map((row, rowIndex) => {
-            prepareRow(row)
-            const isOddRow = rowIndex % 2 !== 0
-            const bgColor = isOddRow ? 'gray.50' : 'white'
-            return (
-              <Tr {...row.getRowProps()} _hover={{ bg: 'gray.100' }}>
-                {row.cells.map((cell) => (
-                  <Td
-                    {...cell.getCellProps()}
-                    py={4}
-                    verticalAlign="middle"
-                    bg={bgColor}
-                    isNumeric={cell.column.isNumeric}
+        <Table
+          {...getTableProps()}
+          size="lg"
+          variant="simple"
+          colorScheme="blue"
+        >
+          <Thead bg="gray.50" color="gray.800">
+            {headerGroups.map((headerGroup) => (
+              <Tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <Th
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    isNumeric={column.isNumeric}
                   >
-                    {cell.render('Cell')}
-                  </Td>
+                    <Box display="flex" alignItems="center">
+                      {column.render('Header')}
+                      <Box pl={2}>
+                        {column.isSorted ? (
+                          column.isSortedDesc ? (
+                            <Icon as={FaSortDown} />
+                          ) : (
+                            <Icon as={FaSortUp} />
+                          )
+                        ) : (
+                          <Icon as={FaSort} />
+                        )}
+                      </Box>
+                    </Box>
+                  </Th>
                 ))}
-                <Td bg={bgColor}>
-                  <ButtonGroup spacing={2}>
-                    <Button
-                      colorScheme="teal"
-                      onClick={() => handleView(row.original)}
-                      leftIcon={<FaEye />}
-                      shadow="md"
-                      _hover={{ shadow: 'lg' }}
-                    >
-                      View
-                    </Button>
-                    <Button
-                      colorScheme="red"
-                      onClick={() => handleDelete(row.original._id)}
-                      leftIcon={<FaTrash />}
-                      shadow="md"
-                      _hover={{ shadow: 'lg' }}
-                    >
-                      Delete
-                    </Button>
-                  </ButtonGroup>
-                </Td>
+                <Th>Actions</Th>
               </Tr>
-            )
-          })}
-        </Tbody>
-      </Table>
-        )}
+            ))}
+          </Thead>
+          <Tbody {...getTableBodyProps()} bg="white">
+            {currentTableBody.map((row, rowIndex) => {
+              prepareRow(row)
+              const isOddRow = rowIndex % 2 !== 0
+              const bgColor = isOddRow ? 'gray.50' : 'white'
+              return (
+                <Tr {...row.getRowProps()} _hover={{ bg: 'gray.100' }}>
+                  {row.cells.map((cell) => (
+                    <Td
+                      {...cell.getCellProps()}
+                      py={4}
+                      verticalAlign="middle"
+                      bg={bgColor}
+                      isNumeric={cell.column.isNumeric}
+                    >
+                      {cell.render('Cell')}
+                    </Td>
+                  ))}
+                  <Td bg={bgColor}>
+                    <ButtonGroup spacing={2}>
+                      <Button
+                        colorScheme="teal"
+                        onClick={() => handleView(row.original)}
+                        leftIcon={<FaEye />}
+                        shadow="md"
+                        _hover={{ shadow: 'lg' }}
+                        w={'full'}
+                      >
+                        View
+                      </Button>
+                      <Button
+                        colorScheme="red"
+                        onClick={() => handleDelete(row.original._id)}
+                        leftIcon={<FaTrash />}
+                        shadow="md"
+                        _hover={{ shadow: 'lg' }}
+                        w={'full'}
+                      >
+                        Delete
+                      </Button>
+                    </ButtonGroup>
+                  </Td>
+                </Tr>
+              )
+            })}
+          </Tbody>
+        </Table>
+      )}
       {rows.length > itemsPerPage && (
         <Box display="flex" justifyContent="space-between" mt={4}>
           <ButtonGroup spacing={2}>
@@ -256,7 +270,7 @@ const DataTable = ({ data, fetchData }) => {
                 p={2}
                 h={7}
                 w={100}
-                borderRadius={2}
+                borderRadius={'sm'}
                 fontSize={12}
               >
                 Previous
