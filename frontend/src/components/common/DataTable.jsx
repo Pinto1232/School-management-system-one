@@ -15,16 +15,25 @@ import {
 } from '@chakra-ui/react'
 import { useMemo, useState } from 'react'
 import { useTable, useSortBy } from 'react-table'
-import { FaSort, FaSortUp, FaSortDown, FaTrash, FaEye } from 'react-icons/fa'
+import {
+  FaSort,
+  FaSortUp,
+  FaSortDown,
+  FaTrash,
+  FaEye,
+  FaExclamationTriangle,
+} from 'react-icons/fa'
 import axios from 'axios'
 import { useUserContext } from '../../contexts/UserContext'
+import useConfirmationToast from '../../hooks/ConfirmationToast/ConfirmationToast'
 import UserDetailsModal from './UserDetailsModal'
-
 
 const DataTable = ({ data, fetchData }) => {
   const { user } = useUserContext()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedUser, setSelectedUser] = useState(null)
+  const showToast = useConfirmationToast()
+
   const toast = useToast()
 
   const handleView = (user) => {
@@ -32,14 +41,8 @@ const DataTable = ({ data, fetchData }) => {
     setIsModalOpen(true)
   }
 
-  console.log('User data table', user)
-
   const columns = useMemo(
     () => [
-      /* {
-        Header: 'ID',
-        accessor: '_id',
-      }, */
       {
         Header: 'Photo',
         accessor: 'image',
@@ -67,7 +70,7 @@ const DataTable = ({ data, fetchData }) => {
             </Box>
           )
         },
-      }, // Add this comma
+      },
       {
         Header: 'Name',
         accessor: 'firstName',
@@ -84,57 +87,63 @@ const DataTable = ({ data, fetchData }) => {
     []
   )
 
-  const handleDelete = async (id) => {
-    const toastId = toast({
-      position: "bottom",
-      render: () => (
-        <Box
-          width="100%"
-          position="relative"
-          bottom={0}
-          color="white"
-          p={2}
-          bg="red.500"
-          borderRadius="md"
-        >
-          <Flex justifyContent="space-between" alignItems="center">
-            <Text>Are you sure?</Text>
-            <ButtonGroup size="sm">
-              <Button
-                colorScheme="green"
-                onClick={async () => {
-                  toast.close(toastId);
-                  try {
-                    await axios.delete(`http://localhost:3001/api/users/${id}`);
-                    fetchData();
-                  } catch (error) {
-                    console.error('Delete error:', error);
-                  }
-                }}
-              >
-                Yes
-              </Button>
-              <Button colorScheme="red" onClick={() => toast.close(toastId)}>
-                No
-              </Button>
-            </ButtonGroup>
-          </Flex>
-        </Box>
-      ),
-    });
-  };
-  
+  /* Function to delete toast */
+  // DataTable.jsx
+  const handleDelete = (id) => {
+    showToast(
+      id,
+      async (toastId, userId) => {
+        try {
+          const response = await axios.delete(
+            `http://localhost:3001/api/users/${userId}`
+          )
+          if (response.status === 200) {
+            fetchData()
+            toast({
+              title: 'User Deleted',
+              description: 'The user has been successfully deleted.',
+              status: 'success',
+              duration: 5000,
+              isClosable: true,
+            })
+          } else {
+            throw new Error('Failed to delete the user')
+          }
+        } catch (error) {
+          console.error('Delete error:', error)
+          toast({
+            title: 'Error',
+            description: 'Failed to delete the user.',
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+          })
+        } finally {
+          toast.close(toastId)
+        }
+      },
+      (toastId) => {
+        toast.close(toastId)
+      }
+    )
+  }
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data }, useSortBy)
+
   // Pagination state
   const [currentPage, setCurrentPage] = useState(0)
   const itemsPerPage = 6
-
-  // Calculate total pages
   const totalPages = Math.ceil(rows.length / itemsPerPage)
 
-  // Get current table body data
+  const handlePreviousPage = () => {
+    setCurrentPage((prev) => (prev > 0 ? prev - 1 : prev))
+  }
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => (prev < totalPages - 1 ? prev + 1 : prev))
+  }
+
   const currentTableBody = rows.slice(
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
@@ -213,24 +222,30 @@ const DataTable = ({ data, fetchData }) => {
         </Tbody>
       </Table>
       {rows.length > itemsPerPage && (
-        <Box display="flex" justifyContent="flex-end" mt={4}>
+        <Box display="flex" justifyContent="space-between" mt={4}>
           <ButtonGroup spacing={2}>
-            <Button
-              colorScheme="teal"
-              bg={'teal'}
-              onClick={() => handleView(row.original)}
-              leftIcon={<FaEye />} 
-            >
-              View
+            <Button onClick={handlePreviousPage} disabled={currentPage === 0}>
+              Previous
             </Button>
+            {Array.from({ length: totalPages }, (_, index) => (
+              <Button
+                key={index}
+                onClick={() => setCurrentPage(index)}
+                colorScheme={currentPage === index ? 'teal' : 'gray'}
+              >
+                {index + 1}
+              </Button>
+            ))}
             <Button
-              colorScheme="red"
-              onClick={() => handleDelete(row.original._id)}
-              leftIcon={<FaTrash />} 
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages - 1}
             >
-              Delete
+              Next
             </Button>
           </ButtonGroup>
+          <Text>
+            Page {currentPage + 1} of {totalPages}
+          </Text>
         </Box>
       )}
       <UserDetailsModal
