@@ -15,11 +15,11 @@ if (!fs.existsSync(uploadDir)) {
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-      cb(null, uploadDir);  
+    cb(null, uploadDir);
   },
   filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now());
-  }
+    cb(null, file.fieldname + "-" + Date.now());
+  },
 });
 
 const upload = multer({ storage: storage });
@@ -29,38 +29,39 @@ exports.register = async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
 
   try {
-      if (!req.file) {
-          return res.status(400).json({ error: "Profile image upload failed" });
-      }
+    if (!req.file) {
+      return res.status(400).json({ error: "Profile image upload failed" });
+    }
 
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-      const newUser = new User({
-          firstName,
-          lastName,
-          email,
-          password: hashedPassword,
-          image: req.file.path
-      });
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+      image: req.file.path,
+    });
 
-      await newUser.save();
+    await newUser.save();
 
-      res.status(201).json({
-          message: "User registered successfully",
-          user: {
-              id: newUser._id,
-              firstName: newUser.firstName,
-              lastName: newUser.lastName,
-              email: newUser.email,
-              image: newUser.image
-          }
-      });
+    res.status(201).json({
+      message: "User registered successfully",
+      user: {
+        id: newUser._id,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        email: newUser.email,
+        image: newUser.image,
+      },
+    });
   } catch (error) {
-      console.error("Registration error:", error);
-      res.status(500).json({ message: 'Error registering user', error: error.message });
+    console.error("Registration error:", error);
+    res
+      .status(500)
+      .json({ message: "Error registering user", error: error.message });
   }
 };
-
 
 exports.login = asyncHandler(async (req, res) => {
   console.log(req.body);
@@ -95,6 +96,30 @@ exports.login = asyncHandler(async (req, res) => {
       image: user.image,
     },
   });
+});
+
+
+exports.getUsers = asyncHandler(async (req, res) => {
+  try {
+    const query = {};
+    if (req.query.firstName) {
+      query.firstName = { $regex: req.query.firstName, $options: "i" }; 
+    }
+    if (req.query.email) {
+      query.email = req.query.email;
+    }
+
+    console.log("Query Object:", query);
+
+    const users = await User.find(query);
+    res.status(200).json({
+      message: "Users fetched successfully",
+      data: users
+    });
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({ message: 'Error fetching users', error: error.message });
+  }
 });
 
 exports.deleteUser = asyncHandler(async (req, res) => {

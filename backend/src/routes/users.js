@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { register, deleteUser, login } = require('../controllers/users');
+const {  deleteUser, getUsers } = require('../controllers/users');
+const asyncHandler = require('../middlewares/asyncHandler');
 const upload = require('../middlewares/multerConfig');
 const User = require('../models/User');
 const multer = require('multer');
@@ -89,6 +90,8 @@ router.post('/register', upload.single('profileImage'), async (req, res, next) =
     next(error);
 });
 
+
+router.get('/', asyncHandler(getUsers));
 
 
 
@@ -208,6 +211,6 @@ router.get('/users/:userId', async (req, res) => {
  *       204:
  *         description: User deleted successfully.
  */
-router.delete('/:id', deleteUser);
+router.delete('/user/:id', asyncHandler(deleteUser));
 
 module.exports = router;
