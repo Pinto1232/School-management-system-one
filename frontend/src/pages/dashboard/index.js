@@ -1,7 +1,7 @@
 export { default as TwoColumnLayout } from "../../components/specific/twoColumnLayout/TwoColumnLayout";
 export { default as CardInfo } from "../../components/common/CardInfo";
 export { default as DataTable } from "../../components/common/DataTable";
-export { default as SearchComponent } from "../../components/common/SearchComponent";
+export { default as SearchForm } from "../../components/common/SearchForm";
 export { default as ThreeDotsMenu } from "../../components/common/ThreeDotsMenu";
 export { default as WelcomeCard } from "../../components/common/WelcomeCard";
 export { default as AssignmentCard } from "../../components/common/AssignmentCard";
