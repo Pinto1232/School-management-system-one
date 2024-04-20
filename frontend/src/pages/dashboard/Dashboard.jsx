@@ -25,25 +25,21 @@ import {
   CourseCard,
   DataTable,
   LeaderBoard,
-  LearningAnalytics,
   LessonPlanner,
   PerformanceCard,
-  SearchComponent,
+  SearchForm,
   StatisticsCard,
   StudentRoster,
   StudentTabs,
-  ThreeDotsMenu,
   TwoColumnLayout,
   WelcomeCard,
 } from '../dashboard/index'
-import MultiStepPaymentForm from '../../components/specific/MultiStepForm/MultiStepPaymentForm'
 import {
   Confirmation,
   UserInfo,
   UserPlan,
   UserSummary,
 } from '../../components/specific/MultiStepForm'
-import GridLayout from '../../components/common/GridLayout'
 import UserMenu from './UserMenu'
 
 // Attendance
@@ -980,7 +976,7 @@ const Dashboard = () => {
                 </Flex>
 
                 <Box>
-                  <SearchComponent />
+                  <SearchForm/>
                   <DataTable data={studentsData} fetchData={fetchData} />
                 </Box>
               </Box>
