@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+
 const saltRounds = 10;
 
 exports.register = async (req, res) => {
