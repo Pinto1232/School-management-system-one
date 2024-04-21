@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {  deleteUser, getUsers } = require('../controllers/users');
 const asyncHandler = require('../middlewares/asyncHandler');
+const { body, validationResult } = require('express.validator')
 const upload = require('../middlewares/multerConfig');
 const User = require('../models/User');
 const multer = require('multer');
@@ -42,10 +43,26 @@ const saltRounds = 10;
  *         description: User registered successfully.
  */
 
+const registerValidation = [
+  body('email').isEmail().withMessage('Enter your email address'),
+  body('password').isLenght({ min: 6 }).withMessage('Password must be at least 6 characters long'),
+  body('firstName').not().isEmpty(),
+  body('lastName').not().isEmpty()
+];
+
+const validate = (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty) {
+        return res.status(400).json({
+            errors: errors.array()})
+    } 
+    next();
+}
+
 router.post('/register', upload.single('profileImage'), async (req, res, next) => {
     const { firstName, lastName, email, password } = req.body;
 
-    // Check for the presence of all required fields including the file
+
     if (!req.file || !firstName || !lastName || !email || !password) {
         return res.status(400).json({ error: 'All fields including a profile image are required' });
     }
