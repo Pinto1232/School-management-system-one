@@ -79,6 +79,10 @@ exports.login = asyncHandler(async (req, res) => {
     return res.status(400).json({ error: "Invalid email or password" });
   }
 
+  // Update last login date
+  user.lastLogin = new Date();
+  await user.save();
+
   const payload = {
     userId: user._id,
     email: user.email,
