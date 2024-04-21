@@ -13,16 +13,6 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, uploadDir);
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + "-" + Date.now());
-  },
-});
-
-const upload = multer({ storage: storage });
 const saltRounds = 10;
 
 exports.register = async (req, res) => {
@@ -31,6 +21,12 @@ exports.register = async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: "Profile image upload failed" });
+    }
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: "User already exists with this email" });
     }
 
     const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -57,9 +53,7 @@ exports.register = async (req, res) => {
     });
   } catch (error) {
     console.error("Registration error:", error);
-    res
-      .status(500)
-      .json({ message: "Error registering user", error: error.message });
+    res.status(500).json({ message: "Error registering user", error: error.message });
   }
 };
 
@@ -78,6 +72,10 @@ exports.login = asyncHandler(async (req, res) => {
   if (!isPasswordValid) {
     return res.status(400).json({ error: "Invalid email or password" });
   }
+
+  // Update last login date
+  user.lastLogin = new Date();
+  await user.save();
 
   const payload = {
     userId: user._id,

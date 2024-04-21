@@ -97,7 +97,7 @@ const WelcomeCard = ({ backgroundImage, onAnalyticsClick, onClose }) => {
         </Flex>
         <Flex direction="column" justifyContent="center" w="50%" h="full" p={0}>
           <Image
-            src="https://pngimg.com/d/student_PNG62548.png" // Replace with your image URL
+            src="https://pngimg.com/d/student_PNG62548.png"
             alt="Right side image"
             w="full"
             h="full"
