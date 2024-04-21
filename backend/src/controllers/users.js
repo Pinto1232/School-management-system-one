@@ -33,6 +33,12 @@ exports.register = async (req, res) => {
       return res.status(400).json({ error: "Profile image upload failed" });
     }
 
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: "User already exists with this email" });
+    }
+
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const newUser = new User({
@@ -57,9 +63,7 @@ exports.register = async (req, res) => {
     });
   } catch (error) {
     console.error("Registration error:", error);
-    res
-      .status(500)
-      .json({ message: "Error registering user", error: error.message });
+    res.status(500).json({ message: "Error registering user", error: error.message });
   }
 };
 
