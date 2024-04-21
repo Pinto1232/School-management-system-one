@@ -21,16 +21,56 @@ import axios from 'axios'
 import { useUserContext } from '../../contexts/UserContext'
 import useConfirmationToast from '../../hooks/useConfirmationToast/useConfirmationToast'
 import UserDetailsModal from './UserDetailsModal'
-import useLoading from '../../hooks/useLoading/useLoading'
 
-const DataTable = ({ data, fetchData, searchCriteria }) => {
+const DataTable = ({ data = [], fetchData, searchCriteria }) => {
   const { user } = useUserContext()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedUser, setSelectedUser] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const showToast = useConfirmationToast()
-  const [studentsData, setStudentsData] = useState([])
+  const [studentsData, setStudentsData] = useState(
+    Array.isArray(data) ? data : []
+  )
   const toast = useToast()
+
+  const fetchTableData = async () => {
+    setIsLoading(true);
+    try {
+      const params = new URLSearchParams(searchCriteria).toString();
+      const response = await axios.get(`http://localhost:3001/api/users?${params}`);
+      console.log("Fetched Data:", response.data);
+  
+      
+      if (response.data && Array.isArray(response.data.data)) {
+        setStudentsData(response.data.data);
+      } else {
+        console.error('Fetched data is not an array:', response.data);
+        setStudentsData([]);
+        toast({
+          title: 'Data Fetch Error',
+          description: 'Expected an array but got a different type. Check the server response.',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.error('Fetch error:', error);
+      toast({
+        title: 'Network Error',
+        description: 'Failed to fetch data. Check your network connection and the server status.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTableData()
+  }, [searchCriteria]) // Dependency array includes searchCriteria to re-fetch when it changes
 
   const handleView = (user) => {
     setSelectedUser(user)
@@ -92,25 +132,6 @@ const DataTable = ({ data, fetchData, searchCriteria }) => {
     []
   )
 
-  const fetchTableData = async () => {
-    setIsLoading(true) // Set loading to true before fetching data
-    try {
-      const params = new URLSearchParams(searchCriteria).toString()
-      const response = await axios.get(
-        `http://localhost:3001/api/users?${params}`
-      )
-      setStudentsData(response.data)
-    } catch (error) {
-      console.error('Fetch error:', error)
-    } finally {
-      setIsLoading(false) // Set loading to false after fetching data
-    }
-  }
-
-  useEffect(() => {
-    fetchTableData()
-  }, [searchCriteria]) // Dependency array includes searchCriteria to re-fetch when it changes
-
   const handleDelete = (id) => {
     showToast(
       id,
@@ -151,7 +172,7 @@ const DataTable = ({ data, fetchData, searchCriteria }) => {
   }
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data }, useSortBy)
+    useTable({ columns, data: studentsData }, useSortBy)
 
   const [currentPage, setCurrentPage] = useState(0)
   const itemsPerPage = 5

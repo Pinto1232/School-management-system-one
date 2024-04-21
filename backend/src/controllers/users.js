@@ -98,27 +98,44 @@ exports.login = asyncHandler(async (req, res) => {
   });
 });
 
-
 exports.getUsers = asyncHandler(async (req, res) => {
   try {
     const query = {};
     if (req.query.firstName) {
-      query.firstName = { $regex: req.query.firstName, $options: "i" }; 
+      query.firstName = { $regex: new RegExp(req.query.firstName, "i") };
+    }
+    if (req.query.lastName) {
+      query.lastName = { $regex: new RegExp(req.query.lastName, "i") };
     }
     if (req.query.email) {
       query.email = req.query.email;
     }
 
-    console.log("Query Object:", query);
+    // Assuming pagination with default page size
+    const pageSize = 10;
+    const page = parseInt(req.query.page) || 1;
 
-    const users = await User.find(query);
+    const users = await User.find(query)
+      .limit(pageSize)
+      .skip((page - 1) * pageSize)
+      .select("-password -sensitiveData");
+
+    const totalUsers = await User.countDocuments(query);
+
     res.status(200).json({
       message: "Users fetched successfully",
-      data: users
+      data: users,
+      pageInfo: {
+        currentPage: page,
+        totalPages: Math.ceil(totalUsers / pageSize),
+        totalUsers,
+      },
     });
   } catch (error) {
     console.error("Error fetching users:", error);
-    res.status(500).json({ message: 'Error fetching users', error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error fetching users", error: error.message });
   }
 });
 

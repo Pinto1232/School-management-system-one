@@ -90,7 +90,7 @@ router.post('/register', upload.single('profileImage'), async (req, res, next) =
     next(error);
 });
 
-
+// get the user query asynchronously
 router.get('/', asyncHandler(getUsers));
 
 
