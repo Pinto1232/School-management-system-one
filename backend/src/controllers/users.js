@@ -111,7 +111,7 @@ exports.getUsers = asyncHandler(async (req, res) => {
       query.email = req.query.email;
     }
 
-    // Assuming pagination with default page size
+    // Assuming pagination
     const pageSize = 10;
     const page = parseInt(req.query.page) || 1;
 
