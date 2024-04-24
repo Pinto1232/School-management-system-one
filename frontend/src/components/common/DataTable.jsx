@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { useEffect, useMemo, useState } from 'react'
 import { useTable, useSortBy } from 'react-table'
-import { FaSort, FaSortUp, FaSortDown, FaTrash, FaEye } from 'react-icons/fa'
+import { FaSort, FaSortUp, FaChevronRight , FaChevronLeft, FaSortDown, FaTrash, FaEye } from 'react-icons/fa'
 import axios from 'axios'
 import { useUserContext } from '../../contexts/UserContext'
 import useConfirmationToast from '../../hooks/useConfirmationToast/useConfirmationToast'
@@ -192,7 +192,7 @@ const DataTable = ({ data = [], fetchData, searchCriteria }) => {
   )
 
   return (
-    <Box width="100%" overflowX={{ base: 'scroll', md: 'auto' }}>
+    <Box width="100%" p={10} overflowX={{ base: 'scroll', md: 'auto' }}>
       {isLoading ? (
         <Flex justify="center" align="center" height="200px">
           <Spinner size="xl" />
@@ -293,6 +293,7 @@ const DataTable = ({ data = [], fetchData, searchCriteria }) => {
                 w={100}
                 borderRadius={'sm'}
                 fontSize={12}
+                leftIcon={<FaChevronLeft/>}
               >
                 Previous
               </Button>
@@ -320,6 +321,7 @@ const DataTable = ({ data = [], fetchData, searchCriteria }) => {
                 w={100}
                 borderRadius={2}
                 fontSize={12}
+                rightIcon={<FaChevronRight  />}
               >
                 Next
               </Button>

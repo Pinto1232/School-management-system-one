@@ -81,85 +81,85 @@ const students = [
   {
     id: 1,
     name: 'Alice Wonderland',
-    imageUrl: 'path/to/image1.jpg',
-    percentage: 85,
+    imageUrl: '   https://dummyimage.com/600x400/000/fff&text=+Placeholder',
+    percentage: -33485,
     changeDirection: 'up',
   },
   {
     id: 2,
     name: 'Bob Builder',
-    imageUrl: 'path/to/image2.jpg',
-    percentage: 5,
+    imageUrl: '   https://dummyimage.com/600x400/000/fff&text=+Placeholder',
+    percentage: 335,
     changeDirection: 'down',
   },
   {
     id: 3,
     name: 'Charlie Brown',
-    imageUrl: 'path/to/image3.jpg',
-    percentage: 40,
+    imageUrl: '   https://dummyimage.com/600x400/000/fff&text=+Placeholder',
+    percentage: -430,
     changeDirection: 'up',
   },
   {
     id: 4,
     name: 'Diana Prince',
-    imageUrl: 'path/to/image4.jpg',
-    percentage: 20,
+    imageUrl: '   https://dummyimage.com/600x400/000/fff&text=+Placeholder',
+    percentage: 2330,
     changeDirection: 'up',
   },
   {
     id: 5,
     name: 'Evan Almighty',
-    imageUrl: 'path/to/image5.jpg',
-    percentage: 75,
+    imageUrl: '   https://dummyimage.com/600x400/000/fff&text=+Placeholder',
+    percentage: -275,
     changeDirection: 'down',
   },
   {
     id: 6,
     name: 'Fiona Shrek',
-    imageUrl: 'path/to/image6.jpg',
-    percentage: 60,
+    imageUrl: '   https://dummyimage.com/600x400/000/fff&text=+Placeholder',
+    percentage: -60,
     changeDirection: 'up',
   },
   {
     id: 7,
     name: 'George Jungle',
-    imageUrl: 'path/to/image7.jpg',
+    imageUrl: '   https://dummyimage.com/600x400/000/fff&text=+Placeholder',
     percentage: 30,
     changeDirection: 'down',
   },
   {
     id: 8,
     name: 'Hannah Montana',
-    imageUrl: 'path/to/image8.jpg',
+    imageUrl: '   https://dummyimage.com/600x400/000/fff&text=+Placeholder',
     percentage: 90,
     changeDirection: 'up',
   },
   {
     id: 9,
     name: 'Ian Lightfoot',
-    imageUrl: 'path/to/image9.jpg',
+    imageUrl: '   https://dummyimage.com/600x400/000/fff&text=+Placeholder',
     percentage: 10,
     changeDirection: 'down',
   },
   {
     id: 10,
     name: 'Judy Hopps',
-    imageUrl: 'path/to/image10.jpg',
+    imageUrl: '   https://dummyimage.com/600x400/000/fff&text=+Placeholder',
     percentage: 95,
     changeDirection: 'up',
   },
   {
     id: 11,
     name: 'Kevin McCallister',
-    imageUrl: 'path/to/image11.jpg',
+    imageUrl: '   https://dummyimage.com/600x400/000/fff&text=+Placeholder',
     percentage: 50,
     changeDirection: 'up',
   },
   {
     id: 12,
     name: 'Lilo Pelekai',
-    imageUrl: 'path/to/image12.jpg',
-    percentage: 45,
+    imageUrl: '   https://dummyimage.com/600x400/000/fff&text=+Placeholder',
+    percentage: -440,
     changeDirection: 'down',
   },
 ]
@@ -660,7 +660,7 @@ console.log('Teacher Classes data', classesData)
 
 const Dashboard = () => {
   const navigate = useNavigate()
-  const { user } = useUserContext()
+  const { user, isLoadingUser } = useUserContext()
   console.log('User Dashboard', user)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { view } = useParams()
@@ -692,10 +692,10 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    if (!user) {
+    if (!isLoadingUser && !user) {
       navigate('/login')
     }
-  }, [user, navigate])
+  }, [user, isLoadingUser, navigate])
 
   const handleMenuToggle = (newState) => {
     setIsMenuOpen(newState)
@@ -970,7 +970,7 @@ const Dashboard = () => {
                   </Box>
                 </Flex>
 
-                <Box>
+                <Box boxShadow={'xl'}>
                   <SearchForm
                     fields={[
                       {
@@ -983,8 +983,9 @@ const Dashboard = () => {
                     handleSearchCriteria={handleSearchCriteria}
                     onSearch={(data) => console.log('Search data:', data)}
                   />
-                  <DataTable data={studentsData} fetchData={fetchData} />
+                  
                 </Box>
+                <DataTable data={studentsData} fetchData={fetchData} />
               </Box>
             </Flex>
           </TwoColumnLayout>
@@ -1002,57 +1003,55 @@ const Dashboard = () => {
                   options={options}
                 />
               </Box>
-              <Box flex={1} bg={tableBG} p={4} borderRadius="md" shadow="md">
+              <Box flex={1} bg={tableBG} p={2} borderRadius="md" shadow="md">
                 <LeaderBoard students={students} />
               </Box>
             </Flex>
           </TwoColumnLayout>
-
-          <TwoColumnLayout>
-            <Flex w="100%" gap={2}>
-              <Box w="70%" p={4} bg={tableBG} borderRadius="md" shadow="md">
+          <TwoColumnLayout isMenuOpen={isMenuOpen} isFullWidth={false}>
+            <Flex direction={['column', 'column', 'row']} w="100%" gap={5}>
+              <Box
+                w={['100%', '100%', '70%']}
+                p={4}
+                bg={tableBG}
+                borderRadius="md"
+                shadow="md"
+              >
                 <Heading as="h3" size="md">
                   Available Course For You
                 </Heading>
-                <Flex w="100%" gap={4} my={2}>
-                  <Box
-                    w="50%"
-                    p={4}
-                    bg="gray.100"
-                    borderRadius="md"
-                    shadow="md"
-                  >
-                    <CourseCard
-                      title="Introduction to React"
-                      description="Learn the basics of React, including components, state, and props."
-                      imageUrl="https://bs-uploads.toptal.io/blackfish-uploads/components/seo/5923684/og_image/optimized/react-context-api-4929b3703a1a7082d99b53eb1bbfc31f.png"
-                      duration="4 weeks"
-                      level="Beginner"
-                      onFavoriteToggle={(isFav) =>
-                        console.log('Favorite status:', isFav)
-                      }
-                      isFavorite={false}
-                    />
-                  </Box>
-                  <Box
-                    w="50%"
-                    p={4}
-                    bg="gray.100"
-                    borderRadius="md"
-                    shadow="md"
-                  >
-                    <CourseCard
-                      title="Object Oriented Programming"
-                      description="Learn the basics of OBJ."
-                      imageUrl="https://qph.cf2.quoracdn.net/main-qimg-4af0af5b88b278ab393a969b2c30ce28-lq"
-                      duration="4 weeks"
-                      level="Advance"
-                      onFavoriteToggle={(isFav) =>
-                        console.log('Favorite status:', isFav)
-                      }
-                      isFavorite={false}
-                    />
-                  </Box>
+                <Flex
+                  direction={['column', 'column', 'row']}
+                  w="100%"
+                  gap={4}
+                  my={2}
+                  wrap="wrap"
+                >
+                  {/* Example with multiple CourseCards */}
+                  {courses.map((course) => (
+                    <Box
+                      key={course.id}
+                      w={['100%', '100%', 'calc(33.333% - 16px)']} // Adjust width for 3 items per row, accounting for gap
+                      p={4}
+                      bg="gray.100"
+                      borderRadius="md"
+                      shadow="md"
+                    >
+                      <Box>
+                        <CourseCard
+                          title="Introduction to React"
+                          description="Learn the basics of React, including components, state, and props."
+                          imageUrl="https://bs-uploads.toptal.io/blackfish-uploads/components/seo/5923684/og_image/optimized/react-context-api-4929b3703a1a7082d99b53eb1bbfc31f.png"
+                          duration="4 weeks"
+                          level="Beginner"
+                          onFavoriteToggle={(isFav) =>
+                            console.log('Favorite status:', isFav)
+                          }
+                          isFavorite={false}
+                        />
+                      </Box>
+                    </Box>
+                  ))}
                 </Flex>
 
                 <Flex w="100%" gap={4}>
@@ -1071,11 +1070,17 @@ const Dashboard = () => {
                   </Box>
                 </Flex>
               </Box>
-              <Box w="30%" p={4} bg={tableBG} borderRadius="md" shadow="md">
+              <Box
+                w={['100%', '100%', '30%']}
+                p={4}
+                bg={tableBG}
+                borderRadius="md"
+                shadow="md"
+              >
                 <Box h="50%" bg="gray.100" borderRadius="md" shadow="md" mb={2}>
-                  {/* Content for the first 50% height box */}
                   <Calendar />
                 </Box>
+                {/* Additional content for this column */}
               </Box>
             </Flex>
           </TwoColumnLayout>

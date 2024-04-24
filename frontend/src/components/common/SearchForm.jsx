@@ -80,9 +80,9 @@ const SearchForm = ({ fields, onSearch, handleSearchCriteria  }) => {
                     placeholder={field.placeholder}
                     value={formData[field.name]}
                     onChange={(e) => handleChange(field.name, e.target.value)}
-                    bg="gray.50"
                     borderRadius="md"
                     focusBorderColor="transparent"
+                    bgColor={'gray.100'}
                   />
                 )}
               </FormControl>

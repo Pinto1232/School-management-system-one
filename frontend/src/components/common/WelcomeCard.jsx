@@ -44,13 +44,13 @@ const WelcomeCard = ({ backgroundImage, onAnalyticsClick, onClose }) => {
       position="relative"
     >
       <Flex direction="row" justifyContent="space-between" h="full">
-        <Flex direction="column" justifyContent="center" w="50%" p={'4%'}>
+        <Flex direction="column" justifyConltent="center" w="50%" p={'4%'}>
           <Heading
             as="h2"
             fontSize={'40px'}
             color={useColorModeValue('white', 'white')}
           >
-            Welcome: {user?.firstName} {user?.lastName}
+            Welcome back: {user?.firstName} {user?.lastName}
           </Heading>
           <Heading as="h3" size="md" color={'white'}>
             Access your personalized dashboard for all your educational needs

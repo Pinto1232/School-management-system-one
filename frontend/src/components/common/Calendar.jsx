@@ -103,7 +103,7 @@ const Calendar = ({ onDateSelect }) => {
             onClick={() => onDayClick(currentDay)}
             borderRadius="md"
           >
-            <Text fontWeight="semibold">{format(currentDay, 'd')}</Text>
+              <Text as="span" mr={2}>Day</Text><Text fontWeight="semibold">{format(currentDay, 'd')}</Text>
           </Box>
         );
         currentDay = addDays(currentDay, 1);
