@@ -94,7 +94,6 @@ const SearchForm = ({ fields, onSearch, handleSearchCriteria  }) => {
           size="md"
           px={9}
           py={4}
-          ml={3}
           fontSize="sm"
           borderRadius={'md'}
           _hover={{ bg: 'teal.500' }}
