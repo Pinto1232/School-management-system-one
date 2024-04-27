@@ -13,10 +13,11 @@ import DataTable from '../../components/common/DataTable'
 import PerformanceCard from '../../components/common/PerformanceCard'
 import LeaderBoard from '../../components/common/LeaderBoard'
 import performanceData from '../../data/StudentPerformanceData'
-import students  from  '../../data/students' 
+import students from '../../data/students'
 import CourseCard from '../../components/common/CourseCard'
+import { courses } from '../../data/courses'
 import Calendar from '../../components/common/Calendar'
-import { options, courses } from '../../data'
+import { options } from '../../data'
 import CardInfoList from '../../components/common/CardInfoList '
 
 const viewComponents = {
@@ -77,7 +78,7 @@ function DashboardView({ data }) {
     console.log('Search criteria:', criteria)
   }
   return (
-    <Box align={'start'} justifyContent={'center'} flexWrap="wrap">
+    <Box>
       <Box shadow="md">
         <WelcomeCard />
       </Box>
@@ -99,7 +100,7 @@ function DashboardView({ data }) {
           onSearch={handleSearch}
           handleSearchCriteria={handleSearchCriteriaFunction}
         />
-        <DataTable  data={data} fetchData={fetchData} />
+        <DataTable data={data} fetchData={fetchData} />
       </Box>
       <Grid
         templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
@@ -114,16 +115,41 @@ function DashboardView({ data }) {
             />
           </Box>
         </Box>
-        <Box bg="green.200" p={4}>
-          <LeaderBoard 
-           students={students}
-          />
+        <Box>
+          <LeaderBoard students={students} />
         </Box>
-        <Box bg="blue.200" p={4}>
-          <Heading>Bottom Left</Heading>
+      </Grid>
+
+      <Grid
+        templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
+        gap={4}
+        p={4}
+      >
+        <Box>
+          <Box>
+            <Calendar />
+          </Box>
         </Box>
-        <Box bg="purple.200" p={4}>
-          <Heading>Bottom Right</Heading>
+        <Box
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 8,
+          }}
+        >
+          {courses.map((course) => (
+            <CourseCard
+              key={course.id}
+              title={course.name}
+              description={course.description}
+              imageUrl={course.imageUrl}
+              duration={course.duration}
+              level={course.level}
+              onFavoriteToggle={course.onFavoriteToggle}
+            />
+          ))}
         </Box>
       </Grid>
     </Box>

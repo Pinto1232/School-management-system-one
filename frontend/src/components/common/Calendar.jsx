@@ -115,8 +115,6 @@ const Calendar = ({ onDateSelect }) => {
   
   
 
-  const gridHeight = useBreakpointValue({ base: '43vh', lg: '80vh' })
-
   return (
     <Box
       borderWidth="1px"
@@ -124,7 +122,8 @@ const Calendar = ({ onDateSelect }) => {
       overflow="hidden"
       bg="white"
       boxShadow="2xl"
-      height={gridHeight}
+      width={'100%'}
+      height={576}
     >
       <Flex
         justifyContent="space-between"
