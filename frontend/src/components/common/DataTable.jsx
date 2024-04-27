@@ -141,7 +141,7 @@ const DataTable = ({ data = [], fetchData, searchCriteria }) => {
             `http://localhost:3001/api/users/${userId}`
           )
           if (response.status === 200) {
-            fetchData()
+            fetchData();
             toast({
               title: 'User Deleted',
               description: 'The user has been successfully deleted.',

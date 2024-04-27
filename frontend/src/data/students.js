@@ -1,4 +1,4 @@
-export const students = [
+const students = [
     {
       id: 1,
       name: 'Alice Wonderland',
@@ -85,4 +85,6 @@ export const students = [
     },
   ]
   console.log('Student data', students)
+
+  export default students;
   

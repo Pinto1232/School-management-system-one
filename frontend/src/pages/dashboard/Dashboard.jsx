@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Flex, Grid, Heading, useColorModeValue } from '@chakra-ui/react'
-import {
-} from 'react-icons/fa'
+import {} from 'react-icons/fa'
 import { useUserContext } from '../../contexts/UserContext'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -13,7 +12,8 @@ import SearchForm from '../../components/common/SearchForm'
 import DataTable from '../../components/common/DataTable'
 import PerformanceCard from '../../components/common/PerformanceCard'
 import LeaderBoard from '../../components/common/LeaderBoard'
-import performanceData from '../../data/StudentPerformanceData';
+import performanceData from '../../data/StudentPerformanceData'
+import students  from  '../../data/students' 
 import CourseCard from '../../components/common/CourseCard'
 import Calendar from '../../components/common/Calendar'
 import { options, courses } from '../../data'
@@ -99,23 +99,25 @@ function DashboardView({ data }) {
           onSearch={handleSearch}
           handleSearchCriteria={handleSearchCriteriaFunction}
         />
-        <DataTable data={data} fetchData={fetchData} />
+        <DataTable  data={data} fetchData={fetchData} />
       </Box>
       <Grid
         templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
         gap={4}
         p={4}
       >
-        <Box bg="red.200" p={4}>
+        <Box>
           <Box>
             <PerformanceCard
-              title="Student Performance Overview"
+              title="Student Performance"
               performanceData={performanceData}
             />
           </Box>
         </Box>
         <Box bg="green.200" p={4}>
-          <Heading>Top Right</Heading>
+          <LeaderBoard 
+           students={students}
+          />
         </Box>
         <Box bg="blue.200" p={4}>
           <Heading>Bottom Left</Heading>
