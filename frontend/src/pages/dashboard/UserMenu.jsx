@@ -151,20 +151,22 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
                   imageWidth="60px"
                   imageHeight="60px"
                 />
-                <CloseButton
-                  onClick={() => {
-                    onClose()
-                    onMenuToggle(false)
-                  }}
-                  bg={'#319795'}
-                  mr={'-72px!important'}
-                  mt={'14'}
-                  p={5}
-                  color={'white'}
-                  borderRadius="0px 15px 15px 0px"
-                  w={'4em'}
-                  _hover={{ bg: '#000' }}
-                />
+                <Tooltip label="Close Sidebar" fontSize="xs">
+                  <CloseButton
+                    onClick={() => {
+                      onClose()
+                      onMenuToggle(false)
+                    }}
+                    bg={'#319795'}
+                    mr={'-72px!important'}
+                    mt={'14'}
+                    p={5}
+                    color={'white'}
+                    borderRadius="0px 15px 15px 0px"
+                    w={'4em'}
+                    _hover={{ bg: '#000' }}
+                  />
+                </Tooltip>
               </Flex>
             </DrawerHeader>
             <DrawerBody css={thinScrollbar}>
@@ -247,7 +249,7 @@ const UserMenu = ({ onMenuToggle, changeView }) => {
                   color={'white'}
                   isLoading={isLoading}
                   onClick={handleLogout}
-                  leftIcon={<IoLogOut color='black' />}
+                  leftIcon={<IoLogOut color="black" />}
                 >
                   Logout
                 </Button>

@@ -20,30 +20,32 @@ const PerformanceCard = ({ title, performanceData, options = {} }) => {
 
   return (
     <Box
-      p={4}
-      borderRadius="md"
-      boxShadow="md"
-      bg={cardBg}
-      color={cardColor}
-      w="full"
-      h="300px"
+    p={4}
+    borderRadius="md"
+    boxShadow="md"
+    bg={cardBg}
+    color={cardColor}
+    w="full"
+    h="auto"
+  >
+    <Flex justifyContent="space-between" alignItems="center" mb={4}>
+      <Heading as="h3" size="md">
+        {title}
+      </Heading>
+    </Flex>
+    <Flex
+      w="100%"
+      justifyContent="space-around"
+      alignItems="center"
+      wrap="wrap"
     >
-      <Flex justifyContent="space-between" alignItems="center" mb={4}>
-        <Heading as="h3" size="md">
-          {title}
-        </Heading>
-      </Flex>
-      <Flex
-        w="100%"
-        h="200px"
-        justifyContent="space-around"
-        alignItems="center"
-      >
-        <Box w="calc(100% / 3)" h="100%" p={2}>
-          <Doughnut data={performanceData} options={options} />
+      {performanceData.map((data, index) => (
+        <Box key={index} p={2} w="300px" h="300px">
+          <Doughnut data={data} />
         </Box>
-      </Flex>
-    </Box>
+      ))}
+    </Flex>
+  </Box>
   );
 };
 

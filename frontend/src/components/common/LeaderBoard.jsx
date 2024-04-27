@@ -20,7 +20,7 @@ const LeaderBoard = ({ students }) => {
       borderRadius="md"
       bg={bg}
       color={color}
-      h="299px"
+      h="369px"
       display="flex"
       flexDirection="column"
       justifyContent="space-between"

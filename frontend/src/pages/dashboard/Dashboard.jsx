@@ -6,7 +6,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 import UserMenu from './UserMenu'
-import { TwoColumnLayout } from '../dashboard/index'
+import { StatisticsCard, TwoColumnLayout } from '../dashboard/index'
 import WelcomeCard from '../../components/common/WelcomeCard'
 import SearchForm from '../../components/common/SearchForm'
 import DataTable from '../../components/common/DataTable'
@@ -19,12 +19,6 @@ import { courses } from '../../data/courses'
 import Calendar from '../../components/common/Calendar'
 import { options } from '../../data'
 import CardInfoList from '../../components/common/CardInfoList '
-
-const viewComponents = {
-  dashboard: DashboardView,
-  students: StudentsView,
-  teachers: TeachersView,
-}
 
 const Dashboard = () => {
   const navigate = useNavigate()
@@ -62,7 +56,7 @@ const Dashboard = () => {
 export default Dashboard
 
 // Define each view component separately
-function DashboardView({ data }) {
+const DashboardView = ({ data }) => {
   const fetchData = async () => {
     try {
       const response = await axios.get('http://localhost:3001/api/users')
@@ -154,18 +148,38 @@ function DashboardView({ data }) {
           ))}
         </Box>
       </Grid>
+      <StatisticsCard totalCourses={10} hoursSpent={120} achievements={5} />
     </Box>
   )
 }
 
-function StudentsView({ data }) {
-  // Student-specific components
+const StudentsView = ({ data }) => {
+  console.log(data)
+  return (
+    <Box>
+      <Box shadow="md">
+        <WelcomeCard />
+      </Box>
+    </Box>
+  )
 }
 
-function TeachersView({ data }) {
-  // Teacher-specific components
+const TeachersView = ({ data }) => {
+  return (
+    <Box>
+      <Box shadow="md">
+        <WelcomeCard />
+      </Box>
+    </Box>
+  )
 }
 
-function DefaultView() {
+const DefaultView = () => {
   return <div>Default Content</div>
+}
+
+const viewComponents = {
+  dashboard: DashboardView,
+  students: StudentsView,
+  teachers: TeachersView,
 }
