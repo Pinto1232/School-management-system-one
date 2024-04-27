@@ -134,42 +134,40 @@ const DataTable = ({ data = [], fetchData, searchCriteria }) => {
 
   const handleDelete = (id) => {
     showToast(
-      id,
-      async (toastId, userId) => {
-        try {
-          const response = await axios.delete(
-            `http://localhost:3001/api/users/${userId}`
-          )
-          if (response.status === 200) {
-            fetchData();
-            toast({
-              title: 'User Deleted',
-              description: 'The user has been successfully deleted.',
-              status: 'success',
-              duration: 5000,
-              isClosable: true,
-            })
-          } else {
-            throw new Error('Failed to delete the user')
-          }
-        } catch (error) {
-          console.error('Delete error:', error)
-          toast({
-            title: 'Error',
-            description: 'Failed to delete the user.',
-            status: 'error',
-            duration: 5000,
-            isClosable: true,
-          })
-        } finally {
-          toast.close(toastId)
+        id,
+        async (toastId, userId) => {
+            try {
+                const response = await axios.delete(`http://localhost:3001/api/user/${userId}`);
+                if (response.status === 200) {
+                    fetchData(); 
+                    toast({
+                        title: 'User Deleted',
+                        description: 'The user has been successfully deleted.',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                    });
+                } else {
+                    throw new Error('Failed to delete the user');
+                }
+            } catch (error) {
+                console.error('Delete error:', error);
+                toast({
+                    title: 'Error',
+                    description: 'Failed to delete the user.',
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                });
+            } finally {
+                toast.close(toastId);
+            }
+        },
+        (toastId) => {
+            toast.close(toastId);
         }
-      },
-      (toastId) => {
-        toast.close(toastId)
-      }
-    )
-  }
+    );
+};
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data: studentsData }, useSortBy)
