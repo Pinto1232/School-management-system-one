@@ -138,7 +138,7 @@ const DataTable = ({ data = [], fetchData, searchCriteria }) => {
       async (toastId, userId) => {
         try {
           const response = await axios.delete(
-            `http://localhost:3001/api/users/${userId}`
+            `http://localhost:3001/api/user/${userId}`
           )
           if (response.status === 200) {
             fetchData()
