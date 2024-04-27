@@ -19,4 +19,3 @@ export { default as AssignmentManagement} from "../../components/common/Assignme
 export { default as AttendanceTracker} from "../../components/specific/attendanceTracker/AttendanceTracker";
 export { default as LessonPlanner} from "../../components/specific/LessonPlanner/LessonPlanner";
 
-

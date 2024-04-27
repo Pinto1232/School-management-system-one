@@ -44,7 +44,7 @@ const WelcomeCard = ({ backgroundImage, onAnalyticsClick, onClose }) => {
       position="relative"
     >
       <Flex direction="row" justifyContent="space-between" h="full">
-        <Flex direction="column" justifyConltent="center" w="50%" p={'4%'}>
+        <Flex direction="column" justifyContent="center" w="50%" p={'4%'}>
           <Heading
             as="h2"
             fontSize={'40px'}
