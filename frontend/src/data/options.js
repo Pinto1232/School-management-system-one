@@ -1,7 +1,8 @@
 export const options = {
+  responsive: true,
   scales: {
     y: {
-      beginAtZero: true,
+      beginAtZero: false,
     },
   },
 }

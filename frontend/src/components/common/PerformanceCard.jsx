@@ -26,7 +26,7 @@ const PerformanceCard = ({ title, performanceData, options = {} }) => {
       bg={cardBg}
       color={cardColor}
       w="full"
-      h="290px"
+      h="300px"
     >
       <Flex justifyContent="space-between" alignItems="center" mb={4}>
         <Heading as="h3" size="md">

@@ -148,6 +148,8 @@ function DashboardView({ data }) {
               duration={course.duration}
               level={course.level}
               onFavoriteToggle={course.onFavoriteToggle}
+              badge={course.badge}
+              rating={course.rating}
             />
           ))}
         </Box>
