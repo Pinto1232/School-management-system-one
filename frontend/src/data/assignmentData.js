@@ -1,5 +1,5 @@
   // Assignment Management
-  export const assignmentData = [
+const assignmentData = [
     {
       id: 'assignment1',
       name: 'Essay on History',
@@ -45,3 +45,4 @@
   ]
   console.log('Assignment data', assignmentData)
   
+  export default assignmentData;

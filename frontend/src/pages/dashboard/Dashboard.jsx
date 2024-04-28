@@ -6,19 +6,30 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 import UserMenu from './UserMenu'
-import { StatisticsCard, TwoColumnLayout } from '../dashboard/index'
+import {
+  StatisticsCard,
+  StudentTabs,
+  TwoColumnLayout,
+} from '../dashboard/index'
 import WelcomeCard from '../../components/common/WelcomeCard'
 import SearchForm from '../../components/common/SearchForm'
 import DataTable from '../../components/common/DataTable'
 import PerformanceCard from '../../components/common/PerformanceCard'
 import LeaderBoard from '../../components/common/LeaderBoard'
 import performanceData from '../../data/StudentPerformanceData'
+import assignmentData from '../../data/assignmentData'
+import announcements from '../../data/announcements'
+import pdfFiles from '../../data/pdfFiles'
+import allGradeData from '../../data/allGradeData'
+import studentData from '../../data/studentData'
+import myEvents from '../../data/myEvents'
 import students from '../../data/students'
 import CourseCard from '../../components/common/CourseCard'
 import { courses } from '../../data/courses'
 import Calendar from '../../components/common/Calendar'
 import { options } from '../../data'
 import CardInfoList from '../../components/common/CardInfoList '
+import TaskDashboard from '../../components/common/TaskDashboard'
 
 const Dashboard = () => {
   const navigate = useNavigate()
@@ -159,6 +170,17 @@ const StudentsView = ({ data }) => {
     <Box>
       <Box shadow="md">
         <WelcomeCard />
+      </Box>
+      <Box mt={4}>
+        <StudentTabs
+          assignmentData={assignmentData}
+          courses={courses}
+          announcements={announcements}
+          myEvents={myEvents}
+          allGradeData={allGradeData}
+          studentData={studentData}
+          pdfFiles={pdfFiles}
+        />
       </Box>
     </Box>
   )

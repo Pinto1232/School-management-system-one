@@ -1,5 +1,5 @@
   //pdf Viewer
-  export const pdfFiles = [
+  const pdfFiles = [
     {
       id: 'pdf1',
       title: 'Introduction to Algorithms',
@@ -56,3 +56,4 @@
     },
   ]
   console.log('pdf files', pdfFiles)
+  export default pdfFiles;

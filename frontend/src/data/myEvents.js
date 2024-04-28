@@ -4,7 +4,7 @@ const currentYear = currentDate.getFullYear()
 const currentMonth = currentDate.getMonth()
 const currentDay = currentDate.getDate()
 
-export const myEvents = [
+const myEvents = [
   {
     title: 'Meeting with Prof. Smith',
     start: new Date(currentYear, currentMonth, currentDay, 10, 30),
@@ -51,3 +51,5 @@ export const myEvents = [
 ]
 /*   console.log('My events', myEvents)
  */
+
+export default myEvents

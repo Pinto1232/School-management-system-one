@@ -1,5 +1,5 @@
   // Anouncement Data
-  export const announcements = [
+ const announcements = [
     {
       id: 'announcement1',
       title: 'Campus Event Next Week',
@@ -34,3 +34,5 @@
     },
   ]
   console.log('Announcement', announcements)
+
+  export default announcements;

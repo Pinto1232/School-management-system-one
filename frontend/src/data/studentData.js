@@ -1,7 +1,5 @@
-  
-
-  // Student profile data
-  export const studentData = {
+// Student profile data
+   const studentData = {
     name: 'Jane Doe',
     avatarUrl: 'https://via.placeholder.com/150',
     major: 'Computer Science',
@@ -12,4 +10,4 @@
     phone: '(123) 456-7890',
     address: '123 Main St, Anytown, USA',
   }
-  
+  export default studentData;

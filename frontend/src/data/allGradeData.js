@@ -1,5 +1,5 @@
   // All grade data  by semester
-  export const allGradeData = {
+const allGradeData = {
     'Fall 2022': {
       studentName: 'John Doe',
       GPA: 3.8,
@@ -60,4 +60,5 @@
     },
   }
   console.log('Grade data', allGradeData)
+  export default allGradeData;
   
