@@ -30,6 +30,9 @@ import Calendar from '../../components/common/Calendar'
 import { options } from '../../data'
 import CardInfoList from '../../components/common/CardInfoList '
 import TaskDashboard from '../../components/common/TaskDashboard'
+import ProjectTable from '../../components/common/ProjectTable'
+import ActivityTracker from '../../components/common/ActivityTracker'
+import UserProfile from '../../components/common/UserProfile'
 
 const Dashboard = () => {
   const navigate = useNavigate()
@@ -182,6 +185,12 @@ const StudentsView = ({ data }) => {
           pdfFiles={pdfFiles}
         />
       </Box>
+      <Flex gap={2}>
+        <Box flex="3">
+          <ProjectTable />
+        </Box>
+      </Flex>
+      {/* <Box><UserProfile /> </Box> */}
     </Box>
   )
 }
@@ -194,6 +203,10 @@ const TeachersView = ({ data }) => {
       </Box>
     </Box>
   )
+}
+
+const Streaming = () => {
+  return <div>Streaming Content</div>
 }
 
 const DefaultView = () => {

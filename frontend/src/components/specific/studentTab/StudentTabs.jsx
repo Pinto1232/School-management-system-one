@@ -50,7 +50,7 @@ const StudentTabs = ({
           { icon: FaBullhorn, label: 'Announcements' },
           { icon: FaTasks, label: 'Assignments' },
           { icon: FaChalkboardTeacher, label: 'Course Overview' },
-          { icon: FaChalkboardTeacher, label: 'Course Streamming' },
+          { icon: FaChalkboardTeacher, label: 'Streamming' },
         ].map((tab, index) => (
           <Tab
             key={index}
