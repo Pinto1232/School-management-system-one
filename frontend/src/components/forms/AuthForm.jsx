@@ -85,6 +85,7 @@ const AuthForm = () => {
         navigate('/login');
       })
       .catch(error => {
+        const errorMessage = error.response && error.response.data && error.response.data.message ? error.response.data.message : 'An error occurred during registration.';
         toast({
           title: 'Registration Error',
           description: error.response.data.message || 'An error occurred during registration.',
@@ -116,6 +117,7 @@ const AuthForm = () => {
       })
       .catch(error => {
         console.error("Login error:", error.response.data);
+        const errorMessage = error.response && error.response.data && error.response.data.message ? error.response.data.message : 'An error occurred during login.';
         toast({
           title: 'Login Error',
           description: error.response.data.message || 'An error occurred during login.',
