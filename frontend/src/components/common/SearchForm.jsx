@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons'
 
-const SearchForm = ({ fields, onSearch, handleSearchCriteria  }) => {
+const SearchForm = ({ fields, onSearch, handleSearchCriteria, onSearchChange = () => {} }) => {
   const [formData, setFormData] = useState(() => {
     const initialState = {}
     fields.forEach((field) => {
@@ -22,14 +22,19 @@ const SearchForm = ({ fields, onSearch, handleSearchCriteria  }) => {
   const [showFields, setShowFields] = useState(false)
 
   const handleChange = (name, value) => {
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
-
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (typeof onSearchChange === 'function') {
+      onSearchChange({ ...formData, [name]: value });
+    }
+  };
+  
   const handleSubmit = () => {
     handleSearchCriteria(formData);
-    onSearch(formData)
-    setShowFields(false)
-  }
+    if (typeof onSearch === 'function') {
+      onSearch(formData);
+    }
+    setShowFields(false);
+  };
 
   const toggleFields = () => {
     setShowFields(!showFields) 

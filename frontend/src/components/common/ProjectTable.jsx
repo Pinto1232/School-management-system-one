@@ -62,7 +62,7 @@ const DashboardTable = () => {
   }
 
   return (
-    <Box bg={'gray.500'} p={5} borderRadius="lg" boxShadow="md" color={color}>
+    <Box bg={'gray.200'} p={5} borderRadius="lg" boxShadow="md" color={color}>
       <Flex justifyContent="space-between" mb={4} alignItems="center">
         <Flex align="center" bg="white" p={2} borderRadius="md">
           <Icon as={FiSearch} color="gray.500" />
@@ -72,10 +72,10 @@ const DashboardTable = () => {
           <Button rightIcon={<BsThreeDotsVertical />} colorScheme="blue" mr={0}>
             More filters
           </Button>
-          <Button rightIcon={<BsThreeDotsVertical />} colorScheme="blue" mr={0}>
+          <Button rightIcon={<BsThreeDotsVertical />} colorScheme="teal" mr={0}>
             More filters
           </Button>
-          <Button rightIcon={<BsThreeDotsVertical />} colorScheme="blue" mr={0}>
+          <Button rightIcon={<BsThreeDotsVertical />} colorScheme="teal" mr={0}>
             More filters
           </Button>
         </Flex>
@@ -98,18 +98,18 @@ const DashboardTable = () => {
               <Td>
                 <Flex align="center">
                   <Avatar name={item.name} mr={2} />
-                  <Text>{item.name}</Text>
+                  <Text color={'black'}>{item.name}</Text>
                 </Flex>
               </Td>
               <Td>
                 <Flex align="center">
                   <Avatar name={item.name} mr={2} />
-                  <Text>{item.name}</Text>
+                  <Text color={'black'}>{item.name}</Text>
                 </Flex>
               </Td>
-              <Td>{item.country}</Td>
-              <Td>{item.email}</Td>
-              <Td>{item.project}</Td>
+              <Td color={'black'}>{item.country}</Td>
+              <Td color={'black'}>{item.email}</Td>
+              <Td color={'black'}>{item.project}</Td>
               <Td>
                 <Progress
                   colorScheme={getStatusColor(item.status)}
@@ -117,8 +117,8 @@ const DashboardTable = () => {
                   size="sm"
                 />
               </Td>
-              <Td>{item.status}</Td>
-              <Td>{item.date}</Td>
+              <Td color={'black'}>{item.status}</Td>
+              <Td color={'black'}>{item.date}</Td>
             </Tr>
           ))}
         </Tbody>

@@ -22,16 +22,30 @@ import { useUserContext } from '../../contexts/UserContext'
 import useConfirmationToast from '../../hooks/useConfirmationToast/useConfirmationToast'
 import UserDetailsModal from './UserDetailsModal'
 
-const DataTable = ({ data = [], fetchData, searchCriteria }) => {
+const DataTable = ({  fetchData, searchCriteria  }) => {
   const { user } = useUserContext()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedUser, setSelectedUser] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const showToast = useConfirmationToast()
+  const [data, setData] = useState([]);
   const [studentsData, setStudentsData] = useState(
     Array.isArray(data) ? data : []
   )
   const toast = useToast()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/api/users?search=${searchCriteria.search}`);
+        setData(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [searchCriteria]);
 
   const fetchTableData = async () => {
     setIsLoading(true);

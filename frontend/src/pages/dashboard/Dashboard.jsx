@@ -39,6 +39,7 @@ const Dashboard = () => {
   const { user, isLoadingUser } = useUserContext()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [currentView, setCurrentView] = useState('dashboard')
+  const [searchCriteria, setSearchCriteria] = useState({})
   const [studentsData, setStudentsData] = useState([])
 
   useEffect(() => {
@@ -55,13 +56,22 @@ const Dashboard = () => {
     setCurrentView(view)
   }
 
+  /* Searching function */
+  const handleSearchChange = (criteria) => {
+    setSearchCriteria(criteria)
+  }
+
   const CurrentViewComponent = viewComponents[currentView] || DefaultView
 
   return (
     <Box bg={useColorModeValue('', '')} justifyItems={'center'}>
       <UserMenu onMenuToggle={handleMenuToggle} changeView={changeView} />
       <TwoColumnLayout isMenuOpen={isMenuOpen}>
-        <CurrentViewComponent data={studentsData} />
+        <CurrentViewComponent
+          data={studentsData}
+          handleSearchChange={handleSearchChange}
+          searchCriteria={searchCriteria}
+        />
       </TwoColumnLayout>
     </Box>
   )
@@ -70,7 +80,7 @@ const Dashboard = () => {
 export default Dashboard
 
 // Define each view component separately
-const DashboardView = ({ data }) => {
+const DashboardView = ({ data, handleSearchChange, searchCriteria }) => {
   const fetchData = async () => {
     try {
       const response = await axios.get('http://localhost:3001/api/users')
@@ -83,7 +93,7 @@ const DashboardView = ({ data }) => {
   }
 
   const handleSearchCriteriaFunction = (criteria) => {
-    console.log('Search criteria:', criteria)
+    console.log('Search criteria set:', criteria)
   }
   return (
     <Box>
@@ -105,10 +115,10 @@ const DashboardView = ({ data }) => {
               width: '1345px',
             },
           ]}
-          onSearch={handleSearch}
-          handleSearchCriteria={handleSearchCriteriaFunction}
+          onSearchChange={handleSearchChange}
+          handleSearchCriteria={handleSearchCriteriaFunction} // Pass the correct function here
         />
-        <DataTable data={data} fetchData={fetchData} />
+        <DataTable data={data} searchCriteria={searchCriteria} />
       </Box>
       <Grid
         templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
