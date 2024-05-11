@@ -69,12 +69,18 @@ const validate = (req, res, next) => {
 router.post(
   "/register",
   upload.single("profileImage"),
-  validationResult,
+  registerValidation,
   validate,
   async (req, res, next) => {
     const { firstName, lastName, email, password } = req.body;
 
     try {
+      // Check if user already exists
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return res.status(400).json({ message: "User already exists with this email" });
+      }
+
       // Hash the password
       const hashedPassword = await bcrypt.hash(password, saltRounds);
 
@@ -103,18 +109,8 @@ router.post(
       });
     } catch (error) {
       console.error("Registration error:", error);
-      res
-        .status(500)
-        .json({ message: "Error registering user", error: error.message });
+      res.status(500).json({ message: "Error registering user", error: error.message });
     }
-  },
-  (error, req, res, next) => {
-    // Handle Multer errors
-    if (error instanceof multer.MulterError) {
-      return res.status(400).json({ error: error.message });
-    }
-    // Forward other errors to the next error handler
-    next(error);
   }
 );
 
