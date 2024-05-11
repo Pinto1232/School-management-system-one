@@ -16,22 +16,36 @@ import {
 } from '@chakra-ui/react'
 import { useEffect, useMemo, useState } from 'react'
 import { useTable, useSortBy } from 'react-table'
-import { FaSort, FaSortUp, FaSortDown, FaTrash, FaEye } from 'react-icons/fa'
+import { FaSort, FaSortUp, FaChevronRight , FaChevronLeft, FaSortDown, FaTrash, FaEye } from 'react-icons/fa'
 import axios from 'axios'
 import { useUserContext } from '../../contexts/UserContext'
 import useConfirmationToast from '../../hooks/useConfirmationToast/useConfirmationToast'
 import UserDetailsModal from './UserDetailsModal'
 
-const DataTable = ({ data = [], fetchData, searchCriteria }) => {
+const DataTable = ({  fetchData, searchCriteria  }) => {
   const { user } = useUserContext()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedUser, setSelectedUser] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const showToast = useConfirmationToast()
+  const [data, setData] = useState([]);
   const [studentsData, setStudentsData] = useState(
     Array.isArray(data) ? data : []
   )
   const toast = useToast()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/api/users?search=${searchCriteria.search}`);
+        setData(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [searchCriteria]);
 
   const fetchTableData = async () => {
     setIsLoading(true);
@@ -134,42 +148,40 @@ const DataTable = ({ data = [], fetchData, searchCriteria }) => {
 
   const handleDelete = (id) => {
     showToast(
-      id,
-      async (toastId, userId) => {
-        try {
-          const response = await axios.delete(
-            `http://localhost:3001/api/user/${userId}`
-          )
-          if (response.status === 200) {
-            fetchData()
-            toast({
-              title: 'User Deleted',
-              description: 'The user has been successfully deleted.',
-              status: 'success',
-              duration: 5000,
-              isClosable: true,
-            })
-          } else {
-            throw new Error('Failed to delete the user')
-          }
-        } catch (error) {
-          console.error('Delete error:', error)
-          toast({
-            title: 'Error',
-            description: 'Failed to delete the user.',
-            status: 'error',
-            duration: 5000,
-            isClosable: true,
-          })
-        } finally {
-          toast.close(toastId)
+        id,
+        async (toastId, userId) => {
+            try {
+                const response = await axios.delete(`http://localhost:3001/api/user/${userId}`);
+                if (response.status === 200) {
+                    fetchData(); 
+                    toast({
+                        title: 'User Deleted',
+                        description: 'The user has been successfully deleted.',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                    });
+                } else {
+                    throw new Error('Failed to delete the user');
+                }
+            } catch (error) {
+                console.error('Delete error:', error);
+                toast({
+                    title: 'Error',
+                    description: 'Failed to delete the user.',
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                });
+            } finally {
+                toast.close(toastId);
+            }
+        },
+        (toastId) => {
+            toast.close(toastId);
         }
-      },
-      (toastId) => {
-        toast.close(toastId)
-      }
-    )
-  }
+    );
+};
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data: studentsData }, useSortBy)
@@ -192,7 +204,7 @@ const DataTable = ({ data = [], fetchData, searchCriteria }) => {
   )
 
   return (
-    <Box width="100%" overflowX={{ base: 'scroll', md: 'auto' }}>
+    <Box width="100%" p={10} overflowX={{ base: 'scroll', md: 'auto' }}>
       {isLoading ? (
         <Flex justify="center" align="center" height="200px">
           <Spinner size="xl" />
@@ -293,6 +305,7 @@ const DataTable = ({ data = [], fetchData, searchCriteria }) => {
                 w={100}
                 borderRadius={'sm'}
                 fontSize={12}
+                leftIcon={<FaChevronLeft/>}
               >
                 Previous
               </Button>
@@ -320,6 +333,7 @@ const DataTable = ({ data = [], fetchData, searchCriteria }) => {
                 w={100}
                 borderRadius={2}
                 fontSize={12}
+                rightIcon={<FaChevronRight  />}
               >
                 Next
               </Button>

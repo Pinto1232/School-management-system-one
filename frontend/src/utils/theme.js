@@ -27,8 +27,8 @@ const theme = extendTheme({
         buttonSecondaryGreen: '#319795'
     },
     fonts: {
-        body: "'Open Sans', sans-serif",
-        heading: "'Montserrat', sans-serif",
+        body: "'Montserrat', sans-serif",
+    heading: "'Montserrat', sans-serif",
     },
     fontWeights: {
         normal: 400,

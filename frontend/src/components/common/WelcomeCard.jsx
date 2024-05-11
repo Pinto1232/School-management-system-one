@@ -50,7 +50,7 @@ const WelcomeCard = ({ backgroundImage, onAnalyticsClick, onClose }) => {
             fontSize={'40px'}
             color={useColorModeValue('white', 'white')}
           >
-            Welcome: {user?.firstName} {user?.lastName}
+            Welcome back: {user?.firstName} {user?.lastName}
           </Heading>
           <Heading as="h3" size="md" color={'white'}>
             Access your personalized dashboard for all your educational needs
@@ -97,7 +97,7 @@ const WelcomeCard = ({ backgroundImage, onAnalyticsClick, onClose }) => {
         </Flex>
         <Flex direction="column" justifyContent="center" w="50%" h="full" p={0}>
           <Image
-            src="https://pngimg.com/d/student_PNG62548.png" // Replace with your image URL
+            src="https://pngimg.com/d/student_PNG62548.png"
             alt="Right side image"
             w="full"
             h="full"

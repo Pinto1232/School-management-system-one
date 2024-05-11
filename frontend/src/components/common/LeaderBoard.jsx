@@ -1,87 +1,17 @@
-// Importing necessary modules and components
-import React from 'react'
+import React from 'react';
 import {
-  Box,
-  Heading,
-  IconButton,
-  Image,
-  Stack,
-  Divider,
-  Button,
-  Text,
-  Flex,
-  Icon,
-  Tooltip,
-  useColorModeValue,
-} from '@chakra-ui/react'
-import { MdMoreHoriz } from 'react-icons/md'
-import { FaArrowUp, FaArrowDown } from 'react-icons/fa'
+  Box, Heading, IconButton, Stack, Divider, Button, Flex, useColorModeValue,
+} from '@chakra-ui/react';
+import { MdMoreHoriz } from 'react-icons/md';
+import LeaderBoardItem from './LeaderBoardItem'; 
 
-// LeaderBoardItem component represents each student in the leaderboard
-const LeaderBoardItem = ({ percentage, changeDirection, index }) => {
-  const color = useColorModeValue('gray.700', 'gray.200')
-  const bgColors = [
-    'red.100',
-    'blue.100',
-    'green.100',
-    'yellow.100',
-    'purple.100',
-  ]
-  const bg = useColorModeValue(bgColors[index % bgColors.length], 'gray.900')
-
-  return (
-    <Flex
-      align="center"
-      justifyContent="space-between"
-      bg={bg}
-      p={1}
-      borderRadius="md"
-      boxshadow="2lg"
-      color={color}
-    >
-      <Box minWidth="56px" ml={1}>
-        <Image
-          borderRadius="full"
-          boxSize="35px"
-          src="https://via.placeholder.com/150"
-          alt="Student"
-          mr={4}
-        />
-      </Box>
-      <Flex
-        align="center"
-        justify="flex-end"
-        bg={'black'}
-        color={'white'}
-        p={1}
-        mr={1}
-        borderRadius={'md'}
-      >
-        <Tooltip label={`Performance: ${percentage}%`} hasArrow>
-          <Text fontSize="sm" mr={2}>
-            {percentage}%
-          </Text>
-        </Tooltip>
-        <Tooltip
-          label={`Trend: ${
-            changeDirection === 'up' ? 'Increasing' : 'Decreasing'
-          }`}
-          hasArrow
-        >
-          <Icon
-            as={changeDirection === 'up' ? FaArrowUp : FaArrowDown}
-            color={percentage < 6 ? 'red.500' : 'green.500'}
-          />
-        </Tooltip>
-      </Flex>
-    </Flex>
-  )
-}
-
-// LeaderBoard component represents the entire leaderboard
 const LeaderBoard = ({ students }) => {
-  const bg = useColorModeValue('white', 'gray.800')
-  const color = useColorModeValue('gray.700', 'gray.200')
+  const bg = useColorModeValue('white', 'gray.800');
+  const color = useColorModeValue('gray.700', 'gray.200');
+
+  if (!students || students.length === 0) {
+    return <Box>No students data available.</Box>;
+  }
 
   return (
     <Box
@@ -90,21 +20,15 @@ const LeaderBoard = ({ students }) => {
       borderRadius="md"
       bg={bg}
       color={color}
-      h={'299px'}
+      h="369px"
       display="flex"
       flexDirection="column"
       justifyContent="space-between"
     >
       <Box>
         <Flex justify="space-between" align="center" mb={1}>
-          <Heading as="h3" size="md">
-            Leaderboard
-          </Heading>
-          <IconButton
-            aria-label="Options"
-            icon={<MdMoreHoriz />}
-            variant="ghost"
-          />
+          <Heading as="h3" size="md">Leader board</Heading>
+          <IconButton aria-label="Options" icon={<MdMoreHoriz />} variant="ghost" />
         </Flex>
         <Box
           maxH="200px"
@@ -122,26 +46,25 @@ const LeaderBoard = ({ students }) => {
           }}
         >
           <Stack spacing={4}>
-            {students.map((student, index) => (
+            {students.map(student => (
               <LeaderBoardItem
                 key={student.id}
                 imageUrl={student.imageUrl}
+                name={student.name}
                 percentage={student.percentage}
                 changeDirection={student.changeDirection}
-                index={index}
+                index={students.indexOf(student)}
               />
             ))}
           </Stack>
         </Box>
       </Box>
       <Divider />
-      <Box mx={8}>
-        <Button width="full" fontSize={14} colorScheme="teal">
-          ALL STUDENTS
-        </Button>
-      </Box>
+      <Flex justifyContent="center">
+        <Button w={200} fontSize="14" colorScheme="teal">ALL STUDENTS</Button>
+      </Flex>
     </Box>
-  )
-}
+  );
+};
 
-export default LeaderBoard
+export default LeaderBoard;

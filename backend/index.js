@@ -124,6 +124,7 @@ app.use('/api/packages', packagesRoutes);
 // Use Icons routes
 app.use('/api/icons', iconsRoutes)
 
+
 /* app.use('/api/users/uploads', express.static('uploads')); */
 app.use('/api/users/uploads', express.static(path.join(__dirname, 'src/uploads')));
 

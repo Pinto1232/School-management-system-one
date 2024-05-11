@@ -67,21 +67,21 @@ const Calendar = ({ onDateSelect }) => {
   }
 
   const renderDays = () => {
-    const days = [];
-    let currentDay = startDay;
-  
+    const days = []
+    let currentDay = startDay
+
     const getBackgroundColor = (day) => {
-      if (isSelectedDay(day)) return 'teal.500';
-      if (dayIsInMonth(day)) return 'teal.100';
-      return 'gray.200';
-    };
-  
+      if (isSelectedDay(day)) return 'teal.500'
+      if (dayIsInMonth(day)) return 'teal.100'
+      return 'gray.200'
+    }
+
     const getTextColor = (day) => {
-      if (isSelectedDay(day)) return 'white';
-      if (isSameDay(day, new Date())) return 'teal.500';
-      return 'gray.500';
-    };
-  
+      if (isSelectedDay(day)) return 'white'
+      if (isSameDay(day, new Date())) return 'teal.500'
+      return 'gray.500'
+    }
+
     while (currentDay <= endDay) {
       for (let i = 0; i < 7; i++) {
         days.push(
@@ -103,19 +103,18 @@ const Calendar = ({ onDateSelect }) => {
             onClick={() => onDayClick(currentDay)}
             borderRadius="md"
           >
+            <Text as="span" mr={2}>
+              Day
+            </Text>
             <Text fontWeight="semibold">{format(currentDay, 'd')}</Text>
           </Box>
-        );
-        currentDay = addDays(currentDay, 1);
+        )
+        currentDay = addDays(currentDay, 1)
       }
     }
-  
-    return days;
-  };
-  
-  
 
-  const gridHeight = useBreakpointValue({ base: '43vh', lg: '80vh' })
+    return days
+  }
 
   return (
     <Box
@@ -124,7 +123,8 @@ const Calendar = ({ onDateSelect }) => {
       overflow="hidden"
       bg="white"
       boxShadow="2xl"
-      height={gridHeight}
+      width={'100%'}
+      height={410}
     >
       <Flex
         justifyContent="space-between"
@@ -165,10 +165,15 @@ const Calendar = ({ onDateSelect }) => {
           colorScheme="teal"
         />
       </Flex>
-      <Flex bg="gray.100" color={'black'} fontSize={15} p={8}>
+      <Flex bg="gray.100" color={'black'} fontSize={15} p={4}>
         {renderDaysOfWeek()}
       </Flex>
-      <Flex flexWrap="wrap" p={1}>
+      <Flex
+        flexWrap="wrap"
+        pb={10}
+        overflowY="scroll"
+        style={{ height: '300px', width:'10' }}
+      >
         {renderDays()}
       </Flex>
     </Box>

@@ -13,16 +13,6 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, uploadDir);
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + "-" + Date.now());
-  },
-});
-
-const upload = multer({ storage: storage });
 const saltRounds = 10;
 
 exports.register = async (req, res) => {
@@ -31,6 +21,14 @@ exports.register = async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: "Profile image upload failed" });
+    }
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res
+        .status(400)
+        .json({ error: "User already exists with this email" });
     }
 
     const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -143,17 +141,17 @@ exports.getUsers = asyncHandler(async (req, res) => {
   }
 });
 
-exports.deleteUser = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-
-  const user = await User.findByIdAndDelete(id);
-
-  if (!user) {
-    return res.status(404).json({ error: "User not found" });
+exports.deleteUser = async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res
+      .status(500)
+      .json({ message: "Failed to delete user", error: error.message });
   }
-
-  res.status(200).json({
-    message: "User deleted successfully",
-    user,
-  });
-});
+};

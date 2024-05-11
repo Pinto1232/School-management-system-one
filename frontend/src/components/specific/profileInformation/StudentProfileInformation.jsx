@@ -31,9 +31,10 @@ const StudentProfileInformation = ({ studentData, isLoading, isError }) => {
                 shadow="xl"
                 borderWidth="1px"
                 borderRadius="lg"
-                bgGradient={bgGradient}
+               /*  bgGradient={bgGradient} */
+               bg={'gray.100'}
                 transition="all 0.3s ease-in-out"
-                _hover={{ transform: 'scale(1.05)', shadow: '2xl' }}
+                _hover={{ transform: 'scale(1)', shadow: '2xl' }}
             >
                 <VStack spacing={4} align="stretch">
                     <HStack spacing={5} align="center">

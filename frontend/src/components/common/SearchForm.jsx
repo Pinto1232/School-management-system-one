@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons'
 
-const SearchForm = ({ fields, onSearch, handleSearchCriteria  }) => {
+const SearchForm = ({ fields, onSearch, handleSearchCriteria, onSearchChange = () => {} }) => {
   const [formData, setFormData] = useState(() => {
     const initialState = {}
     fields.forEach((field) => {
@@ -22,14 +22,19 @@ const SearchForm = ({ fields, onSearch, handleSearchCriteria  }) => {
   const [showFields, setShowFields] = useState(false)
 
   const handleChange = (name, value) => {
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
-
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (typeof onSearchChange === 'function') {
+      onSearchChange({ ...formData, [name]: value });
+    }
+  };
+  
   const handleSubmit = () => {
     handleSearchCriteria(formData);
-    onSearch(formData)
-    setShowFields(false)
-  }
+    if (typeof onSearch === 'function') {
+      onSearch(formData);
+    }
+    setShowFields(false);
+  };
 
   const toggleFields = () => {
     setShowFields(!showFields) 
@@ -80,9 +85,9 @@ const SearchForm = ({ fields, onSearch, handleSearchCriteria  }) => {
                     placeholder={field.placeholder}
                     value={formData[field.name]}
                     onChange={(e) => handleChange(field.name, e.target.value)}
-                    bg="gray.50"
                     borderRadius="md"
                     focusBorderColor="transparent"
+                    bgColor={'gray.100'}
                   />
                 )}
               </FormControl>
@@ -94,7 +99,6 @@ const SearchForm = ({ fields, onSearch, handleSearchCriteria  }) => {
           size="md"
           px={9}
           py={4}
-          ml={3}
           fontSize="sm"
           borderRadius={'md'}
           _hover={{ bg: 'teal.500' }}

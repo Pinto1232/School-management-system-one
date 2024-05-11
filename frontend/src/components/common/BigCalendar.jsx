@@ -80,6 +80,7 @@ const BigCalendar = ({ events }) => {
         eventPropGetter={eventStyleGetter}
       />
       {selectedEvent && <EventModal />}
+      
     </Box>
   );
 };
