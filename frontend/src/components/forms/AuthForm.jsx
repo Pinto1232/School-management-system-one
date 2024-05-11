@@ -66,8 +66,6 @@ const AuthForm = () => {
       console.log('No file attached');
     }
 
-    console.log("Form data entries:", [...formData.entries()]);
-
 
     for (let [key, value] of formData.entries()) {
       console.log(`${key}:`, value);
@@ -87,11 +85,9 @@ const AuthForm = () => {
         navigate('/login');
       })
       .catch(error => {
-        console.error("Registration error:", error);
-        const errorMessage = error.response && error.response.data && error.response.data.message ? error.response.data.message : 'An error occurred during registration.';
         toast({
           title: 'Registration Error',
-          description: errorMessage,
+          description: error.response.data.message || 'An error occurred during registration.',
           status: 'error',
           duration: 5000,
           isClosable: true,
@@ -120,10 +116,9 @@ const AuthForm = () => {
       })
       .catch(error => {
         console.error("Login error:", error.response.data);
-        const errorMessage = error.response && error.response.data && error.response.data.message ? error.response.data.message : 'An error occurred during login.';
         toast({
           title: 'Login Error',
-          description: errorMessage,
+          description: error.response.data.message || 'An error occurred during login.',
           status: 'error',
           duration: 5000,
           isClosable: true,
