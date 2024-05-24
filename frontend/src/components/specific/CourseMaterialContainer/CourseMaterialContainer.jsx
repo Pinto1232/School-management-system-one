@@ -19,7 +19,6 @@ const CourseMaterialContainer = () => {
           duration: 5000,
           isClosable: true,
         });
-        // Additional actions upon file selection success
       };
     
       const onFileSelectError = (errorMessage) => {
@@ -30,19 +29,16 @@ const CourseMaterialContainer = () => {
           duration: 5000,
           isClosable: true,
         });
-        // Additional actions upon file selection error
       };
 
 
     const [folders, setFolders] = useState([
         { id: 'root', name: 'Root', parentId: null, children: [] }
-        // You can add more initial folders if needed.
     ]);
     const [selectedFolderId, setSelectedFolderId] = useState('root');
 
     const handleFolderSelect = (folderId) => {
         setSelectedFolderId(folderId);
-        // Here you might load the materials for the selected folder
     };
 
     const handleAddFolder = (parentFolderId) => {

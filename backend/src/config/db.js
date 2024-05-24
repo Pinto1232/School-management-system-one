@@ -1,15 +1,14 @@
 const mongoose = require('mongoose');
-const { dbUri } = require('./env'); // Import the dbUri variable from env.js
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(dbUri, {
+    await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log('MongoDB connected...');
-  } catch (err) {
-    console.error(`Error connecting to MongoDB: ${err.message}`);
+    console.log('MongoDB connected');
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error.message);
     process.exit(1);
   }
 };
