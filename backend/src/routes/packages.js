@@ -4,17 +4,10 @@ const packagesController = require('../controllers/packages');
 const multer = require("multer");
 const upload = multer();
 
-
-
-// create a new package with packageImage upload
 router
-  .route("/package")
-  .post(upload.single("image"), packagesController.createPackage);
-
-// I use the chaining method
-router.route('/')
-    .get(packagesController.getAllPackages)
-    .post(packagesController.createPackage);
+  .route("/")
+  .post(upload.single("image"), packagesController.createPackage)
+  .get(packagesController.getAllPackages);
 
 router.route('/:id')
     .get(packagesController.getPackageById)

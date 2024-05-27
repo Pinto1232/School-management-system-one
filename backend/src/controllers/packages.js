@@ -2,28 +2,72 @@ const Package = require("../models/Packages");
 const multer = require("multer");
 const upload = multer();
 
-
 // Create a new package
 const createPackage = async (req, res, next) => {
   try {
-    const { features, name, price, images, imageUrl } = req.body;
-    const newPackage = new Package({
-      features,
-      images,
+    const {
+      name,
       price,
-      name
+      features,
+      studentEnrollment,
+      personalAcademicRecords,
+      attendanceTracking,
+      gradebookReportCards,
+      healthRecords,
+      timetableManagement,
+      attendanceManagement,
+      gradeExamManagement,
+      feePaymentManagement,
+      libraryManagement,
+      transportManagement,
+      humanResourceManagement,
+      communicationCollaboration,
+      learningManagementSystem,
+      parentStudentPortal,
+      inventoryAssetManagement,
+      eventManagement,
+      analyticsReporting,
+      securityAccessControl,
+    } = req.body;
+
+    // Parse the features JSON string
+    const parsedFeatures = JSON.parse(features);
+
+    const newPackage = new Package({
+      name,
+      price,
+      features: parsedFeatures,
+      studentEnrollment,
+      personalAcademicRecords,
+      attendanceTracking,
+      gradebookReportCards,
+      healthRecords,
+      timetableManagement,
+      attendanceManagement,
+      gradeExamManagement,
+      feePaymentManagement,
+      libraryManagement,
+      transportManagement,
+      humanResourceManagement,
+      communicationCollaboration,
+      learningManagementSystem,
+      parentStudentPortal,
+      inventoryAssetManagement,
+      eventManagement,
+      analyticsReporting,
+      securityAccessControl,
     });
 
-    //Check if the  request image file exist
+    // Check if the request image file exists
     if (req.file) {
-      newPackage.image = {
+      newPackage.images.push({
         data: req.file.buffer,
         contentType: req.file.mimetype,
-      };
-    } else if (imageUrl) {
-      newPackage.image = {
-        url: imageUrl,
-      };
+      });
+    } else if (req.body.imageUrl) {
+      newPackage.images.push({
+        url: req.body.imageUrl,
+      });
     }
 
     await newPackage.save();
@@ -60,16 +104,12 @@ const getPackageById = async (req, res) => {
 // Update a package by id
 const updatePackage = async (req, res) => {
   try {
-    const package = await Packages.findById(req.params.id);
+    const package = await Package.findById(req.params.id);
     if (!package) {
       return res.status(404).json({ message: "Package not found" });
     }
 
-    package.basicPlan = req.body.basicPlan;
-    package.proPlan = req.body.proPlan;
-    package.premiumPlan = req.body.premiumPlan;
-    package.feature = req.body.feature;
-    package.packageImage = req.body.packageImage;
+    Object.assign(package, req.body);
 
     const updatedPackage = await package.save();
     res.status(200).json(updatedPackage);
@@ -81,7 +121,7 @@ const updatePackage = async (req, res) => {
 // Delete a package by id
 const deletePackage = async (req, res) => {
   try {
-    const package = await Packages.findById(req.params.id);
+    const package = await Package.findById(req.params.id);
     if (!package) {
       return res.status(404).json({ message: "Package not found" });
     }
@@ -93,7 +133,7 @@ const deletePackage = async (req, res) => {
   }
 };
 
-// Export the controller methods
+
 module.exports = {
   createPackage,
   getAllPackages,

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Stack, FormControl, Input, Button, Text } from '@chakra-ui/react';
-import { NameFields, EmailField, PasswordField } from '../forms/FieldsNaming';
-import { AttachmentIcon } from '@chakra-ui/icons';
+import { Box, Stack, FormControl, Input, Button, Typography } from '@mui/material';
+import { NameFields, EmailField, PasswordField } from './FieldsNaming';
+import { Attachment } from '@mui/icons-material';
 
 const AuthFormComponent = ({
   onSubmit,
@@ -21,16 +21,22 @@ const AuthFormComponent = ({
           <EmailField handleChange={handleChange} values={values} errors={errors} />
           <PasswordField handleChange={handleChange} values={values} errors={errors} />
           <FormControl>
-            <Input type="file" id="profileImage" name="profileImage" accept="image/*" onChange={handleFileChange} hidden />
+            <Input
+              type="file"
+              id="profileImage"
+              name="profileImage"
+              accept="image/*"
+              onChange={handleFileChange}
+              sx={{ display: 'none' }}
+            />
             <Button
-              as="label"
+              component="label"
               htmlFor="profileImage"
-              variant="outline"
-              colorScheme="blue"
-              w="100%"
-              textAlign="center"
-              cursor="pointer"
-              leftIcon={<AttachmentIcon />}
+              variant="outlined"
+              color="primary"
+              fullWidth
+              sx={{ textAlign: 'center', cursor: 'pointer' }}
+              startIcon={<Attachment />}
             >
               Choose File
             </Button>
@@ -45,27 +51,27 @@ const AuthFormComponent = ({
         </>
       )}
 
-      <Button type="submit" colorScheme="blue" w="100%">
+      <Button type="submit" variant="contained" color="primary" fullWidth>
         {mode === 'login' ? 'Login' : 'Sign Up'}
       </Button>
 
-      <Text textAlign="center" mt={4}>
+      <Typography textAlign="center" mt={4}>
         {mode === 'signup' ? (
           <>
             Already have an account?{' '}
-            <Button variant="link" colorScheme="blue" onClick={onToggleMode}>
+            <Button variant="text" color="primary" onClick={onToggleMode}>
               Login
             </Button>
           </>
         ) : (
           <>
             Don't have an account?{' '}
-            <Button variant="link" colorScheme="blue" onClick={onToggleMode}>
+            <Button variant="text" color="primary" onClick={onToggleMode}>
               Sign Up
             </Button>
           </>
         )}
-      </Text>
+      </Typography>
     </Stack>
   </form>
 );

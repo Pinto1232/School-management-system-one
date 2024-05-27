@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Jumbotron from "../components/specific/Jumbotron";
+import Jumbotron from "../components/Jumbotron/Jumbotron";
 import bgImage1 from "../assets/images/about-us.jpg";
 import bgImage2 from "../assets/images/basic-plan.jpg";
 import bgImage3 from "../assets/images/background-01.jpg";
@@ -7,7 +7,7 @@ import bgImage3 from "../assets/images/background-01.jpg";
 import IconColumns from "../components/common/IconColumns";
 import { Flex, Box, Image, useBreakpointValue, Grid } from "@chakra-ui/react";
 import AboutUsSection from "../components/common/AboutUsSection";
-import ProductsSection from "../components/common/ProductsSection";
+import ProductsSection from "../components/ProductsSection/ProductsSection";
 import { useGetPackagesQuery } from "../services/packageApi";
 import { useToast } from "@chakra-ui/react";
 import { Spinner } from "@chakra-ui/react";
@@ -74,7 +74,6 @@ const Home = () => {
 
   return (
     <Grid>
-      {/* Jumbotron */}
       <Jumbotron
         title="Elevate Education, Simplify School Management!"
         subtitle="Streamlines processes, fosters collaboration, and enhances learning outcomes for a seamless educational experience"
@@ -83,7 +82,6 @@ const Home = () => {
         buttonOnClick={handleButtonClick}
       />
 
-      {/* Product section */}
       <Box
         maxW={boxMaxWidth}
         mx="auto"
@@ -91,6 +89,7 @@ const Home = () => {
         p={6}
         borderWidth={1}
         rounded="md"
+        mt={-20}
       >
         <ProductsSection
           heading="Check Our Packages"
@@ -161,4 +160,6 @@ const Home = () => {
   );
 };
 
-export default Home;
+
+const MemoizedHome = React.memo(Home)
+export default MemoizedHome;
