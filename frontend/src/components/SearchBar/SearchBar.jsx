@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import { InputBase, IconButton, Box, Fade } from '@mui/material';
-import { Search as SearchIcon } from '@mui/icons-material';
-import { useTheme } from '@mui/material/styles';
+import React, { useState } from 'react'
+import { InputBase, IconButton, Box, Fade } from '@mui/material'
+import { Search as SearchIcon } from '@mui/icons-material'
+import { useTheme } from '@mui/material/styles'
 
 const SearchBar = () => {
-  const [showInput, setShowInput] = useState(false);
-  const theme = useTheme();
-  const textFieldBackgroundColor = theme.palette.mode === 'light' ? '#E2E8F0' : '#4A5568';
-  const iconsColorBg = theme.palette.mode === 'light' ? '#319795' : '#3182ce';
+  const [showInput, setShowInput] = useState(false)
+  const theme = useTheme()
+  const textFieldBackgroundColor =
+    theme.palette.mode === 'light' ? '#E2E8F0' : '#4A5568'
+  const iconsColorBg = theme.palette.mode === 'light' ? '#319795' : '#3182ce'
 
   const toggleSearchInput = () => {
-    setShowInput(!showInput);
-  };
+    setShowInput(!showInput)
+  }
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
@@ -26,9 +27,12 @@ const SearchBar = () => {
             paddingBottom: '5px',
             paddingRight: '4.5rem',
             paddingLeft: '0.5rem',
-            transition: theme.transitions.create(['width', 'background-color'], {
-              duration: theme.transitions.duration.short,
-            }),
+            transition: theme.transitions.create(
+              ['width', 'background-color'],
+              {
+                duration: theme.transitions.duration.short,
+              }
+            ),
             overflow: 'hidden',
           }}
         />
@@ -39,7 +43,7 @@ const SearchBar = () => {
           onClick={toggleSearchInput}
           sx={{
             borderRadius: 1,
-            backgroundColor: iconsColorBg,
+            backgroundColor: '#1976d2',
             color: 'white',
             marginRight: '-2em',
             zIndex: 1,
@@ -49,8 +53,8 @@ const SearchBar = () => {
         </IconButton>
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-const MemoizedSearchBar = React.memo(SearchBar);
-export default MemoizedSearchBar;
+const MemoizedSearchBar = React.memo(SearchBar)
+export default MemoizedSearchBar

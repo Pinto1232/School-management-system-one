@@ -11,7 +11,12 @@ import {
   useBreakpointValue,
   Text,
 } from '@chakra-ui/react'
-import { HamburgerIcon, CloseIcon, EmailIcon, PhoneIcon } from '@chakra-ui/icons'
+import {
+  HamburgerIcon,
+  CloseIcon,
+  EmailIcon,
+  PhoneIcon,
+} from '@chakra-ui/icons'
 import DropdownMenu from '../DropdownMenu/DropdownMenu'
 import SocialMedia from '../specific/socialIcons/SocialMediaIcons'
 import NewsletterPopup from '../NewsletterPopup/NewsletterPopup'
@@ -86,7 +91,12 @@ const Navibar = () => {
           </NewsletterPopup>
 
           <Box
-            sx={{ display: 'flex', alignItems: 'center', whiteSpace: 'nowrap', ml: 4 }}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              whiteSpace: 'nowrap',
+              ml: 4,
+            }}
           >
             <PhoneIcon mr={2} />
             <Text fontSize="md" sx={{ color: 'white', mr: 4 }}>

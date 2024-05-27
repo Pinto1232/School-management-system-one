@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, Box } from '@mui/material';
+import React from 'react'
+import { Button, Box } from '@mui/material'
 
 const CustomButton = ({
   children,
@@ -51,9 +51,8 @@ const CustomButton = ({
       {Icon && <Box component={Icon} sx={{ mr: 1 }} />}
       {children}
     </Button>
-  );
-};
-
+  )
+}
 
 const MemoizedCustomButton = React.memo(CustomButton)
-export default MemoizedCustomButton;
+export default MemoizedCustomButton

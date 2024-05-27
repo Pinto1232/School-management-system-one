@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {
   Box,
   Typography,
-  Modal,
   useTheme,
-  useMediaQuery,
   Table,
   TableBody,
   TableCell,
@@ -12,17 +10,14 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Button,
 } from '@mui/material'
 import CheckIcon from '@mui/icons-material/Check'
 import CloseIcon from '@mui/icons-material/Close'
-import CustomButton from './CustomButton'
+import CustomButton from '../common/CustomButton'
+import SafetyCheck from '@mui/icons-material/SafetyCheck'
 
 const ProductsSection = ({ heading, subheading, products }) => {
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [selectedProduct, setSelectedProduct] = useState(null)
   const [featureKeys, setFeatureKeys] = useState([])
 
   useEffect(() => {
@@ -63,7 +58,11 @@ const ProductsSection = ({ heading, subheading, products }) => {
       </Box>
       <TableContainer
         component={Paper}
-        sx={{ borderRadius: '8px', boxShadow: theme.shadows[1], overflow: 'hidden' }}
+        sx={{
+          borderRadius: '8px',
+          boxShadow: theme.shadows[1],
+          overflow: 'hidden',
+        }}
       >
         <Table sx={{ minWidth: 650 }} aria-label="products table">
           <TableHead>
@@ -85,7 +84,8 @@ const ProductsSection = ({ heading, subheading, products }) => {
                     fontWeight: 'bold',
                     backgroundColor: theme.palette.primary.main,
                     color: theme.palette.common.white,
-                    textAlign: 'center',
+                    textAlign: 'start',
+                    whiteSpace: 'nowrap',
                   }}
                 >
                   {product.name} (R{product.price})
@@ -101,11 +101,20 @@ const ProductsSection = ({ heading, subheading, products }) => {
                   '&:hover': { backgroundColor: theme.palette.action.hover },
                 }}
               >
-                <TableCell sx={{ fontWeight: 'bold', textAlign: 'center' }}>
+                <TableCell
+                  sx={{
+                    fontWeight: 'bold',
+                    textAlign: 'start',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
                   {index + 1}. {feature}
                 </TableCell>
                 {products.map((product) => (
-                  <TableCell key={product._id} sx={{ textAlign: 'center' }}>
+                  <TableCell
+                    key={product._id}
+                    sx={{ textAlign: 'start', whiteSpace: 'nowrap' }}
+                  >
                     {renderIcon(product.features.includes(feature))}
                   </TableCell>
                 ))}
@@ -113,23 +122,39 @@ const ProductsSection = ({ heading, subheading, products }) => {
             ))}
             {featureKeys.map((key) => (
               <TableRow key={key}>
-                <TableCell sx={{ fontWeight: 'bold', textAlign: 'center' }}>
-                  {key
-                    .replace(/([A-Z])/g, ' $1')
-                    .replace(/^./, (str) => str.toUpperCase())}
+                <TableCell
+                  sx={{
+                    fontWeight: 'bold',
+                    textAlign: 'start',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  <Box display="flex" alignItems="center">
+                    <SafetyCheck sx={{ mr: 1, color: '#1976d2' }} />{' '}
+                    {key
+                      .replace(/([A-Z])/g, ' $1')
+                      .replace(/^./, (str) => str.toUpperCase())}
+                  </Box>
                 </TableCell>
                 {products.map((product) => (
-                  <TableCell key={product._id} sx={{ textAlign: 'center' }}>
+                  <TableCell key={product._id} sx={{ textAlign: 'start' }}>
                     {renderIcon(product[key])}
                   </TableCell>
                 ))}
               </TableRow>
             ))}
             <TableRow>
-              <TableCell sx={{ fontWeight: 'bold', textAlign: 'center' }}></TableCell>
+              <TableCell
+                sx={{ fontWeight: 'bold', textAlign: 'center' }}
+              ></TableCell>
               {products.map((product) => (
                 <TableCell key={product._id} align="center">
-                  <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="center"
+                  >
                     <Typography variant="h6" component="p" gutterBottom>
                       {product.name} (R{product.price})p/m
                     </Typography>
@@ -147,6 +172,5 @@ const ProductsSection = ({ heading, subheading, products }) => {
   )
 }
 
-
 const MemoizedProductsSection = React.memo(ProductsSection)
-export default MemoizedProductsSection;
+export default MemoizedProductsSection
