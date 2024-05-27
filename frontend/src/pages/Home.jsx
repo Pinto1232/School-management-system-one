@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Jumbotron from "../components/specific/Jumbotron";
+import Jumbotron from "../components/Jumbotron/Jumbotron";
 import bgImage1 from "../assets/images/about-us.jpg";
 import bgImage2 from "../assets/images/basic-plan.jpg";
 import bgImage3 from "../assets/images/background-01.jpg";
@@ -91,6 +91,7 @@ const Home = () => {
         p={6}
         borderWidth={1}
         rounded="md"
+        mt={-20}
       >
         <ProductsSection
           heading="Check Our Packages"
@@ -161,4 +162,6 @@ const Home = () => {
   );
 };
 
-export default Home;
+
+const MemoizedHome = React.memo(Home)
+export default MemoizedHome;

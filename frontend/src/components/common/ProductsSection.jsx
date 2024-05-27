@@ -1,53 +1,38 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Box,
-  Flex,
-  Heading,
-  SimpleGrid,
-  Text,
-  Image,
-  UnorderedList,
-  ListItem,
-  useColorModeValue,
-  useBreakpointValue,
+  Typography,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
+  useTheme,
+  useMediaQuery,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
   Button,
-} from '@chakra-ui/react'
+} from '@mui/material'
+import CheckIcon from '@mui/icons-material/Check'
+import CloseIcon from '@mui/icons-material/Close'
 import CustomButton from './CustomButton'
-import MultiStepForm from '../specific/MultiStepForm/MultiStepPaymentForm'
 
-const ProductsSection = ({
-  heading,
-  subheading,
-  products,
-  cardShadow,
-  gridCard,
-}) => {
-  const colorWhite = '#fff';
-  const bottomBgColor = useColorModeValue('#319795', '#3182ce');
-  const textColor = colorWhite;
-  const btnTextColor = colorWhite;
-  const textFontSize = useBreakpointValue({ base: '10px', sm: '12px', md: '13px' });
-  const bgReadMore = useColorModeValue('#171923', '#2D3748');
-  
+const ProductsSection = ({ heading, subheading, products }) => {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState(null)
+  const [featureKeys, setFeatureKeys] = useState([])
 
-  /* console.log('Original products:', products) */
-
-  // Ensure unique products by using a Set
-  const uniqueProducts = products
-    .filter(
-      (product, index, self) =>
-        index === self.findIndex((p) => p._id === product._id)
-    )
-    .slice(0, 3)
+  useEffect(() => {
+    if (products.length > 0) {
+      const keys = Object.keys(products[0]).filter(
+        (key) => typeof products[0][key] === 'boolean'
+      )
+      setFeatureKeys(keys)
+    }
+  }, [products])
 
   const openModal = (product) => {
     setSelectedProduct(product)
@@ -58,90 +43,110 @@ const ProductsSection = ({
     setIsModalOpen(false)
   }
 
-  /* console.log('Unique products:', uniqueProducts) */
+  const renderIcon = (condition) => {
+    return condition ? (
+      <CheckIcon sx={{ color: theme.palette.success.main }} />
+    ) : (
+      <CloseIcon sx={{ color: theme.palette.error.main }} />
+    )
+  }
 
   return (
-    <Box py={12} minW={gridCard} mx="auto">
-      <Box textAlign="center" mb={12}>
-        <Heading as="h2" size="xl" mb={4}>
+    <Box py={10} px={2} mx="auto" maxWidth="1200px">
+      <Box textAlign="center" mb={4}>
+        <Typography variant="h2" component="h2" gutterBottom>
           {heading}
-        </Heading>
-        <Text fontSize="xl">{subheading}</Text>
+        </Typography>
+        <Typography variant="h5" component="p" color="textSecondary">
+          {subheading}
+        </Typography>
       </Box>
-      <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={3}>
-        {uniqueProducts.map((product) => (
-          <Flex
-            key={product._id}
-            direction="column"
-            bg={bottomBgColor}
-            shadow={cardShadow}
-            borderRadius="lg"
-            color={textColor}
-            overflow="hidden"
-            boxShadow="2xl"
-            transition="transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out"
-            cursor="pointer"
-            _hover={{ transform: 'scale(1.05)', boxShadow: '3xl' }}
-          >
-            {product.images.map((image, id) => (
-              <Image
-                key={`image-${id}`}
-                width="100%"
-                src={image.url}
-                mx="auto"
-                backgroundSize="cover"
-                backgroundPosition="center"
-                loading="lazy"
-              />
-            ))}
-            <Flex direction="column" p={{ base: 2, sm: 4, md: 6 }} flex="1">
-              <Heading as="h3" size="md" mb={2}>
-                <Text fontWeight="bold">{product.name}</Text>
-              </Heading>
-              <Text fontSize={textFontSize} mb={4}>
-                R{product?.price}
-              </Text>
-              <UnorderedList styleType="disc" marginLeft={4}>
-                {product.features.slice(0, 2).map((feature, index) => (
-                  <ListItem key={`feature-${index}`}>{feature}</ListItem>
-                ))}
-              </UnorderedList>
-            </Flex>
-            <Box mt="auto" p={{ base: 4, md: 8 }}>
-              <CustomButton
-                textColor={btnTextColor}
-                fontSize={textFontSize}
-                width="full"
-                bgColor={bgReadMore}
-                onClick={() => openModal(product)}
+      <TableContainer
+        component={Paper}
+        sx={{ borderRadius: '8px', boxShadow: theme.shadows[1], overflow: 'hidden' }}
+      >
+        <Table sx={{ minWidth: 650 }} aria-label="products table">
+          <TableHead>
+            <TableRow>
+              <TableCell
+                sx={{
+                  fontWeight: 'bold',
+                  backgroundColor: theme.palette.primary.main,
+                  color: theme.palette.common.white,
+                  textAlign: 'center',
+                }}
               >
-                Subscribe
-              </CustomButton>
-            </Box>
-          </Flex>
-        ))}
-      </SimpleGrid>
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <ModalOverlay />
-        <ModalContent h={{ sm: 780 }} bg={{ md: 'gray.900' }} mt={{ sm: 40 }}>
-          <ModalHeader
-            textAlign="center"
-            fontSize={{ sm: 22 }}
-            display="flex"
-            justifyContent="center"
-          >
-            {selectedProduct?.name} R{selectedProduct?.price}{' '}
-            <Text textDecor="underline">p/m</Text>
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody w={450}>
-            <MultiStepForm />
-          </ModalBody>
-          <ModalFooter></ModalFooter>
-        </ModalContent>
-      </Modal>
+                Feature
+              </TableCell>
+              {products.map((product) => (
+                <TableCell
+                  key={product._id}
+                  sx={{
+                    fontWeight: 'bold',
+                    backgroundColor: theme.palette.primary.main,
+                    color: theme.palette.common.white,
+                    textAlign: 'center',
+                  }}
+                >
+                  {product.name} (R{product.price})
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {products[0].features.map((feature, index) => (
+              <TableRow
+                key={index}
+                sx={{
+                  '&:hover': { backgroundColor: theme.palette.action.hover },
+                }}
+              >
+                <TableCell sx={{ fontWeight: 'bold', textAlign: 'center' }}>
+                  {index + 1}. {feature}
+                </TableCell>
+                {products.map((product) => (
+                  <TableCell key={product._id} sx={{ textAlign: 'center' }}>
+                    {renderIcon(product.features.includes(feature))}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+            {featureKeys.map((key) => (
+              <TableRow key={key}>
+                <TableCell sx={{ fontWeight: 'bold', textAlign: 'center' }}>
+                  {key
+                    .replace(/([A-Z])/g, ' $1')
+                    .replace(/^./, (str) => str.toUpperCase())}
+                </TableCell>
+                {products.map((product) => (
+                  <TableCell key={product._id} sx={{ textAlign: 'center' }}>
+                    {renderIcon(product[key])}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+            <TableRow>
+              <TableCell sx={{ fontWeight: 'bold', textAlign: 'center' }}></TableCell>
+              {products.map((product) => (
+                <TableCell key={product._id} align="center">
+                  <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+                    <Typography variant="h6" component="p" gutterBottom>
+                      {product.name} (R{product.price})p/m
+                    </Typography>
+                    <Box mt={1}>
+                      <CustomButton>Buy Now</CustomButton>
+                    </Box>
+                  </Box>
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Box>
   )
 }
 
-export default ProductsSection
+
+const MemoizedProductsSection = React.memo(ProductsSection)
+export default MemoizedProductsSection;

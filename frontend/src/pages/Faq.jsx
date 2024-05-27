@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
 import bgImage from "../assets/images/faqs.jpg";
-import Jumbotron from "../components/specific/Jumbotron";
+import Jumbotron from "../components/Jumbotron/Jumbotron";
 import FaqSection from "../components/specific/Faq/FaqSection";
 import faqsData from "../data/faqsData";
 
