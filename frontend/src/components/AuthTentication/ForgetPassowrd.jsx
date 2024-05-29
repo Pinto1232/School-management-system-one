@@ -114,4 +114,5 @@ const ForgetPassword = () => {
   );
 };
 
-export default ForgetPassword;
+const MemoizedForgetPassword = React.memo(ForgetPassword)
+export default MemoizedForgetPassword;

@@ -47,9 +47,17 @@ const ProductsSection = ({ heading, subheading, products }) => {
   }
 
   return (
-    <Box py={10} px={2} mx="auto" maxWidth="1200px">
+    <Box
+      py={10}
+      px={2}
+      mx="auto"
+      maxWidth="1200px"
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+    >
       <Box textAlign="center" mb={4}>
-        <Typography variant="h2" component="h2" gutterBottom>
+        <Typography variant="h3" component="h3" gutterBottom>
           {heading}
         </Typography>
         <Typography variant="h5" component="p" color="textSecondary">
@@ -62,6 +70,7 @@ const ProductsSection = ({ heading, subheading, products }) => {
           borderRadius: '8px',
           boxShadow: theme.shadows[1],
           overflow: 'hidden',
+          width: '100%',
         }}
       >
         <Table sx={{ minWidth: 650 }} aria-label="products table">
@@ -72,7 +81,7 @@ const ProductsSection = ({ heading, subheading, products }) => {
                   fontWeight: 'bold',
                   backgroundColor: theme.palette.primary.main,
                   color: theme.palette.common.white,
-                  textAlign: 'center',
+                  textAlign: 'start',
                 }}
               >
                 Feature
@@ -85,7 +94,6 @@ const ProductsSection = ({ heading, subheading, products }) => {
                     backgroundColor: theme.palette.primary.main,
                     color: theme.palette.common.white,
                     textAlign: 'start',
-                    whiteSpace: 'nowrap',
                   }}
                 >
                   {product.name} (R{product.price})
@@ -127,10 +135,12 @@ const ProductsSection = ({ heading, subheading, products }) => {
                     fontWeight: 'bold',
                     textAlign: 'start',
                     whiteSpace: 'nowrap',
+                    backgroundColor: theme.palette.primary.main,
+                    color: theme.palette.common.white,
                   }}
                 >
                   <Box display="flex" alignItems="center">
-                    <SafetyCheck sx={{ mr: 1, color: '#1976d2' }} />{' '}
+                    <SafetyCheck sx={{ mr: 1, color: 'lightgrey' }} />{' '}
                     {key
                       .replace(/([A-Z])/g, ' $1')
                       .replace(/^./, (str) => str.toUpperCase())}
@@ -156,10 +166,12 @@ const ProductsSection = ({ heading, subheading, products }) => {
                     justifyContent="center"
                   >
                     <Typography variant="h6" component="p" gutterBottom>
-                      {product.name} (R{product.price})p/m
+                      (R{product.price})p/m
                     </Typography>
                     <Box mt={1}>
-                      <CustomButton>Buy Now</CustomButton>
+                      <CustomButton bgColor="#1976d2" boxShadow={2} fontSize={12}>
+                        Buy Now
+                      </CustomButton>
                     </Box>
                   </Box>
                 </TableCell>
@@ -173,4 +185,4 @@ const ProductsSection = ({ heading, subheading, products }) => {
 }
 
 const MemoizedProductsSection = React.memo(ProductsSection)
-export default MemoizedProductsSection
+export default MemoizedProductsSection;

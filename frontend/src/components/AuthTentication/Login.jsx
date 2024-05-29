@@ -238,4 +238,5 @@ const Login = () => {
   );
 };
 
-export default Login;
+const MemoizedLogin = React.memo(Login)
+export default MemoizedLogin;

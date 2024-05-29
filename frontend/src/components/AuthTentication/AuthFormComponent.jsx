@@ -76,4 +76,5 @@ const AuthFormComponent = ({
   </form>
 );
 
-export default AuthFormComponent;
+const MemoizedAuthFormComponent = React.memo(AuthFormComponent)
+export default MemoizedAuthFormComponent;

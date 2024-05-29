@@ -6,7 +6,7 @@ import { Box } from '@chakra-ui/react';
 const ResetPassword = () => {
     const [isValidToken, setIsValidToken] = useState(false);
     const [userEmail, setUserEmail] = useState(null);
-    const { token } = useParams(); // Assuming you have set up React Router to provide the token as a route parameter
+    const { token } = useParams();
      
     useEffect(() => {
         const validateToken = async () => {
@@ -40,4 +40,5 @@ const ResetPassword = () => {
     }
 };
 
-export default ResetPassword;
+const MemoizedResetPassword = React.memo(ResetPassword)
+export default MemoizedResetPassword;

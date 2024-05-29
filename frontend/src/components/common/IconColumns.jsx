@@ -1,15 +1,12 @@
 import * as React from "react";
 import {
-  GridItem,
-  SimpleGrid,
   Box,
-  Text,
-  useColorModeValue,
-  useBreakpointValue,
-  Heading,
-  Center,
-  Flex,
-} from "@chakra-ui/react";
+  Typography,
+  useTheme,
+  useMediaQuery,
+  Grid,
+  Button,
+} from "@mui/material";
 import IconColumn from "./IconColumn";
 import CustomButton from "./CustomButton";
 import iconsData from "../../data/IconsData";
@@ -19,46 +16,46 @@ const ICON_COLUMNS = [4, 3, 2, 1];
 const BUTTON_WIDTH = ["100%", "150px", "200px"];
 
 const IconColumns = () => {
-  const bgButtonColor = useColorModeValue("#319795", "#3182ce");
-  const iconsTextColor = useColorModeValue("#fff", "#fff");
-  const buttonWidth = useBreakpointValue(BUTTON_WIDTH);
-  const textColor = useColorModeValue("#fff", "#fff");
-  const containerBackground = useColorModeValue("#319795", "#3182ce");
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const bgButtonColor = theme.palette.mode === 'light' ? "#1976d2" : "#3182ce";
+  const iconsTextColor = "#fff";
+  const buttonWidth = isMobile ? BUTTON_WIDTH[0] : BUTTON_WIDTH[1];
+  const textColor = "#fff";
+  const containerBackground = theme.palette.mode === 'light' ? "#319795" : "#3182ce";
   const iconColors = ['#e53e3e', '#dd6b20', '#38a169', '#3182ce'];
 
-  
-
-
   return (
-    <>
-      <Flex
-        direction="column"
-        bg={containerBackground}
-        bgImage={`linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${imageBg})`}
-        padding={10}
-        backgroundPosition={"center"}
-        backgroundRepeat={"no-repeat"}
-        backgroundSize={"cover"}
-        align="center"
-        justify="space-between"
-        wrap="wrap"
-        gap={20}
-      >
-        <Heading color={textColor} as={'h2'} mb={15}>What We Offer</Heading>
-        <Flex
-          wrap="wrap"
-          justify="center"
-          align="center"
-          gap={10}
-        >
-          {Array.isArray(iconsData) &&
-            iconsData.map((iconData, index) => (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        bgcolor: containerBackground,
+        backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${imageBg})`,
+        padding: 10,
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+        gap: 5,
+      }}
+    >
+      <Typography variant="h2" color={textColor} mb={3} fontSize="2.5rem">
+        What We Offer
+      </Typography>
+      <Grid container justifyContent="center" alignItems="center" spacing={2}>
+        {Array.isArray(iconsData) &&
+          iconsData.map((iconData, index) => (
+            <Grid item key={iconData.id}>
               <Box
-                key={iconData.id}
-                transition="transform 0.3s ease"
-                cursor={"pointer"}
-                _hover={{
-                  transform: 'scale(1.1)',
+                sx={{
+                  transition: "transform 0.3s ease",
+                  cursor: "pointer",
+                  "&:hover": {
+                    transform: 'scale(1.1)',
+                  },
                 }}
               >
                 <IconColumn
@@ -68,20 +65,21 @@ const IconColumns = () => {
                   bgColor={iconColors[index % iconColors.length]}
                 />
               </Box>
-            ))}
-        </Flex>
-        <CustomButton
-          bgColor={bgButtonColor}
-          width={buttonWidth}
-          textColor="#fff"
-          mt={10}
-          boxShadow="sm"
-        >
-          learn more
-        </CustomButton>
-      </Flex>
-    </>
+            </Grid>
+          ))}
+      </Grid>
+      <CustomButton
+        bgColor={bgButtonColor}
+        width={buttonWidth}
+        textColor="#fff"
+        mt={3}
+        boxShadow="sm"
+      >
+        learn more
+      </CustomButton>
+    </Box>
   );
 };
 
-export default IconColumns;
+const MemoizedIconColumns = React.memo(IconColumns)
+export default MemoizedIconColumns;

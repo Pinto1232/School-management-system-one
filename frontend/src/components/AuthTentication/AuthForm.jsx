@@ -198,4 +198,6 @@ const LoadingOverlay = () => (
   </Box>
 );
 
-export default AuthForm;
+
+const MemoizedAuthForm = React.memo(AuthForm)
+export default MemoizedAuthForm;
