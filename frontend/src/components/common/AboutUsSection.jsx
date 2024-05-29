@@ -25,13 +25,13 @@ const AboutUsSection = ({
       maxWidth="1200px"
       mx="auto"
       gap={8}
-      {...style}
+      style={style} // Use style prop correctly
     >
       <Box flex="1" textAlign={{ xs: 'center', md: 'left' }}>
         <Typography variant="h3" component="h3" mb={4}>
           {heading}
         </Typography>
-        <Typography {...headingStyle} fontSize="md" width={385} mb={8}>
+        <Typography style={headingStyle} fontSize="md" width={385} mb={8}>
           {subheading}
         </Typography>
         {children}
@@ -59,4 +59,4 @@ const AboutUsSection = ({
 }
 
 const MemoizedAboutUsSection = React.memo(AboutUsSection)
-export default MemoizedAboutUsSection;
+export default MemoizedAboutUsSection

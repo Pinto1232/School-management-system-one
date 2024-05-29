@@ -39,6 +39,10 @@ const Home = () => {
   const { data: productsPackageData, error: errorPackage, isLoading: isLoadingPackage} = useGetPackagesQuery()
   const toast = useToast()
 
+  console.log("data loaded", productsPackageData);
+
+
+
   if (isLoadingPackage) {
     return (
       <Box
