@@ -8,7 +8,7 @@ import IconColumns from '../components/common/IconColumns'
 import { Flex, Box, Image, useBreakpointValue, Grid } from '@chakra-ui/react'
 import AboutUsSection from '../components/common/AboutUsSection'
 import ProductsSection from '../components/ProductsSection/ProductsSection'
-import { useGetPackagesQuery } from '../services/packageApi'
+import { useGetPackagesQuery } from '../slicers/packageSlicer'
 import { useToast } from '@chakra-ui/react'
 import { Spinner } from '@chakra-ui/react'
 
@@ -35,11 +35,8 @@ const Home = () => {
   }, [])
 
   const handleButtonClick = () => {}
-  const {
-    data: productsPackageData,
-    error: errorPackage,
-    isLoading: isLoadingPackage,
-  } = useGetPackagesQuery()
+
+  const { data: productsPackageData, error: errorPackage, isLoading: isLoadingPackage} = useGetPackagesQuery()
   const toast = useToast()
 
   if (isLoadingPackage) {

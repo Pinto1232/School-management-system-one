@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import studentApi from '../services/studentApi';
-import packageApi from '../services/packageApi';
-import teacherApi from '../services/TeacherApi';
+import studentApi from '../slicers/studentSlicer';
+import packageApi from '../slicers/packageSlicer';
+import teacherApi from '../slicers/teacherSlicer';
 
 export default configureStore({
   reducer: {

@@ -10,7 +10,7 @@ import {
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
-import api from "../../services/api";
+import api from "../../slicers/api";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");

@@ -5,7 +5,7 @@ import AuthFormComponent from '../AuthTentication/AuthFormComponent';
 import axios from 'axios';
 import { useUserContext } from '../../contexts/UserContext';
 import { useNavigate, useLocation } from 'react-router-dom';
-import api from '../../services/api';
+import api from '../../slicers/api';
 
 const initialValues = {
   firstName: '',

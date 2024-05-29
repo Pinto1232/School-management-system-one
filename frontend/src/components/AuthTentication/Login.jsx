@@ -17,7 +17,7 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import useFormValidation from '../../hooks/useFormValidation';
-import api from '../../services/api';
+import api from '../../slicers/api';
 import logo from '../../assets/images/logo.png';
 import { useUserContext } from '../../contexts/UserContext';
 
