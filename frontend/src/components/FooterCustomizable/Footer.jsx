@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   Box,
   Typography,
@@ -7,10 +7,10 @@ import {
   Grid,
   TextField,
   IconButton,
-} from '@mui/material'
-import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'
-import footerLinks from '../../data/linksFooterData'
-import MemoizedCustomButton from '../common/CustomButton'
+} from '@mui/material';
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
+import footerLinks from '../../data/linksFooterData';
+import MemoizedCustomButton from '../common/CustomButton';
 
 const Footer = ({
   newsletterPlaceholder,
@@ -20,7 +20,7 @@ const Footer = ({
   return (
     <Box
       sx={{
-        py: 10,
+        py: { xs: 5, md: 10 },
         backgroundColor: bgFooter,
         color: 'white',
         minHeight: '200px',
@@ -61,7 +61,7 @@ const Footer = ({
             </Grid>
           ))}
         </Grid>
-        <Grid container alignItems="center">
+        <Grid container alignItems="center" spacing={2}>
           <Grid item xs={12} md={6}>
             <form>
               <Box
@@ -124,12 +124,12 @@ const Footer = ({
           fontSize="0.875rem"
           color="gray.500"
         >
-          Copyright © {new Date().getFullYear()} Educate Manament
+          Copyright © {new Date().getFullYear()} Educate Management
         </Typography>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-const MemoizedFooter = React.memo(Footer)
-export default MemoizedFooter
+const MemoizedFooter = React.memo(Footer);
+export default MemoizedFooter;

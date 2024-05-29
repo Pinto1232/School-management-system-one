@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -10,41 +10,34 @@ import {
   TableHead,
   TableRow,
   Paper,
-} from '@mui/material'
-import CheckIcon from '@mui/icons-material/Check'
-import CloseIcon from '@mui/icons-material/Close'
-import CustomButton from '../common/CustomButton'
-import SafetyCheck from '@mui/icons-material/SafetyCheck'
+  useMediaQuery,
+} from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
+import CustomButton from '../common/CustomButton';
+import SafetyCheck from '@mui/icons-material/SafetyCheck';
 
 const ProductsSection = ({ heading, subheading, products }) => {
-  const theme = useTheme()
-  const [featureKeys, setFeatureKeys] = useState([])
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [featureKeys, setFeatureKeys] = useState([]);
 
   useEffect(() => {
     if (products.length > 0) {
       const keys = Object.keys(products[0]).filter(
         (key) => typeof products[0][key] === 'boolean'
-      )
-      setFeatureKeys(keys)
+      );
+      setFeatureKeys(keys);
     }
-  }, [products])
-
-  const openModal = (product) => {
-    setSelectedProduct(product)
-    setIsModalOpen(true)
-  }
-
-  const closeModal = () => {
-    setIsModalOpen(false)
-  }
+  }, [products]);
 
   const renderIcon = (condition) => {
     return condition ? (
       <CheckIcon sx={{ color: theme.palette.success.main }} />
     ) : (
       <CloseIcon sx={{ color: theme.palette.error.main }} />
-    )
-  }
+    );
+  };
 
   return (
     <Box
@@ -181,8 +174,8 @@ const ProductsSection = ({ heading, subheading, products }) => {
         </Table>
       </TableContainer>
     </Box>
-  )
-}
+  );
+};
 
-const MemoizedProductsSection = React.memo(ProductsSection)
+const MemoizedProductsSection = React.memo(ProductsSection);
 export default MemoizedProductsSection;
