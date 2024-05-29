@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { UserProvider } from './contexts/UserContext'; 
 import { ThemeProvider } from './context/ThemeContext';
+import '../src/index.css'
 
 const root = document.getElementById('root');
 
@@ -19,7 +20,7 @@ createRoot(root).render(
           <UserProvider>
           <ThemeProvider>
             <App />
-            </ThemeProvider>,
+            </ThemeProvider>
           </UserProvider>
         </Provider>
       </BrowserRouter>

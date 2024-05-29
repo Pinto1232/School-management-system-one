@@ -1,75 +1,72 @@
-import React, { useEffect, useState } from "react";
-import Jumbotron from "../components/Jumbotron/Jumbotron";
-import bgImage1 from "../assets/images/about-us.jpg";
-import bgImage2 from "../assets/images/basic-plan.jpg";
-import bgImage3 from "../assets/images/background-01.jpg";
+import React, { useEffect, useState } from 'react'
+import Jumbotron from '../components/Jumbotron/Jumbotron'
+import bgImage1 from '../assets/images/about-us.jpg'
+import bgImage2 from '../assets/images/basic-plan.jpg'
+import bgImage3 from '../assets/images/background-01.jpg'
 
-import IconColumns from "../components/common/IconColumns";
-import { Flex, Box, Image, useBreakpointValue, Grid } from "@chakra-ui/react";
-import AboutUsSection from "../components/common/AboutUsSection";
-import ProductsSection from "../components/ProductsSection/ProductsSection";
-import { useGetPackagesQuery } from "../services/packageApi";
-import { useToast } from "@chakra-ui/react";
-import { Spinner } from "@chakra-ui/react";
+import IconColumns from '../components/common/IconColumns'
+import { Flex, Box, Image, useBreakpointValue, Grid } from '@chakra-ui/react'
+import AboutUsSection from '../components/common/AboutUsSection'
+import ProductsSection from '../components/ProductsSection/ProductsSection'
+import { useGetPackagesQuery } from '../slicers/packageSlicer'
+import { useToast } from '@chakra-ui/react'
+import { Spinner } from '@chakra-ui/react'
 
 const Home = () => {
-  const flexDirection = useBreakpointValue({ base: "column", md: "row" });
-  const imageSize = useBreakpointValue({ base: "100%", md: "50%" });
-  const paddingSize = useBreakpointValue({ base: "16px", md: "32px" });
-  const gapSize = useBreakpointValue({ base: "8px", md: "16px" });
-  const headingWidth = useBreakpointValue({ base: "90%", md: "480px" });
+  const flexDirection = useBreakpointValue({ base: 'column', md: 'row' })
+  const imageSize = useBreakpointValue({ base: '100%', md: '50%' })
+  const paddingSize = useBreakpointValue({ base: '16px', md: '32px' })
+  const gapSize = useBreakpointValue({ base: '8px', md: '16px' })
+  const headingWidth = useBreakpointValue({ base: '90%', md: '480px' })
 
-  const boxMaxWidth = useBreakpointValue({ base: "90%", md: "75%", lg: "4xl" });
-  const gridCardWidth = useBreakpointValue({ base: 300, md: 600, lg: 900 });
-  const bgImages = [bgImage1, bgImage2, bgImage3];
-  const [bgImage, setBgImage] = useState(bgImages[0]);
-
-
-
-
+  const boxMaxWidth = useBreakpointValue({ base: '90%', md: '75%', lg: '4xl' })
+  const gridCardWidth = useBreakpointValue({ base: 300, md: 600, lg: 900 })
+  const bgImages = [bgImage1, bgImage2, bgImage3]
+  const [bgImage, setBgImage] = useState(bgImages[0])
 
   useEffect(() => {
-    let index = 0;
+    let index = 0
     const intervalId = setInterval(() => {
-      setBgImage(bgImages[index % bgImages.length]); // Cycle through the images
-      index++;
-    }, 5000); // Change image every 5 seconds
+      setBgImage(bgImages[index % bgImages.length])
+      index++
+    }, 5000)
 
-    return () => clearInterval(intervalId); // Clear the interval when the component unmounts
-  }, []);
+    return () => clearInterval(intervalId)
+  }, [])
 
-  const handleButtonClick = () => { };
-  const {
-    data: productsPackageData,
-    error: errorPackage,
-    isLoading: isLoadingPackage,
-  } = useGetPackagesQuery();
-  const toast = useToast();
+  const handleButtonClick = () => {}
+
+  const { data: productsPackageData, error: errorPackage, isLoading: isLoadingPackage} = useGetPackagesQuery()
+  const toast = useToast()
+
+  console.log("data loaded", productsPackageData);
+
+
 
   if (isLoadingPackage) {
     return (
       <Box
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
         }}
       >
         <Spinner size="md" color="blue.500" />
       </Box>
-    );
+    )
   }
 
   if (errorPackage) {
     toast({
-      title: "Error",
+      title: 'Error',
       description: errorPackage.message,
-      status: "error",
+      status: 'error',
       isClosable: true,
-      position: "top",
-    });
-    return null;
+      position: 'top',
+    })
+    return null
   }
 
   return (
@@ -95,8 +92,8 @@ const Home = () => {
           heading="Check Our Packages"
           subheading="Check out our latest offerings"
           products={productsPackageData}
-          cardBg={"#fff"}
-          imageMaxWidth={"200px"}
+          cardBg={'#fff'}
+          imageMaxWidth={'200px'}
           cardShadow="2xl"
           gridCard={gridCardWidth}
         />
@@ -109,17 +106,17 @@ const Home = () => {
         textSize="16px"
         textColor="#000000"
         buttonStyle={{
-          color: "#fff",
-          width: "200px",
-          maxW: "100%",
-          padding: "20px",
-          mt: "20px",
-          backgroundColor: "#3182ce",
+          color: '#fff',
+          width: '200px',
+          maxW: '100%',
+          padding: '20px',
+          mt: '20px',
+          backgroundColor: '#3182ce',
         }}
       />
 
       <Flex
-        maxW={{ base: "90%", md: "6xl" }}
+        maxW={{ base: '90%', md: '6xl' }}
         flexDirection={flexDirection}
         border={0}
         mx="auto"
@@ -129,7 +126,7 @@ const Home = () => {
         rounded="md"
         align="center"
       >
-        <Box w={{ base: "100%", md: "50%" }} pr={{ md: "2" }}>
+        <Box w={{ base: '100%', md: '50%' }} pr={{ md: '2' }}>
           <AboutUsSection
             style={{
               padding: paddingSize,
@@ -157,9 +154,8 @@ const Home = () => {
         </Box>
       </Flex>
     </Grid>
-  );
-};
-
+  )
+}
 
 const MemoizedHome = React.memo(Home)
-export default MemoizedHome;
+export default MemoizedHome

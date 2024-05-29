@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -10,46 +10,47 @@ import {
   TableHead,
   TableRow,
   Paper,
-} from '@mui/material'
-import CheckIcon from '@mui/icons-material/Check'
-import CloseIcon from '@mui/icons-material/Close'
-import CustomButton from '../common/CustomButton'
-import SafetyCheck from '@mui/icons-material/SafetyCheck'
+  useMediaQuery,
+} from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
+import CustomButton from '../common/CustomButton';
+import SafetyCheck from '@mui/icons-material/SafetyCheck';
 
 const ProductsSection = ({ heading, subheading, products }) => {
-  const theme = useTheme()
-  const [featureKeys, setFeatureKeys] = useState([])
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [featureKeys, setFeatureKeys] = useState([]);
 
   useEffect(() => {
     if (products.length > 0) {
       const keys = Object.keys(products[0]).filter(
         (key) => typeof products[0][key] === 'boolean'
-      )
-      setFeatureKeys(keys)
+      );
+      setFeatureKeys(keys);
     }
-  }, [products])
-
-  const openModal = (product) => {
-    setSelectedProduct(product)
-    setIsModalOpen(true)
-  }
-
-  const closeModal = () => {
-    setIsModalOpen(false)
-  }
+  }, [products]);
 
   const renderIcon = (condition) => {
     return condition ? (
       <CheckIcon sx={{ color: theme.palette.success.main }} />
     ) : (
       <CloseIcon sx={{ color: theme.palette.error.main }} />
-    )
-  }
+    );
+  };
 
   return (
-    <Box py={10} px={2} mx="auto" maxWidth="1200px">
+    <Box
+      py={10}
+      px={2}
+      mx="auto"
+      maxWidth="1200px"
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+    >
       <Box textAlign="center" mb={4}>
-        <Typography variant="h2" component="h2" gutterBottom>
+        <Typography variant="h3" component="h3" gutterBottom>
           {heading}
         </Typography>
         <Typography variant="h5" component="p" color="textSecondary">
@@ -62,6 +63,7 @@ const ProductsSection = ({ heading, subheading, products }) => {
           borderRadius: '8px',
           boxShadow: theme.shadows[1],
           overflow: 'hidden',
+          width: '100%',
         }}
       >
         <Table sx={{ minWidth: 650 }} aria-label="products table">
@@ -72,7 +74,7 @@ const ProductsSection = ({ heading, subheading, products }) => {
                   fontWeight: 'bold',
                   backgroundColor: theme.palette.primary.main,
                   color: theme.palette.common.white,
-                  textAlign: 'center',
+                  textAlign: 'start',
                 }}
               >
                 Feature
@@ -85,7 +87,6 @@ const ProductsSection = ({ heading, subheading, products }) => {
                     backgroundColor: theme.palette.primary.main,
                     color: theme.palette.common.white,
                     textAlign: 'start',
-                    whiteSpace: 'nowrap',
                   }}
                 >
                   {product.name} (R{product.price})
@@ -127,10 +128,12 @@ const ProductsSection = ({ heading, subheading, products }) => {
                     fontWeight: 'bold',
                     textAlign: 'start',
                     whiteSpace: 'nowrap',
+                    backgroundColor: theme.palette.primary.main,
+                    color: theme.palette.common.white,
                   }}
                 >
                   <Box display="flex" alignItems="center">
-                    <SafetyCheck sx={{ mr: 1, color: '#1976d2' }} />{' '}
+                    <SafetyCheck sx={{ mr: 1, color: 'lightgrey' }} />{' '}
                     {key
                       .replace(/([A-Z])/g, ' $1')
                       .replace(/^./, (str) => str.toUpperCase())}
@@ -156,10 +159,12 @@ const ProductsSection = ({ heading, subheading, products }) => {
                     justifyContent="center"
                   >
                     <Typography variant="h6" component="p" gutterBottom>
-                      {product.name} (R{product.price})p/m
+                      (R{product.price})p/m
                     </Typography>
                     <Box mt={1}>
-                      <CustomButton>Buy Now</CustomButton>
+                      <CustomButton bgColor="#1976d2" boxShadow={2} fontSize={12}>
+                        Buy Now
+                      </CustomButton>
                     </Box>
                   </Box>
                 </TableCell>
@@ -169,8 +174,8 @@ const ProductsSection = ({ heading, subheading, products }) => {
         </Table>
       </TableContainer>
     </Box>
-  )
-}
+  );
+};
 
-const MemoizedProductsSection = React.memo(ProductsSection)
-export default MemoizedProductsSection
+const MemoizedProductsSection = React.memo(ProductsSection);
+export default MemoizedProductsSection;

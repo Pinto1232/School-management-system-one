@@ -10,7 +10,7 @@ import {
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
-import api from "../../services/api";
+import api from "../../slicers/api";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -114,4 +114,5 @@ const ForgetPassword = () => {
   );
 };
 
-export default ForgetPassword;
+const MemoizedForgetPassword = React.memo(ForgetPassword)
+export default MemoizedForgetPassword;

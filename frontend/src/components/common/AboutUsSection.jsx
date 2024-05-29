@@ -1,13 +1,6 @@
-import React from "react";
-import {
-  Flex,
-  Box,
-  Heading,
-  Text,
-  Image,
-  useColorModeValue,
-} from "@chakra-ui/react";
-import CustomButton from "./CustomButton";
+import React from 'react'
+import { Box, Typography, Button, useTheme, useMediaQuery } from '@mui/material'
+import MemoizedCustomButton from './CustomButton'
 
 const AboutUsSection = ({
   heading,
@@ -18,47 +11,52 @@ const AboutUsSection = ({
   style,
   headingStyle,
 }) => {
-  const bgButtonColor = useColorModeValue("#319795", "#3182ce");
+  const theme = useTheme()
+  const isDarkMode = theme.palette.mode === 'dark'
+  const bgButtonColor = isDarkMode ? '#3182ce' : '#319795'
 
   return (
-    <Flex
+    <Box
+      display="flex"
       flexWrap="wrap"
       alignItems="center"
       justifyContent="center"
       py={12}
-      maxW="1200px"
+      maxWidth="1200px"
       mx="auto"
       gap={8}
-      {...style}
+      style={style} // Use style prop correctly
     >
-      <Box flex="1" textAlign={{ base: "center", md: "left" }}>
-        <Heading as="h2" size="xl" mb={4}>
+      <Box flex="1" textAlign={{ xs: 'center', md: 'left' }}>
+        <Typography variant="h3" component="h3" mb={4}>
           {heading}
-        </Heading>
-        <Text {...headingStyle} fontSize="md" w={385} mb={8}>
+        </Typography>
+        <Typography style={headingStyle} fontSize="md" width={385} mb={8}>
           {subheading}
-        </Text>
+        </Typography>
         {children}
-        <CustomButton bgColor={bgButtonColor} width={200} textColor="#fff">
+        <MemoizedCustomButton bgColor="#1976d2">
           Learn more
-        </CustomButton>
+        </MemoizedCustomButton>
       </Box>
       <Box
         flex="1"
-        textAlign={{ base: "center", md: "right" }}
-        mb={{ base: 8, md: 0 }}
+        textAlign={{ xs: 'center', md: 'right' }}
+        mb={{ xs: 8, md: 0 }}
       >
-        <Image
+        <Box
+          component="img"
           width="100%"
           height="100%"
           src={image}
           alt={altText}
           borderRadius="lg"
-          boxShadow="lg"
+          boxShadow={3}
         />
       </Box>
-    </Flex>
-  );
-};
+    </Box>
+  )
+}
 
-export default AboutUsSection;
+const MemoizedAboutUsSection = React.memo(AboutUsSection)
+export default MemoizedAboutUsSection

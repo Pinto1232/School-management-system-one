@@ -14,6 +14,7 @@ import Faq from './pages/Faq'
 import About from './pages/About'
 import ResetPassword from './components/AuthTentication/ResetPassword'
 import ForgetPassword from './components/AuthTentication/ForgetPassowrd'
+import './index.css' 
 
 const theme = createTheme()
 
@@ -38,9 +39,11 @@ const App = () => {
     <UserProvider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Box>
+        <Box id="root">
           <Navbar />
-          {routing}
+          <main>
+            {routing}
+          </main>
           <BackToTopButton />
           {showFooter && <Footer />}
           {showDashboardFooter && <DashboardFooter />}
