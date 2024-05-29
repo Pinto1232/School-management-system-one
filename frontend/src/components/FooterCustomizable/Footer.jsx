@@ -6,7 +6,6 @@ import {
   Link,
   Grid,
   TextField,
-  Button,
   IconButton,
 } from '@mui/material'
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'
@@ -25,6 +24,7 @@ const Footer = ({
         backgroundColor: bgFooter,
         color: 'white',
         minHeight: '200px',
+        mb: 0,
       }}
     >
       <Box
@@ -92,6 +92,7 @@ const Footer = ({
                   variant="contained"
                   color="primary"
                   size="medium"
+                  bgColor='#1976d2'
                 >
                   Sign Up
                 </MemoizedCustomButton>
@@ -130,4 +131,5 @@ const Footer = ({
   )
 }
 
-export default Footer
+const MemoizedFooter = React.memo(Footer)
+export default MemoizedFooter

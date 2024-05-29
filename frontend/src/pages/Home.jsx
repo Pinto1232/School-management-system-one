@@ -31,11 +31,11 @@ const Home = () => {
   useEffect(() => {
     let index = 0;
     const intervalId = setInterval(() => {
-      setBgImage(bgImages[index % bgImages.length]); // Cycle through the images
+      setBgImage(bgImages[index % bgImages.length]);
       index++;
-    }, 5000); // Change image every 5 seconds
+    }, 5000); 
 
-    return () => clearInterval(intervalId); // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId); 
   }, []);
 
   const handleButtonClick = () => { };
