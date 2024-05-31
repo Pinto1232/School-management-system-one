@@ -7,6 +7,7 @@ import {
   Grid,
   TextField,
   IconButton,
+  Container,
 } from '@mui/material';
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 import footerLinks from '../../data/linksFooterData';
@@ -14,27 +15,19 @@ import MemoizedCustomButton from '../common/CustomButton';
 
 const Footer = ({
   newsletterPlaceholder,
-  newsletterLabel,
   bgFooter = '#000',
 }) => {
   return (
     <Box
       sx={{
         py: { xs: 5, md: 10 },
-        backgroundColor: bgFooter,
+        background: `linear-gradient(135deg, ${bgFooter} 30%, #333 90%)`,
         color: 'white',
         minHeight: '200px',
         mb: 0,
       }}
     >
-      <Box
-        sx={{
-          maxWidth: '1200px',
-          mx: 'auto',
-          px: { xs: 2, md: 0 },
-          pb: 0,
-        }}
-      >
+      <Container maxWidth="lg">
         <Grid container spacing={4} mb={4}>
           {footerLinks.map(({ title, subLinks }, index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>
@@ -52,6 +45,10 @@ const Footer = ({
                     sx={{
                       fontSize: { xs: '0.875rem', sm: '1rem', md: '0.875rem' },
                       color: 'gray.400',
+                      '&:hover': {
+                        color: 'white',
+                        textDecoration: 'underline',
+                      },
                     }}
                   >
                     {label}
@@ -70,9 +67,9 @@ const Footer = ({
                 alignItems="center"
                 gap={1}
                 sx={{
-                  backgroundColor: 'transparent',
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
                   borderRadius: '8px',
-                  p: 3,
+                  p: 2,
                   boxShadow: 1,
                 }}
               >
@@ -86,6 +83,17 @@ const Footer = ({
                     backgroundColor: 'white',
                     borderRadius: '4px',
                     mr: 1,
+                    '& .MuiOutlinedInput-root': {
+                      '& fieldset': {
+                        borderColor: 'transparent',
+                      },
+                      '&:hover fieldset': {
+                        borderColor: '#1976d2',
+                      },
+                      '&.Mui-focused fieldset': {
+                        borderColor: '#1976d2',
+                      },
+                    },
                   }}
                 />
                 <MemoizedCustomButton
@@ -105,13 +113,13 @@ const Footer = ({
               justifyContent={{ xs: 'center', md: 'flex-end' }}
             >
               <Stack direction="row" spacing={2}>
-                <IconButton href="#" sx={{ color: 'white' }}>
+                <IconButton href="#" sx={{ color: 'white', '&:hover': { color: '#3b5998' } }}>
                   <FaFacebook />
                 </IconButton>
-                <IconButton href="#" sx={{ color: 'white' }}>
+                <IconButton href="#" sx={{ color: 'white', '&:hover': { color: '#00acee' } }}>
                   <FaTwitter />
                 </IconButton>
-                <IconButton href="#" sx={{ color: 'white' }}>
+                <IconButton href="#" sx={{ color: 'white', '&:hover': { color: '#C13584' } }}>
                   <FaInstagram />
                 </IconButton>
               </Stack>
@@ -126,7 +134,7 @@ const Footer = ({
         >
           Copyright © {new Date().getFullYear()} Educate Management
         </Typography>
-      </Box>
+      </Container>
     </Box>
   );
 };
