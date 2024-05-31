@@ -12,7 +12,7 @@ if (!fs.existsSync(uploadsDir)) {
 // Set up multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, uploadsDir); 
+    cb(null, uploadsDir);
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}-${file.originalname}`);
@@ -32,10 +32,14 @@ exports.createContent = (req, res) => {
     }
 
     try {
-      const imagePaths = req.files.map((file) => file.path);
+      const images = req.files.map((file, index) => ({
+        path: file.path,
+        display: req.body.display ? req.body.display[index] === "true" : false,
+      }));
+
       const contentData = {
         ...req.body,
-        images: imagePaths,
+        images,
       };
 
       const content = new Content(contentData);
@@ -48,6 +52,19 @@ exports.createContent = (req, res) => {
         .json({ error: "Failed to create content", details: error.message });
     }
   });
+};
+
+// Get all content
+exports.getAllContent = async (req, res) => {
+  try {
+    const contents = await Content.find();
+    res.status(200).json(contents);
+  } catch (error) {
+    console.error("Failed to retrieve content:", error);
+    res
+      .status(500)
+      .json({ error: "Failed to retrieve content", details: error.message });
+  }
 };
 
 // Get all content for a specific section
@@ -91,10 +108,14 @@ exports.updateContent = (req, res) => {
     }
 
     try {
-      const imagePaths = req.files.map((file) => file.path);
+      const images = req.files.map((file, index) => ({
+        path: file.path,
+        display: req.body.display ? req.body.display[index] === "true" : false,
+      }));
+
       const contentData = {
         ...req.body,
-        images: imagePaths,
+        images,
       };
 
       const content = await Content.findByIdAndUpdate(
@@ -126,10 +147,10 @@ exports.deleteContent = async (req, res) => {
     }
 
     // Delete associated images from the filesystem
-    content.images.forEach((imagePath) => {
-      fs.unlink(imagePath, (err) => {
+    content.images.forEach((image) => {
+      fs.unlink(image.path, (err) => {
         if (err) {
-          console.error(`Failed to delete image: ${imagePath}`, err);
+          console.error(`Failed to delete image: ${image.path}`, err);
         }
       });
     });

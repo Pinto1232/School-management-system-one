@@ -11,16 +11,20 @@ import {
   TableRow,
   Paper,
   useMediaQuery,
+  CircularProgress,
 } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import CustomButton from '../common/CustomButton';
 import SafetyCheck from '@mui/icons-material/SafetyCheck';
+import { useNavigate } from 'react-router-dom';
 
 const ProductsSection = ({ heading, subheading, products }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [featureKeys, setFeatureKeys] = useState([]);
+  const [loading, setLoading] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (products.length > 0) {
@@ -37,6 +41,15 @@ const ProductsSection = ({ heading, subheading, products }) => {
     ) : (
       <CloseIcon sx={{ color: theme.palette.error.main }} />
     );
+  };
+
+  const handleBuyNowClick = (product) => {
+    console.log('Selected package:', product); // Log the selected package data
+    setLoading(product.name);
+    setTimeout(() => {
+      setLoading(null);
+      navigate('/register', { state: { packageName: product.name } }); // Redirect to the AuthForm component with package name
+    }, 2000); // Simulate a delay for loading
   };
 
   return (
@@ -162,8 +175,18 @@ const ProductsSection = ({ heading, subheading, products }) => {
                       (R{product.price})p/m
                     </Typography>
                     <Box mt={1}>
-                      <CustomButton bgColor="#1976d2" boxShadow={2} fontSize={12}>
-                        Buy Now
+                      <CustomButton
+                        bgColor="#1976d2"
+                        boxShadow={2}
+                        fontSize={12}
+                        onClick={() => handleBuyNowClick(product)}
+                        disabled={loading === product.name}
+                      >
+                        {loading === product.name ? (
+                          <CircularProgress size={24} color="inherit" />
+                        ) : (
+                          'Buy Now'
+                        )}
                       </CustomButton>
                     </Box>
                   </Box>

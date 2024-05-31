@@ -1,161 +1,196 @@
-import React, { useEffect, useState } from 'react'
-import Jumbotron from '../components/Jumbotron/Jumbotron'
-import bgImage1 from '../assets/images/about-us.jpg'
-import bgImage2 from '../assets/images/basic-plan.jpg'
-import bgImage3 from '../assets/images/background-01.jpg'
-
-import IconColumns from '../components/common/IconColumns'
-import { Flex, Box, Image, useBreakpointValue, Grid } from '@chakra-ui/react'
-import AboutUsSection from '../components/common/AboutUsSection'
-import ProductsSection from '../components/ProductsSection/ProductsSection'
-import { useGetPackagesQuery } from '../slicers/packageSlicer'
-import { useToast } from '@chakra-ui/react'
-import { Spinner } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react';
+import Jumbotron from '../components/Jumbotron/Jumbotron';
+import IconColumns from '../components/common/IconColumns';
+import {
+  Box,
+  Grid,
+  Typography,
+  useMediaQuery,
+  useTheme,
+  CircularProgress,
+} from '@mui/material';
+import AboutUsSection from '../components/common/AboutUsSection';
+import ProductsSection from '../components/ProductsSection/ProductsSection';
+import { useGetPackagesQuery } from '../slicers/packageSlicer';
+import { useGetContentQuery } from '../slicers/Home/HomeContentSlicer';
+import { useSnackbar } from 'notistack';
 
 const Home = () => {
-  const flexDirection = useBreakpointValue({ base: 'column', md: 'row' })
-  const imageSize = useBreakpointValue({ base: '100%', md: '50%' })
-  const paddingSize = useBreakpointValue({ base: '16px', md: '32px' })
-  const gapSize = useBreakpointValue({ base: '8px', md: '16px' })
-  const headingWidth = useBreakpointValue({ base: '90%', md: '480px' })
+  const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
-  const boxMaxWidth = useBreakpointValue({ base: '90%', md: '75%', lg: '4xl' })
-  const gridCardWidth = useBreakpointValue({ base: 300, md: 600, lg: 900 })
-  const bgImages = [bgImage1, bgImage2, bgImage3]
-  const [bgImage, setBgImage] = useState(bgImages[0])
+  const getImageUrl = (path) => {
+    if (!path) {
+      console.log('No path provided, using fallback image');
+      return 'path/to/fallback-image.jpg';
+    }
+
+    const relativePath = path.replace(/^.*[\\\/]/, '');
+    const imageUrl = `${backendUrl}/uploads/${relativePath}`;
+    console.log('Original Path:', path);
+    console.log('Relative Path:', relativePath);
+    console.log('Image URL:', imageUrl);
+    return imageUrl;
+  };
+
+  const theme = useTheme();
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
+  const isLgUp = useMediaQuery(theme.breakpoints.up('lg'));
+
+  const flexDirection = isMdUp ? 'row' : 'column';
+  const imageSize = isMdUp ? '50%' : '100%';
+  const headingWidth = isMdUp ? '480px' : '90%';
+  const boxMaxWidth = isLgUp ? '4xl' : isMdUp ? '75%' : '90%';
+  const gridCardWidth = isLgUp ? 900 : isMdUp ? 600 : 300;
+
+  const { enqueueSnackbar } = useSnackbar();
+
+  const {
+    data: contentData,
+    error: errorContent,
+    isLoading: isLoadingContent,
+  } = useGetContentQuery();
+  console.log('Content data loaded', contentData);
+
+  const {
+    data: productsPackageData,
+    error: errorPackage,
+    isLoading: isLoadingPackage,
+  } = useGetPackagesQuery();
+  console.log('data loaded', productsPackageData);
 
   useEffect(() => {
-    let index = 0
+    if (errorContent) {
+      console.error('Error loading content data:', errorContent);
+    } else {
+      console.log('Content data loaded', contentData);
+    }
+  }, [contentData, errorContent]);
+
+  
+  const selectedImageIndices = [2, 1, 0 ]; 
+
+  
+  const images = contentData?.[0]?.images?.filter((image, index) => selectedImageIndices.includes(index)).map(image => image.path) || [];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
     const intervalId = setInterval(() => {
-      setBgImage(bgImages[index % bgImages.length])
-      index++
-    }, 5000)
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 9000);
 
-    return () => clearInterval(intervalId)
-  }, [])
+    return () => clearInterval(intervalId);
+  }, [images.length]);
 
-  const handleButtonClick = () => {}
-
-  const { data: productsPackageData, error: errorPackage, isLoading: isLoadingPackage} = useGetPackagesQuery()
-  const toast = useToast()
-
-  console.log("data loaded", productsPackageData);
-
-
-
-  if (isLoadingPackage) {
+  if (isLoadingPackage || isLoadingContent) {
     return (
       <Box
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
-        }}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
       >
-        <Spinner size="md" color="blue.500" />
+        <CircularProgress color="primary" />
       </Box>
-    )
+    );
   }
 
   if (errorPackage) {
-    toast({
-      title: 'Error',
-      description: errorPackage.message,
-      status: 'error',
-      isClosable: true,
-      position: 'top',
-    })
-    return null
+    enqueueSnackbar(errorPackage.message, { variant: 'error' });
+    return null;
+  }
+
+  if (errorContent) {
+    enqueueSnackbar(errorContent.message, { variant: 'error' });
+    return null;
   }
 
   return (
-    <Grid>
-      <Jumbotron
-        title="Elevate Education, Simplify School Management!"
-        subtitle="Streamlines processes, fosters collaboration, and enhances learning outcomes for a seamless educational experience"
-        buttonText="Learn More"
-        bgImage={bgImage}
-        buttonOnClick={handleButtonClick}
-      />
-
-      <Box
-        maxW={boxMaxWidth}
-        mx="auto"
-        border={0}
-        p={6}
-        borderWidth={1}
-        rounded="md"
-        mt={-20}
-      >
-        <ProductsSection
-          heading="Check Our Packages"
-          subheading="Check out our latest offerings"
-          products={productsPackageData}
-          cardBg={'#fff'}
-          imageMaxWidth={'200px'}
-          cardShadow="2xl"
-          gridCard={gridCardWidth}
+    <Grid container direction="column">
+      <Grid item>
+        <Jumbotron
+          title={contentData[0]?.title || 'Default Title'}
+          subtitle={contentData[0]?.subTitle || 'Default Subtitle'}
+          buttonText={contentData[0]?.buttonsTitle?.[0] || 'Default Button'}
+          bgImage={getImageUrl(images[currentImageIndex])}
+          buttonOnClick={() => console.log('Button clicked')}
         />
-      </Box>
+      </Grid>
 
-      {/* Icon component */}
-      <IconColumns
-        backgroundColor="gray.600"
-        iconSize="24px"
-        textSize="16px"
-        textColor="#000000"
-        buttonStyle={{
-          color: '#fff',
-          width: '200px',
-          maxW: '100%',
-          padding: '20px',
-          mt: '20px',
-          backgroundColor: '#3182ce',
-        }}
-      />
-
-      <Flex
-        maxW={{ base: '90%', md: '6xl' }}
-        flexDirection={flexDirection}
-        border={0}
-        mx="auto"
-        mt={10}
-        p={6}
-        borderWidth={1}
-        rounded="md"
-        align="center"
-      >
-        <Box w={{ base: '100%', md: '50%' }} pr={{ md: '2' }}>
-          <AboutUsSection
-            style={{
-              padding: paddingSize,
-              gap: gapSize,
-            }}
-            headingStyle={{
-              maxW: headingWidth,
-            }}
-            heading="Our services"
-            subheading="
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce euismod aliquam commodo. 
-                    Vestibulum pharetra semper urna, ac dapibus felis ultricies ut.
-                    Duis pharetra sapien non magna ullamcorper, ut scelerisque enim sagittis.
-                    Nullam at ipsum quis nibh posuere ultrices. Nam posuere, purus sed finibus venenatis, 
-                    enim urna commodo mauris, at aliquet metus lorem vitae mauris."
+      <Grid item>
+        <Box
+          maxWidth={boxMaxWidth}
+          mx="auto"
+          border={0}
+          p={6}
+          borderRadius="md"
+          mt={-10}
+        >
+          <ProductsSection
+            heading={contentData[0]?.subHeadings || 'Default Title'}
+            subheading="Check out our latest offerings"
+            products={productsPackageData}
+            cardBg={'#fff'}
+            imageMaxWidth={'200px'}
+            cardShadow="2xl"
+            gridCard={gridCardWidth}
           />
         </Box>
-        <Box w={imageSize} position="relative">
-          <Image
-            src="https://media.istockphoto.com/id/1402604850/photo/the-word-about-us-on-wooden-cubes-business-communication-and-information.jpg?b=1&s=170667a&w=0&k=20&c=M1zgL2pGwZ_g3cwmOvdMtzz92PlTLdihv6_wgaW1QZc="
-            layout="fill"
-            objectFit="cover"
+      </Grid>
+
+      <Grid item>
+        <IconColumns
+          backgroundColor="gray.600"
+          iconSize="24px"
+          textSize="16px"
+          textColor="#000000"
+          buttonStyle={{
+            color: '#fff',
+            width: '200px',
+            maxWidth: '100%',
+            padding: '20px',
+            marginTop: '20px',
+            backgroundColor: '#3182ce',
+          }}
+        />
+      </Grid>
+
+      <Grid item>
+        <Box
+          maxWidth={{ xs: '90%', md: '6xl' }}
+          display="flex"
+          flexDirection={flexDirection}
+          mx="auto"
+          p={6}
+          borderRadius="md"
+          alignItems="center"
+        >
+          <Box width={{ xs: '100%', md: '100%' }} pr={{ md: '2' }}>
+            <AboutUsSection
+              headingStyle={{
+                maxWidth: headingWidth,
+              }}
+              heading="Our services"
+              subheading={contentData[0]?.description}
+            />
+          </Box>
+          <Box
+            component="img"
+            src={getImageUrl(images[0])}
             alt="About us image"
+            sx={{
+              width: '60%',
+              height: '60%',
+              objectFit: 'cover',
+              borderRadius: '15px',
+              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            }}
           />
         </Box>
-      </Flex>
+      </Grid>
     </Grid>
-  )
-}
+  );
+};
 
-const MemoizedHome = React.memo(Home)
-export default MemoizedHome
+const MemoizedHome = React.memo(Home);
+export default MemoizedHome;

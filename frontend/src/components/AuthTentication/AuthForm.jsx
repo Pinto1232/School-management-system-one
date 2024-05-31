@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Box, Typography, CircularProgress, Button, TextField, useTheme, Snackbar, Alert } from '@mui/material';
 import useFormValidation from '../../hooks/useFormValidation';
 import AuthFormComponent from '../AuthTentication/AuthFormComponent';
-import axios from 'axios';
 import { useUserContext } from '../../contexts/UserContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../../slicers/api';

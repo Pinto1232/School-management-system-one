@@ -1,5 +1,16 @@
 const mongoose = require('mongoose');
 
+const imageSchema = new mongoose.Schema({
+  path: {
+    type: String,
+    required: true,
+  },
+  display: {
+    type: Boolean,
+    default: false,
+  },
+});
+
 const ContentSchema = new mongoose.Schema({
   section: {
     type: String,
@@ -16,9 +27,7 @@ const ContentSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  images: [{
-    type: String,
-  }],
+  images: [imageSchema],
   icons: [{
     type: String,
   }],

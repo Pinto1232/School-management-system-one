@@ -25,13 +25,13 @@ const AboutUsSection = ({
       maxWidth="1200px"
       mx="auto"
       gap={8}
-      style={style} // Use style prop correctly
+      style={style}
     >
       <Box flex="1" textAlign={{ xs: 'center', md: 'left' }}>
         <Typography variant="h3" component="h3" mb={4}>
           {heading}
         </Typography>
-        <Typography style={headingStyle} fontSize="md" width={385} mb={8}>
+        <Typography style={headingStyle} fontSize="md" width={600} mb={8}>
           {subheading}
         </Typography>
         {children}
@@ -50,7 +50,7 @@ const AboutUsSection = ({
           height="100%"
           src={image}
           alt={altText}
-          borderRadius="lg"
+          borderRadius="md"
           boxShadow={3}
         />
       </Box>
