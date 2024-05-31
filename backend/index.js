@@ -117,10 +117,11 @@ app.use('/api/packages', packagesRoutes);
 // Use Icons routes
 app.use('/api/icons', iconsRoutes);
 
-// Use Icons routes
+// Use content routes
 app.use('/api', contentRoutes);
 
-app.use('/api/users/uploads', express.static(path.join(__dirname, 'src/uploads')));
+// Serve static files from the uploads directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 console.log(path.join(__dirname, 'uploads'));
 

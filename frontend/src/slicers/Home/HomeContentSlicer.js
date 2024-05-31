@@ -14,29 +14,29 @@ const HomeContentApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getPackages: builder.query({
-      query: () => "/packages",
+    getContent: builder.query({
+      query: () => "/content",
     }),
-    getPackageById: builder.query({
-      query: (id) => `/packages/${id}`,
+    getContentById: builder.query({
+      query: (id) => `/content/${id}`,
     }),
-    createPackage: builder.mutation({
-      query: (packageData) => ({
-        url: "/packages",
+    createContent: builder.mutation({
+      query: (contentData) => ({
+        url: "/content",
         method: "POST",
-        body: packageData,
+        body: contentData,
       }),
     }),
-    updatePackage: builder.mutation({
-      query: ({ id, packageData }) => ({
-        url: `/packages/${id}`,
+    updateContent: builder.mutation({
+      query: ({ id, contentData }) => ({
+        url: `/content/${id}`,
         method: "PUT",
-        body: packageData,
+        body: contentData,
       }),
     }),
-    deletePackage: builder.mutation({
+    deleteContent: builder.mutation({
       query: (id) => ({
-        url: `/packages/${id}`,
+        url: `/content/${id}`,
         method: "DELETE",
       }),
     }),
@@ -44,11 +44,11 @@ const HomeContentApi = createApi({
 });
 
 export const {
-  useGetPackagesQuery,
-  useGetPackageByIdQuery,
-  useCreatePackageMutation,
-  useUpdatePackageMutation,
-  useDeletePackageMutation,
+  useGetContentQuery,
+  useGetContentByIdQuery,
+  useCreateContentMutation,
+  useUpdateContentMutation,
+  useDeleteContentMutation,
 } = HomeContentApi;
 
 export default HomeContentApi;
