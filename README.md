@@ -143,4 +143,4 @@ The School Management System is licensed under the Pisval Tech License.
 
 ---
 
-This README provides a comprehensive overview of your project, including setup instructions, architectural choices, core requirements, and challenges faced. It should help users and contributors understand and work with your project more effectively.
+This README provides a comprehensive overview of my  project, including setup instructions, architectural choices, core requirements, and challenges faced. It should help users and contributors understand and work with your project more effectively.
