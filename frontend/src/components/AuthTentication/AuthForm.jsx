@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, CircularProgress, Button, TextField, useTheme, Snackbar, Alert } from '@mui/material';
 import useFormValidation from '../../hooks/useFormValidation';
 import AuthFormComponent from '../AuthTentication/AuthFormComponent';
@@ -12,9 +12,9 @@ const initialValues = {
   email: '',
   password: '',
   profileImage: '',
+  packageName: '', // Add packageName to initial values
 };
 
-// Register validate function here
 const validate = (values) => {
   const errors = {};
   if (!/^[a-zA-Z]+$/i.test(values.firstName)) {
@@ -31,6 +31,9 @@ const validate = (values) => {
   }
   if (!values.profileImage) {
     errors.profileImage = 'Profile image is required';
+  }
+  if (!values.packageName) {
+    errors.packageName = 'Package name is required';
   }
   return errors;
 };
@@ -51,6 +54,7 @@ const AuthForm = () => {
     formData.append('lastName', values.lastName);
     formData.append('email', values.email);
     formData.append('password', values.password);
+    formData.append('packageName', values.packageName); // Append packageName to formData
 
     if (values.profileImage && values.profileImage instanceof File) {
       formData.append('profileImage', values.profileImage);
@@ -62,10 +66,10 @@ const AuthForm = () => {
       const response = await api.post('/users/register', formData);
       setSnackbar({
         open: true,
-        message: 'Registration successful. You have been successfully registered.',
+        message: 'Registration successful. Redirecting to payment...',
         severity: 'success',
       });
-      navigate('/login');
+      navigate('/subscribe', { state: { packageName: values.packageName } }); // Redirect to payment process
     } catch (error) {
       const errorMessage = error.response && error.response.data && error.response.data.message ? error.response.data.message : 'An error occurred during registration.';
       setSnackbar({
@@ -78,6 +82,25 @@ const AuthForm = () => {
       setIsLoading(false);
     }
   };
+
+  const {
+    handleChange,
+    handleFileChange,
+    handleSubmit,
+    values,
+    errors,
+    setValues, // Add setValues to update form values
+  } = useFormValidation(initialValues, validate, onValidSubmit);
+
+  useEffect(() => {
+    const selectedPackage = JSON.parse(localStorage.getItem('selectedPackage'));
+    if (selectedPackage) {
+      setValues((prevValues) => ({
+        ...prevValues,
+        packageName: selectedPackage.name,
+      }));
+    }
+  }, [setValues]);
 
   const handleLogin = async (values) => {
     setIsLoading(true);
@@ -106,14 +129,6 @@ const AuthForm = () => {
       setIsLoading(false);
     }
   };
-
-  const {
-    handleChange,
-    handleFileChange,
-    handleSubmit,
-    values,
-    errors,
-  } = useFormValidation(initialValues, validate, onValidSubmit);
 
   const handleFormSubmission = () => {
     if (mode === 'login') {
@@ -165,6 +180,17 @@ const AuthForm = () => {
         values={values}
         errors={errors}
       />
+      {mode === 'signup' && (
+        <TextField
+          label="Package Name"
+          name="packageName"
+          value={values.packageName}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          required
+        />
+      )}
       <Snackbar
         open={snackbar.open}
         autoHideDuration={6000}
@@ -197,6 +223,5 @@ const LoadingOverlay = () => (
   </Box>
 );
 
-
-const MemoizedAuthForm = React.memo(AuthForm)
+const MemoizedAuthForm = React.memo(AuthForm);
 export default MemoizedAuthForm;

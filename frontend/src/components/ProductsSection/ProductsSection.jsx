@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import {
   Box,
   Typography,
@@ -12,45 +12,55 @@ import {
   Paper,
   useMediaQuery,
   CircularProgress,
-} from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
-import CustomButton from '../common/CustomButton';
-import SafetyCheck from '@mui/icons-material/SafetyCheck';
-import { useNavigate } from 'react-router-dom';
+} from '@mui/material'
+import CheckIcon from '@mui/icons-material/Check'
+import CloseIcon from '@mui/icons-material/Close'
+import CustomButton from '../common/CustomButton'
+import SafetyCheck from '@mui/icons-material/SafetyCheck'
+import { useNavigate } from 'react-router-dom'
 
 const ProductsSection = ({ heading, subheading, products }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const [featureKeys, setFeatureKeys] = useState([]);
-  const [loading, setLoading] = useState(null);
-  const navigate = useNavigate();
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const [featureKeys, setFeatureKeys] = useState([])
+  const [loading, setLoading] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (products.length > 0) {
       const keys = Object.keys(products[0]).filter(
         (key) => typeof products[0][key] === 'boolean'
-      );
-      setFeatureKeys(keys);
+      )
+      setFeatureKeys(keys)
     }
-  }, [products]);
+  }, [products])
 
   const renderIcon = (condition) => {
     return condition ? (
       <CheckIcon sx={{ color: theme.palette.success.main }} />
     ) : (
       <CloseIcon sx={{ color: theme.palette.error.main }} />
-    );
-  };
+    )
+  }
 
   const handleBuyNowClick = (product) => {
-    console.log('Selected package:', product); // Log the selected package data
-    setLoading(product.name);
-    setTimeout(() => {
-      setLoading(null);
-      navigate('/register', { state: { packageName: product.name } }); // Redirect to the AuthForm component with package name
-    }, 2000); // Simulate a delay for loading
-  };
+    console.log('Selected package:', product) 
+    localStorage.setItem('selectedPackage', JSON.stringify(product)) 
+
+    const token = localStorage.getItem('token') 
+
+    if (!token) {
+      // If not authenticated, redirect to login/registration page
+      navigate('/register', { state: { packageName: product.name } })
+    } else {
+      // If authenticated, proceed with the subscription process
+      setLoading(product.name)
+      setTimeout(() => {
+        setLoading(null)
+        navigate('/subscribe', { state: { packageName: product.name } }) 
+      }, 2000) 
+    }
+  }
 
   return (
     <Box
@@ -197,8 +207,8 @@ const ProductsSection = ({ heading, subheading, products }) => {
         </Table>
       </TableContainer>
     </Box>
-  );
-};
+  )
+}
 
-const MemoizedProductsSection = React.memo(ProductsSection);
-export default MemoizedProductsSection;
+const MemoizedProductsSection = React.memo(ProductsSection)
+export default MemoizedProductsSection

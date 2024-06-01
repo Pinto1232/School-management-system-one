@@ -1,25 +1,26 @@
-import React from 'react'
-import { Box, CssBaseline, ThemeProvider, createTheme } from '@mui/material'
-import Navbar from './components/Navbar/Navbar'
-import Footer from './components/FooterCustomizable/Footer'
-import DashboardFooter from './components/common/DashboardFooter'
-import BackToTopButton from './components/BackToTopButton/BackToTopButton'
-import { UserProvider } from './contexts/UserContext'
-import { useRoutes, useLocation } from 'react-router-dom'
-import Home from './pages/Home'
-import Login from './components/AuthTentication/Login'
-import AuthForm from './components/AuthTentication/AuthForm'
-import Dashboard from './pages/dashboard/Dashboard'
-import Faq from './pages/Faq'
-import About from './pages/About'
-import ResetPassword from './components/AuthTentication/ResetPassword'
-import ForgetPassword from './components/AuthTentication/ForgetPassowrd'
-import './index.css' 
+import React from 'react';
+import { Box, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import Navbar from './components/Navbar/Navbar';
+import Footer from './components/FooterCustomizable/Footer';
+import DashboardFooter from './components/common/DashboardFooter';
+import BackToTopButton from './components/BackToTopButton/BackToTopButton';
+import { UserProvider } from './contexts/UserContext';
+import { useRoutes, useLocation } from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './components/AuthTentication/Login';
+import AuthForm from './components/AuthTentication/AuthForm';
+import Dashboard from './pages/dashboard/Dashboard';
+import Faq from './pages/Faq';
+import About from './pages/About';
+import ResetPassword from './components/AuthTentication/ResetPassword';
+import ForgetPassword from './components/AuthTentication/ForgetPassowrd';
+import SubscriptionPage from './components/Subscription/SubscriptionPage'; // Import the SubscriptionPage component
+import './index.css';
 
-const theme = createTheme()
+const theme = createTheme();
 
 const App = () => {
-  const location = useLocation()
+  const location = useLocation();
 
   const routing = useRoutes([
     { path: '/', element: <Home /> },
@@ -30,10 +31,11 @@ const App = () => {
     { path: '/about', element: <About /> },
     { path: '/reset-password/:token', element: <ResetPassword /> },
     { path: '/forgetPassword', element: <ForgetPassword /> },
-  ])
+    { path: '/subscribe', element: <SubscriptionPage /> }, 
+  ]);
 
-  const showFooter = location.pathname !== '/dashboard'
-  const showDashboardFooter = location.pathname === '/dashboard'
+  const showFooter = location.pathname !== '/dashboard';
+  const showDashboardFooter = location.pathname === '/dashboard';
 
   return (
     <UserProvider>
@@ -50,8 +52,8 @@ const App = () => {
         </Box>
       </ThemeProvider>
     </UserProvider>
-  )
-}
+  );
+};
 
-const MemoizedApp = React.memo(App)
-export default MemoizedApp
+const MemoizedApp = React.memo(App);
+export default MemoizedApp;
