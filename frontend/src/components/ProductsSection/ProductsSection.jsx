@@ -15,7 +15,7 @@ import {
 } from '@mui/material'
 import CheckIcon from '@mui/icons-material/Check'
 import CloseIcon from '@mui/icons-material/Close'
-import CustomButton from '../common/CustomButton'
+import MemoizedCustomButton from '../common/CustomButton'
 import SafetyCheck from '@mui/icons-material/SafetyCheck'
 import { useNavigate } from 'react-router-dom'
 
@@ -44,10 +44,10 @@ const ProductsSection = ({ heading, subheading, products }) => {
   }
 
   const handleBuyNowClick = (product) => {
-    console.log('Selected package:', product) 
-    localStorage.setItem('selectedPackage', JSON.stringify(product)) 
+    console.log('Selected package:', product)
+    localStorage.setItem('selectedPackage', JSON.stringify(product))
 
-    const token = localStorage.getItem('token') 
+    const token = localStorage.getItem('token')
 
     if (!token) {
       // If not authenticated, redirect to login/registration page
@@ -57,8 +57,8 @@ const ProductsSection = ({ heading, subheading, products }) => {
       setLoading(product.name)
       setTimeout(() => {
         setLoading(null)
-        navigate('/subscribe', { state: { packageName: product.name } }) 
-      }, 2000) 
+        navigate('/subscribe', { state: { packageName: product.name } })
+      }, 6000) // Display the loader for 2 seconds
     }
   }
 
@@ -85,8 +85,22 @@ const ProductsSection = ({ heading, subheading, products }) => {
         sx={{
           borderRadius: '8px',
           boxShadow: theme.shadows[1],
-          overflow: 'hidden',
+          overflowY: 'auto',
           width: '100%',
+          maxHeight: '500px', // Set the desired height here
+          '&::-webkit-scrollbar': {
+            width: '8px',
+          },
+          '&::-webkit-scrollbar-track': {
+            background: '#f1f1f1',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            background: '#888',
+            borderRadius: '8px',
+          },
+          '&::-webkit-scrollbar-thumb:hover': {
+            background: '#555',
+          },
         }}
       >
         <Table sx={{ minWidth: 650 }} aria-label="products table">
@@ -171,10 +185,10 @@ const ProductsSection = ({ heading, subheading, products }) => {
             ))}
             <TableRow>
               <TableCell
-                sx={{ fontWeight: 'bold', textAlign: 'center' }}
+                sx={{ fontWeight: 'bold', textAlign: 'center', background: 'lightgrey'  }}
               ></TableCell>
               {products.map((product) => (
-                <TableCell key={product._id} align="center">
+                <TableCell key={product._id} align="center" sx={{ background: 'lightgrey' }}>
                   <Box
                     display="flex"
                     flexDirection="column"
@@ -185,7 +199,7 @@ const ProductsSection = ({ heading, subheading, products }) => {
                       (R{product.price})p/m
                     </Typography>
                     <Box mt={1}>
-                      <CustomButton
+                      <MemoizedCustomButton
                         bgColor="#1976d2"
                         boxShadow={2}
                         fontSize={12}
@@ -197,7 +211,7 @@ const ProductsSection = ({ heading, subheading, products }) => {
                         ) : (
                           'Buy Now'
                         )}
-                      </CustomButton>
+                      </MemoizedCustomButton>
                     </Box>
                   </Box>
                 </TableCell>

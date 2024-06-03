@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Box,
   Typography,
   TextField,
-  Button,
   CircularProgress,
   Grid,
-  Paper,
   ToggleButton,
   ToggleButtonGroup,
   Divider,
+  Paper,
+  ListItem,
+  ListItemText,
+  List,
+  ListItemIcon,
 } from '@mui/material'
 import { useLocation } from 'react-router-dom'
 import {
@@ -20,18 +23,35 @@ import {
   FaCcDiscover,
 } from 'react-icons/fa'
 import MemoizedCustomButton from '../common/CustomButton'
+import { Check } from '@mui/icons-material'
 
 const SubscriptionPage = () => {
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-  const [planType, setPlanType] = useState('monthly')
+  const [error] = useState(null)
+  const [selectedPackage, setSelectedPackage] = useState('monthly')
   const [paymentMethod, setPaymentMethod] = useState('visa')
   const location = useLocation()
-  const { packageName } = location.state || { packageName: 'Default Package' }
+  const { firstName, lastName, email } = location.state || {
+    firstName: '',
+    lastName: '',
+    email: '',
+  }
+  const [selectedPackageData, setSelectedPackageData] = useState(null)
 
-  const handlePlanTypeChange = (event, newPlanType) => {
-    if (newPlanType !== null) {
-      setPlanType(newPlanType)
+  useEffect(() => {
+    const packageData = JSON.parse(localStorage.getItem('selectedPackage'))
+    setSelectedPackageData(packageData)
+    console.log('Received data:', {
+      package: packageData,
+      firstName,
+      lastName,
+      email,
+    })
+  }, [firstName, lastName, email])
+
+  const handlePackageChange = (event, newPackage) => {
+    if (newPackage !== null) {
+      setSelectedPackage(newPackage)
     }
   }
 
@@ -53,11 +73,10 @@ const SubscriptionPage = () => {
 
   return (
     <Box
-      elevation={2}
       style={{
-        padding: '20px',
-        marginTop: '-50px',
-        backgroundColor: 'rgb(247 245 245 / 53%)',
+        backgroundColor: 'lightgray',
+        padding: { xs: '20px', md: '40px' },
+        borderRadius: '8px',
       }}
     >
       <Box
@@ -69,23 +88,40 @@ const SubscriptionPage = () => {
         flexDirection="column"
         alignItems="center"
         color="#000"
+        sx={{
+          backgroundColor: '#fff',
+          borderRadius: '8px',
+          boxShadow: 3,
+          padding: { xs: '20px', md: '40px' },
+        }}
       >
         <Typography variant="h4" component="h1" gutterBottom>
-          Subscribe to {packageName}
+          Subscribe to {selectedPackageData?.name}
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
           To keep using this account after the trial ends, set up a subscription
         </Typography>
-        <Box elevation={3} style={{ padding: '50px', backgroundColor: '#fff' }}>
-          <Grid container spacing={3}>
+        <Box style={{ backgroundColor: '#fff', padding: 20 }}>
+          <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
-              <Box
-                elevation={1}
-                style={{
+              <Paper
+                elevation={0}
+                sx={{
                   padding: '20px',
-                  backgroundColor: '#f5f5f5',
-                  height: '260px',
+                  backgroundColor: 'rgb(245 245 245 / 41%)',
                   borderRadius: '8px',
+                  boxShadow: 1,
+                  overflowY: 'auto',
+                  '&::-webkit-scrollbar': {
+                    width: '0px',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    background: 'transparent',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    backgroundColor: 'transparent',
+                  },
+                  scrollbarWidth: 'none',
                 }}
               >
                 <Box
@@ -96,7 +132,7 @@ const SubscriptionPage = () => {
                 >
                   <Typography
                     variant="h6"
-                    style={{
+                    sx={{
                       color: '#000',
                       whiteSpace: 'nowrap',
                       marginRight: 5,
@@ -105,56 +141,114 @@ const SubscriptionPage = () => {
                     Select Plan
                   </Typography>
                   <ToggleButtonGroup
-                    value={planType}
+                    value={selectedPackage}
                     exclusive
-                    onChange={handlePlanTypeChange}
-                    style={{ marginLeft: 'auto' }}
+                    onChange={handlePackageChange}
+                    sx={{ marginLeft: 'auto' }}
                   >
                     <ToggleButton
                       value="monthly"
-                      style={{ color: '#000', height: '13px', fontSize: '12px' }}
+                      sx={{
+                        color: selectedPackage === 'monthly' ? '#fff' : '#000',
+                        height: '30px',
+                        fontSize: '12px',
+                        backgroundColor:
+                          selectedPackage === 'monthly'
+                            ? '#0071c2'
+                            : 'transparent',
+                      }}
                     >
                       Monthly
                     </ToggleButton>
                     <ToggleButton
                       value="yearly"
-                      style={{ color: '#000', height: '13px', fontSize: '12px'  }}
+                      sx={{
+                        color: selectedPackage === 'yearly' ? '#fff' : '#000',
+                        height: '30px',
+                        fontSize: '12px',
+                        backgroundColor:
+                          selectedPackage === 'yearly' ? 'blue' : 'transparent',
+                      }}
                     >
                       Yearly
                     </ToggleButton>
                   </ToggleButtonGroup>
                 </Box>
-                <Typography style={{ color: '#000' }}>
-                  {planType === 'monthly'
-                    ? 'Plus - R5.75 User/Month'
-                    : 'Plus - R57.00 User/Year'}
+                <Typography
+                  variant="h6"
+                  sx={{ color: '#000', marginBottom: '10px' }}
+                >
+                  {selectedPackageData?.name} R{selectedPackageData?.price}p/m
                 </Typography>
-                <Typography style={{ color: '#000' }}>
-                  {planType === 'monthly'
-                    ? 'Standard - R12.80 User/Month'
-                    : 'Standard - R128.00 User/Year'}
-                </Typography>
-                <Typography style={{ color: '#000' }}>
-                  {planType === 'monthly'
-                    ? 'Advanced - R20.99 User/Month'
-                    : 'Advanced - R209.90 User/Year'}
-                </Typography>
-              </Box>
+                {selectedPackageData?.features && (
+                  <>
+                    <Typography
+                      variant="h6"
+                      sx={{ color: '#000', marginTop: '20px' }}
+                    >
+                      Included Features:
+                    </Typography>
+                    <List sx={{ color: '#000' }}>
+                      {Object.entries(selectedPackageData)
+                        .filter(
+                          ([key, value]) =>
+                            value === true &&
+                            key !== 'features' &&
+                            key !== 'name' &&
+                            key !== 'price' &&
+                            key !== '_id' &&
+                            key !== '__v'
+                        )
+                        .map(([key, value], index) => (
+                          <ListItem key={index} sx={{ padding: 0 }}>
+                            <ListItemIcon sx={{ minWidth: '20px' }}>
+                              <Check
+                                sx={{
+                                  fontSize: '16px',
+                                  color: 'darkgreen',
+                                  backgroundColor: 'white',
+                                }}
+                              />
+                            </ListItemIcon>
+                            <ListItemText
+                              primaryTypographyProps={{
+                                sx: {
+                                  whiteSpace: 'nowrap',
+                                  fontSize: '13px',
+                                  color: '#000',
+                                },
+                              }}
+                              primary={key
+                                .replace(/([A-Z])/g, ' $1')
+                                .replace(/^./, (str) => str.toUpperCase())}
+                            />
+                          </ListItem>
+                        ))}
+                    </List>
+                  </>
+                )}
+              </Paper>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Box
-                elevation={3}
-                style={{ padding: '10px', backgroundColor: '#fff' }}
+              <Paper
+                elevation={0}
+                sx={{
+                  backgroundColor: '#f9f9f9',
+                  borderRadius: '8px',
+                  padding: { xs: '10px', md: '20px' },
+                  boxShadow: 1,
+                }}
               >
                 <Box
                   display="flex"
                   alignItems="center"
                   justifyContent="space-around"
                   mb={2}
+                  sx={{ gap: '4px', flexWrap: 'wrap' }}
                 >
                   <Typography
                     variant="h6"
-                    style={{ color: '#000', marginRight: '5px' }}
+                    sx={{ color: '#000', marginRight: '5px' }}
                   >
                     Payment
                   </Typography>
@@ -162,37 +256,22 @@ const SubscriptionPage = () => {
                     value={paymentMethod}
                     exclusive
                     onChange={handlePaymentMethodChange}
-                    style={{ marginLeft: '2px', gap: '2px' }}
+                    sx={{ marginLeft: '2px', border: 'none' }}
                   >
-                    <ToggleButton
-                      value="visa"
-                      style={{ color: '#000', height: '30px' }}
-                    >
-                      <FaCcVisa size={20} />
+                    <ToggleButton value="visa" sx={{ height: '30px' }}>
+                      <FaCcVisa size={24} color="#1A1F71" />
                     </ToggleButton>
-                    <ToggleButton
-                      value="mastercard"
-                      style={{ color: '#000', height: '30px' }}
-                    >
-                      <FaCcMastercard size={20} />
+                    <ToggleButton value="mastercard" sx={{ height: '30px' }}>
+                      <FaCcMastercard size={24} color="#EB001B" />
                     </ToggleButton>
-                    <ToggleButton
-                      value="paypal"
-                      style={{ color: '#000', height: '30px' }}
-                    >
-                      <FaPaypal size={20} />
+                    <ToggleButton value="paypal" sx={{ height: '30px' }}>
+                      <FaPaypal size={24} color="#1976d2" />
                     </ToggleButton>
-                    <ToggleButton
-                      value="stripe"
-                      style={{ color: '#000', height: '30px' }}
-                    >
-                      <FaStripe size={20} />
+                    <ToggleButton value="stripe" sx={{ height: '30px' }}>
+                      <FaStripe size={24} color="#635BFF" />
                     </ToggleButton>
-                    <ToggleButton
-                      value="payu"
-                      style={{ color: '#000', height: '30px' }}
-                    >
-                      <FaCcDiscover size={20} />
+                    <ToggleButton value="payu" sx={{ height: '30px' }}>
+                      <FaCcDiscover size={24} color="#FF6000" />
                     </ToggleButton>
                   </ToggleButtonGroup>
                 </Box>
@@ -203,8 +282,10 @@ const SubscriptionPage = () => {
                   margin="normal"
                   required
                   variant="standard"
-                  InputLabelProps={{ style: { color: '#000' } }}
-                  InputProps={{ style: { color: '#000' } }}
+                  InputLabelProps={{
+                    sx: { color: '#a2a2a2', fontSize: 13 },
+                  }}
+                  InputProps={{ sx: { color: '#000' } }}
                 />
                 <TextField
                   label="Expiration Date"
@@ -213,8 +294,10 @@ const SubscriptionPage = () => {
                   margin="normal"
                   required
                   variant="standard"
-                  InputLabelProps={{ style: { color: '#000' } }}
-                  InputProps={{ style: { color: '#000' } }}
+                  InputLabelProps={{
+                    sx: { color: '#a2a2a2', fontSize: 13 },
+                  }}
+                  InputProps={{ sx: { color: '#000' } }}
                 />
                 <TextField
                   label="CVV"
@@ -223,76 +306,111 @@ const SubscriptionPage = () => {
                   margin="normal"
                   required
                   variant="standard"
-                  InputLabelProps={{ style: { color: '#000' } }}
-                  InputProps={{ style: { color: '#000' } }}
+                  InputLabelProps={{
+                    sx: { color: '#a2a2a2', fontSize: 13 },
+                  }}
+                  InputProps={{ sx: { color: '#000' } }}
                 />
-              </Box>
+                <Box width="100%">
+                  <form
+                    onSubmit={handleSubmit}
+                    sx={{
+                      width: '100%',
+                      backgroundColor: '#fff',
+                      padding: '10px',
+                      borderRadius: '8px',
+                      boxShadow: 3,
+                    }}
+                  >
+                    <TextField
+                      label="User name"
+                      value={`${firstName} ${lastName}`}
+                      fullWidth
+                      margin="normal"
+                      required
+                      variant="outlined"
+                      InputLabelProps={{
+                        sx: {
+                          color: '#a2a2a2',
+
+                          fontSize: 13,
+                        },
+                      }}
+                      InputProps={{ sx: { color: '#000' } }}
+                      disabled
+                    />
+                    <TextField
+                      label="User email"
+                      value={email}
+                      type="email"
+                      fullWidth
+                      margin="normal"
+                      required
+                      variant="outlined"
+                      InputLabelProps={{
+                        sx: {
+                          color: '#a2a2a2',
+
+                          fontSize: 13,
+                        },
+                      }}
+                      InputProps={{ sx: { color: '#000' } }}
+                      disabled
+                    />
+                  </form>
+                </Box>
+              </Paper>
             </Grid>
-            <Grid item xs={12} marginTop={-10}>
+            <Grid item xs={12} marginTop={-1}>
               <Box
-                elevation={3}
-                style={{ padding: '20px', backgroundColor: '#fff' }}
+                elevation={0}
+                sx={{
+                  padding: '20px',
+                  backgroundColor: '#fff',
+                  borderRadius: '8px',
+                  boxShadow: 1,
+                  mb: 2,
+                }}
               >
                 <Typography variant="h6" gutterBottom>
                   Total
                 </Typography>
                 <Divider style={{ backgroundColor: '#fff' }} />
                 <Typography variant="body1" gutterBottom>
-                  3 Users
+                  Subtotal: R{selectedPackageData?.price}
                 </Typography>
                 <Typography variant="body1" gutterBottom>
-                  {planType === 'monthly' ? 'R48.65' : 'R486.50'}
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                  Discount (-20%):{' '}
-                  {planType === 'monthly' ? '-R8.24' : '-R97.30'}
+                  Discount (-5%): R
+                  {(selectedPackageData?.price * 0.05).toFixed(2)}
                 </Typography>
                 <Typography variant="h4" gutterBottom>
-                  {planType === 'monthly' ? 'R40.42' : 'R389.20'}
+                  Total: R{(selectedPackageData?.price * 0.95).toFixed(2)}p/m
                 </Typography>
-                <Typography variant="body2" gutterBottom>
-                  Due on 26 April 2022 then every{' '}
-                  {planType === 'monthly' ? 'month' : 'year'}
+                <Typography variant="h6" gutterBottom>
+                  Due on 26 April 2022 then every month
                 </Typography>
               </Box>
             </Grid>
           </Grid>
-          <Box mt={-5} width="100%">
+          <Box mt={-3} width="100%">
             <form
               onSubmit={handleSubmit}
               style={{
                 width: '100%',
                 backgroundColor: '#fff',
                 padding: '10px',
+                borderRadius: '8px',
+                boxShadow: 3,
               }}
             >
-              <TextField
-                label="Name"
-                fullWidth
-                margin="normal"
-                required
-                variant="standard"
-                InputLabelProps={{ style: { color: '#000' } }}
-                InputProps={{ style: { color: '#000' } }}
-              />
-              <TextField
-                label="Email"
-                type="email"
-                fullWidth
-                margin="normal"
-                required
-                variant="standard"
-                InputLabelProps={{ style: { color: '#000' } }}
-                InputProps={{ style: { color: '#000' } }}
-              />
               <Box mt={2}>
                 <MemoizedCustomButton
                   type="submit"
                   variant="contained"
                   color="primary"
+                  bgColor="#0071c2"
                   fullWidth
                   disabled={loading}
-                  bgColor='primary'
                   sx={{ width: '30%' }}
                 >
                   {loading ? (
