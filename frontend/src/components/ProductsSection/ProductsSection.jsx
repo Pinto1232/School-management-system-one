@@ -110,6 +110,8 @@ const ProductsSection = ({ heading, subheading, products }) => {
                   backgroundColor: theme.palette.primary.main,
                   color: theme.palette.common.white,
                   textAlign: 'start',
+                  fontSize: '20px',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 Feature
@@ -122,6 +124,8 @@ const ProductsSection = ({ heading, subheading, products }) => {
                     backgroundColor: theme.palette.primary.main,
                     color: theme.palette.common.white,
                     textAlign: 'start',
+                    fontSize: '20px',
+                    whiteSpace: 'nowrap',
                   }}
                 >
                   {product.name} (R{product.price})
@@ -186,14 +190,14 @@ const ProductsSection = ({ heading, subheading, products }) => {
                 sx={{
                   fontWeight: 'bold',
                   textAlign: 'center',
-                  background: 'lightgrey',
+                  background: '#1976d2',
                 }}
               ></TableCell>
               {products.map((product) => (
                 <TableCell
                   key={product._id}
                   align="center"
-                  sx={{ background: 'lightgrey' }}
+                  sx={{ background: '#d3d3d34a' }}
                 >
                   <Box
                     display="flex"

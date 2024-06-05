@@ -57,7 +57,7 @@ const Navbar = () => {
   }
 
   return (
-    <Box>
+    <Box sx={{ bgcolor: '#fff'}}>
       <Navibar />
       <AppBar position="sticky" color="default">
         <Toolbar>
