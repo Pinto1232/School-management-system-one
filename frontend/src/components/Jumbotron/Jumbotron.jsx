@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Button, useTheme, useMediaQuery } from '@mui/material';
+import MemoizedCustomButton from '../common/CustomButton';
 
 const Jumbotron = ({
   title,
@@ -99,18 +100,19 @@ const Jumbotron = ({
       >
         {subtitle}
       </Typography>
-      <Button
-        onClick={buttonOnClick}
-        variant="contained"
-        color="primary"
-        sx={{
-          zIndex: 2,
-          width: 200,
-          borderRadius: '50px', 
-        }}
+      <MemoizedCustomButton
+      bgColor='#1976d2'
+            onClick={buttonOnClick}
+            variant="contained"
+            color="primary"
+            sx={{
+              zIndex: 2,
+              width: 200,
+              borderRadius: '50px', 
+            }}
       >
-        Learn More
-      </Button>
+      Learn More
+      </MemoizedCustomButton>
     </Box>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { InputBase, IconButton, Box, Fade } from '@mui/material'
 import { Search as SearchIcon } from '@mui/icons-material'
 import { useTheme } from '@mui/material/styles'
+import MemoizedCustomButton from '../common/CustomButton'
 
 const SearchBar = () => {
   const [showInput, setShowInput] = useState(false)
@@ -38,19 +39,19 @@ const SearchBar = () => {
         />
       </Fade>
       <Box sx={{ position: 'relative', width: '4.5rem', height: '100%' }}>
-        <IconButton
-          aria-label="Search"
-          onClick={toggleSearchInput}
-          sx={{
-            borderRadius: 1,
-            backgroundColor: '#1976d2',
-            color: 'white',
-            marginRight: '-2em',
-            zIndex: 1,
-          }}
+        <MemoizedCustomButton
+        bgColor='#1976d2'
+            aria-label="Search"
+            onClick={toggleSearchInput}
+            sx={{
+              borderRadius: 1,
+              color: 'white',
+              marginRight: '-2em',
+              zIndex: 1,
+            }}
         >
-          <SearchIcon />
-        </IconButton>
+                <SearchIcon />
+        </MemoizedCustomButton>
       </Box>
     </Box>
   )
