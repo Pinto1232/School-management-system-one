@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react'
 import {
   AppBar,
   Box,
@@ -10,33 +10,51 @@ import {
   useTheme,
   useMediaQuery,
   Grid,
-} from '@mui/material';
+} from '@mui/material'
 import {
   Menu as MenuIcon,
   Brightness4 as MoonIcon,
   Brightness7 as SunIcon,
-} from '@mui/icons-material';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
-import SearchBar from '../SearchBar/SearchBar';
-import Navibar from '../NavigationBar/Navibar';
-import { useThemeContext } from '../../context/ThemeContext';
+  Translate as TranslateIcon,
+} from '@mui/icons-material'
+import { Link as RouterLink, useLocation } from 'react-router-dom'
+import Flag from 'react-world-flags';
+import { useTranslation } from 'react-i18next'
+import SearchBar from '../SearchBar/SearchBar'
+import Navibar from '../NavigationBar/Navibar'
+import { useThemeContext } from '../../context/ThemeContext'
 
 const Navbar = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const isLoggedIn = false;
-  const location = useLocation();
-  const onDashboard = location.pathname === '/dashboard';
-  const { toggleColorMode } = useThemeContext();
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [langAnchorEl, setLangAnchorEl] = useState(null)
+  const isLoggedIn = false
+  const location = useLocation()
+  const onDashboard = location.pathname === '/dashboard'
+  const { toggleColorMode } = useThemeContext()
+  const { i18n } = useTranslation()
 
   const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
 
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
+
+  const handleLangMenu = (event) => {
+    setLangAnchorEl(event.currentTarget)
+  }
+
+  const handleLangClose = () => {
+    setLangAnchorEl(null)
+  }
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng)
+    handleLangClose()
+  }
 
   return (
     <Box>
@@ -151,12 +169,51 @@ const Navbar = () => {
                 </IconButton>
               </Grid>
             )}
+            {/* Add the Translate icon here */}
+            <Grid item>
+              <IconButton
+                edge="end"
+                color="inherit"
+                aria-label="translate"
+                sx={{ ml: 2 }}
+                onClick={handleLangMenu}
+              >
+                <TranslateIcon />
+              </IconButton>
+              <Menu
+                anchorEl={langAnchorEl}
+                open={Boolean(langAnchorEl)}
+                onClose={handleLangClose}
+              >
+                <MenuItem onClick={() => changeLanguage('en')}>
+                  <Flag
+                    code="GB"
+                    style={{ width: '24px', marginRight: '8px' }}
+                  />
+                  English
+                </MenuItem>
+                <MenuItem onClick={() => changeLanguage('pt')}>
+                  <Flag
+                    code="PT"
+                    style={{ width: '24px', marginRight: '8px' }}
+                  />
+                  Portuguese
+                </MenuItem>
+                <MenuItem onClick={() => changeLanguage('fr')}>
+                  <Flag
+                    code="FR"
+                    style={{ width: '24px', marginRight: '8px' }}
+                  />
+                  French
+                </MenuItem>
+              </Menu>
+            </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
     </Box>
-  );
-};
+  )
+}
 
-const MemoizedNavbar = React.memo(Navbar);
-export default MemoizedNavbar;
+const MemoizedNavbar = React.memo(Navbar)
+export default MemoizedNavbar

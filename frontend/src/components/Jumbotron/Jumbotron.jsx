@@ -103,7 +103,7 @@ const Jumbotron = ({
       <MemoizedCustomButton
         bgColor="#1976d2"
         onClick={buttonOnClick}
-        variant="contained"s
+        variant="contained"
         sx={{
           zIndex: 2,
           width: 200,
