@@ -50,15 +50,13 @@ const ProductsSection = ({ heading, subheading, products }) => {
     const token = localStorage.getItem('token')
 
     if (!token) {
-      // If not authenticated, redirect to login/registration page
       navigate('/register', { state: { packageName: product.name } })
     } else {
-      // If authenticated, proceed with the subscription process
       setLoading(product.name)
       setTimeout(() => {
         setLoading(null)
         navigate('/subscribe', { state: { packageName: product.name } })
-      }, 6000) // Display the loader for 2 seconds
+      }, 6000)
     }
   }
 
@@ -87,7 +85,7 @@ const ProductsSection = ({ heading, subheading, products }) => {
           boxShadow: theme.shadows[1],
           overflowY: 'auto',
           width: '100%',
-          maxHeight: '500px', // Set the desired height here
+          maxHeight: '500px',
           '&::-webkit-scrollbar': {
             width: '8px',
           },
@@ -185,10 +183,18 @@ const ProductsSection = ({ heading, subheading, products }) => {
             ))}
             <TableRow>
               <TableCell
-                sx={{ fontWeight: 'bold', textAlign: 'center', background: 'lightgrey'  }}
+                sx={{
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                  background: 'lightgrey',
+                }}
               ></TableCell>
               {products.map((product) => (
-                <TableCell key={product._id} align="center" sx={{ background: 'lightgrey' }}>
+                <TableCell
+                  key={product._id}
+                  align="center"
+                  sx={{ background: 'lightgrey' }}
+                >
                   <Box
                     display="flex"
                     flexDirection="column"

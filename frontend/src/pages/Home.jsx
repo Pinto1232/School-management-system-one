@@ -13,6 +13,7 @@ import AboutUsSection from '../components/common/AboutUsSection';
 import ProductsSection from '../components/ProductsSection/ProductsSection';
 import { useGetPackagesQuery } from '../slicers/packageSlicer';
 import { useGetContentQuery } from '../slicers/Home/HomeContentSlicer';
+import imageGB from  '../assets/images/Banner.jpg'
 import { useSnackbar } from 'notistack';
 
 const Home = () => {
@@ -117,7 +118,15 @@ const Home = () => {
         />
       </Grid>
 
-      <Grid item>
+      <Grid item
+        style={{
+          backgroundImage: `url(${imageGB})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          position: 'relative',
+        }}
+      >
         <Box
           maxWidth={boxMaxWidth}
           mx="auto"
