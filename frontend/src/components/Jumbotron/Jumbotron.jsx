@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Typography, Button, useTheme, useMediaQuery } from '@mui/material';
-import MemoizedCustomButton from '../common/CustomButton';
+import React, { useState, useEffect } from 'react'
+import { Box, Typography, Button, useTheme, useMediaQuery } from '@mui/material'
+import MemoizedCustomButton from '../common/CustomButton'
 
 const Jumbotron = ({
   title,
@@ -13,25 +13,25 @@ const Jumbotron = ({
   bgImage,
   buttonOnClick,
 }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const [displayedTitle, setDisplayedTitle] = useState('');
-  const [index, setIndex] = useState(0);
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const [displayedTitle, setDisplayedTitle] = useState('')
+  const [index, setIndex] = useState(0)
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       setDisplayedTitle((prev) => {
         if (prev.length < title.length) {
-          return title.slice(0, prev.length + 1);
+          return title.slice(0, prev.length + 1)
         } else {
-          return '';
+          return ''
         }
-      });
-      setIndex((prev) => (prev + 1) % (title.length + 1));
-    }, 200); // Adjust the speed of the typewriter effect here
+      })
+      setIndex((prev) => (prev + 1) % (title.length + 1))
+    }, 200) // Adjust the speed of the typewriter effect here
 
-    return () => clearInterval(intervalId);
-  }, [title]);
+    return () => clearInterval(intervalId)
+  }, [title])
 
   return (
     <Box
@@ -62,14 +62,14 @@ const Jumbotron = ({
         '&::after': {
           content: '""',
           position: 'absolute',
-          bottom: '-1px', 
+          bottom: '-1px',
           left: 0,
           width: '100%',
-          height: '20px', 
+          height: '20px',
           backgroundColor: theme.palette.background.default,
-          borderTopLeftRadius: '100% 80px', 
-          borderTopRightRadius: '100% 40px', 
-          transform: 'scaleX(4.5)', 
+          borderTopLeftRadius: '100% 80px',
+          borderTopRightRadius: '100% 40px',
+          transform: 'scaleX(4.5)',
           zIndex: 1,
         },
       }}
@@ -101,21 +101,20 @@ const Jumbotron = ({
         {subtitle}
       </Typography>
       <MemoizedCustomButton
-      bgColor='#1976d2'
-            onClick={buttonOnClick}
-            variant="contained"
-            color="primary"
-            sx={{
-              zIndex: 2,
-              width: 200,
-              borderRadius: '50px', 
-            }}
+        bgColor="#1976d2"
+        onClick={buttonOnClick}
+        variant="contained"s
+        sx={{
+          zIndex: 2,
+          width: 200,
+          borderRadius: '50px',
+        }}
       >
-      Learn More
+        Learn More
       </MemoizedCustomButton>
     </Box>
-  );
-};
+  )
+}
 
-const MemoizedJumbotron = React.memo(Jumbotron);
-export default MemoizedJumbotron;
+const MemoizedJumbotron = React.memo(Jumbotron)
+export default MemoizedJumbotron
