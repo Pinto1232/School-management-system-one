@@ -19,7 +19,11 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage }).array("images", 10);
+
+const upload = multer({ storage: storage }).fields([
+  { name: 'images', maxCount: 10 },
+  { name: 'icons', maxCount: 10 }
+]);
 
 // Create new content
 exports.createContent = (req, res) => {
@@ -32,14 +36,17 @@ exports.createContent = (req, res) => {
     }
 
     try {
-      const images = req.files.map((file, index) => ({
+      const images = req.files['images'] ? req.files['images'].map((file, index) => ({
         path: file.path,
         display: req.body.display ? req.body.display[index] === "true" : false,
-      }));
+      })) : [];
+
+      const icons = req.files['icons'] ? req.files['icons'].map(file => file.filename) : [];
 
       const contentData = {
         ...req.body,
         images,
+        icons
       };
 
       const content = new Content(contentData);
@@ -53,6 +60,7 @@ exports.createContent = (req, res) => {
     }
   });
 };
+
 
 // Get all content
 exports.getAllContent = async (req, res) => {
