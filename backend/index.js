@@ -3,6 +3,8 @@ const express = require('express');
 const connectDB = require('./src/config/db');
 const cors = require('cors');
 const path = require('path');
+const i18n = require('./src/config/i18n'); // Import i18next configuration
+const middleware = require('i18next-http-middleware'); // Use i18next-http-middleware
 
 // Import user routes
 const attendanceRoutes = require('./src/routes/attendance');
@@ -38,13 +40,14 @@ const app = express();
 connectDB();
 
 // Middlewares
-app.use(express.json()); // Parse JSON request body
+app.use(express.json()); 
 app.use(cors());
+app.use(middleware.handle(i18n)); 
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.get('/', (req, res) => {
-    res.send('Backend is running');
+    res.send(req.t('welcome')); // Use translation
 });
 
 // Use user routes
