@@ -772,15 +772,15 @@
   }
 
   .plan-card__favourite {
-    @apply absolute top-4 right-4 grid size-10 place-items-center rounded-full bg-[#f8fbff] text-brand-600 shadow-[0_8px_20px_rgb(0_20_61/0.2)];
+    @apply absolute top-4 right-4 grid size-10 place-items-center rounded-full bg-[#f8fbff] text-brand-600 shadow-[0_8px_20px_rgb(0_20_61/0.2)] transition duration-150 hover:scale-105 hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 disabled:cursor-wait disabled:opacity-60;
   }
 
   .plan-card-shell--selected .plan-card__status {
     @apply bg-success;
   }
 
-  .plan-card-shell--selected .plan-card__favourite {
-    @apply bg-success text-white;
+  .plan-card__favourite--liked {
+    @apply bg-brand-600 text-white;
   }
 
   .plan-card__body {
@@ -823,7 +823,11 @@
   }
 
   .plan-card__side-favourite {
-    @apply absolute right-[-0.3rem] bottom-[21%] grid size-10 place-items-center rounded-full border-[0.35rem] border-surface-muted bg-surface-strong text-brand-600 shadow-[0_10px_24px_rgb(0_27_81/0.15)];
+    @apply absolute right-[-0.3rem] bottom-[21%] grid size-10 place-items-center rounded-full border-[0.35rem] border-surface-muted bg-surface-strong text-brand-600 shadow-[0_10px_24px_rgb(0_27_81/0.15)] transition duration-150 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 disabled:cursor-wait disabled:opacity-60;
+  }
+
+  .plan-card__side-favourite--liked {
+    @apply bg-brand-600 text-white;
   }
 
   .plan-card__dock-action {
@@ -1200,6 +1204,79 @@
     @apply mt-5 text-center;
   }
 
+  .login-shell .auth-shell__visual img {
+    @apply object-center;
+  }
+
+  .login-shell .auth-shell__visual-copy {
+    @apply inset-0 flex max-w-none flex-col items-center justify-center px-[clamp(2rem,6vw,5rem)] py-8 text-center;
+  }
+
+  .login-shell .auth-shell__visual-copy h2 {
+    @apply mb-3 text-[clamp(2.5rem,4vw,3.75rem)] text-[#f3f8ff];
+  }
+
+  .login-shell .auth-shell__visual-copy p {
+    @apply max-w-[48ch];
+  }
+
+  .login-shell__form {
+    @apply relative min-w-0 bg-canvas p-[clamp(1.5rem,4vw,3rem)];
+  }
+
+  .login-panel {
+    @apply grid w-full min-w-0 max-w-[470px] gap-4;
+    margin-block: clamp(1rem, 2.5vh, 1.5rem);
+  }
+
+  .login-panel__back {
+    @apply inline-flex w-fit items-center gap-2 rounded-control px-1 py-1 text-sm font-bold text-ink-soft transition duration-150 hover:-translate-x-0.5 hover:text-brand-700;
+  }
+
+  .login-card {
+    @apply w-full min-w-0 rounded-surface border border-line bg-surface-strong p-[clamp(1.5rem,3vw,2rem)] shadow-panel;
+  }
+
+  .login-card__icon {
+    @apply mb-4 grid size-11 place-items-center rounded-control bg-brand-100 text-brand-700;
+  }
+
+  .login-card .auth-card__header {
+    @apply mb-5;
+  }
+
+  .login-card .auth-card__header h1 {
+    @apply mb-2.5 text-[clamp(1.9rem,3.2vw,2.45rem)];
+  }
+
+  .login-card .auth-card__header p {
+    @apply mb-0 max-w-[39ch] text-[0.95rem] leading-relaxed;
+  }
+
+  .login-card__submit {
+    @apply min-h-12 w-full px-5;
+  }
+
+  .login-card__spinner {
+    @apply animate-spin;
+  }
+
+  .login-card__security-note {
+    @apply flex items-start gap-3 rounded-control bg-surface-muted p-3.5 text-ink-soft;
+  }
+
+  .login-card__security-note svg {
+    @apply mt-0.5 shrink-0 text-brand-700;
+  }
+
+  .login-card__security-note p {
+    @apply m-0 text-xs leading-relaxed;
+  }
+
+  .login-card .auth-card__footer {
+    @apply mt-5 mb-0 border-t border-line pt-4 text-sm;
+  }
+
   .text-link {
     @apply font-bold text-brand-700 hover:underline hover:underline-offset-3;
   }
@@ -1327,87 +1404,12 @@
     @apply flex flex-wrap gap-3;
   }
 
-  .dashboard-layout {
-    grid-template-columns: 270px minmax(0, 1fr);
-    @apply grid min-h-dvh bg-canvas print:block;
-  }
-
-  .dashboard-sidebar {
-    @apply sticky top-0 flex h-dvh flex-col border-r border-line bg-surface print:hidden;
-  }
-
-  .dashboard-sidebar__head {
-    @apply flex h-[var(--header-height)] items-center border-b border-line px-5;
-  }
-
-  .dashboard-sidebar__nav {
-    @apply grid gap-1 overflow-y-auto px-3 py-4;
-  }
-
-  .dashboard-sidebar__nav a {
-    @apply flex min-h-[43px] items-center gap-3 rounded-control px-3 py-2.5 text-sm font-bold text-ink-soft hover:bg-surface-muted hover:text-ink;
-  }
-
-  .dashboard-sidebar__nav a.is-active {
-    @apply bg-brand-100 text-brand-800;
-  }
-
-  .dashboard-sidebar__nav svg {
-    @apply shrink-0 text-xl;
-  }
-
-  .dashboard-sidebar__footer {
-    @apply mt-auto border-t border-line p-4;
-  }
-
-  .dashboard-user {
-    grid-template-columns: 38px minmax(0, 1fr);
-    @apply mb-3 grid items-center gap-3;
-  }
-
   .avatar {
     @apply grid size-[38px] place-items-center overflow-hidden rounded-full bg-brand-100 text-[0.82rem] font-black text-brand-800;
   }
 
   .avatar img {
     @apply size-full object-cover;
-  }
-
-  .dashboard-user strong,
-  .dashboard-user span {
-    @apply block overflow-hidden text-ellipsis whitespace-nowrap;
-  }
-
-  .dashboard-user strong {
-    @apply text-sm;
-  }
-
-  .dashboard-user span {
-    @apply text-xs text-ink-soft;
-  }
-
-  .dashboard-main {
-    @apply min-w-0;
-  }
-
-  .dashboard-topbar {
-    @apply sticky top-0 z-30 flex min-h-[var(--header-height)] items-center gap-4 border-b border-line bg-surface/95 px-6 backdrop-blur-xl print:hidden;
-  }
-
-  .dashboard-topbar h1 {
-    @apply m-0 text-lg;
-  }
-
-  .dashboard-topbar__actions {
-    @apply ml-auto flex gap-2.5;
-  }
-
-  .dashboard-menu-button {
-    @apply hidden;
-  }
-
-  .dashboard-content {
-    @apply mx-auto w-full max-w-[1500px] p-[clamp(1rem,2.5vw,2rem)] print:p-0;
   }
 
   .dashboard-welcome {
@@ -2184,41 +2186,45 @@
   }
 
   .plan-drawer-backdrop {
-    @apply absolute inset-0 cursor-default border-0 bg-navy-900/65 transition-opacity duration-200;
+    @apply absolute inset-0 cursor-default border-0 bg-navy-900/60;
   }
 
   .plan-drawer {
-    width: min(100%, 500px);
-    @apply relative flex h-[100dvh] flex-col overflow-hidden border-l border-line bg-surface-strong shadow-[-24px_0_60px_rgb(0_20_61/0.22)] transition-transform duration-200 ease-out;
+    width: min(92vw, 420px);
+    @apply relative flex h-[100dvh] flex-col overflow-hidden border-l border-line bg-surface-strong shadow-[-20px_0_52px_rgb(0_20_61/0.2)];
   }
 
   .plan-drawer__header {
-    @apply flex items-start justify-between gap-5 border-b border-line px-7 py-6;
+    @apply flex items-start justify-between gap-4 border-b border-line px-6 py-5;
   }
 
   .plan-drawer__header > div > span {
-    @apply mb-1 block text-xs font-extrabold tracking-[0.12em] text-brand-700 uppercase;
+    @apply mb-1 block text-[0.6875rem] font-extrabold tracking-[0.12em] text-brand-700 uppercase;
   }
 
   .plan-drawer__header h2 {
-    @apply m-0 text-[clamp(2rem,5vw,2.8rem)];
+    @apply m-0 text-[clamp(1.75rem,3.8vw,2.25rem)] leading-tight;
+  }
+
+  .plan-drawer__header .icon-button {
+    @apply size-10 min-w-10;
   }
 
   .plan-drawer__body {
-    @apply flex-1 overflow-y-auto px-7 py-6;
+    @apply flex-1 overflow-y-auto px-6 py-5;
     overscroll-behavior: contain;
   }
 
   .plan-drawer__description {
-    @apply mb-5 max-w-[42ch] text-lg leading-relaxed text-ink-soft;
+    @apply mb-4 max-w-[42ch] text-base leading-relaxed text-ink-soft;
   }
 
   .plan-drawer__price {
-    @apply mb-7 flex items-end gap-2 border-b border-line pb-7;
+    @apply mb-5 flex items-end gap-2 border-b border-line pb-5;
   }
 
   .plan-drawer__price span {
-    @apply text-[clamp(2.6rem,7vw,4rem)] font-black leading-none tracking-[-0.055em] text-ink;
+    @apply text-[clamp(2.35rem,5vw,3.25rem)] font-black leading-none tracking-[-0.055em] text-ink;
   }
 
   .plan-drawer__price small {
@@ -2226,31 +2232,31 @@
   }
 
   .plan-drawer__features {
-    @apply mb-7;
+    @apply mb-5;
   }
 
   .plan-drawer__section-heading {
-    @apply mb-5 flex items-start gap-3;
+    @apply mb-4 flex items-start gap-3;
   }
 
   .plan-drawer__feature-icon {
-    @apply grid size-10 shrink-0 place-items-center rounded-control bg-brand-100 text-brand-700;
+    @apply grid size-9 shrink-0 place-items-center rounded-control bg-brand-100 text-brand-700;
   }
 
   .plan-drawer__section-heading h3 {
-    @apply mb-1 text-lg;
+    @apply mb-0.5 text-base;
   }
 
   .plan-drawer__section-heading p {
-    @apply m-0 text-sm text-ink-soft;
+    @apply m-0 text-[0.8125rem] text-ink-soft;
   }
 
   .plan-drawer__features ul {
-    @apply m-0 grid list-none gap-3 p-0;
+    @apply m-0 grid list-none gap-2 p-0;
   }
 
   .plan-drawer__features li {
-    @apply flex items-start gap-3 rounded-control bg-surface-muted px-4 py-3 font-semibold;
+    @apply flex items-start gap-2.5 rounded-control bg-surface-muted px-3.5 py-2.5 text-sm font-semibold;
   }
 
   .plan-drawer__features li svg {
@@ -2258,7 +2264,7 @@
   }
 
   .plan-drawer__assurance {
-    @apply flex items-start gap-3 rounded-surface border border-line bg-surface p-4;
+    @apply flex items-start gap-3 rounded-surface border border-line bg-surface p-3.5;
   }
 
   .plan-drawer__assurance > svg {
@@ -2270,11 +2276,11 @@
   }
 
   .plan-drawer__assurance p {
-    @apply mt-1 mb-0 text-sm text-ink-soft;
+    @apply mt-1 mb-0 text-xs leading-relaxed text-ink-soft;
   }
 
   .plan-drawer__footer {
-    @apply grid shrink-0 gap-2 border-t border-line bg-surface-strong px-7 py-5;
+    @apply grid shrink-0 gap-2 border-t border-line bg-surface-strong px-6 py-4;
   }
 
   .plan-drawer__cart-status {
@@ -2285,13 +2291,23 @@
     @apply my-1 text-center text-sm text-ink-soft;
   }
 
-  .plan-drawer-enter-active,
-  .plan-drawer-leave-active,
   .plan-drawer-enter-active .plan-drawer-backdrop,
-  .plan-drawer-leave-active .plan-drawer-backdrop,
-  .plan-drawer-enter-active .plan-drawer,
+  .plan-drawer-leave-active .plan-drawer-backdrop {
+    transition: opacity 280ms ease;
+  }
+
+  .plan-drawer-enter-active .plan-drawer {
+    transition:
+      transform 380ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 280ms ease;
+    will-change: transform;
+  }
+
   .plan-drawer-leave-active .plan-drawer {
-    @apply transition duration-200;
+    transition:
+      transform 280ms cubic-bezier(0.4, 0, 1, 1),
+      opacity 220ms ease;
+    will-change: transform;
   }
 
   .plan-drawer-enter-from .plan-drawer-backdrop,
@@ -2302,54 +2318,22 @@
   .plan-drawer-enter-from .plan-drawer,
   .plan-drawer-leave-to .plan-drawer {
     @apply translate-x-full;
+    opacity: 0.92;
   }
 
-  .registration-plan-required {
-    @apply flex flex-col items-center rounded-surface border border-line bg-surface-muted px-6 py-10 text-center;
-  }
+}
 
-  .registration-plan-required > span {
-    @apply mb-4 grid size-14 place-items-center rounded-full bg-brand-100 text-brand-700;
+@media (min-width: 721px) {
+  .login-shell {
+    min-height: calc(100dvh - var(--header-height) - clamp(2rem, 4vw, 4rem));
+    margin-block: clamp(1rem, 2vw, 2rem);
+    margin-inline: clamp(1rem, 2vw, 2rem);
   }
+}
 
-  .registration-plan-required h3 {
-    @apply mb-2 text-xl;
-  }
-
-  .registration-plan-required p {
-    @apply mb-5 max-w-[38ch] text-sm text-ink-soft;
-  }
-
-  .registration-plan-summary {
-    @apply flex items-center gap-3 rounded-surface border border-brand-400 bg-brand-50 p-4;
-  }
-
-  .registration-plan-summary > span {
-    @apply grid size-10 shrink-0 place-items-center rounded-control bg-brand-700 text-white;
-  }
-
-  .registration-plan-summary div {
-    @apply grid;
-  }
-
-  .registration-plan-summary small {
-    @apply text-xs text-ink-soft;
-  }
-
-  .registration-plan-summary strong {
-    @apply text-base;
-  }
-
-  .registration-plan-summary b {
-    @apply ml-auto whitespace-nowrap text-lg;
-  }
-
-  .registration-plan-summary b small {
-    @apply ml-1 font-semibold;
-  }
-
-  .sidebar-backdrop {
-    @apply hidden;
+@media (min-width: 1025px) {
+  .login-shell .auth-shell__visual {
+    min-height: calc(100dvh - var(--header-height) - clamp(2rem, 4vw, 4rem));
   }
 }
 
@@ -2559,27 +2543,6 @@
     @apply min-h-[380px];
   }
 
-  .dashboard-layout {
-    @apply grid-cols-1;
-  }
-
-  .dashboard-sidebar {
-    width: min(290px, 86vw);
-    @apply fixed top-0 left-0 z-70 -translate-x-[105%] transition-transform duration-200 ease-out;
-  }
-
-  .dashboard-sidebar.is-open {
-    @apply translate-x-0;
-  }
-
-  .sidebar-backdrop.is-open {
-    @apply fixed inset-0 z-60 block border-0 bg-[#0a1714]/55;
-  }
-
-  .dashboard-menu-button {
-    @apply inline-grid;
-  }
-
   .profile-grid {
     @apply grid-cols-1;
   }
@@ -2769,14 +2732,6 @@
     @apply pb-[max(1.25rem,env(safe-area-inset-bottom))];
   }
 
-  .registration-plan-summary {
-    @apply flex-wrap;
-  }
-
-  .registration-plan-summary b {
-    @apply ml-[3.25rem];
-  }
-
   .learning-hero {
     width: min(calc(100% - 1.25rem), 680px);
     @apply gap-7 py-9;
@@ -2960,18 +2915,6 @@
     @apply px-4 py-8 pb-[max(2rem,env(safe-area-inset-bottom))];
   }
 
-  .dashboard-topbar {
-    @apply px-3;
-  }
-
-  .dashboard-topbar h1 {
-    @apply max-w-[45vw] overflow-hidden text-ellipsis whitespace-nowrap;
-  }
-
-  .dashboard-content {
-    @apply px-3 pt-4 pb-8;
-  }
-
   .dashboard-welcome {
     @apply block;
   }
@@ -3024,6 +2967,22 @@
 }
 
 @media (max-width: 460px) {
+  .login-card {
+    @apply p-5;
+  }
+
+  .login-card .auth-card__header h1 {
+    @apply text-[1.75rem];
+  }
+
+  .login-card__submit {
+    @apply px-3 text-sm;
+  }
+
+  .login-card__security-note {
+    @apply p-3;
+  }
+
   .app-header__inner {
     @apply gap-2;
   }
@@ -3182,7 +3141,6 @@
 
 @media (prefers-reduced-transparency: reduce) {
   .app-header,
-  .dashboard-topbar,
   .learning-class-card,
   .learning-community-card {
     @apply bg-surface-strong backdrop-blur-none;

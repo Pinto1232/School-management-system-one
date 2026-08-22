@@ -5,15 +5,20 @@ const props = withDefaults(defineProps<{
   plan: PackagePlan
   featured?: boolean
   inCart?: boolean
+  liked?: boolean
+  feedbackPending?: boolean
   variant?: 'inline' | 'docked'
 }>(), {
   featured: false,
   inCart: false,
+  liked: false,
+  feedbackPending: false,
   variant: 'inline',
 })
 
 const emit = defineEmits<{
   view: [plan: PackagePlan]
+  favourite: [plan: PackagePlan]
 }>()
 
 const generatedFallback = computed(() => props.featured
@@ -33,6 +38,9 @@ const statusLabel = computed(() => {
 })
 
 const actionLabel = computed(() => 'Ver plano')
+const favouriteLabel = computed(() => props.liked
+  ? `Remover ${props.plan.name} dos favoritos`
+  : `Adicionar ${props.plan.name} aos favoritos`)
 
 const useFallbackImage = (event: Event) => {
   const image = event.currentTarget as HTMLImageElement
@@ -58,10 +66,17 @@ const useFallbackImage = (event: Event) => {
           @error="useFallbackImage"
         >
         <span class="plan-card__status">{{ statusLabel }}</span>
-        <span class="plan-card__favourite" aria-hidden="true">
-          <Icon v-if="inCart" name="ph:check-bold" size="24" />
-          <Icon v-else name="ph:heart-fill" size="24" />
-        </span>
+        <button
+          class="plan-card__favourite"
+          :class="{ 'plan-card__favourite--liked': liked }"
+          type="button"
+          :aria-label="favouriteLabel"
+          :aria-pressed="liked"
+          :disabled="feedbackPending"
+          @click.stop="emit('favourite', plan)"
+        >
+          <Icon :name="liked ? 'ph:heart-fill' : 'ph:heart'" size="24" aria-hidden="true" />
+        </button>
       </div>
 
       <div class="plan-card__body">
@@ -87,13 +102,18 @@ const useFallbackImage = (event: Event) => {
       </div>
     </article>
 
-    <span
+    <button
       v-if="variant === 'docked'"
       class="plan-card__side-favourite"
-      aria-hidden="true"
+      :class="{ 'plan-card__side-favourite--liked': liked }"
+      type="button"
+      :aria-label="favouriteLabel"
+      :aria-pressed="liked"
+      :disabled="feedbackPending"
+      @click.stop="emit('favourite', plan)"
     >
-      <Icon name="ph:heart-fill" size="24" />
-    </span>
+      <Icon :name="liked ? 'ph:heart-fill' : 'ph:heart'" size="24" aria-hidden="true" />
+    </button>
 
     <button
       v-if="variant === 'docked'"

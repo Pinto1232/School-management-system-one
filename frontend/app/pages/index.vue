@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { fallbackPlans } from '~/data/school'
-import type { PackagePlan } from '~/types'
+import type { PackageFeedback, PackagePlan } from '~/types'
 
 const { request } = useApi()
 
@@ -14,12 +14,15 @@ const { data: plansResponse } = await useLazyAsyncData(
 )
 
 const plans = computed(() => (plansResponse.value?.length ? plansResponse.value : fallbackPlans).map(localisePackagePlan))
-const { isAuthenticated } = useAuth()
+const { isAuthenticated, initialiseAuth, login } = useAuth()
 const { cartItem, initialiseCart, addToCart, clearCart } = useSchoolCart()
 const heroSearch = ref('')
 const heroSearchMessage = ref('')
 const selectedPlan = ref<PackagePlan | null>(null)
 const planDrawerOpen = ref(false)
+const favouritePlans = ref<Record<string, boolean>>({})
+const feedbackPending = ref<Record<string, boolean>>({})
+const feedbackMessage = ref('')
 
 const classroomRoute = computed(() => isAuthenticated.value ? '/dashboard/streaming' : '/login')
 const alertsRoute = computed(() => isAuthenticated.value ? '/dashboard/events' : '/login')
@@ -55,6 +58,58 @@ const submitHeroSearch = async () => {
 }
 
 const planIdentity = (plan: PackagePlan | null) => String(plan?._id || plan?.id || plan?.name || '')
+const isPlanInCart = (plan: PackagePlan | null) => Boolean(
+  plan && cartItem.value && planIdentity(cartItem.value) === planIdentity(plan),
+)
+const isPlanLiked = (plan: PackagePlan) => Boolean(favouritePlans.value[planIdentity(plan)])
+
+const loadPackageFeedback = async () => {
+  if (!isAuthenticated.value) return
+
+  try {
+    const response = await request<{ feedback: PackageFeedback[] }>('/packages/feedback')
+    favouritePlans.value = Object.fromEntries(
+      response.feedback.map(feedback => [feedback.planKey, feedback.liked]),
+    )
+  } catch {
+    feedbackMessage.value = 'Não foi possível carregar os seus favoritos.'
+  }
+}
+
+const togglePlanFavourite = async (plan: PackagePlan) => {
+  const authenticated = isAuthenticated.value || await initialiseAuth()
+  if (!authenticated) {
+    await login('/#plans')
+    return
+  }
+
+  const planKey = planIdentity(plan)
+  if (!planKey || feedbackPending.value[planKey]) return
+
+  const previousValue = Boolean(favouritePlans.value[planKey])
+  const liked = !previousValue
+  feedbackPending.value = { ...feedbackPending.value, [planKey]: true }
+  favouritePlans.value = { ...favouritePlans.value, [planKey]: liked }
+  feedbackMessage.value = liked
+    ? `${plan.name} foi adicionado aos favoritos.`
+    : `${plan.name} foi removido dos favoritos.`
+
+  try {
+    const response = await request<{ feedback: PackageFeedback }>(
+      `/packages/${encodeURIComponent(planKey)}/feedback`,
+      { method: 'PUT', body: { liked } },
+    )
+    favouritePlans.value = {
+      ...favouritePlans.value,
+      [planKey]: response.feedback.liked,
+    }
+  } catch {
+    favouritePlans.value = { ...favouritePlans.value, [planKey]: previousValue }
+    feedbackMessage.value = 'Não foi possível guardar o favorito. Tente novamente.'
+  } finally {
+    feedbackPending.value = { ...feedbackPending.value, [planKey]: false }
+  }
+}
 
 const openPlanDetails = (plan: PackagePlan) => {
   selectedPlan.value = plan
@@ -74,7 +129,11 @@ const removeSelectedPlanFromCart = () => {
   clearCart()
 }
 
-onMounted(initialiseCart)
+onMounted(async () => {
+  initialiseCart()
+  await initialiseAuth()
+  await loadPackageFeedback()
+})
 
 useSeoMeta({
   title: 'Gestão escolar sempre ligada',
@@ -140,7 +199,7 @@ useSeoMeta({
       </div>
 
       <div class="learning-hero-mobile-cta" aria-label="Começar com a Lusivo">
-        <NuxtLink class="button button--primary" to="/#plans">
+        <NuxtLink class="button button--primary" to="/register">
           Criar conta
           <Icon name="ph:arrow-right" size="19" aria-hidden="true" />
         </NuxtLink>
@@ -213,18 +272,22 @@ useSeoMeta({
             :key="String(plan._id || plan.id || plan.name)"
             :plan="plan"
             :featured="index === 1"
-            :in-cart="planIdentity(cartItem) === planIdentity(plan)"
-            :variant="index % 2 === 0 ? 'inline' : 'docked'"
+            :in-cart="isPlanInCart(plan)"
+            :liked="isPlanLiked(plan)"
+            :feedback-pending="Boolean(feedbackPending[planIdentity(plan)])"
+            :variant="isPlanInCart(plan) ? 'docked' : 'inline'"
             @view="openPlanDetails"
+            @favourite="togglePlanFavourite"
           />
         </div>
+        <p class="sr-only" aria-live="polite">{{ feedbackMessage }}</p>
       </div>
     </section>
 
     <PlanDetailsDrawer
       :open="planDrawerOpen"
       :plan="selectedPlan"
-      :in-cart="planIdentity(cartItem) === planIdentity(selectedPlan)"
+      :in-cart="isPlanInCart(selectedPlan)"
       @close="closePlanDetails"
       @add="addSelectedPlanToCart"
       @remove="removeSelectedPlanFromCart"

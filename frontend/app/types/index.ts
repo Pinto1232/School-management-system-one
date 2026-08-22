@@ -27,6 +27,12 @@ export interface PackagePlan {
   [key: string]: unknown
 }
 
+export interface PackageFeedback {
+  planKey: string
+  liked: boolean
+  updatedAt?: string
+}
+
 export interface ContentImage {
   path: string
 }

@@ -17,9 +17,17 @@ const cartLabel = computed(() => cartItem.value
 
 const categoryNavigation = [
   { label: 'Planos', to: '/#plans' },
+  { label: 'Gestão escolar', to: '/#gestao-escolar' },
+  { label: 'Gestão académica', to: '/#gestao-academica' },
+  { label: 'Comunicação', to: '/#comunicacao' },
+  { label: 'Finanças', to: '/#financas' },
+  { label: 'Relatórios', to: '/#relatorios' },
 ]
 
-const isCurrentCategory = (to: string) => route.path === (to.split('#')[0] || '/')
+const isCurrentCategory = (to: string) => {
+  const [path, hash] = to.split('#')
+  return route.path === (path || '/') && route.hash === (hash ? `#${hash}` : '')
+}
 
 const searchTargets = computed(() => {
   const publicTargets = [
@@ -162,7 +170,7 @@ onMounted(initialiseCart)
 
           <template v-else>
             <NuxtLink class="button button--secondary header-auth-button" to="/login">Iniciar sessão</NuxtLink>
-            <NuxtLink class="button button--primary header-auth-button" to="/#plans">Criar conta</NuxtLink>
+            <NuxtLink class="button button--primary header-auth-button" to="/register">Criar conta</NuxtLink>
           </template>
 
           <button
@@ -221,7 +229,7 @@ onMounted(initialiseCart)
         </NuxtLink>
         <template v-else>
           <NuxtLink class="button button--secondary" to="/login">Iniciar sessão</NuxtLink>
-          <NuxtLink class="button button--primary" to="/#plans">Criar conta</NuxtLink>
+          <NuxtLink class="button button--primary" to="/register">Criar conta</NuxtLink>
         </template>
       </div>
     </div>

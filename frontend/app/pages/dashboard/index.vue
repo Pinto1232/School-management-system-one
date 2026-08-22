@@ -4,5 +4,5 @@ useSeoMeta({ title: 'Painel', robots: 'noindex' })
 </script>
 
 <template>
-  <DashboardWorkspace view="dashboard" />
+  <!-- Dashboard content will be rebuilt from scratch. -->
 </template>
