@@ -21,7 +21,6 @@ const humanResourceSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
     },
     phoneNumber: {
         type: String,
@@ -55,6 +54,8 @@ const humanResourceSchema = new Schema({
     },
     benefits: [String],
 });
+
+humanResourceSchema.index({ schoolId: 1, email: 1 }, { unique: true });
 
 const HumanResource = mongoose.model('HumanResource', humanResourceSchema);
 

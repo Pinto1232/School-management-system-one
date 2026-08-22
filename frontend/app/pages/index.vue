@@ -108,7 +108,7 @@ useSeoMeta({
             id="hero-search"
             v-model="heroSearch"
             type="search"
-            placeholder="Encontre a sua disciplina"
+            placeholder="Pesquisar na Lusivo"
             autocomplete="off"
           >
           <button type="submit" aria-label="Pesquisar funcionalidades escolares">
@@ -137,6 +137,16 @@ useSeoMeta({
             </span>
           </div>
         </div>
+      </div>
+
+      <div class="learning-hero-mobile-cta" aria-label="Começar com a Lusivo">
+        <NuxtLink class="button button--primary" to="/#plans">
+          Criar conta
+          <Icon name="ph:arrow-right" size="19" aria-hidden="true" />
+        </NuxtLink>
+        <NuxtLink class="button button--secondary" to="/about">
+          Explorar plataforma
+        </NuxtLink>
       </div>
 
       <div class="learning-hero__visual" aria-label="Uma aluna a participar numa aula online">
@@ -188,16 +198,6 @@ useSeoMeta({
           <Icon name="ph:chat-centered-text" size="30" aria-hidden="true" />
         </NuxtLink>
       </div>
-    </section>
-
-    <section class="learning-hero-mobile-cta" aria-label="Começar com a Lusivo">
-      <NuxtLink class="button button--primary" to="/#plans">
-        Criar conta
-        <Icon name="ph:arrow-right" size="19" aria-hidden="true" />
-      </NuxtLink>
-      <NuxtLink class="button button--secondary" to="/about">
-        Explorar plataforma
-      </NuxtLink>
     </section>
 
     <section id="plans" class="section plans-section anchor-section">

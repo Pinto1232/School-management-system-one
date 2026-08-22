@@ -1,28 +1,23 @@
-const User = require('../models/User');
-
 const authorize = (roles) => {
-  return async (req, res, next) => {
-    try {
-      const user = req.user;
+  const allowedRoles = roles.map(role => role.toLowerCase());
 
-      if (!user) {
-        return res.status(401).json({ message: 'Invalid user, access denied.' });
-      }
-
-      console.log('User:', user);
-      console.log('Expected roles:', roles);
-
-      if (!roles.includes(user.role)) {
-        return res.status(403).json({ message: `Access denied. Only ${roles.join(', ')} roles allowed.` });
-      }
-
-      next();
-    } catch (err) {
-      res.status(500).json({ message: 'Server error', error: err.message });
+  return (req, res, next) => {
+    if (!req.user) {
+      return res.status(401).json({ message: 'Authentication required.' });
     }
+
+    const userRoles = Array.isArray(req.user.roles) ? [...req.user.roles] : [req.user.role];
+    if (userRoles.includes('platform_admin') && !userRoles.includes('admin')) userRoles.push('admin');
+    if (!userRoles.some(role => allowedRoles.includes(String(role).toLowerCase()))) {
+      return res.status(403).json({
+        message: `Access denied. Required role: ${allowedRoles.join(' or ')}.`,
+      });
+    }
+
+    next();
   };
 };
 
 module.exports = {
-  authorize, // Add this line to export the authorize middleware
+  authorize,
 };

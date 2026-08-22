@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -10,9 +9,11 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
     },
-    password: {
+    keycloakId: {
       type: String,
-      required: true,
+      unique: true,
+      sparse: true,
+      index: true,
     },
     firstName: {
       type: String,
@@ -26,43 +27,20 @@ const UserSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["student", "teacher", "admin"],
-      default: "student",
+      enum: ["student", "teacher", "admin", "platform_admin", "parent", "staff", "unassigned"],
+      default: "unassigned",
     },
     image: {
       type: String,
-      required: [true, "A profile image is required"],
+      default: "",
     },
     lastLogin: {
-      type: Date,
-      default: null,
-    },
-    loginAttempts: {
-      type: Number,
-      default: 0,
-    },
-    lockUntil: {
       type: Date,
       default: null,
     },
   },
   { timestamps: true }
 );
-
-UserSchema.pre("save", async function (next) {
-  if (this.isModified("password")) {
-    this.password = await bcrypt.hash(this.password, 10);
-  }
-  if (this.isModified("password") || this.isNew) {
-    this.loginAttempts = 0;
-    this.lockUntil = null;
-  }
-  next();
-});
-
-UserSchema.methods.comparePassword = async function (candidatePassword) {
-  return await bcrypt.compare(candidatePassword, this.password);
-};
 
 const User = mongoose.model("User", UserSchema);
 

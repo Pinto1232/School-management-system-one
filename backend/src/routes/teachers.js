@@ -4,7 +4,7 @@ const authenticate = require('../middlewares/authenticate');
 const { authorize } = require('../middlewares/authorize');
 const teacherController = require('../controllers/teachers');
 
-const allowedRolesTeacher = ['teacher', 'admin'];
+const readRoles = ['teacher', 'admin', 'staff'];
 
 /**
  * @swagger
@@ -25,14 +25,15 @@ const allowedRolesTeacher = ['teacher', 'admin'];
  *               email:
  *                 type: string
  *                 example: johndoe@example.com
- *               password:
- *                 type: string
- *                 example: password123
  *     responses:
  *       201:
  *         description: Teacher registered successfully
  */
-router.route('/register').post(teacherController.createTeacher);
+router.route('/register').post(
+  authenticate,
+  authorize(['admin']),
+  teacherController.createTeacher,
+);
 
 /**
  * @swagger
@@ -51,7 +52,7 @@ router.route('/register').post(teacherController.createTeacher);
  *                 $ref: '#/components/schemas/Teacher'
  */
 router.route('/')
-  .get(authenticate, authorize(allowedRolesTeacher), teacherController.getAllTeachers);
+  .get(authenticate, authorize(readRoles), teacherController.getAllTeachers);
 
 /**
  * @swagger
@@ -104,9 +105,9 @@ router.route('/')
  *         description: Teacher deleted successfully
  */
 router.route('/:id')
-  .get(authenticate, authorize(allowedRolesTeacher), teacherController.getTeacherById)
-  .put(authenticate, authorize(allowedRolesTeacher), teacherController.updateTeacher)
-  .delete(authenticate, authorize(allowedRolesTeacher), teacherController.deleteTeacher);
+  .get(authenticate, authorize(readRoles), teacherController.getTeacherById)
+  .put(authenticate, authorize(['admin']), teacherController.updateTeacher)
+  .delete(authenticate, authorize(['admin']), teacherController.deleteTeacher);
 
 /**
  * @swagger

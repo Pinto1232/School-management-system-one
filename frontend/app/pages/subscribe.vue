@@ -9,6 +9,7 @@ type CardField = 'cardName' | 'cardNumber' | 'expiry' | 'cvv'
 
 const checkoutTop = ref<HTMLElement | null>(null)
 const { cartItem, initialiseCart, clearCart } = useSchoolCart()
+const { initialiseAuth, isAuthenticated, login, user } = useAuth()
 const plan = ref<PackagePlan>(fallbackPlans[1]!)
 const billing = ref<BillingCycle>('monthly')
 const paymentMethod = ref<PaymentMethod>('card')
@@ -160,10 +161,10 @@ const completeCheckout = async () => {
       completedAt: new Date().toISOString(),
     }))
     clearCart()
-    sessionStorage.removeItem('registration')
+    sessionStorage.removeItem('registration-plan')
   }
 
-  await navigateTo('/login?subscription=test-complete')
+  await navigateTo('/dashboard?subscription=test-complete')
 }
 
 onMounted(async () => {
@@ -173,18 +174,23 @@ onMounted(async () => {
     return
   }
 
+  await initialiseAuth()
+  if (!isAuthenticated.value) {
+    await login('/subscribe')
+    return
+  }
+
   try {
-    const savedRegistration = sessionStorage.getItem('registration')
     plan.value = cartItem.value
-    if (!savedRegistration) {
-      await navigateTo('/register')
-      return
+    registration.value = {
+      firstName: user.value?.firstName,
+      lastName: user.value?.lastName,
+      email: user.value?.email,
     }
-    if (savedRegistration) registration.value = JSON.parse(savedRegistration)
     form.cardName = `${registration.value.firstName || ''} ${registration.value.lastName || ''}`.trim()
   } catch {
     clearCart()
-    sessionStorage.removeItem('registration')
+    sessionStorage.removeItem('registration-plan')
     await navigateTo('/#plans')
   }
 })

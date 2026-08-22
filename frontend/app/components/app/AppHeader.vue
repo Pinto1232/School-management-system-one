@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { dashboardNavigation, publicNavigation } from '~/data/school'
+import { dashboardNavigationForRoles, publicNavigation } from '~/data/school'
 
 const route = useRoute()
 const menuOpen = ref(false)
 const searchQuery = ref('')
 const searchMessage = ref('')
 const { theme, toggleTheme } = useTheme()
-const { user, isAuthenticated } = useAuth()
+const { user, isAuthenticated, roles } = useAuth()
 const { uploadUrl } = useApi()
 const { cartItem, initialiseCart } = useSchoolCart()
 
@@ -36,7 +36,7 @@ const searchTargets = computed(() => {
 
   return [
     ...publicTargets,
-    ...dashboardNavigation.map(item => ({
+    ...dashboardNavigationForRoles(roles.value).map(item => ({
       label: item.label,
       to: item.slug === 'dashboard' ? '/dashboard' : `/dashboard/${item.slug}`,
       keywords: `${item.label} dashboard`.toLowerCase(),

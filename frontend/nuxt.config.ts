@@ -13,6 +13,10 @@ export default defineNuxtConfig({
     public: {
       apiBase: 'http://localhost:3001/api',
       backendUrl: 'http://localhost:3001',
+      keycloakUrl: 'http://localhost:8081',
+      keycloakRealm: 'school-system',
+      keycloakClientId: 'school-system-frontend',
+      keycloakAudience: 'school-system-api',
     },
   },
   app: {

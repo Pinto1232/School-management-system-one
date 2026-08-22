@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { samplePeople } from '~/data/school'
 import type { SchoolPerson, User } from '~/types'
 
 const props = defineProps<{ view: string }>()
 const { request } = useApi()
+const { roles } = useAuth()
 
-const people = ref<SchoolPerson[]>(samplePeople.map(person => ({ ...person })))
+const people = ref<SchoolPerson[]>([])
 const loading = ref(false)
 const loadError = ref('')
-const usingSample = ref(true)
+const usingSample = ref(false)
+const canManagePeople = computed(() => roles.value.some(role => ['platform_admin', 'admin', 'teacher', 'staff'].includes(role)))
 
 interface UsersResponse {
   data: Array<User & { _id?: string; image?: string }>
@@ -27,7 +28,7 @@ const normaliseUser = (user: User & { _id?: string }): SchoolPerson => ({
 })
 
 const loadPeople = async () => {
-  if (!['dashboard', 'students'].includes(props.view)) return
+  if (!canManagePeople.value || !['dashboard', 'students'].includes(props.view)) return
   loading.value = true
   loadError.value = ''
   try {
@@ -35,8 +36,8 @@ const loadPeople = async () => {
     people.value = Array.isArray(response.data) ? response.data.map(normaliseUser) : []
     usingSample.value = false
   } catch (error) {
-    loadError.value = 'Não foi possível carregar os registos em tempo real. Estão disponíveis registos de exemplo para manter o espaço utilizável.'
-    usingSample.value = true
+    people.value = []
+    loadError.value = getApiErrorMessage(error, 'Não foi possível carregar os registos em tempo real.')
   } finally {
     loading.value = false
   }
@@ -69,10 +70,10 @@ onMounted(loadPeople)
 <template>
   <div>
     <template v-if="view === 'dashboard'">
-      <DashboardOverview :people-count="people.length" :sample="usingSample" />
-      <section style="margin-top: 1rem">
-        <div class="dashboard-welcome" style="margin-bottom: 1rem">
-          <div><h2 style="font-size: 1.4rem">Diretório escolar</h2><p>Pesquise, adicione, atualize, exporte ou remova registos de pessoas.</p></div>
+      <DashboardOverview v-if="canManagePeople" :people-count="people.length" :sample="false" />
+      <section v-if="canManagePeople" class="dashboard-directory">
+        <div class="dashboard-welcome dashboard-welcome--compact">
+          <div><h2>Diretório escolar</h2><p>Pesquise, adicione, atualize, exporte ou remova registos de pessoas.</p></div>
         </div>
         <PeopleTable
           :people="people"
@@ -82,6 +83,10 @@ onMounted(loadPeople)
           @save="savePerson"
           @delete="deletePerson"
         />
+      </section>
+      <section v-else class="panel">
+        <h2>Bem-vindo ao seu espaço escolar</h2>
+        <p>Utilize a navegação para abrir as áreas disponíveis para a sua função.</p>
       </section>
     </template>
     <StudentWorkspace v-else-if="view === 'students'" :people="people" />

@@ -16,7 +16,6 @@ const FacultySchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
         trim: true,
         lowercase: true,
     },
@@ -60,5 +59,7 @@ const FacultySchema = new mongoose.Schema({
 }, {
     timestamps: true,
 });
+
+FacultySchema.index({ schoolId: 1, email: 1 }, { unique: true });
 
 module.exports = mongoose.model('Faculty', FacultySchema);

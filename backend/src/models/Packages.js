@@ -99,7 +99,7 @@ const packageSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-});
+}, { tenantScoped: false });
 
 const Package = mongoose.model("Package", packageSchema);
 

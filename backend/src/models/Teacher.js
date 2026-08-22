@@ -14,7 +14,6 @@ const TeacherSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, 'Email is required'],
-        unique: true,
         trim: true,
         lowercase: true,
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email address']
@@ -44,6 +43,8 @@ const TeacherSchema = new mongoose.Schema({
         default: false
     }
 });
+
+TeacherSchema.index({ schoolId: 1, email: 1 }, { unique: true });
 
 // Virtual property for the teacher's full name
 TeacherSchema.virtual('fullName').get(function() {

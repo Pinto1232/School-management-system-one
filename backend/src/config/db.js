@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('../tenancy/register');
 
 const connectDB = async () => {
   try {

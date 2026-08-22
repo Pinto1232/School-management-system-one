@@ -1,17 +1,14 @@
 export interface User {
   id?: string
   _id?: string
+  keycloakId?: string
+  schoolId?: string
   firstName: string
   lastName: string
   email: string
   role?: string
+  roles?: string[]
   image?: string
-}
-
-export interface AuthResponse {
-  message: string
-  token: string
-  user: User
 }
 
 export interface PackagePlan {
@@ -53,6 +50,7 @@ export interface ApiErrorShape {
   }
   message?: string
   statusCode?: number
+  status?: number
 }
 
 export interface SchoolPerson {

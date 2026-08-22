@@ -1,41 +1,19 @@
-const Admin = require('../models/Admin');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
-
-// Helper function to validate admin data
-const validateAdminData = (firstName, lastName, email, password) => {
-  const errors = [];
-  if (!firstName) errors.push('First name is required');
-  if (!lastName) errors.push('Last name is required');
-  if (!email) errors.push('Email is required');
-  if (!password) errors.push('Password is required');
-
-  return errors;
-};
+const keycloakManaged = (res) => res.status(409).json({
+  message: 'Create identities and assign the admin role in Keycloak. Local admin records are read-only profiles.',
+  code: 'KEYCLOAK_MANAGED_ADMIN',
+});
 
 // Create a new admin
 const createAdmin = async (req, res, next) => {
-  try {
-    const { firstName, lastName, email, password } = req.body;
-
-    const errors = validateAdminData(firstName, lastName, email, password);
-    if (errors.length > 0) return res.status(400).json({ errors });
-
-    const hashedPassword = await bcrypt.hash(password, 12);
-    const newAdmin = new Admin({ firstName, lastName, email, password: hashedPassword });
-
-    await newAdmin.save();
-    res.status(201).json({ message: 'Admin created', admin: newAdmin });
-  } catch (error) {
-    next(error);
-  }
+  return keycloakManaged(res);
 };
 
 // Get all admins
 const getAllAdmins = async (req, res, next) => {
   try {
-    const admins = await Admin.find();
+    const admins = await User.find({ role: 'admin' }).select('-password -loginAttempts -lockUntil');
     res.status(200).json({ message: 'Admins fetched', admins });
   } catch (error) {
     next(error);
@@ -44,9 +22,10 @@ const getAllAdmins = async (req, res, next) => {
 
 // Get a single admin by ID
 const getAdminById = async (req, res, next) => {
+  const { id } = req.params;
   try {
-    const { id } = req.params;
-    const admin = await Admin.findById(id);
+    const admin = await User.findOne({ _id: id, role: 'admin' })
+      .select('-password -loginAttempts -lockUntil');
 
     if (!admin) {
       return res.status(404).json({ message: `Admin with ID ${id} not found.` });
@@ -64,68 +43,12 @@ const getAdminById = async (req, res, next) => {
 
 // Update an admin
 const updateAdmin = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const { firstName, lastName, email, password } = req.body;
-
-    const errors = validateAdminData(firstName, lastName, email, password);
-    if (errors.length > 0) return res.status(400).json({ errors });
-
-    const hashedPassword = await bcrypt.hash(password, 12);
-    const updatedAdmin = await Admin.findByIdAndUpdate(
-      id,
-      { firstName, lastName, email, password: hashedPassword },
-      { new: true, runValidators: true }
-    );
-
-    res.status(200).json({ message: 'Admin updated', admin: updatedAdmin });
-  } catch (error) {
-    next(error);
-  }
+  return keycloakManaged(res);
 };
 
 // Delete an admin
 const deleteAdmin = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    await Admin.findByIdAndDelete(id);
-
-    res.status(200).json({ message: 'Admin deleted' });
-  } catch (error) {
-    next(error);
-  }
-};
-
-
-// Authentication for the admin login
-const login = async (req, res, next) => {
-  try {
-    const { email, password } = req.body;
-
-    // Find user by email
-    const user = await Admin.findOne({ email });
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid email or password' });
-    }
-
-    // Check if the password is correct
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Invalid email or password' });
-    }
-
-    // Generate JWT token
-    const token = jwt.sign(
-      { userId: user.id, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: '48h' }
-    );
-    /* console.log('Admin token generated:', token); */
-    res.status(200).json({ message: 'Logged in successfully', token });
-  } catch (error) {
-    next(error);
-  }
+  return keycloakManaged(res);
 };
 
 
@@ -135,5 +58,4 @@ module.exports = {
   getAdminById,
   updateAdmin,
   deleteAdmin,
-  login
 };

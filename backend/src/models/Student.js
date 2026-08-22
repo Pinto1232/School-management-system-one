@@ -17,7 +17,6 @@ const studentSchema = new mongoose.Schema({
     required: [true, "Email is required"],
     trim: true,
     lowercase: true,
-    unique: true,
     match: [
       /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
       "Please fill a valid email address",
@@ -49,6 +48,8 @@ const studentSchema = new mongoose.Schema({
     url: String,
   },
 });
+
+studentSchema.index({ schoolId: 1, email: 1 }, { unique: true });
 
 const Student = mongoose.model("Student", studentSchema);
 module.exports = Student;

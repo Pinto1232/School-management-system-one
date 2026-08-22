@@ -76,7 +76,7 @@ const exportGrades = () => {
     <section v-else-if="activeTab === 'grades'" class="panel">
       <div class="panel__header">
         <div><h2>Resumo das notas</h2><span style="color: var(--ink-soft); font-size: 0.8rem">Média atual: {{ average }}%</span></div>
-        <div style="display: flex; gap: 0.5rem">
+        <div class="panel-header-actions">
           <button class="button button--secondary" type="button" @click="exportGrades"><Icon name="ph:download-simple" /> CSV</button>
           <button class="button button--secondary" type="button" @click="printReport"><Icon name="ph:printer" /> Imprimir / PDF</button>
         </div>

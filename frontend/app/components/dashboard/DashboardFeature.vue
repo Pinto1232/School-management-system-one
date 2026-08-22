@@ -169,7 +169,7 @@ const printPage = () => window.print()
     </template>
 
     <template v-else-if="slug === 'reports'">
-      <div class="page-toolbar"><div></div><div style="display: flex; gap: 0.5rem"><button class="button button--secondary" type="button" @click="exportGrades"><Icon name="ph:download-simple" /> Exportar CSV</button><button class="button button--primary" type="button" @click="printPage"><Icon name="ph:printer" /> Imprimir relatório</button></div></div>
+      <div class="page-toolbar"><div></div><div class="toolbar-actions"><button class="button button--secondary" type="button" @click="exportGrades"><Icon name="ph:download-simple" /> Exportar CSV</button><button class="button button--primary" type="button" @click="printPage"><Icon name="ph:printer" /> Imprimir relatório</button></div></div>
       <div class="metric-grid"><article class="metric"><span class="metric__label">Média académica</span><strong class="metric__value">81%</strong><span class="metric__change">Relatório de exemplo do 3.º período</span></article><article class="metric"><span class="metric__label">Presenças</span><strong class="metric__value">93%</strong><span class="metric__change">Média de toda a escola</span></article><article class="metric"><span class="metric__label">Propinas cobradas</span><strong class="metric__value">87%</strong><span class="metric__change">Ciclo de faturação atual</span></article><article class="metric"><span class="metric__label">Admissões</span><strong class="metric__value">24</strong><span class="metric__change">Candidaturas abertas</span></article></div>
       <section class="panel" style="margin-top: 1rem"><div class="panel__header"><h2>Tendência de desempenho</h2></div><div class="panel__body"><div class="chart"><div v-for="point in performance" :key="point.label" class="chart__item"><div class="chart__bar" :style="{ height: `${point.value}%` }" /><span class="chart__label">{{ point.label }}</span></div></div></div></section>
     </template>
@@ -180,7 +180,7 @@ const printPage = () => window.print()
     </template>
 
     <template v-else-if="slug === 'grading'">
-      <div class="page-toolbar"><div class="billing-toggle"><button class="is-active" type="button">3.º período</button><button type="button">2.º período</button><button type="button">1.º período</button></div><div style="display: flex; gap: 0.5rem"><button class="button button--secondary" type="button" @click="exportGrades">Exportar CSV</button><button class="button button--primary" type="button" @click="printPage">Imprimir / PDF</button></div></div>
+      <div class="page-toolbar"><div class="billing-toggle"><button class="is-active" type="button">3.º período</button><button type="button">2.º período</button><button type="button">1.º período</button></div><div class="toolbar-actions"><button class="button button--secondary" type="button" @click="exportGrades">Exportar CSV</button><button class="button button--primary" type="button" @click="printPage">Imprimir / PDF</button></div></div>
       <div class="panel table-wrap"><table class="data-table"><thead><tr><th>Disciplina</th><th>1.º período</th><th>2.º período</th><th>Atual</th><th>Nota</th></tr></thead><tbody><tr v-for="item in grades" :key="item.subject"><td><strong>{{ item.subject }}</strong></td><td>{{ item.term1 }}%</td><td>{{ item.term2 }}%</td><td>{{ item.current }}%</td><td><span class="status status--active">{{ item.grade }}</span></td></tr></tbody></table></div>
     </template>
 

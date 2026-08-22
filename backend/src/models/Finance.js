@@ -42,7 +42,6 @@ const FinanceSchema = new mongoose.Schema(
             type: String,
             required: true,
             trim: true,
-            unique: true,
         },
         dueDate: {
             type: Date,
@@ -59,6 +58,8 @@ const FinanceSchema = new mongoose.Schema(
         timestamps: true,
     }
 );
+
+FinanceSchema.index({ schoolId: 1, invoiceNumber: 1 }, { unique: true });
 
 const Finance = mongoose.model('Finance', FinanceSchema);
 

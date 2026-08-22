@@ -1,32 +1,4 @@
 <script setup lang="ts">
-const { request } = useApi()
-const email = ref('')
-const errorMessage = ref('')
-const successMessage = ref('')
-const submitting = ref(false)
-
-const submit = async () => {
-  errorMessage.value = ''
-  successMessage.value = ''
-  if (!/^\S+@\S+\.\S+$/.test(email.value)) {
-    errorMessage.value = 'Introduza um endereço de e-mail válido.'
-    return
-  }
-
-  submitting.value = true
-  try {
-    const response = await request<{ message?: string }>('/request-password-reset', {
-      method: 'POST',
-      body: { email: email.value.trim() },
-    })
-    successMessage.value = translateApiMessage(response.message, 'Foi enviada uma ligação de recuperação para o seu e-mail.')
-  } catch (error) {
-    errorMessage.value = getApiErrorMessage(error, 'Não foi possível enviar a ligação de recuperação. Tente novamente.')
-  } finally {
-    submitting.value = false
-  }
-}
-
 useSeoMeta({ title: 'Recuperar palavra-passe', robots: 'noindex' })
 </script>
 
@@ -36,19 +8,11 @@ useSeoMeta({ title: 'Recuperar palavra-passe', robots: 'noindex' })
       <div class="panel auth-card" style="padding: clamp(1.5rem, 5vw, 2.5rem)">
         <div class="auth-card__header">
           <h1>Recupere a sua palavra-passe</h1>
-          <p>Introduza o e-mail da sua conta e enviaremos uma ligação de recuperação.</p>
+          <p>A recuperação automática está desativada até o servidor de e-mail do Keycloak ser configurado.</p>
         </div>
-        <form class="form-stack" novalidate @submit.prevent="submit">
-          <AppAlert v-if="errorMessage" type="error" :message="errorMessage" />
-          <AppAlert v-if="successMessage" type="success" :message="successMessage" />
-          <div class="field">
-            <label for="reset-email">Endereço de e-mail</label>
-            <input id="reset-email" v-model.trim="email" type="email" autocomplete="email" placeholder="nome@escola.co.za" :aria-invalid="Boolean(errorMessage && !successMessage)">
-          </div>
-          <button class="button button--primary" type="submit" :disabled="submitting">
-            {{ submitting ? 'A enviar ligação...' : 'Enviar ligação de recuperação' }}
-          </button>
-        </form>
+        <div class="form-stack">
+          <AppAlert type="info" message="Peça ao administrador do Keycloak para redefinir a sua palavra-passe. Depois de configurar SMTP, a recuperação automática pode ser ativada." />
+        </div>
         <p class="auth-card__footer"><NuxtLink class="text-link" to="/login">Voltar ao início de sessão</NuxtLink></p>
       </div>
     </div>

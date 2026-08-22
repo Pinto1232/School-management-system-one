@@ -51,7 +51,7 @@ exports.updateStudentTracking = async (req, res) => {
 // Delete a student tracking record by ID
 exports.deleteStudentTracking = async (req, res) => {
     try {
-        const studentTracking = await StudentTracking.findByIdAndRemove(req.params.id);
+        const studentTracking = await StudentTracking.findByIdAndDelete(req.params.id);
         if (!studentTracking) {
             return res.status(404).json({ success: false, message: 'Student tracking not found' });
         }
@@ -88,7 +88,7 @@ exports.updateStudentTrackingByStudentId = async (req, res) => {
 // Delete a student tracking record by student ID and tracking ID
 exports.deleteStudentTrackingByStudentId = async (req, res) => {
     try {
-        const studentTracking = await StudentTracking.findOneAndRemove({ _id: req.params.id, student: req.params.studentId });
+        const studentTracking = await StudentTracking.findOneAndDelete({ _id: req.params.id, student: req.params.studentId });
         if (!studentTracking) {
             return res.status(404).json({ success: false, message: 'Student tracking not found' });
         }

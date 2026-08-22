@@ -126,7 +126,7 @@ const deletePackage = async (req, res) => {
       return res.status(404).json({ message: "Package not found" });
     }
 
-    await package.remove();
+    await package.deleteOne();
     res.status(200).json({ message: "Package successfully deleted" });
   } catch (err) {
     res.status(500).json({ message: err.message });

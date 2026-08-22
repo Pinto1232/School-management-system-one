@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { dashboardNavigation } from '~/data/school'
+import { dashboardNavigationForRoles } from '~/data/school'
 
 const route = useRoute()
 const sidebarOpen = useState<boolean>('dashboard-sidebar-open', () => false)
-const { user, logout } = useAuth()
+const { user, logout, roles } = useAuth()
 const { uploadUrl } = useApi()
 
 const activeSlug = computed(() => {
@@ -22,14 +22,14 @@ const userName = computed(() => {
   if (!user.value) return 'Utilizador da escola'
   return `${user.value.firstName} ${user.value.lastName}`.trim()
 })
+const navigation = computed(() => dashboardNavigationForRoles(roles.value))
 
 const close = () => {
   sidebarOpen.value = false
 }
 
 const handleLogout = async () => {
-  logout()
-  await navigateTo('/')
+  await logout('/')
 }
 
 watch(() => route.fullPath, close)
@@ -53,7 +53,7 @@ watch(() => route.fullPath, close)
 
     <nav class="dashboard-sidebar__nav" aria-label="Navegação do painel">
       <NuxtLink
-        v-for="item in dashboardNavigation"
+        v-for="item in navigation"
         :key="item.slug"
         :to="item.slug === 'dashboard' ? '/dashboard' : `/dashboard/${item.slug}`"
         :class="{ 'is-active': activeSlug === item.slug }"

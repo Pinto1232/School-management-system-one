@@ -41,6 +41,6 @@ const ContentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-});
+}, { tenantScoped: false });
 
 module.exports = mongoose.model('Content', ContentSchema);

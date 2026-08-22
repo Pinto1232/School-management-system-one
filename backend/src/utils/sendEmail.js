@@ -1,29 +1,29 @@
 const nodemailer = require('nodemailer');
+const { smtp } = require('../config/env');
 
 const sendEmail = async (options) => {
-    // Create a transporter using your email service credentials
+    if (!smtp.host || !smtp.user || !smtp.password || !smtp.from) {
+        const error = new Error('SMTP is not configured.');
+        error.code = 'SMTP_NOT_CONFIGURED';
+        throw error;
+    }
+
     const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com', // Replace 'your_email_service_host' with your email service provider's hostname
-        port: 587, // Set the appropriate port for your email service provider
-        secure: false,
+        host: smtp.host,
+        port: smtp.port,
+        secure: smtp.secure,
         auth: {
-            user: 'pintoydc@gmail.com',
-            pass: 'rjl123', // Replace this with your new password
+            user: smtp.user,
+            pass: smtp.password,
         },
     });
 
-    try {
-        const mailOptions = {
-            from: 'pintoydc@gmail.com',
-            to: options.email,
-            subject: options.subject,
-            text: options.message,
-        };
-
-        await transporter.sendMail(mailOptions);
-    } catch (error) {
-        console.error('Error sending email:', error);
-    }
+    await transporter.sendMail({
+        from: smtp.from,
+        to: options.email,
+        subject: options.subject,
+        text: options.message,
+    });
 };
 
 module.exports = sendEmail;

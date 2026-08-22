@@ -7,6 +7,11 @@ const {
     updateSubscription,
     deleteSubscription,
 } = require('../controllers/subscription');
+const authenticate = require('../middlewares/authenticate');
+const { authorize } = require('../middlewares/authorize');
+
+router.use(authenticate);
+router.use(authorize(['admin']));
 
 router
     .route('/')

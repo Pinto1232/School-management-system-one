@@ -7,22 +7,31 @@ export const publicNavigation = [
 ]
 
 export const dashboardNavigation = [
-  { label: 'Painel', slug: 'dashboard', icon: 'ph:squares-four' },
-  { label: 'Alunos', slug: 'students', icon: 'ph:student' },
-  { label: 'Professores', slug: 'teachers', icon: 'ph:chalkboard-teacher' },
-  { label: 'Disciplinas', slug: 'courses', icon: 'ph:books' },
-  { label: 'Presenças', slug: 'attendance', icon: 'ph:check-square' },
-  { label: 'Calendário e eventos', slug: 'events', icon: 'ph:calendar-dots' },
-  { label: 'Planificação de aulas', slug: 'lesson-planning', icon: 'ph:notebook' },
-  { label: 'Admissões', slug: 'admissions', icon: 'ph:user-plus' },
-  { label: 'Relatórios', slug: 'reports', icon: 'ph:chart-bar' },
-  { label: 'Propinas', slug: 'fees', icon: 'ph:wallet' },
-  { label: 'Avaliações', slug: 'grading', icon: 'ph:exam' },
-  { label: 'Tarefas', slug: 'tasks', icon: 'ph:list-checks' },
-  { label: 'Portal dos encarregados', slug: 'parent-portal', icon: 'ph:users-three' },
-  { label: 'Funcionários', slug: 'staff', icon: 'ph:identification-card' },
-  { label: 'Horário', slug: 'timetable', icon: 'ph:clock' },
+  { label: 'Painel', slug: 'dashboard', icon: 'ph:squares-four', roles: ['admin', 'teacher', 'staff', 'parent', 'student'] },
+  { label: 'Alunos', slug: 'students', icon: 'ph:student', roles: ['admin', 'teacher', 'staff'] },
+  { label: 'Professores', slug: 'teachers', icon: 'ph:chalkboard-teacher', roles: ['admin', 'teacher', 'staff'] },
+  { label: 'Disciplinas', slug: 'courses', icon: 'ph:books', roles: ['admin', 'teacher', 'staff', 'parent', 'student'] },
+  { label: 'Presenças', slug: 'attendance', icon: 'ph:check-square', roles: ['admin', 'teacher'] },
+  { label: 'Calendário e eventos', slug: 'events', icon: 'ph:calendar-dots', roles: ['admin', 'teacher', 'staff', 'parent', 'student'] },
+  { label: 'Planificação de aulas', slug: 'lesson-planning', icon: 'ph:notebook', roles: ['admin', 'teacher'] },
+  { label: 'Admissões', slug: 'admissions', icon: 'ph:user-plus', roles: ['admin', 'staff'] },
+  { label: 'Relatórios', slug: 'reports', icon: 'ph:chart-bar', roles: ['admin', 'teacher', 'staff'] },
+  { label: 'Propinas', slug: 'fees', icon: 'ph:wallet', roles: ['admin', 'staff'] },
+  { label: 'Avaliações', slug: 'grading', icon: 'ph:exam', roles: ['admin', 'teacher'] },
+  { label: 'Tarefas', slug: 'tasks', icon: 'ph:list-checks', roles: ['admin', 'teacher', 'staff'] },
+  { label: 'Portal dos encarregados', slug: 'parent-portal', icon: 'ph:users-three', roles: ['admin', 'staff', 'parent'] },
+  { label: 'Funcionários', slug: 'staff', icon: 'ph:identification-card', roles: ['admin'] },
+  { label: 'Horário', slug: 'timetable', icon: 'ph:clock', roles: ['admin', 'teacher', 'staff', 'parent', 'student'] },
 ]
+
+export const dashboardNavigationForRoles = (roles: readonly string[]) => {
+  const normalisedRoles = roles.map(role => role.toLowerCase())
+  if (normalisedRoles.includes('platform_admin')) normalisedRoles.push('admin')
+  return dashboardNavigation.filter(item => item.roles.some(role => normalisedRoles.includes(role)))
+}
+
+export const canAccessDashboardView = (slug: string, roles: readonly string[]) =>
+  dashboardNavigationForRoles(roles).some(item => item.slug === slug)
 
 export const benefits = [
   {

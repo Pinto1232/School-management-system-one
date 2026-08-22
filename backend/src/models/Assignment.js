@@ -4,7 +4,6 @@ const assignmentSchema = new mongoose.Schema({
   id: {
     type: String,
     required: true,
-    unique: true
   },
   name: {
     type: String,
@@ -24,6 +23,8 @@ const assignmentSchema = new mongoose.Schema({
     default: false
   }
 });
+
+assignmentSchema.index({ schoolId: 1, id: 1 }, { unique: true });
 
 const Assignment = mongoose.model('Assignment', assignmentSchema);
 

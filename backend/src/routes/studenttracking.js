@@ -1,6 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const studentTrackingController = require('../controllers/studenttracking');
+const authenticate = require('../middlewares/authenticate');
+const { authorize } = require('../middlewares/authorize');
+const { ACADEMIC_STAFF } = require('../security/roles');
+
+router.use(authenticate);
+router.use(authorize(ACADEMIC_STAFF));
 
 router
     .route('/student-trackings')

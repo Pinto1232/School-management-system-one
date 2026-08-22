@@ -1,4 +1,3 @@
-const { request } = require('express');
 const express = require('express');
 const router = express.Router();
 const enrollmentController = require('../controllers/enrollment');
@@ -18,6 +17,6 @@ router.route('/:id')
     .delete(authenticate, authorize(allowedRolesEnrollment), enrollmentController.deleteEnrollment);
 
 router.route('/student/:studentId')
-    .get(enrollmentController.getEnrollmentsByStudentId);
+    .get(authenticate, authorize(allowedRolesEnrollment), enrollmentController.getEnrollmentsByStudentId);
 
 module.exports = router;

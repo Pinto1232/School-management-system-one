@@ -84,7 +84,7 @@ exports.updateSubscription = async (req, res) => {
 // Delete a subscription by ID
 exports.deleteSubscription = async (req, res) => {
     try {
-        const subscription = await Subscription.findByIdAndRemove(req.params.id);
+        const subscription = await Subscription.findByIdAndDelete(req.params.id);
         if (!subscription) {
             return res.status(404).json({ success: false, message: 'Subscription not found' });
         }

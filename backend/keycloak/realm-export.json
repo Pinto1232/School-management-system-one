@@ -1,0 +1,138 @@
+{
+  "realm": "school-system",
+  "displayName": "Lusivo School System",
+  "enabled": true,
+  "registrationAllowed": true,
+  "registrationEmailAsUsername": false,
+  "rememberMe": true,
+  "verifyEmail": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": false,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": true,
+  "passwordPolicy": "length(12) and digits(1) and upperCase(1) and lowerCase(1) and specialChars(1)",
+  "accessTokenLifespan": 300,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 36000,
+  "roles": {
+    "realm": [
+      {
+        "name": "platform_admin",
+        "description": "Lusivo platform administrator for global plans and site content"
+      },
+      {
+        "name": "admin",
+        "description": "School platform administrator"
+      },
+      {
+        "name": "teacher",
+        "description": "Teacher or faculty member"
+      },
+      {
+        "name": "staff",
+        "description": "Non-teaching school staff member"
+      },
+      {
+        "name": "parent",
+        "description": "Parent or guardian"
+      },
+      {
+        "name": "student",
+        "description": "Student account"
+      }
+    ]
+  },
+  "defaultRoles": [
+    "offline_access",
+    "uma_authorization",
+    "admin"
+  ],
+  "clients": [
+    {
+      "clientId": "school-system-api",
+      "name": "School System API",
+      "enabled": true,
+      "bearerOnly": true,
+      "publicClient": false,
+      "protocol": "openid-connect",
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false
+    },
+    {
+      "clientId": "school-system-frontend",
+      "name": "School System Nuxt Frontend",
+      "enabled": true,
+      "publicClient": true,
+      "protocol": "openid-connect",
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "frontchannelLogout": true,
+      "rootUrl": "http://127.0.0.1:3000",
+      "baseUrl": "http://127.0.0.1:3000",
+      "redirectUris": [
+        "http://127.0.0.1:3000/*",
+        "http://localhost:3000/*",
+        "http://127.0.0.1:3100/*",
+        "http://localhost:3100/*"
+      ],
+      "webOrigins": [
+        "http://127.0.0.1:3000",
+        "http://localhost:3000",
+        "http://127.0.0.1:3100",
+        "http://localhost:3100"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://127.0.0.1:3000/*##http://localhost:3000/*##http://127.0.0.1:3100/*##http://localhost:3100/*"
+      },
+      "protocolMappers": [
+        {
+          "name": "school-system-api-audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.client.audience": "school-system-api",
+            "id.token.claim": "false",
+            "access.token.claim": "true",
+            "userinfo.token.claim": "false",
+            "introspection.token.claim": "true"
+          }
+        },
+        {
+          "name": "school-id",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "school_id",
+            "claim.name": "school_id",
+            "jsonType.label": "String",
+            "multivalued": "false",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "userinfo.token.claim": "true"
+          }
+        }
+      ],
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "roles",
+        "profile",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ]
+    }
+  ]
+}

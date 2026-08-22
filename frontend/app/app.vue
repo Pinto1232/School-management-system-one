@@ -1,11 +1,9 @@
 <script setup lang="ts">
 const { initialiseTheme } = useTheme()
-const { initialiseAuth } = useAuth()
 const route = useRoute()
 
 onMounted(() => {
   initialiseTheme()
-  initialiseAuth()
 })
 
 useHead({

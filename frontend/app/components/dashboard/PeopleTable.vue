@@ -85,7 +85,7 @@ const exportCsv = () => {
         <Icon name="ph:magnifying-glass" size="19" aria-hidden="true" />
         <input v-model="query" class="search-input" type="search" aria-label="Pesquisar pessoas" placeholder="Pesquisar por nome, e-mail, perfil ou turma">
       </div>
-      <div style="display: flex; gap: 0.55rem; flex-wrap: wrap">
+      <div class="toolbar-actions">
         <button class="button button--secondary" type="button" @click="exportCsv">
           <Icon name="ph:download-simple" size="19" aria-hidden="true" /> Exportar CSV
         </button>

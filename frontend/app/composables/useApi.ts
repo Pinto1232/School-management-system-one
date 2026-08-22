@@ -34,25 +34,26 @@ export const getApiErrorMessage = (error: unknown, fallback = 'Ocorreu um erro. 
 
 export const useApi = () => {
   const config = useRuntimeConfig()
-  const { token, logout } = useAuth()
+  const { getAccessToken, isAuthenticated, logout } = useAuth()
 
   const request = async <T>(path: string, options: Parameters<typeof $fetch<T>>[1] = {}) => {
     try {
+      const accessToken = isAuthenticated.value ? await getAccessToken() : null
       return await $fetch<T>(path, {
         baseURL: config.public.apiBase,
         timeout: 8000,
         retry: 0,
         ...options,
         headers: {
-          ...(token.value ? { Authorization: `Bearer ${token.value}` } : {}),
+          ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
           ...(options.headers || {}),
         },
       })
     } catch (error) {
-      const status = (error as ApiErrorShape)?.statusCode
+      const apiError = error as ApiErrorShape
+      const status = apiError?.statusCode || apiError?.status
       if (status === 401 && import.meta.client) {
-        logout()
-        await navigateTo('/login')
+        await logout('/login')
       }
       throw error
     }
