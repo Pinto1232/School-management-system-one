@@ -1,5 +1,10 @@
 .env*
 node_modules/
+
+# Runtime uploads
+src/uploads/
+uploads/
+
 # Logs
 logs
 *.log
