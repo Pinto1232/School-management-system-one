@@ -3,7 +3,7 @@ import { faqs } from '~/data/school'
 
 useSeoMeta({
   title: 'Frequently asked questions',
-  description: 'Answers about the School System platform, users, school features, devices, and reporting.',
+  description: 'Answers about the Lusivo platform, users, school features, devices, and reporting.',
 })
 </script>
 

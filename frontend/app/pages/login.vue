@@ -126,7 +126,7 @@ useSeoMeta({ title: 'Log in', robots: 'noindex' })
           </button>
         </form>
 
-        <p class="auth-card__footer">New to School System? <NuxtLink class="text-link" to="/register">Create an account</NuxtLink></p>
+        <p class="auth-card__footer">New to Lusivo? <NuxtLink class="text-link" to="/register">Create an account</NuxtLink></p>
       </div>
     </div>
   </section>

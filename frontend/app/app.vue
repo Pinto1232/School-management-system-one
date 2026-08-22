@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import logoUrl from '~/assets/logo.png'
+
 const { initialiseTheme } = useTheme()
 const { initialiseAuth } = useAuth()
 
@@ -7,11 +9,14 @@ onMounted(() => {
   initialiseAuth()
 })
 
-useHead({ htmlAttrs: { lang: 'en' } })
+useHead({
+  htmlAttrs: { lang: 'en' },
+  link: [{ rel: 'icon', type: 'image/png', href: logoUrl }],
+})
 </script>
 
 <template>
-  <NuxtLoadingIndicator color="#0f766e" :height="3" />
+  <NuxtLoadingIndicator color="#18c1ae" :height="3" />
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>

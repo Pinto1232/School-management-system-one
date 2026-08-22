@@ -9,7 +9,7 @@ const milestoneIcon = (index: number) => milestoneIcons[index] || 'ph:check-circ
 
 useSeoMeta({
   title: 'About',
-  description: 'Learn why School System connects administration, teaching, learning, and family communication.',
+  description: 'Learn why Lusivo connects administration, teaching, learning, and family communication.',
 })
 </script>
 
@@ -28,7 +28,7 @@ useSeoMeta({
         <div>
           <span class="eyebrow">Why it exists</span>
           <h2>Built for the people behind every school day.</h2>
-          <p>Administrative records, classroom work, and parent communication often sit in separate tools. School System is designed to reconnect them.</p>
+          <p>Administrative records, classroom work, and parent communication often sit in separate tools. Lusivo is designed to reconnect them.</p>
           <p>The result is a practical workspace that supports decisions without making staff learn several disconnected systems.</p>
         </div>
       </div>

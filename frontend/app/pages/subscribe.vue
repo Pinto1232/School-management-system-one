@@ -76,12 +76,12 @@ useSeoMeta({ title: 'Subscription', robots: 'noindex' })
 <template>
   <section class="container subscription-shell">
     <aside class="panel subscription-summary">
-      <span class="eyebrow" style="color: #8ae0d1">Selected plan</span>
+      <span class="eyebrow !text-brand-200">Selected plan</span>
       <h1>{{ plan.name }}</h1>
       <p>{{ plan.description || 'Your school workspace with the tools included in this plan.' }}</p>
-      <div class="plan-card__price" style="color: #effffb">
+      <div class="plan-card__price !text-[#f3f8ff]">
         R{{ total.toLocaleString('en-ZA') }}
-        <span style="color: #cce9e3">/ {{ billing === 'yearly' ? 'year' : 'month' }}</span>
+        <span class="!text-[#cbd9ee]">/ {{ billing === 'yearly' ? 'year' : 'month' }}</span>
       </div>
       <ul class="feature-list">
         <li v-for="feature in planFeatures" :key="feature">

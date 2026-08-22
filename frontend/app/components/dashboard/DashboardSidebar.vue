@@ -46,8 +46,8 @@ watch(() => route.fullPath, close)
   <aside class="dashboard-sidebar" :class="{ 'is-open': sidebarOpen }">
     <div class="dashboard-sidebar__head">
       <NuxtLink class="brand" to="/dashboard" @click="close">
-        <img src="/images/logo-96.png" alt="" width="42" height="42">
-        <span>School System</span>
+        <BrandLogo />
+        <span>Lusivo</span>
       </NuxtLink>
     </div>
 
