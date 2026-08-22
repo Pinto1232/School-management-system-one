@@ -1,6 +1,7 @@
 {
   "realm": "school-system",
   "displayName": "Lusivo School System",
+  "loginTheme": "lusivo",
   "enabled": true,
   "registrationAllowed": true,
   "registrationEmailAsUsername": false,

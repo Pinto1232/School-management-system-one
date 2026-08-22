@@ -1,0 +1,72 @@
+/* Keep the branded background isolated to the realm's standard sign-in page. */
+.login-pf body#keycloak-bg[data-page-id="login-login"] {
+  min-height: 100dvh;
+  background-color: #edf3f8;
+  background-image:
+    linear-gradient(rgb(245 248 252 / 0.12), rgb(245 248 252 / 0.12)),
+    url("../img/banner.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login-pf body#keycloak-bg[data-page-id="login-login"] .pf-v5-c-login {
+  min-height: 100dvh;
+}
+
+.login-pf body#keycloak-bg[data-page-id="login-login"] #kc-header-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.875rem;
+  color: #001b51 !important;
+  text-shadow: 0 1px 0 rgb(255 255 255 / 0.7);
+}
+
+.login-pf body#keycloak-bg[data-page-id="login-login"] #kc-header-wrapper::before {
+  width: 5.5rem;
+  height: 5.5rem;
+  flex: 0 0 auto;
+  background-image: url("../img/logo.webp");
+  background-position: 51% 34%;
+  background-repeat: no-repeat;
+  background-size: 15rem 15rem;
+  content: "";
+  mix-blend-mode: multiply;
+}
+
+.login-pf body#keycloak-bg[data-page-id="login-login"] .pf-v5-c-login__main {
+  border: 1px solid rgb(0 27 81 / 0.12);
+  box-shadow: 0 24px 64px rgb(0 27 81 / 0.18);
+}
+
+@media (max-width: 767px) {
+  .login-pf body#keycloak-bg[data-page-id="login-login"] {
+    background-position: 58% center;
+  }
+
+  .login-pf body#keycloak-bg[data-page-id="login-login"] .pf-v5-c-login__container {
+    grid-template-columns: minmax(0, 100vw);
+    max-width: 100vw;
+    padding-inline: 0;
+  }
+
+  .login-pf body#keycloak-bg[data-page-id="login-login"] #kc-header-wrapper {
+    gap: 0.625rem;
+    font-size: 1.25rem;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+  }
+
+  .login-pf body#keycloak-bg[data-page-id="login-login"] #kc-header-wrapper::before {
+    width: 4.25rem;
+    height: 4.25rem;
+    background-size: 11.625rem 11.625rem;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .login-pf body#keycloak-bg[data-page-id="login-login"] .pf-v5-c-login__main {
+    background-color: #ffffff;
+  }
+}

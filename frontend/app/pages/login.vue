@@ -28,14 +28,6 @@ useSeoMeta({ title: 'Iniciar sessão', robots: 'noindex' })
 
 <template>
   <section class="auth-shell login-shell" aria-labelledby="login-title">
-    <div class="auth-shell__visual">
-      <img src="/images/school.webp" alt="Uma grande sala de aulas" width="1200" height="900">
-      <div class="auth-shell__visual-copy">
-        <h2>Bem-vindo de volta.</h2>
-        <p>Abra o painel da sua escola e continue a acompanhar as pessoas, turmas e tarefas que precisam de atenção.</p>
-      </div>
-    </div>
-
     <div class="auth-shell__form login-shell__form">
       <div class="login-panel">
         <NuxtLink class="login-panel__back" to="/">

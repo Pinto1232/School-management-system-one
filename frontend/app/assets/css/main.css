@@ -1204,24 +1204,12 @@
     @apply mt-5 text-center;
   }
 
-  .login-shell .auth-shell__visual img {
-    @apply object-center;
-  }
-
-  .login-shell .auth-shell__visual-copy {
-    @apply inset-0 flex max-w-none flex-col items-center justify-center px-[clamp(2rem,6vw,5rem)] py-8 text-center;
-  }
-
-  .login-shell .auth-shell__visual-copy h2 {
-    @apply mb-3 text-[clamp(2.5rem,4vw,3.75rem)] text-[#f3f8ff];
-  }
-
-  .login-shell .auth-shell__visual-copy p {
-    @apply max-w-[48ch];
-  }
-
   .login-shell__form {
     @apply relative min-w-0 bg-canvas p-[clamp(1.5rem,4vw,3rem)];
+  }
+
+  .login-shell {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .login-panel {
@@ -2328,12 +2316,6 @@
     min-height: calc(100dvh - var(--header-height) - clamp(2rem, 4vw, 4rem));
     margin-block: clamp(1rem, 2vw, 2rem);
     margin-inline: clamp(1rem, 2vw, 2rem);
-  }
-}
-
-@media (min-width: 1025px) {
-  .login-shell .auth-shell__visual {
-    min-height: calc(100dvh - var(--header-height) - clamp(2rem, 4vw, 4rem));
   }
 }
 

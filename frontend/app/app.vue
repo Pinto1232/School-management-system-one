@@ -22,4 +22,5 @@ useHead({
       <NuxtPage />
     </NuxtLayout>
   </AppErrorBoundary>
+  <ToastNotification />
 </template>

@@ -69,3 +69,18 @@ export interface SchoolPerson {
   status: 'Ativo' | 'Pendente' | 'Inativo'
   image?: string
 }
+
+export type {
+  AppNavigationItem,
+  AttendanceStatus,
+  AttendanceStudent,
+  DashboardTone,
+  DataTableColumn,
+  DataTableRow,
+  SortDirection,
+  TableAlignment,
+  TimetableDay,
+  TimetableEntry,
+  ToastMessage,
+  ToastTone,
+} from './dashboard'
