@@ -8,20 +8,24 @@ const searchMessage = ref('')
 const { theme, toggleTheme } = useTheme()
 const { user, isAuthenticated } = useAuth()
 const { uploadUrl } = useApi()
+const { cartItem, initialiseCart } = useSchoolCart()
+
+const cartRoute = computed(() => cartItem.value ? '/cart' : '/#plans')
+const cartLabel = computed(() => cartItem.value
+  ? `Abrir carrinho, pacote ${cartItem.value.name} selecionado`
+  : 'O carrinho está vazio, escolha um pacote')
 
 const categoryNavigation = [
-  { label: 'Student records', to: '/#student-records' },
-  { label: 'Teaching tools', to: '/#teaching-tools' },
-  { label: 'Family communication', to: '/#family-communication' },
-  { label: 'Reports', to: '/#useful-reporting' },
-  { label: 'Plans', to: '/#plans' },
+  { label: 'Planos', to: '/#plans' },
 ]
+
+const isCurrentCategory = (to: string) => route.path === (to.split('#')[0] || '/')
 
 const searchTargets = computed(() => {
   const publicTargets = [
-    { label: 'Home', to: '/', keywords: 'home school overview' },
-    { label: 'About', to: '/about', keywords: 'about school platform' },
-    { label: 'FAQs', to: '/faq', keywords: 'faq questions help support' },
+    { label: 'Início', to: '/', keywords: 'início escola visão geral' },
+    { label: 'Sobre', to: '/about', keywords: 'sobre escola plataforma' },
+    { label: 'Perguntas frequentes', to: '/faq', keywords: 'perguntas ajuda suporte' },
     ...categoryNavigation.map(item => ({
       ...item,
       keywords: item.label.toLowerCase(),
@@ -47,7 +51,7 @@ const initials = computed(() => {
 })
 
 const userName = computed(() => {
-  if (!user.value) return 'School user'
+  if (!user.value) return 'Utilizador da escola'
   return `${user.value.firstName} ${user.value.lastName}`.trim()
 })
 
@@ -55,7 +59,7 @@ const submitSearch = async () => {
   const query = searchQuery.value.trim().toLowerCase()
 
   if (!query) {
-    searchMessage.value = 'Enter a page or feature to search for.'
+    searchMessage.value = 'Introduza uma página ou funcionalidade para pesquisar.'
     return
   }
 
@@ -65,11 +69,11 @@ const submitSearch = async () => {
   })
 
   if (!match) {
-    searchMessage.value = `No page found for ${searchQuery.value}.`
+    searchMessage.value = `Não foi encontrada nenhuma página para ${searchQuery.value}.`
     return
   }
 
-  searchMessage.value = `Opening ${match.label}.`
+  searchMessage.value = `A abrir ${match.label}.`
   searchQuery.value = ''
   menuOpen.value = false
   await navigateTo(match.to)
@@ -79,55 +83,66 @@ watch(() => route.fullPath, () => {
   menuOpen.value = false
   searchMessage.value = ''
 })
+
+onMounted(initialiseCart)
 </script>
 
 <template>
   <header class="app-header">
     <div class="app-header__main">
       <div class="container app-header__inner">
-        <NuxtLink class="brand" to="/" aria-label="Lusivo home">
+        <NuxtLink class="brand" to="/" aria-label="Página inicial da Lusivo">
           <BrandLogo />
           <span>Lusivo</span>
         </NuxtLink>
 
         <form class="header-search" role="search" @submit.prevent="submitSearch">
-          <label class="sr-only" for="header-search">Search Lusivo</label>
+          <label class="sr-only" for="header-search">Pesquisar na Lusivo</label>
           <input
             id="header-search"
             v-model="searchQuery"
             type="search"
-            placeholder="Search"
+            placeholder="Pesquisar"
             autocomplete="off"
           >
-          <button type="submit" aria-label="Submit search">
+          <button type="submit" aria-label="Iniciar pesquisa">
             <Icon name="ph:magnifying-glass" size="23" aria-hidden="true" />
           </button>
         </form>
 
-        <nav class="header-utility" aria-label="Helpful links">
-          <NuxtLink to="/about">About</NuxtLink>
-          <NuxtLink to="/#teaching-tools">For teachers</NuxtLink>
-          <NuxtLink to="/#family-communication">For families</NuxtLink>
+        <nav class="header-utility" aria-label="Ligações úteis">
+          <NuxtLink to="/about">Sobre</NuxtLink>
+          <NuxtLink to="/faq">Perguntas frequentes</NuxtLink>
         </nav>
 
         <div class="header-actions">
           <NuxtLink v-if="isAuthenticated" class="header-dashboard-link" to="/dashboard">
-            My school
+            Minha escola
           </NuxtLink>
 
           <NuxtLink
             v-if="isAuthenticated"
             class="icon-button header-alerts"
             to="/dashboard/events"
-            aria-label="Open school events and alerts"
+            aria-label="Abrir eventos e alertas da escola"
           >
             <Icon name="ph:bell" size="21" aria-hidden="true" />
+          </NuxtLink>
+
+          <NuxtLink
+            class="icon-button header-cart-button"
+            :class="{ 'has-items': cartItem }"
+            :to="cartRoute"
+            :aria-label="cartLabel"
+          >
+            <Icon :name="cartItem ? 'ph:shopping-cart-simple-fill' : 'ph:shopping-cart-simple'" size="21" aria-hidden="true" />
+            <span v-if="cartItem" class="header-cart-count" aria-hidden="true">1</span>
           </NuxtLink>
 
           <button
             class="icon-button"
             type="button"
-            :aria-label="theme === 'light' ? 'Use dark theme' : 'Use light theme'"
+            :aria-label="theme === 'light' ? 'Utilizar tema escuro' : 'Utilizar tema claro'"
             @click="toggleTheme"
           >
             <Icon :name="theme === 'light' ? 'ph:moon' : 'ph:sun'" size="20" aria-hidden="true" />
@@ -137,7 +152,7 @@ watch(() => route.fullPath, () => {
             v-if="isAuthenticated"
             class="header-avatar"
             to="/dashboard"
-            :aria-label="`Open ${userName}'s dashboard`"
+            :aria-label="`Abrir o painel de ${userName}`"
           >
             <span class="avatar">
               <img v-if="user?.image" :src="uploadUrl(user.image)" :alt="userName">
@@ -146,14 +161,14 @@ watch(() => route.fullPath, () => {
           </NuxtLink>
 
           <template v-else>
-            <NuxtLink class="button button--secondary header-auth-button" to="/login">Log in</NuxtLink>
-            <NuxtLink class="button button--primary header-auth-button" to="/register">Sign up</NuxtLink>
+            <NuxtLink class="button button--secondary header-auth-button" to="/login">Iniciar sessão</NuxtLink>
+            <NuxtLink class="button button--primary header-auth-button" to="/#plans">Criar conta</NuxtLink>
           </template>
 
           <button
             class="icon-button mobile-nav-button"
             type="button"
-            :aria-label="menuOpen ? 'Close navigation' : 'Open navigation'"
+            :aria-label="menuOpen ? 'Fechar navegação' : 'Abrir navegação'"
             :aria-expanded="menuOpen"
             aria-controls="mobile-navigation"
             @click="menuOpen = !menuOpen"
@@ -164,35 +179,34 @@ watch(() => route.fullPath, () => {
       </div>
     </div>
 
-    <nav class="category-nav container" aria-label="Platform areas">
+    <nav class="category-nav container" aria-label="Áreas da plataforma">
       <NuxtLink
-        v-for="(item, index) in categoryNavigation"
+        v-for="item in categoryNavigation"
         :key="item.to"
         :to="item.to"
-        :class="{ 'is-current': route.fullPath === item.to || (index === 0 && route.path === '/' && !route.hash) }"
-        :aria-current="route.fullPath === item.to || (index === 0 && route.path === '/' && !route.hash) ? 'page' : undefined"
+        :class="{ 'is-current': isCurrentCategory(item.to) }"
+        :aria-current="isCurrentCategory(item.to) ? 'page' : undefined"
       >
         <span>{{ item.label }}</span>
-        <Icon v-if="index === 0" name="ph:caret-down-bold" size="15" aria-hidden="true" />
       </NuxtLink>
     </nav>
 
     <div id="mobile-navigation" class="mobile-nav" :class="{ 'is-open': menuOpen }">
       <form class="mobile-nav__search" role="search" @submit.prevent="submitSearch">
-        <label class="sr-only" for="mobile-header-search">Search Lusivo</label>
+        <label class="sr-only" for="mobile-header-search">Pesquisar na Lusivo</label>
         <input
           id="mobile-header-search"
           v-model="searchQuery"
           type="search"
-          placeholder="Search"
+          placeholder="Pesquisar"
           autocomplete="off"
         >
-        <button type="submit" aria-label="Submit search">
+        <button type="submit" aria-label="Iniciar pesquisa">
           <Icon name="ph:magnifying-glass" size="21" aria-hidden="true" />
         </button>
       </form>
 
-      <nav class="mobile-nav__links" aria-label="Mobile navigation">
+      <nav class="mobile-nav__links" aria-label="Navegação móvel">
         <NuxtLink v-for="item in publicNavigation" :key="item.to" :to="item.to">
           {{ item.label }}
         </NuxtLink>
@@ -203,15 +217,18 @@ watch(() => route.fullPath, () => {
 
       <div class="mobile-nav__account">
         <NuxtLink v-if="isAuthenticated" class="button button--primary" to="/dashboard">
-          Open dashboard
+          Abrir painel
         </NuxtLink>
         <template v-else>
-          <NuxtLink class="button button--secondary" to="/login">Log in</NuxtLink>
-          <NuxtLink class="button button--primary" to="/register">Sign up</NuxtLink>
+          <NuxtLink class="button button--secondary" to="/login">Iniciar sessão</NuxtLink>
+          <NuxtLink class="button button--primary" to="/#plans">Criar conta</NuxtLink>
         </template>
       </div>
     </div>
 
     <p class="sr-only" aria-live="polite">{{ searchMessage }}</p>
+    <p class="sr-only" aria-live="polite">
+      {{ cartItem ? `O pacote ${cartItem.name} foi adicionado ao carrinho.` : 'O carrinho está vazio.' }}
+    </p>
   </header>
 </template>

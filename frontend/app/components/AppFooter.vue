@@ -7,24 +7,21 @@ const coursesRoute = computed(() => isAuthenticated.value ? '/dashboard/courses'
 const reportsRoute = computed(() => isAuthenticated.value ? '/dashboard/reports' : '/login')
 
 const companyLinks = [
-  { label: 'About us', to: '/about' },
-  { label: 'Contact us', to: '/faq' },
-  { label: 'Plans', to: '/#plans' },
-  { label: 'Help centre', to: '/faq' },
-  { label: 'Create account', to: '/register' },
+  { label: 'Sobre nós', to: '/about' },
+  { label: 'Contacte-nos', to: '/faq' },
+  { label: 'Planos', to: '/#plans' },
+  { label: 'Centro de ajuda', to: '/faq' },
+  { label: 'Criar conta', to: '/register' },
 ]
 
 const communityLinks = [
-  { label: 'Documentation', to: '/faq' },
-  { label: 'FAQs', to: '/faq' },
-  { label: 'Family communication', to: '/#family-communication' },
-  { label: 'Platform map', to: '/#platform' },
+  { label: 'Documentação', to: '/faq' },
+  { label: 'Perguntas frequentes', to: '/faq' },
 ]
 
 const teachingLinks = computed(() => [
-  { label: 'Teaching tools', to: '/#teaching-tools' },
-  { label: 'Courses', to: coursesRoute.value },
-  { label: 'Reports', to: reportsRoute.value },
+  { label: 'Disciplinas', to: coursesRoute.value },
+  { label: 'Relatórios', to: reportsRoute.value },
 ])
 
 const scrollToTop = () => {
@@ -38,13 +35,13 @@ const scrollToTop = () => {
   <footer class="site-footer">
     <div class="container site-footer__inner">
       <section class="site-footer__about" aria-labelledby="footer-brand-title">
-        <NuxtLink class="footer-brand" to="/" aria-label="Lusivo home">
+        <NuxtLink class="footer-brand" to="/" aria-label="Página inicial da Lusivo">
           <BrandLogo />
           <span id="footer-brand-title">Lusivo</span>
         </NuxtLink>
-        <p>Lusivo connects school administration, teaching, learning, and family communication in one dependable workspace.</p>
+        <p>A Lusivo liga a administração escolar, o ensino, a aprendizagem e a comunicação com as famílias num espaço de trabalho fiável.</p>
 
-        <div class="footer-socials" aria-label="Lusivo social platforms">
+        <div class="footer-socials" aria-label="Redes sociais da Lusivo">
           <span title="Facebook"><Icon name="ph:facebook-logo-fill" size="20" aria-hidden="true" /></span>
           <span title="Instagram"><Icon name="ph:instagram-logo" size="20" aria-hidden="true" /></span>
           <span title="X"><Icon name="ph:x-logo" size="20" aria-hidden="true" /></span>
@@ -53,55 +50,54 @@ const scrollToTop = () => {
       </section>
 
       <section class="footer-column" aria-labelledby="footer-company-title">
-        <h2 id="footer-company-title">Company</h2>
-        <nav aria-label="Company links">
+        <h2 id="footer-company-title">Empresa</h2>
+        <nav aria-label="Ligações da empresa">
           <NuxtLink v-for="item in companyLinks" :key="item.label" :to="item.to">{{ item.label }}</NuxtLink>
         </nav>
       </section>
 
       <section class="footer-column" aria-labelledby="footer-community-title">
-        <h2 id="footer-community-title">Community</h2>
-        <nav aria-label="Community links">
+        <h2 id="footer-community-title">Comunidade</h2>
+        <nav aria-label="Ligações da comunidade">
           <NuxtLink v-for="item in communityLinks" :key="item.label" :to="item.to">{{ item.label }}</NuxtLink>
         </nav>
       </section>
 
       <section class="footer-column" aria-labelledby="footer-teaching-title">
-        <h2 id="footer-teaching-title">Teaching</h2>
-        <nav aria-label="Teaching links">
+        <h2 id="footer-teaching-title">Ensino</h2>
+        <nav aria-label="Ligações de ensino">
           <NuxtLink v-for="item in teachingLinks" :key="item.label" :to="item.to">{{ item.label }}</NuxtLink>
         </nav>
       </section>
 
       <section class="footer-column footer-contact" aria-labelledby="footer-contact-title">
-        <h2 id="footer-contact-title">Contact</h2>
-        <p><span>Help centre:</span> <NuxtLink to="/faq">Browse support answers</NuxtLink></p>
-        <p><span>Account:</span> <NuxtLink :to="dashboardRoute">{{ isAuthenticated ? 'Open your school' : 'Log in to Lusivo' }}</NuxtLink></p>
+        <h2 id="footer-contact-title">Contacto</h2>
+        <p><span>Centro de ajuda:</span> <NuxtLink to="/faq">Consultar respostas de suporte</NuxtLink></p>
+        <p><span>Conta:</span> <NuxtLink :to="dashboardRoute">{{ isAuthenticated ? 'Abrir a sua escola' : 'Iniciar sessão na Lusivo' }}</NuxtLink></p>
 
-        <div class="footer-app-links" aria-label="Open the Lusivo platform">
-          <NuxtLink class="footer-app-link" to="/register">
+        <div class="footer-app-links" aria-label="Abrir a plataforma Lusivo">
+          <NuxtLink class="footer-app-link" to="/#plans">
             <Icon name="ph:google-play-logo-fill" size="27" aria-hidden="true" />
-            <span><small>GET STARTED ON</small><strong>Lusivo Web</strong></span>
+            <span><small>COMEÇAR NA</small><strong>Lusivo Web</strong></span>
           </NuxtLink>
           <NuxtLink class="footer-app-link" :to="dashboardRoute">
             <Icon name="ph:apple-logo-fill" size="29" aria-hidden="true" />
-            <span><small>OPEN IN YOUR</small><strong>Browser</strong></span>
+            <span><small>ABRIR NO SEU</small><strong>Navegador</strong></span>
           </NuxtLink>
         </div>
       </section>
     </div>
 
     <div class="container site-footer__legal">
-      <p>Copyright ©{{ year }} Lusivo. All rights reserved.</p>
+      <p>Copyright ©{{ year }} Lusivo. Todos os direitos reservados.</p>
       <div class="site-footer__legal-links">
-        <span class="footer-language" aria-label="Site language: English">
+        <span class="footer-language" aria-label="Idioma do site: Português">
           <Icon name="ph:globe" size="19" aria-hidden="true" />
-          English
-          <Icon name="ph:caret-up-bold" size="13" aria-hidden="true" />
+          Português
         </span>
-        <NuxtLink to="/faq">Terms of use</NuxtLink>
-        <NuxtLink to="/faq">Privacy policy</NuxtLink>
-        <button type="button" aria-label="Back to top" @click="scrollToTop">
+        <NuxtLink to="/faq">Termos de utilização</NuxtLink>
+        <NuxtLink to="/faq">Política de privacidade</NuxtLink>
+        <button type="button" aria-label="Voltar ao topo" @click="scrollToTop">
           <Icon name="ph:arrow-up" size="24" aria-hidden="true" />
         </button>
       </div>

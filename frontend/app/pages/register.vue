@@ -2,6 +2,7 @@
 import type { PackagePlan, User } from '~/types'
 
 const { request } = useApi()
+const { cartItem, cartInitialised, initialiseCart } = useSchoolCart()
 
 const form = reactive({
   firstName: '',
@@ -14,28 +15,32 @@ const form = reactive({
 const errors = reactive<Record<string, string | undefined>>({})
 const submitting = ref(false)
 const message = ref('')
-const selectedPlan = ref<PackagePlan | null>(null)
+const selectedPlan = computed<PackagePlan | null>(() => cartItem.value)
 
 const validate = () => {
-  errors.firstName = /^[A-Za-zÀ-ž' -]+$/.test(form.firstName.trim()) ? undefined : 'Enter a valid first name.'
-  errors.lastName = /^[A-Za-zÀ-ž' -]+$/.test(form.lastName.trim()) ? undefined : 'Enter a valid last name.'
-  errors.email = /^\S+@\S+\.\S+$/.test(form.email) ? undefined : 'Enter a valid email address.'
+  errors.firstName = /^[A-Za-zÀ-ž' -]+$/.test(form.firstName.trim()) ? undefined : 'Introduza um nome válido.'
+  errors.lastName = /^[A-Za-zÀ-ž' -]+$/.test(form.lastName.trim()) ? undefined : 'Introduza um apelido válido.'
+  errors.email = /^\S+@\S+\.\S+$/.test(form.email) ? undefined : 'Introduza um endereço de e-mail válido.'
   errors.password = /^(?=.*[A-Za-z])(?=.*\d).{6,}$/.test(form.password)
     ? undefined
-    : 'Use at least 6 characters with one letter and one number.'
-  errors.profileImage = form.profileImage ? undefined : 'Choose a profile image.'
-  errors.packageName = form.packageName.trim() ? undefined : 'Choose or enter a package name.'
+    : 'Utilize pelo menos 6 caracteres, incluindo uma letra e um número.'
+  errors.profileImage = form.profileImage ? undefined : 'Escolha uma imagem de perfil.'
+  errors.packageName = form.packageName.trim() ? undefined : 'Escolha ou introduza o nome de um pacote.'
   return !Object.values(errors).some(Boolean)
 }
 
 const handleFile = (event: Event) => {
   const input = event.target as HTMLInputElement
   form.profileImage = input.files?.[0] || null
-  errors.profileImage = form.profileImage ? undefined : 'Choose a profile image.'
+  errors.profileImage = form.profileImage ? undefined : 'Escolha uma imagem de perfil.'
 }
 
 const submit = async () => {
   message.value = ''
+  if (!selectedPlan.value) {
+    message.value = 'Escolha um pacote e adicione-o ao carrinho antes de criar uma conta.'
+    return
+  }
   if (!validate()) return
   submitting.value = true
 
@@ -62,93 +67,109 @@ const submit = async () => {
     }
     await navigateTo('/subscribe')
   } catch (error) {
-    message.value = getApiErrorMessage(error, 'Registration failed. Review your details and try again.')
+    message.value = getApiErrorMessage(error, 'Não foi possível criar a conta. Reveja os dados e tente novamente.')
   } finally {
     submitting.value = false
   }
 }
 
 onMounted(() => {
-  try {
-    const saved = localStorage.getItem('selectedPackage')
-    if (saved) {
-      selectedPlan.value = JSON.parse(saved) as PackagePlan
-      form.packageName = selectedPlan.value?.name || ''
-    }
-  } catch {
-    localStorage.removeItem('selectedPackage')
-  }
+  initialiseCart()
+  form.packageName = selectedPlan.value?.name || ''
 })
 
-useSeoMeta({ title: 'Create account', robots: 'noindex' })
+watch(selectedPlan, plan => {
+  form.packageName = plan?.name || ''
+})
+
+useSeoMeta({ title: 'Criar conta', robots: 'noindex' })
 </script>
 
 <template>
   <section class="auth-shell">
     <div class="auth-shell__visual">
-      <img src="/images/background-01.webp" alt="A teacher supporting learners with digital coursework" width="1200" height="900">
+      <img src="/images/background-01.webp" alt="Uma professora a apoiar alunos em atividades digitais" width="1200" height="900">
       <div class="auth-shell__visual-copy">
-        <h1>Bring your school into one workspace.</h1>
-        <p>Create an account, confirm your plan, and connect the people and records that shape each school day.</p>
+        <h1>Reúna a sua escola num único espaço de trabalho.</h1>
+        <p>Crie uma conta, confirme o plano e ligue as pessoas e os registos que fazem parte de cada dia escolar.</p>
       </div>
     </div>
     <div class="auth-shell__form">
       <div class="auth-card">
         <div class="auth-card__header">
-          <h2>Create account</h2>
-          <p v-if="selectedPlan">Continue with the {{ selectedPlan.name }} plan.</p>
-          <p v-else>Enter your details to get started.</p>
+          <h2>Criar conta</h2>
+          <p v-if="selectedPlan">Continue com o plano {{ selectedPlan.name }}.</p>
+          <p v-else>Escolha um pacote antes de criar a conta da sua escola.</p>
         </div>
 
-        <form class="form-stack" novalidate @submit.prevent="submit">
+        <AppSkeleton v-if="!cartInitialised" height="360px" />
+
+        <div v-else-if="!selectedPlan" class="registration-plan-required">
+          <span>
+            <Icon name="ph:shopping-cart-simple" size="30" aria-hidden="true" />
+          </span>
+          <h3>O seu carrinho está vazio</h3>
+          <p>Compare os pacotes escolares, reveja as funcionalidades e adicione primeiro um pacote ao carrinho.</p>
+          <NuxtLink class="button button--primary" to="/#plans">
+            Escolher um pacote
+            <Icon name="ph:arrow-right" size="19" aria-hidden="true" />
+          </NuxtLink>
+        </div>
+
+        <form v-else class="form-stack" novalidate @submit.prevent="submit">
           <AppAlert v-if="message" type="error" :message="message" />
+
+          <div class="registration-plan-summary">
+            <span>
+              <Icon name="ph:shopping-cart-simple-fill" size="21" aria-hidden="true" />
+            </span>
+            <div>
+              <small>Pacote no carrinho</small>
+              <strong>{{ selectedPlan.name }}</strong>
+            </div>
+            <b>R{{ Number(selectedPlan.price || 0).toLocaleString('pt-PT') }}<small>/mês</small></b>
+          </div>
 
           <div class="form-grid">
             <div class="field">
-              <label for="first-name">First name</label>
-              <input id="first-name" v-model="form.firstName" type="text" autocomplete="given-name" placeholder="Your first name" :aria-invalid="Boolean(errors.firstName)">
+              <label for="first-name">Nome</label>
+              <input id="first-name" v-model="form.firstName" type="text" autocomplete="given-name" placeholder="O seu nome" :aria-invalid="Boolean(errors.firstName)">
               <p v-if="errors.firstName" class="field__error">{{ errors.firstName }}</p>
             </div>
             <div class="field">
-              <label for="last-name">Last name</label>
-              <input id="last-name" v-model="form.lastName" type="text" autocomplete="family-name" placeholder="Your last name" :aria-invalid="Boolean(errors.lastName)">
+              <label for="last-name">Apelido</label>
+              <input id="last-name" v-model="form.lastName" type="text" autocomplete="family-name" placeholder="O seu apelido" :aria-invalid="Boolean(errors.lastName)">
               <p v-if="errors.lastName" class="field__error">{{ errors.lastName }}</p>
             </div>
           </div>
 
           <div class="field">
-            <label for="register-email">Email address</label>
-            <input id="register-email" v-model.trim="form.email" type="email" autocomplete="email" placeholder="name@school.co.za" :aria-invalid="Boolean(errors.email)">
+            <label for="register-email">Endereço de e-mail</label>
+            <input id="register-email" v-model.trim="form.email" type="email" autocomplete="email" placeholder="nome@escola.co.za" :aria-invalid="Boolean(errors.email)">
             <p v-if="errors.email" class="field__error">{{ errors.email }}</p>
           </div>
 
           <div class="field">
-            <label for="register-password">Password</label>
-            <input id="register-password" v-model="form.password" type="password" autocomplete="new-password" placeholder="Create a password" :aria-invalid="Boolean(errors.password)">
+            <label for="register-password">Palavra-passe</label>
+            <input id="register-password" v-model="form.password" type="password" autocomplete="new-password" placeholder="Crie uma palavra-passe" :aria-invalid="Boolean(errors.password)">
             <p v-if="errors.password" class="field__error">{{ errors.password }}</p>
-            <p v-else class="field__helper">At least 6 characters, including one number.</p>
+            <p v-else class="field__helper">Pelo menos 6 caracteres, incluindo um número.</p>
           </div>
 
           <div class="field">
-            <label for="package-name">Package name</label>
-            <input id="package-name" v-model="form.packageName" type="text" placeholder="Essential or Complete" :aria-invalid="Boolean(errors.packageName)">
-            <p v-if="errors.packageName" class="field__error">{{ errors.packageName }}</p>
-          </div>
-
-          <div class="field">
-            <label for="profile-image">Profile image</label>
+            <label for="profile-image">Imagem de perfil</label>
             <input id="profile-image" type="file" accept="image/png,image/jpeg,image/webp" :aria-invalid="Boolean(errors.profileImage)" @change="handleFile">
             <p v-if="errors.profileImage" class="field__error">{{ errors.profileImage }}</p>
-            <p v-else class="field__helper">PNG, JPG, or WebP.</p>
+            <p v-else class="field__helper">PNG, JPG ou WebP.</p>
           </div>
 
           <button class="button button--primary" type="submit" :disabled="submitting" style="width: 100%">
             <Icon v-if="submitting" name="ph:circle-notch" size="19" aria-hidden="true" />
-            {{ submitting ? 'Creating account...' : 'Create account' }}
+            {{ submitting ? 'A criar conta...' : 'Criar conta' }}
           </button>
         </form>
 
-        <p class="auth-card__footer">Already registered? <NuxtLink class="text-link" to="/login">Log in</NuxtLink></p>
+        <p class="auth-card__footer">Já tem uma conta? <NuxtLink class="text-link" to="/login">Iniciar sessão</NuxtLink></p>
       </div>
     </div>
   </section>

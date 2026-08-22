@@ -19,10 +19,10 @@ const normaliseUser = (user: User & { _id?: string }): SchoolPerson => ({
   id: String(user.id || user._id || `user-${Date.now()}`),
   name: `${user.firstName || ''} ${user.lastName || ''}`.trim() || user.email,
   email: user.email,
-  role: user.role ? user.role.replace(/^./, value => value.toUpperCase()) : 'User',
-  group: user.role === 'teacher' ? 'Teaching staff' : 'School community',
+  role: user.role === 'teacher' ? 'Professor' : user.role === 'student' ? 'Aluno' : user.role === 'parent' ? 'Encarregado de educação' : 'Utilizador',
+  group: user.role === 'teacher' ? 'Corpo docente' : 'Comunidade escolar',
   attendance: 100,
-  status: 'Active',
+  status: 'Ativo',
   image: user.image,
 })
 
@@ -35,7 +35,7 @@ const loadPeople = async () => {
     people.value = Array.isArray(response.data) ? response.data.map(normaliseUser) : []
     usingSample.value = false
   } catch (error) {
-    loadError.value = 'Live user records could not be loaded. Sample records are available so the workspace remains usable.'
+    loadError.value = 'Não foi possível carregar os registos em tempo real. Estão disponíveis registos de exemplo para manter o espaço utilizável.'
     usingSample.value = true
   } finally {
     loading.value = false
@@ -49,14 +49,14 @@ const savePerson = (person: SchoolPerson) => {
 }
 
 const deletePerson = async (person: SchoolPerson) => {
-  const confirmed = window.confirm(`Delete ${person.name} from this view?`)
+  const confirmed = window.confirm(`Eliminar ${person.name} desta vista?`)
   if (!confirmed) return
 
   if (!usingSample.value && !person.id.startsWith('local-')) {
     try {
       await request(`/users/user/${encodeURIComponent(person.id)}`, { method: 'DELETE' })
     } catch (error) {
-      loadError.value = getApiErrorMessage(error, 'The user could not be deleted.')
+      loadError.value = getApiErrorMessage(error, 'Não foi possível eliminar o utilizador.')
       return
     }
   }
@@ -72,7 +72,7 @@ onMounted(loadPeople)
       <DashboardOverview :people-count="people.length" :sample="usingSample" />
       <section style="margin-top: 1rem">
         <div class="dashboard-welcome" style="margin-bottom: 1rem">
-          <div><h2 style="font-size: 1.4rem">School directory</h2><p>Search, add, update, export, or remove people records.</p></div>
+          <div><h2 style="font-size: 1.4rem">Diretório escolar</h2><p>Pesquise, adicione, atualize, exporte ou remova registos de pessoas.</p></div>
         </div>
         <PeopleTable
           :people="people"

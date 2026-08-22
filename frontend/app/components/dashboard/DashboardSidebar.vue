@@ -19,7 +19,7 @@ const initials = computed(() => {
 })
 
 const userName = computed(() => {
-  if (!user.value) return 'School user'
+  if (!user.value) return 'Utilizador da escola'
   return `${user.value.firstName} ${user.value.lastName}`.trim()
 })
 
@@ -40,7 +40,7 @@ watch(() => route.fullPath, close)
     class="sidebar-backdrop"
     :class="{ 'is-open': sidebarOpen }"
     type="button"
-    aria-label="Close dashboard navigation"
+    aria-label="Fechar navegação do painel"
     @click="close"
   />
   <aside class="dashboard-sidebar" :class="{ 'is-open': sidebarOpen }">
@@ -51,7 +51,7 @@ watch(() => route.fullPath, close)
       </NuxtLink>
     </div>
 
-    <nav class="dashboard-sidebar__nav" aria-label="Dashboard navigation">
+    <nav class="dashboard-sidebar__nav" aria-label="Navegação do painel">
       <NuxtLink
         v-for="item in dashboardNavigation"
         :key="item.slug"
@@ -71,12 +71,12 @@ watch(() => route.fullPath, close)
         </div>
         <div>
           <strong>{{ userName }}</strong>
-          <span>{{ user?.role || 'School account' }}</span>
+          <span>{{ user?.role || 'Conta escolar' }}</span>
         </div>
       </div>
       <button class="button button--ghost" type="button" style="width: 100%" @click="handleLogout">
         <Icon name="ph:sign-out" size="19" aria-hidden="true" />
-        Log out
+        Terminar sessão
       </button>
     </div>
   </aside>

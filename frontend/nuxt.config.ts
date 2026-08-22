@@ -19,7 +19,7 @@ export default defineNuxtConfig({
     head: {
       titleTemplate: '%s | Lusivo',
       meta: [
-        { name: 'description', content: 'School administration, learning, and family communication in one place.' },
+        { name: 'description', content: 'Administração escolar, aprendizagem e comunicação com as famílias num só lugar.' },
         { name: 'theme-color', content: '#001b51' },
       ],
     },

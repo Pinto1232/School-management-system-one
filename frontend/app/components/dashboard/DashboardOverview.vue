@@ -11,8 +11,8 @@ const props = withDefaults(defineProps<{
 
 const { user } = useAuth()
 
-const firstName = computed(() => user.value?.firstName || 'there')
-const formattedDate = computed(() => new Intl.DateTimeFormat('en-ZA', {
+const firstName = computed(() => user.value?.firstName || '')
+const formattedDate = computed(() => new Intl.DateTimeFormat('pt-PT', {
   weekday: 'long',
   day: 'numeric',
   month: 'long',
@@ -20,17 +20,17 @@ const formattedDate = computed(() => new Intl.DateTimeFormat('en-ZA', {
 }).format(new Date()))
 
 const metrics = computed(() => [
-  { label: 'Active learners', value: props.peopleCount || 486, change: 'Across all grades', icon: 'ph:student' },
-  { label: 'Teaching staff', value: 34, change: '31 currently on campus', icon: 'ph:chalkboard-teacher' },
-  { label: 'Attendance today', value: '93%', change: 'Up from the weekly average', icon: 'ph:check-square' },
-  { label: 'Open tasks', value: 18, change: '6 due this week', icon: 'ph:list-checks' },
+  { label: 'Alunos ativos', value: props.peopleCount || 486, change: 'Em todas as classes', icon: 'ph:student' },
+  { label: 'Corpo docente', value: 34, change: '31 atualmente na escola', icon: 'ph:chalkboard-teacher' },
+  { label: 'Presenças hoje', value: '93%', change: 'Acima da média semanal', icon: 'ph:check-square' },
+  { label: 'Tarefas abertas', value: 18, change: '6 com prazo esta semana', icon: 'ph:list-checks' },
 ])
 
 const activity = [
-  { icon: 'ph:clipboard-text', title: 'Term marks updated', time: '12 minutes ago' },
-  { icon: 'ph:user-plus', title: 'Three admissions received', time: '48 minutes ago' },
-  { icon: 'ph:megaphone', title: 'Parent meeting notice published', time: '2 hours ago' },
-  { icon: 'ph:bus', title: 'Athletics transport confirmed', time: 'Yesterday' },
+  { icon: 'ph:clipboard-text', title: 'Notas do período atualizadas', time: 'Há 12 minutos' },
+  { icon: 'ph:user-plus', title: 'Três candidaturas recebidas', time: 'Há 48 minutos' },
+  { icon: 'ph:megaphone', title: 'Aviso da reunião de encarregados publicado', time: 'Há 2 horas' },
+  { icon: 'ph:bus', title: 'Transporte para o atletismo confirmado', time: 'Ontem' },
 ]
 </script>
 
@@ -38,8 +38,8 @@ const activity = [
   <section>
     <div class="dashboard-welcome">
       <div>
-        <h2>Good day, {{ firstName }}.</h2>
-        <p>Here is what needs attention across the school.</p>
+        <h2>Bom dia<span v-if="firstName">, {{ firstName }}</span>.</h2>
+        <p>Veja o que precisa de atenção em toda a escola.</p>
       </div>
       <time class="dashboard-date">{{ formattedDate }}</time>
     </div>
@@ -47,7 +47,7 @@ const activity = [
     <AppAlert
       v-if="sample"
       type="info"
-      message="The dashboard is showing sample academic metrics until live reporting endpoints return data."
+      message="O painel apresenta indicadores académicos de exemplo até que os relatórios em tempo real estejam disponíveis."
       style="margin-bottom: 1rem"
     />
 
@@ -65,11 +65,11 @@ const activity = [
     <div class="dashboard-grid">
       <section class="panel">
         <div class="panel__header">
-          <h2>Academic performance</h2>
-          <span class="status status--active">Term 3</span>
+          <h2>Desempenho académico</h2>
+          <span class="status status--active">3.º período</span>
         </div>
         <div class="panel__body">
-          <div class="chart" aria-label="Sample monthly academic performance chart">
+          <div class="chart" aria-label="Gráfico mensal de exemplo do desempenho académico">
             <div v-for="point in performance" :key="point.label" class="chart__item">
               <div class="chart__bar" :style="{ height: `${point.value}%` }" :title="`${point.value}%`" />
               <span class="chart__label">{{ point.label }}</span>
@@ -80,7 +80,7 @@ const activity = [
 
       <section class="panel">
         <div class="panel__header">
-          <h2>Recent activity</h2>
+          <h2>Atividade recente</h2>
         </div>
         <div class="panel__body activity-list">
           <div v-for="item in activity" :key="item.title" class="activity-item">
@@ -94,12 +94,12 @@ const activity = [
     <div class="dashboard-grid">
       <section class="panel">
         <div class="panel__header">
-          <h2>Course progress</h2>
-          <NuxtLink class="text-link" to="/dashboard/courses">View courses</NuxtLink>
+          <h2>Progresso das disciplinas</h2>
+          <NuxtLink class="text-link" to="/dashboard/courses">Ver disciplinas</NuxtLink>
         </div>
         <div class="table-wrap">
           <table class="data-table">
-            <thead><tr><th>Course</th><th>Teacher</th><th>Learners</th><th>Progress</th></tr></thead>
+            <thead><tr><th>Disciplina</th><th>Professor</th><th>Alunos</th><th>Progresso</th></tr></thead>
             <tbody>
               <tr v-for="course in courses" :key="course.id">
                 <td><strong>{{ course.name }}</strong><br><span style="color: var(--ink-soft); font-size: 0.78rem">{{ course.code }}</span></td>
@@ -119,8 +119,8 @@ const activity = [
 
       <section class="panel">
         <div class="panel__header">
-          <h2>Upcoming events</h2>
-          <NuxtLink class="text-link" to="/dashboard/events">Calendar</NuxtLink>
+          <h2>Próximos eventos</h2>
+          <NuxtLink class="text-link" to="/dashboard/events">Calendário</NuxtLink>
         </div>
         <div class="panel__body event-list">
           <div v-for="event in schoolEvents.slice(0, 3)" :key="event.id" class="event-item">

@@ -22,6 +22,11 @@ export interface PackagePlan {
   description?: string
   features?: string[] | Record<string, boolean>
   image?: string
+  images?: Array<{
+    url?: string
+    contentType?: string
+    data?: unknown
+  }>
   [key: string]: unknown
 }
 
@@ -57,6 +62,6 @@ export interface SchoolPerson {
   role: string
   group: string
   attendance: number
-  status: 'Active' | 'Pending' | 'Inactive'
+  status: 'Ativo' | 'Pendente' | 'Inativo'
   image?: string
 }

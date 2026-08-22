@@ -11,16 +11,16 @@ const showPassword = ref(false)
 const submitting = ref(false)
 const message = ref('')
 const notice = computed(() => route.query.subscription === 'test-complete'
-  ? 'Local test payment completed. Log in to continue to your dashboard.'
+  ? 'O pagamento de teste local foi concluído. Inicie sessão para continuar para o painel.'
   : '')
 
 const validate = () => {
   errors.email = !form.email
-    ? 'Email is required.'
+    ? 'O e-mail é obrigatório.'
     : !/^\S+@\S+\.\S+$/.test(form.email)
-      ? 'Enter a valid email address.'
+      ? 'Introduza um endereço de e-mail válido.'
       : undefined
-  errors.password = !form.password ? 'Password is required.' : undefined
+  errors.password = !form.password ? 'A palavra-passe é obrigatória.' : undefined
   return !errors.email && !errors.password
 }
 
@@ -40,7 +40,7 @@ const submit = async () => {
     login(response.user, response.token, form.remember)
     await navigateTo('/dashboard')
   } catch (error) {
-    message.value = getApiErrorMessage(error, 'Login failed. Check your details and try again.')
+    message.value = getApiErrorMessage(error, 'Não foi possível iniciar sessão. Verifique os dados e tente novamente.')
   } finally {
     submitting.value = false
   }
@@ -50,23 +50,23 @@ onMounted(() => {
   if (isAuthenticated.value) navigateTo('/dashboard')
 })
 
-useSeoMeta({ title: 'Log in', robots: 'noindex' })
+useSeoMeta({ title: 'Iniciar sessão', robots: 'noindex' })
 </script>
 
 <template>
   <section class="auth-shell">
     <div class="auth-shell__visual">
-      <img src="/images/school.webp" alt="A large school lecture room" width="1200" height="900">
+      <img src="/images/school.webp" alt="Uma grande sala de aulas" width="1200" height="900">
       <div class="auth-shell__visual-copy">
-        <h1>Welcome back.</h1>
-        <p>Open your school dashboard and continue with the people, classes, and tasks that need attention.</p>
+        <h1>Bem-vindo de volta.</h1>
+        <p>Abra o painel da sua escola e continue a acompanhar as pessoas, turmas e tarefas que precisam de atenção.</p>
       </div>
     </div>
     <div class="auth-shell__form">
       <div class="auth-card">
         <div class="auth-card__header">
-          <h2>Log in</h2>
-          <p>Use your school account details.</p>
+          <h2>Iniciar sessão</h2>
+          <p>Utilize os dados da sua conta escolar.</p>
         </div>
 
         <form class="form-stack" novalidate @submit.prevent="submit">
@@ -74,13 +74,13 @@ useSeoMeta({ title: 'Log in', robots: 'noindex' })
           <AppAlert v-if="message" type="error" :message="message" />
 
           <div class="field">
-            <label for="login-email">Email address</label>
+            <label for="login-email">Endereço de e-mail</label>
             <input
               id="login-email"
               v-model.trim="form.email"
               type="email"
               autocomplete="email"
-              placeholder="name@school.co.za"
+              placeholder="nome@escola.co.za"
               :aria-invalid="Boolean(errors.email)"
               :aria-describedby="errors.email ? 'login-email-error' : undefined"
               @blur="validate"
@@ -89,14 +89,14 @@ useSeoMeta({ title: 'Log in', robots: 'noindex' })
           </div>
 
           <div class="field">
-            <label for="login-password">Password</label>
+            <label for="login-password">Palavra-passe</label>
             <div style="position: relative">
               <input
                 id="login-password"
                 v-model="form.password"
                 :type="showPassword ? 'text' : 'password'"
                 autocomplete="current-password"
-                placeholder="Enter your password"
+                placeholder="Introduza a sua palavra-passe"
                 style="padding-right: 3rem"
                 :aria-invalid="Boolean(errors.password)"
                 :aria-describedby="errors.password ? 'login-password-error' : undefined"
@@ -105,7 +105,7 @@ useSeoMeta({ title: 'Log in', robots: 'noindex' })
               <button
                 class="icon-button"
                 type="button"
-                :aria-label="showPassword ? 'Hide password' : 'Show password'"
+                :aria-label="showPassword ? 'Ocultar palavra-passe' : 'Mostrar palavra-passe'"
                 style="position: absolute; top: 1px; right: 1px; width: 44px; height: 44px; border: 0; background: transparent"
                 @click="showPassword = !showPassword"
               >
@@ -116,17 +116,17 @@ useSeoMeta({ title: 'Log in', robots: 'noindex' })
           </div>
 
           <div class="check-row">
-            <label><input v-model="form.remember" type="checkbox"> Keep me logged in</label>
-            <NuxtLink class="text-link" to="/forgetPassword">Forgot password?</NuxtLink>
+            <label><input v-model="form.remember" type="checkbox"> Manter sessão iniciada</label>
+            <NuxtLink class="text-link" to="/forgetPassword">Esqueceu a palavra-passe?</NuxtLink>
           </div>
 
           <button class="button button--primary" type="submit" :disabled="submitting" style="width: 100%">
             <Icon v-if="submitting" name="ph:circle-notch" size="19" aria-hidden="true" />
-            {{ submitting ? 'Logging in...' : 'Log in' }}
+            {{ submitting ? 'A iniciar sessão...' : 'Iniciar sessão' }}
           </button>
         </form>
 
-        <p class="auth-card__footer">New to Lusivo? <NuxtLink class="text-link" to="/register">Create an account</NuxtLink></p>
+        <p class="auth-card__footer">Ainda não utiliza a Lusivo? <NuxtLink class="text-link" to="/#plans">Escolha um pacote</NuxtLink></p>
       </div>
     </div>
   </section>

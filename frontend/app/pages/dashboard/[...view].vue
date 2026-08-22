@@ -11,11 +11,11 @@ const view = computed(() => {
 const validViews = new Set(dashboardNavigation.map(item => item.slug))
 
 if (!validViews.has(view.value)) {
-  throw createError({ statusCode: 404, statusMessage: 'Dashboard view not found' })
+  throw createError({ statusCode: 404, statusMessage: 'Vista do painel não encontrada' })
 }
 
 useSeoMeta({
-  title: () => dashboardNavigation.find(item => item.slug === view.value)?.label || 'Dashboard',
+  title: () => dashboardNavigation.find(item => item.slug === view.value)?.label || 'Painel',
   robots: 'noindex',
 })
 </script>

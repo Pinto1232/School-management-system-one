@@ -1,165 +1,167 @@
 import type { PackagePlan, SchoolPerson } from '~/types'
 
 export const publicNavigation = [
-  { label: 'Home', to: '/' },
-  { label: 'About', to: '/about' },
-  { label: 'FAQs', to: '/faq' },
+  { label: 'Início', to: '/' },
+  { label: 'Sobre', to: '/about' },
+  { label: 'Perguntas frequentes', to: '/faq' },
 ]
 
 export const dashboardNavigation = [
-  { label: 'Dashboard', slug: 'dashboard', icon: 'ph:squares-four' },
-  { label: 'Students', slug: 'students', icon: 'ph:student' },
-  { label: 'Teachers', slug: 'teachers', icon: 'ph:chalkboard-teacher' },
-  { label: 'Courses', slug: 'courses', icon: 'ph:books' },
-  { label: 'Attendance', slug: 'attendance', icon: 'ph:check-square' },
-  { label: 'Calendar/Events', slug: 'events', icon: 'ph:calendar-dots' },
-  { label: 'Lesson Planning', slug: 'lesson-planning', icon: 'ph:notebook' },
-  { label: 'Admissions', slug: 'admissions', icon: 'ph:user-plus' },
-  { label: 'Reports', slug: 'reports', icon: 'ph:chart-bar' },
-  { label: 'Fees', slug: 'fees', icon: 'ph:wallet' },
-  { label: 'Grading', slug: 'grading', icon: 'ph:exam' },
-  { label: 'Tasks', slug: 'tasks', icon: 'ph:list-checks' },
-  { label: 'Parent Portal', slug: 'parent-portal', icon: 'ph:users-three' },
-  { label: 'Staff', slug: 'staff', icon: 'ph:identification-card' },
-  { label: 'Timetable', slug: 'timetable', icon: 'ph:clock' },
+  { label: 'Painel', slug: 'dashboard', icon: 'ph:squares-four' },
+  { label: 'Alunos', slug: 'students', icon: 'ph:student' },
+  { label: 'Professores', slug: 'teachers', icon: 'ph:chalkboard-teacher' },
+  { label: 'Disciplinas', slug: 'courses', icon: 'ph:books' },
+  { label: 'Presenças', slug: 'attendance', icon: 'ph:check-square' },
+  { label: 'Calendário e eventos', slug: 'events', icon: 'ph:calendar-dots' },
+  { label: 'Planificação de aulas', slug: 'lesson-planning', icon: 'ph:notebook' },
+  { label: 'Admissões', slug: 'admissions', icon: 'ph:user-plus' },
+  { label: 'Relatórios', slug: 'reports', icon: 'ph:chart-bar' },
+  { label: 'Propinas', slug: 'fees', icon: 'ph:wallet' },
+  { label: 'Avaliações', slug: 'grading', icon: 'ph:exam' },
+  { label: 'Tarefas', slug: 'tasks', icon: 'ph:list-checks' },
+  { label: 'Portal dos encarregados', slug: 'parent-portal', icon: 'ph:users-three' },
+  { label: 'Funcionários', slug: 'staff', icon: 'ph:identification-card' },
+  { label: 'Horário', slug: 'timetable', icon: 'ph:clock' },
 ]
 
 export const benefits = [
   {
     icon: 'ph:student',
-    title: 'Student records',
-    description: 'Keep profiles, enrolment, grades, attendance, and learning progress connected.',
+    title: 'Registos dos alunos',
+    description: 'Mantenha ligados os perfis, matrículas, notas, presenças e progresso de aprendizagem.',
   },
   {
     icon: 'ph:chalkboard-teacher',
-    title: 'Teaching tools',
-    description: 'Plan lessons, manage course material, publish assignments, and review class progress.',
+    title: 'Ferramentas de ensino',
+    description: 'Planifique aulas, organize materiais, publique tarefas e acompanhe o progresso das turmas.',
   },
   {
     icon: 'ph:chat-circle-text',
-    title: 'Family communication',
-    description: 'Give parents a clear view of announcements, attendance, fees, and academic results.',
+    title: 'Comunicação com as famílias',
+    description: 'Dê aos encarregados de educação uma visão clara dos comunicados, presenças, propinas e resultados.',
   },
   {
     icon: 'ph:chart-line-up',
-    title: 'Useful reporting',
-    description: 'Turn day-to-day school activity into concise operational and academic reports.',
+    title: 'Relatórios úteis',
+    description: 'Transforme a atividade escolar diária em relatórios operacionais e académicos claros.',
   },
 ]
 
 export const fallbackPlans: PackagePlan[] = [
   {
     id: 'essential',
-    name: 'Essential',
+    name: 'Essencial',
     price: 399,
-    description: 'Core administration for a growing school.',
-    features: ['Student profiles', 'Attendance tracking', 'Announcements', 'Email support'],
+    description: 'Administração essencial para uma escola em crescimento.',
+    image: '/images/plan-essential.webp',
+    features: ['Perfis de alunos', 'Registo de presenças', 'Comunicados', 'Suporte por e-mail'],
   },
   {
     id: 'complete',
-    name: 'Complete',
+    name: 'Completo',
     price: 749,
-    description: 'Academic and operational tools for the whole school.',
-    features: ['Everything in Essential', 'Grades and reports', 'Lesson planning', 'Parent portal', 'Priority support'],
+    description: 'Ferramentas académicas e operacionais para toda a escola.',
+    image: '/images/plan-complete.webp',
+    features: ['Tudo o que está incluído no Essencial', 'Notas e relatórios', 'Planificação de aulas', 'Portal dos encarregados de educação', 'Suporte prioritário'],
   },
 ]
 
 export const faqs = [
   {
-    question: 'Who can use the platform?',
-    answer: 'The system supports administrators, teachers, students, parents, and school staff through one shared platform.',
+    question: 'Quem pode utilizar a plataforma?',
+    answer: 'O sistema apoia administradores, professores, alunos, encarregados de educação e funcionários numa única plataforma partilhada.',
   },
   {
-    question: 'Can we track attendance and grades?',
-    answer: 'Yes. Staff can record attendance, manage grade information, and review student performance from the dashboard.',
+    question: 'É possível acompanhar presenças e notas?',
+    answer: 'Sim. Os funcionários podem registar presenças, gerir notas e acompanhar o desempenho dos alunos no painel.',
   },
   {
-    question: 'Does it work on phones and tablets?',
-    answer: 'Yes. The interface adapts to desktop, tablet, and mobile screens, including the dashboard navigation and forms.',
+    question: 'Funciona em telemóveis e tablets?',
+    answer: 'Sim. A interface adapta-se a computadores, tablets e telemóveis, incluindo a navegação e os formulários do painel.',
   },
   {
-    question: 'How do parents receive updates?',
-    answer: 'The parent portal brings together announcements, attendance, academic results, fees, and school events.',
+    question: 'Como recebem as famílias as atualizações?',
+    answer: 'O portal dos encarregados de educação reúne comunicados, presenças, resultados académicos, propinas e eventos escolares.',
   },
   {
-    question: 'Can we export reports?',
-    answer: 'Grade and operational data can be exported in CSV format. Print-friendly reports are also available.',
+    question: 'É possível exportar relatórios?',
+    answer: 'As notas e os dados operacionais podem ser exportados em formato CSV. Também estão disponíveis relatórios preparados para impressão.',
   },
 ]
 
 export const samplePeople: SchoolPerson[] = [
-  { id: 'st-1042', name: 'Naledi Mokoena', email: 'naledi.mokoena@school.test', role: 'Student', group: 'Grade 11A', attendance: 96, status: 'Active' },
-  { id: 'st-1087', name: 'Lethabo Khumalo', email: 'lethabo.khumalo@school.test', role: 'Student', group: 'Grade 10B', attendance: 91, status: 'Active' },
-  { id: 'st-1114', name: 'Amina Patel', email: 'amina.patel@school.test', role: 'Student', group: 'Grade 12A', attendance: 98, status: 'Active' },
-  { id: 'st-1136', name: 'Onke Mthembu', email: 'onke.mthembu@school.test', role: 'Student', group: 'Grade 9C', attendance: 84, status: 'Pending' },
-  { id: 'st-1171', name: 'Karabo Seabi', email: 'karabo.seabi@school.test', role: 'Student', group: 'Grade 11B', attendance: 93, status: 'Active' },
-  { id: 'st-1203', name: 'Imani Daniels', email: 'imani.daniels@school.test', role: 'Student', group: 'Grade 8A', attendance: 88, status: 'Active' },
+  { id: 'st-1042', name: 'Naledi Mokoena', email: 'naledi.mokoena@escola.test', role: 'Aluno', group: '11.ª classe A', attendance: 96, status: 'Ativo' },
+  { id: 'st-1087', name: 'Lethabo Khumalo', email: 'lethabo.khumalo@escola.test', role: 'Aluno', group: '10.ª classe B', attendance: 91, status: 'Ativo' },
+  { id: 'st-1114', name: 'Amina Patel', email: 'amina.patel@escola.test', role: 'Aluno', group: '12.ª classe A', attendance: 98, status: 'Ativo' },
+  { id: 'st-1136', name: 'Onke Mthembu', email: 'onke.mthembu@escola.test', role: 'Aluno', group: '9.ª classe C', attendance: 84, status: 'Pendente' },
+  { id: 'st-1171', name: 'Karabo Seabi', email: 'karabo.seabi@escola.test', role: 'Aluno', group: '11.ª classe B', attendance: 93, status: 'Ativo' },
+  { id: 'st-1203', name: 'Imani Daniels', email: 'imani.daniels@escola.test', role: 'Aluno', group: '8.ª classe A', attendance: 88, status: 'Ativo' },
 ]
 
 export const teachers = [
-  { id: 'tc-18', name: 'Thandi Ndlovu', subject: 'Mathematics', classes: 4, students: 112, status: 'Active' },
-  { id: 'tc-24', name: 'Yusuf Ismail', subject: 'Physical Sciences', classes: 3, students: 86, status: 'Active' },
-  { id: 'tc-31', name: 'Zanele Sithole', subject: 'English', classes: 5, students: 138, status: 'Active' },
-  { id: 'tc-42', name: 'Michael Adams', subject: 'History', classes: 3, students: 79, status: 'On leave' },
+  { id: 'tc-18', name: 'Thandi Ndlovu', subject: 'Matemática', classes: 4, students: 112, status: 'Ativo' },
+  { id: 'tc-24', name: 'Yusuf Ismail', subject: 'Ciências Físicas', classes: 3, students: 86, status: 'Ativo' },
+  { id: 'tc-31', name: 'Zanele Sithole', subject: 'Português', classes: 5, students: 138, status: 'Ativo' },
+  { id: 'tc-42', name: 'Michael Adams', subject: 'História', classes: 3, students: 79, status: 'De licença' },
 ]
 
 export const courses = [
-  { id: 'course-1', name: 'Mathematics', code: 'MAT-11', teacher: 'Thandi Ndlovu', learners: 31, progress: 72, image: '/images/school.webp' },
-  { id: 'course-2', name: 'Physical Sciences', code: 'PHY-11', teacher: 'Yusuf Ismail', learners: 28, progress: 64, image: '/images/background-01.webp' },
-  { id: 'course-3', name: 'English', code: 'ENG-11', teacher: 'Zanele Sithole', learners: 31, progress: 81, image: '/images/about-us.webp' },
-  { id: 'course-4', name: 'History', code: 'HIS-11', teacher: 'Michael Adams', learners: 27, progress: 59, image: '/images/aboutUs.png' },
+  { id: 'course-1', name: 'Matemática', code: 'MAT-11', teacher: 'Thandi Ndlovu', learners: 31, progress: 72, image: '/images/school.webp' },
+  { id: 'course-2', name: 'Ciências Físicas', code: 'CFI-11', teacher: 'Yusuf Ismail', learners: 28, progress: 64, image: '/images/background-01.webp' },
+  { id: 'course-3', name: 'Português', code: 'POR-11', teacher: 'Zanele Sithole', learners: 31, progress: 81, image: '/images/about-us.webp' },
+  { id: 'course-4', name: 'História', code: 'HIS-11', teacher: 'Michael Adams', learners: 27, progress: 59, image: '/images/aboutUs.png' },
 ]
 
 export const assignments = [
-  { id: 'as-1', name: 'Functions investigation', course: 'Mathematics', due: '28 Aug 2026', status: 'Open' },
-  { id: 'as-2', name: 'Momentum practical report', course: 'Physical Sciences', due: '30 Aug 2026', status: 'Open' },
-  { id: 'as-3', name: 'Comparative literature essay', course: 'English', due: '02 Sep 2026', status: 'Draft' },
-  { id: 'as-4', name: 'Source analysis', course: 'History', due: '05 Sep 2026', status: 'Open' },
+  { id: 'as-1', name: 'Investigação sobre funções', course: 'Matemática', due: '28 ago. 2026', status: 'Aberta' },
+  { id: 'as-2', name: 'Relatório prático sobre momento', course: 'Ciências Físicas', due: '30 ago. 2026', status: 'Aberta' },
+  { id: 'as-3', name: 'Ensaio de literatura comparada', course: 'Português', due: '02 set. 2026', status: 'Rascunho' },
+  { id: 'as-4', name: 'Análise de fontes', course: 'História', due: '05 set. 2026', status: 'Aberta' },
 ]
 
 export const announcements = [
-  { id: 'an-1', title: 'Spring athletics entries', date: '22 Aug 2026', body: 'Entries close on Friday. Learners can confirm events with their class teacher.' },
-  { id: 'an-2', title: 'Grade 12 parent meeting', date: '20 Aug 2026', body: 'The term review meeting takes place in the school hall at 18:00.' },
-  { id: 'an-3', title: 'Library hours extended', date: '18 Aug 2026', body: 'The library will remain open until 17:30 from Monday to Thursday.' },
+  { id: 'an-1', title: 'Inscrições para o atletismo', date: '22 ago. 2026', body: 'As inscrições terminam na sexta-feira. Os alunos podem confirmar as provas com o diretor de turma.' },
+  { id: 'an-2', title: 'Reunião dos encarregados da 12.ª classe', date: '20 ago. 2026', body: 'A reunião de avaliação do período realiza-se no salão da escola às 18:00.' },
+  { id: 'an-3', title: 'Horário alargado da biblioteca', date: '18 ago. 2026', body: 'A biblioteca permanecerá aberta até às 17:30, de segunda a quinta-feira.' },
 ]
 
 export const schoolEvents = [
-  { id: 'ev-1', day: '24', month: 'Aug', title: 'Mathematics revision', meta: '14:30 - Room B12' },
-  { id: 'ev-2', day: '26', month: 'Aug', title: 'School governing body', meta: '17:30 - Conference room' },
-  { id: 'ev-3', day: '29', month: 'Aug', title: 'Inter-school athletics', meta: '08:00 - Sports grounds' },
-  { id: 'ev-4', day: '02', month: 'Sep', title: 'Grade 9 subject choices', meta: '18:00 - School hall' },
+  { id: 'ev-1', day: '24', month: 'ago.', title: 'Revisão de Matemática', meta: '14:30 - Sala B12' },
+  { id: 'ev-2', day: '26', month: 'ago.', title: 'Conselho de direção escolar', meta: '17:30 - Sala de conferências' },
+  { id: 'ev-3', day: '29', month: 'ago.', title: 'Atletismo interescolar', meta: '08:00 - Campo desportivo' },
+  { id: 'ev-4', day: '02', month: 'set.', title: 'Escolha de disciplinas da 9.ª classe', meta: '18:00 - Salão da escola' },
 ]
 
 export const grades = [
-  { subject: 'Mathematics', term1: 74, term2: 78, current: 81, grade: 'A' },
-  { subject: 'Physical Sciences', term1: 69, term2: 73, current: 76, grade: 'B' },
-  { subject: 'English', term1: 82, term2: 85, current: 84, grade: 'A' },
-  { subject: 'History', term1: 71, term2: 68, current: 75, grade: 'B' },
-  { subject: 'Life Orientation', term1: 88, term2: 90, current: 92, grade: 'A' },
+  { subject: 'Matemática', term1: 74, term2: 78, current: 81, grade: 'A' },
+  { subject: 'Ciências Físicas', term1: 69, term2: 73, current: 76, grade: 'B' },
+  { subject: 'Português', term1: 82, term2: 85, current: 84, grade: 'A' },
+  { subject: 'História', term1: 71, term2: 68, current: 75, grade: 'B' },
+  { subject: 'Educação para a Vida', term1: 88, term2: 90, current: 92, grade: 'A' },
 ]
 
 export const tasks = [
-  { id: 'task-1', title: 'Approve new admissions', owner: 'Administration', due: 'Today', status: 'In progress' },
-  { id: 'task-2', title: 'Publish term assessment plan', owner: 'Academics', due: '25 Aug', status: 'Review' },
-  { id: 'task-3', title: 'Reconcile August fee receipts', owner: 'Finance', due: '27 Aug', status: 'Not started' },
-  { id: 'task-4', title: 'Confirm athletics transport', owner: 'Operations', due: '28 Aug', status: 'Done' },
+  { id: 'task-1', title: 'Aprovar novas admissões', owner: 'Administração', due: 'Hoje', status: 'Em curso' },
+  { id: 'task-2', title: 'Publicar o plano de avaliação do período', owner: 'Área académica', due: '25 ago.', status: 'Revisão' },
+  { id: 'task-3', title: 'Conferir os recibos de propinas de agosto', owner: 'Finanças', due: '27 ago.', status: 'Não iniciada' },
+  { id: 'task-4', title: 'Confirmar o transporte para o atletismo', owner: 'Operações', due: '28 ago.', status: 'Concluída' },
 ]
 
 export const timetable = [
-  { time: '08:00', monday: 'Mathematics', tuesday: 'English', wednesday: 'History', thursday: 'Mathematics', friday: 'Life Orientation' },
-  { time: '09:00', monday: 'English', tuesday: 'Physical Sciences', wednesday: 'Mathematics', thursday: 'History', friday: 'English' },
-  { time: '10:15', monday: 'Physical Sciences', tuesday: 'Mathematics', wednesday: 'English', thursday: 'Physical Sciences', friday: 'History' },
-  { time: '11:30', monday: 'History', tuesday: 'Life Orientation', wednesday: 'Physical Sciences', thursday: 'English', friday: 'Mathematics' },
-  { time: '13:00', monday: 'Life Orientation', tuesday: 'History', wednesday: 'Study period', thursday: 'Life Orientation', friday: 'Assembly' },
+  { time: '08:00', monday: 'Matemática', tuesday: 'Português', wednesday: 'História', thursday: 'Matemática', friday: 'Educação para a Vida' },
+  { time: '09:00', monday: 'Português', tuesday: 'Ciências Físicas', wednesday: 'Matemática', thursday: 'História', friday: 'Português' },
+  { time: '10:15', monday: 'Ciências Físicas', tuesday: 'Matemática', wednesday: 'Português', thursday: 'Ciências Físicas', friday: 'História' },
+  { time: '11:30', monday: 'História', tuesday: 'Educação para a Vida', wednesday: 'Ciências Físicas', thursday: 'Português', friday: 'Matemática' },
+  { time: '13:00', monday: 'Educação para a Vida', tuesday: 'História', wednesday: 'Período de estudo', thursday: 'Educação para a Vida', friday: 'Assembleia' },
 ]
 
 export const performance = [
-  { label: 'Jan', value: 62 },
-  { label: 'Feb', value: 68 },
-  { label: 'Mar', value: 65 },
-  { label: 'Apr', value: 74 },
-  { label: 'May', value: 78 },
-  { label: 'Jun', value: 76 },
-  { label: 'Jul', value: 83 },
-  { label: 'Aug', value: 86 },
+  { label: 'jan.', value: 62 },
+  { label: 'fev.', value: 68 },
+  { label: 'mar.', value: 65 },
+  { label: 'abr.', value: 74 },
+  { label: 'mai.', value: 78 },
+  { label: 'jun.', value: 76 },
+  { label: 'jul.', value: 83 },
+  { label: 'ago.', value: 86 },
 ]

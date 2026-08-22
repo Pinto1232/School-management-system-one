@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import logoUrl from '~/assets/logo.png'
-
 const { initialiseTheme } = useTheme()
 const { initialiseAuth } = useAuth()
+const route = useRoute()
 
 onMounted(() => {
   initialiseTheme()
@@ -10,14 +9,19 @@ onMounted(() => {
 })
 
 useHead({
-  htmlAttrs: { lang: 'en' },
-  link: [{ rel: 'icon', type: 'image/png', href: logoUrl }],
+  htmlAttrs: { lang: 'pt' },
+  link: [
+    { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32.png' },
+    { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/favicon-192.png' },
+  ],
 })
 </script>
 
 <template>
   <NuxtLoadingIndicator color="#18c1ae" :height="3" />
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
+  <AppErrorBoundary :key="route.path">
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </AppErrorBoundary>
 </template>

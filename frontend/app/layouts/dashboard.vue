@@ -11,7 +11,7 @@ const activeSlug = computed(() => {
   return value || 'dashboard'
 })
 
-const activeLabel = computed(() => dashboardNavigation.find(item => item.slug === activeSlug.value)?.label || 'Dashboard')
+const activeLabel = computed(() => dashboardNavigation.find(item => item.slug === activeSlug.value)?.label || 'Painel')
 </script>
 
 <template>
@@ -22,7 +22,7 @@ const activeLabel = computed(() => dashboardNavigation.find(item => item.slug ==
         <button
           class="icon-button dashboard-menu-button"
           type="button"
-          aria-label="Open dashboard navigation"
+          aria-label="Abrir navegação do painel"
           @click="sidebarOpen = true"
         >
           <Icon name="ph:list" size="22" aria-hidden="true" />
@@ -32,12 +32,12 @@ const activeLabel = computed(() => dashboardNavigation.find(item => item.slug ==
           <button
             class="icon-button"
             type="button"
-            :aria-label="theme === 'light' ? 'Use dark theme' : 'Use light theme'"
+            :aria-label="theme === 'light' ? 'Utilizar tema escuro' : 'Utilizar tema claro'"
             @click="toggleTheme"
           >
             <Icon :name="theme === 'light' ? 'ph:moon' : 'ph:sun'" size="20" aria-hidden="true" />
           </button>
-          <NuxtLink class="icon-button" to="/" aria-label="Open public website">
+          <NuxtLink class="icon-button" to="/" aria-label="Abrir site público">
             <Icon name="ph:house" size="20" aria-hidden="true" />
           </NuxtLink>
         </div>

@@ -2,8 +2,8 @@
 import { faqs } from '~/data/school'
 
 useSeoMeta({
-  title: 'Frequently asked questions',
-  description: 'Answers about the Lusivo platform, users, school features, devices, and reporting.',
+  title: 'Perguntas frequentes',
+  description: 'Respostas sobre a plataforma Lusivo, utilizadores, funcionalidades escolares, dispositivos e relatórios.',
 })
 </script>
 
@@ -11,8 +11,8 @@ useSeoMeta({
   <div>
     <section class="page-hero">
       <div class="container page-hero__inner">
-        <h1>Answers for your school team.</h1>
-        <p>Start with the most common questions about access, academic tools, communication, and reporting.</p>
+        <h1>Respostas para a sua equipa escolar.</h1>
+        <p>Comece pelas perguntas mais comuns sobre acesso, ferramentas académicas, comunicação e relatórios.</p>
       </div>
     </section>
 

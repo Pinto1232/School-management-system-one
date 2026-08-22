@@ -20,7 +20,7 @@ const validateToken = async () => {
     valid.value = true
   } catch (error) {
     valid.value = false
-    message.value = getApiErrorMessage(error, 'This reset link is invalid or has expired.')
+    message.value = getApiErrorMessage(error, 'Esta ligação de recuperação é inválida ou expirou.')
   } finally {
     validating.value = false
   }
@@ -29,11 +29,11 @@ const validateToken = async () => {
 const submit = async () => {
   message.value = ''
   if (!/^(?=.*[A-Za-z])(?=.*\d).{6,}$/.test(password.value)) {
-    message.value = 'Use at least 6 characters with one letter and one number.'
+    message.value = 'Utilize pelo menos 6 caracteres, incluindo uma letra e um número.'
     return
   }
   if (password.value !== confirmPassword.value) {
-    message.value = 'The passwords do not match.'
+    message.value = 'As palavras-passe não coincidem.'
     return
   }
 
@@ -44,16 +44,16 @@ const submit = async () => {
       body: { userEmail: userEmail.value, password: password.value },
     })
     success.value = true
-    message.value = response.message || 'Your password has been updated.'
+    message.value = translateApiMessage(response.message, 'A sua palavra-passe foi atualizada.')
   } catch (error) {
-    message.value = getApiErrorMessage(error, 'Your password could not be updated.')
+    message.value = getApiErrorMessage(error, 'Não foi possível atualizar a sua palavra-passe.')
   } finally {
     submitting.value = false
   }
 }
 
 onMounted(validateToken)
-useSeoMeta({ title: 'Choose a new password', robots: 'noindex' })
+useSeoMeta({ title: 'Escolher uma nova palavra-passe', robots: 'noindex' })
 </script>
 
 <template>
@@ -61,13 +61,13 @@ useSeoMeta({ title: 'Choose a new password', robots: 'noindex' })
     <div class="container--narrow" style="max-width: 480px">
       <div class="panel auth-card" style="padding: clamp(1.5rem, 5vw, 2.5rem)">
         <div class="auth-card__header">
-          <h1>Choose a new password</h1>
-          <p v-if="validating">Checking your reset link.</p>
-          <p v-else-if="valid">Resetting the password for {{ userEmail }}.</p>
-          <p v-else>The reset link cannot be used.</p>
+          <h1>Escolha uma nova palavra-passe</h1>
+          <p v-if="validating">A verificar a ligação de recuperação.</p>
+          <p v-else-if="valid">A repor a palavra-passe de {{ userEmail }}.</p>
+          <p v-else>Não é possível utilizar esta ligação de recuperação.</p>
         </div>
 
-        <div v-if="validating" class="form-stack" aria-label="Validating reset link">
+        <div v-if="validating" class="form-stack" aria-label="A validar a ligação de recuperação">
           <AppSkeleton height="46px" />
           <AppSkeleton height="46px" />
           <AppSkeleton height="46px" />
@@ -77,22 +77,22 @@ useSeoMeta({ title: 'Choose a new password', robots: 'noindex' })
 
         <div v-else-if="success" class="form-stack">
           <AppAlert type="success" :message="message" />
-          <NuxtLink class="button button--primary" to="/login">Log in</NuxtLink>
+          <NuxtLink class="button button--primary" to="/login">Iniciar sessão</NuxtLink>
         </div>
 
         <form v-else class="form-stack" novalidate @submit.prevent="submit">
           <AppAlert v-if="message" type="error" :message="message" />
           <div class="field">
-            <label for="new-password">New password</label>
-            <input id="new-password" v-model="password" type="password" autocomplete="new-password" placeholder="Enter a new password">
-            <p class="field__helper">At least 6 characters, including one number.</p>
+            <label for="new-password">Nova palavra-passe</label>
+            <input id="new-password" v-model="password" type="password" autocomplete="new-password" placeholder="Introduza uma nova palavra-passe">
+            <p class="field__helper">Pelo menos 6 caracteres, incluindo um número.</p>
           </div>
           <div class="field">
-            <label for="confirm-password">Confirm password</label>
-            <input id="confirm-password" v-model="confirmPassword" type="password" autocomplete="new-password" placeholder="Repeat your new password">
+            <label for="confirm-password">Confirmar palavra-passe</label>
+            <input id="confirm-password" v-model="confirmPassword" type="password" autocomplete="new-password" placeholder="Repita a nova palavra-passe">
           </div>
           <button class="button button--primary" type="submit" :disabled="submitting">
-            {{ submitting ? 'Updating password...' : 'Update password' }}
+            {{ submitting ? 'A atualizar a palavra-passe...' : 'Atualizar palavra-passe' }}
           </button>
         </form>
       </div>
