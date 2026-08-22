@@ -9,7 +9,6 @@ const registration = ref<{ firstName?: string; lastName?: string; email?: string
 const form = reactive({ cardName: '', cardNumber: '', expiry: '', cvv: '' })
 const submitting = ref(false)
 const errorMessage = ref('')
-const successMessage = ref('')
 
 const planFeatures = computed(() => {
   if (Array.isArray(plan.value.features)) return plan.value.features
@@ -28,7 +27,6 @@ const total = computed(() => {
 
 const submit = async () => {
   errorMessage.value = ''
-  successMessage.value = ''
 
   if (paymentMethod.value === 'card') {
     const cardDigits = form.cardNumber.replace(/\s/g, '')
@@ -40,8 +38,23 @@ const submit = async () => {
 
   submitting.value = true
   await new Promise(resolve => setTimeout(resolve, 900))
-  successMessage.value = 'The subscription details are ready. Connect a payment gateway to process live payments.'
-  submitting.value = false
+
+  if (import.meta.client) {
+    localStorage.setItem('school-test-subscription', JSON.stringify({
+      plan: plan.value.name,
+      billingCycle: billing.value,
+      amount: total.value,
+      currency: 'ZAR',
+      paymentMethod: paymentMethod.value,
+      status: 'paid',
+      testMode: true,
+      completedAt: new Date().toISOString(),
+    }))
+    localStorage.removeItem('selectedPackage')
+    sessionStorage.removeItem('registration')
+  }
+
+  await navigateTo('/login?subscription=test-complete')
 }
 
 onMounted(() => {
@@ -88,7 +101,6 @@ useSeoMeta({ title: 'Subscription', robots: 'noindex' })
 
       <form class="form-stack" novalidate @submit.prevent="submit">
         <AppAlert v-if="errorMessage" type="error" :message="errorMessage" />
-        <AppAlert v-if="successMessage" type="success" :message="successMessage" />
 
         <div class="field">
           <span class="field__label">Billing frequency</span>

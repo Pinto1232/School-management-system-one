@@ -3,12 +3,16 @@ import type { AuthResponse } from '~/types'
 
 const { request } = useApi()
 const { login, isAuthenticated } = useAuth()
+const route = useRoute()
 
 const form = reactive({ email: '', password: '', remember: false })
 const errors = reactive<{ email?: string; password?: string }>({})
 const showPassword = ref(false)
 const submitting = ref(false)
 const message = ref('')
+const notice = computed(() => route.query.subscription === 'test-complete'
+  ? 'Local test payment completed. Log in to continue to your dashboard.'
+  : '')
 
 const validate = () => {
   errors.email = !form.email
@@ -66,6 +70,7 @@ useSeoMeta({ title: 'Log in', robots: 'noindex' })
         </div>
 
         <form class="form-stack" novalidate @submit.prevent="submit">
+          <AppAlert v-if="notice" type="success" :message="notice" />
           <AppAlert v-if="message" type="error" :message="message" />
 
           <div class="field">
