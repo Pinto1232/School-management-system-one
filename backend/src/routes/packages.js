@@ -11,6 +11,9 @@ router
   .post(authenticate, authorize(['platform_admin']), upload.single("image"), packagesController.createPackage)
   .get(packagesController.getAllPackages);
 
+router.get('/feedback', authenticate, packagesController.getPackageFeedback);
+router.put('/:planKey/feedback', authenticate, packagesController.updatePackageFeedback);
+
 router.route('/:id')
     .get(packagesController.getPackageById)
     .put(authenticate, authorize(['platform_admin']), packagesController.updatePackage)

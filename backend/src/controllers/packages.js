@@ -1,6 +1,19 @@
 const Package = require("../models/Packages");
+const PackageFeedback = require('../models/PackageFeedback');
+const asyncHandler = require('../middlewares/asyncHandler');
 const multer = require("multer");
 const upload = multer();
+
+const normalisePlanKey = (value) => {
+  const planKey = String(value || '').trim();
+  if (!/^[a-zA-Z0-9][a-zA-Z0-9._:-]{0,127}$/.test(planKey)) {
+    const error = new Error('The package identifier is invalid.');
+    error.statusCode = 400;
+    error.code = 'INVALID_PACKAGE_IDENTIFIER';
+    throw error;
+  }
+  return planKey;
+};
 
 // Create a new package
 const createPackage = async (req, res, next) => {
@@ -133,6 +146,40 @@ const deletePackage = async (req, res) => {
   }
 };
 
+const getPackageFeedback = asyncHandler(async (req, res) => {
+  const feedback = await PackageFeedback.find({ userId: req.user.keycloakId })
+    .select('planKey liked updatedAt')
+    .sort({ updatedAt: -1 });
+
+  res.status(200).json({ feedback });
+});
+
+const updatePackageFeedback = asyncHandler(async (req, res) => {
+  if (typeof req.body.liked !== 'boolean') {
+    const error = new Error('The liked value must be true or false.');
+    error.statusCode = 400;
+    error.code = 'INVALID_PACKAGE_FEEDBACK';
+    throw error;
+  }
+
+  const planKey = normalisePlanKey(req.params.planKey);
+  const feedback = await PackageFeedback.findOneAndUpdate(
+    { userId: req.user.keycloakId, planKey },
+    {
+      $set: { liked: req.body.liked },
+      $setOnInsert: { userId: req.user.keycloakId, planKey },
+    },
+    {
+      new: true,
+      upsert: true,
+      runValidators: true,
+      setDefaultsOnInsert: true,
+    },
+  ).select('planKey liked updatedAt');
+
+  res.status(200).json({ feedback });
+});
+
 
 module.exports = {
   createPackage,
@@ -140,4 +187,7 @@ module.exports = {
   getPackageById,
   updatePackage,
   deletePackage,
+  getPackageFeedback,
+  updatePackageFeedback,
+  normalisePlanKey,
 };

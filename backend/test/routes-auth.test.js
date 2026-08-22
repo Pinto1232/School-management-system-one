@@ -35,5 +35,7 @@ test('public package and content routers authenticate their mutations', () => {
     && layer.route.stack.some(handler => handler.handle === authenticate));
 
   assert.equal(mutationIsProtected(packageRoutes, 'post', '/'), true);
+  assert.equal(mutationIsProtected(packageRoutes, 'get', '/feedback'), true);
+  assert.equal(mutationIsProtected(packageRoutes, 'put', '/:planKey/feedback'), true);
   assert.equal(mutationIsProtected(contentRoutes, 'post', '/content'), true);
 });
