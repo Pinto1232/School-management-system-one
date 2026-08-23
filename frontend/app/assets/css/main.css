@@ -42,6 +42,7 @@
   --radius-control: 0.625rem;
   --shadow-panel: 0 18px 50px rgb(0 27 81 / 0.1);
   --shadow-panel-soft: 0 8px 22px rgb(0 27 81 / 0.07);
+  --shadow-dashboard-control: 0 12px 30px rgb(0 27 81 / 0.055);
 }
 
 :root {
@@ -67,6 +68,7 @@
   --color-nav-accent: #2fd4c1;
   --shadow-panel: 0 18px 50px rgb(0 8 28 / 0.38);
   --shadow-panel-soft: 0 8px 22px rgb(0 8 28 / 0.28);
+  --shadow-dashboard-control: 0 12px 30px rgb(0 8 28 / 0.28);
   color-scheme: dark;
 }
 

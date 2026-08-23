@@ -44,7 +44,7 @@ const submitSearch = () => emit('submitSearch', search.value.trim())
 </script>
 
 <template>
-  <header class="sticky top-0 z-30 grid min-h-20 grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-b border-line bg-canvas/95 px-1 backdrop-blur-sm print:hidden min-[721px]:min-h-[92px] min-[721px]:gap-5 min-[721px]:px-[clamp(0.25rem,1.6vw,1.5rem)] lg:min-h-[110px] lg:grid-cols-[minmax(180px,240px)_minmax(280px,540px)_minmax(0,1fr)]">
+  <header class="sticky top-0 z-30 grid min-h-20 grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-b border-transparent bg-canvas px-1 print:hidden min-[721px]:min-h-[92px] min-[721px]:gap-5 min-[721px]:px-[clamp(0.25rem,1.6vw,1.5rem)] lg:min-h-[110px] lg:grid-cols-[minmax(180px,240px)_minmax(280px,540px)_minmax(0,1fr)]">
     <div class="flex min-w-0 items-center gap-2 min-[721px]:gap-3">
       <button
         class="inline-grid size-11 min-w-11 place-items-center rounded-control border border-line bg-surface-strong text-ink transition duration-150 hover:border-brand-400 hover:bg-brand-50 active:translate-y-px lg:hidden"
@@ -59,7 +59,7 @@ const submitSearch = () => emit('submitSearch', search.value.trim())
         <h1 class="m-0 overflow-hidden text-lg font-extrabold text-ellipsis whitespace-nowrap min-[721px]:text-[1.45rem]">
           {{ title }}
         </h1>
-        <p v-if="subtitle" class="mt-1 mb-0 overflow-hidden text-xs text-ellipsis whitespace-nowrap text-ink-soft min-[721px]:text-sm">
+        <p v-if="subtitle" class="mt-1 mb-0 overflow-hidden text-xs text-ellipsis whitespace-nowrap text-ink-soft min-[721px]:text-sm lg:text-base">
           {{ subtitle }}
         </p>
       </div>
@@ -67,7 +67,7 @@ const submitSearch = () => emit('submitSearch', search.value.trim())
 
     <form
       v-if="showSearch"
-      class="hidden min-w-0 items-center gap-3 rounded-full border border-line bg-surface-strong px-5 shadow-panel-soft transition focus-within:border-brand-400 focus-within:ring-3 focus-within:ring-brand-400/15 min-[901px]:flex"
+      class="hidden min-w-0 items-center gap-3 rounded-full border border-transparent bg-surface-strong/65 px-5 shadow-dashboard-control transition focus-within:border-brand-400 focus-within:ring-3 focus-within:ring-brand-400/15 min-[901px]:flex"
       role="search"
       @submit.prevent="submitSearch"
     >
@@ -76,7 +76,7 @@ const submitSearch = () => emit('submitSearch', search.value.trim())
       <input
         :id="searchId"
         v-model="search"
-        class="h-14 min-w-0 flex-1 border-0 bg-transparent p-0 text-sm text-ink outline-none placeholder:text-ink/45"
+        class="h-14 min-w-0 flex-1 border-0 bg-transparent p-0 text-sm text-ink outline-none placeholder:text-ink/45 lg:text-base"
         type="search"
         :placeholder="searchPlaceholder"
         autocomplete="off"
@@ -96,7 +96,7 @@ const submitSearch = () => emit('submitSearch', search.value.trim())
       <slot name="actions" />
 
       <button
-        class="inline-grid size-11 min-w-11 place-items-center rounded-full border border-line bg-surface-strong text-ink shadow-panel-soft transition duration-150 hover:border-brand-400 hover:bg-brand-50 active:translate-y-px min-[721px]:size-[50px] min-[721px]:min-w-[50px]"
+        class="inline-grid size-11 min-w-11 place-items-center rounded-full border border-transparent bg-surface-strong/65 text-ink shadow-dashboard-control transition duration-150 hover:border-brand-400 hover:bg-brand-50 active:translate-y-px min-[721px]:size-[50px] min-[721px]:min-w-[50px]"
         type="button"
         :aria-label="theme === 'light' ? 'Utilizar tema escuro' : 'Utilizar tema claro'"
         @click="emit('toggleTheme')"
@@ -105,7 +105,7 @@ const submitSearch = () => emit('submitSearch', search.value.trim())
       </button>
 
       <button
-        class="relative hidden size-11 min-w-11 place-items-center rounded-full border border-line bg-surface-strong text-ink shadow-panel-soft transition duration-150 hover:border-brand-400 hover:bg-brand-50 active:translate-y-px min-[461px]:inline-grid min-[721px]:size-[50px] min-[721px]:min-w-[50px]"
+        class="relative hidden size-11 min-w-11 place-items-center rounded-full border border-transparent bg-surface-strong/65 text-ink shadow-dashboard-control transition duration-150 hover:border-brand-400 hover:bg-brand-50 active:translate-y-px min-[461px]:inline-grid min-[721px]:size-[50px] min-[721px]:min-w-[50px]"
         type="button"
         :aria-label="notificationCount ? `Abrir ${notificationCount} notificações` : 'Abrir notificações'"
         @click="emit('openNotifications')"
@@ -119,7 +119,7 @@ const submitSearch = () => emit('submitSearch', search.value.trim())
       </button>
 
       <div class="flex min-w-0 items-center gap-2.5" role="group" :aria-label="userRole ? `${userName}, ${userRole}` : userName">
-        <div class="grid size-12 shrink-0 place-items-center rounded-full border border-line bg-surface-strong p-1 shadow-panel-soft min-[721px]:size-[58px]">
+        <div class="grid size-12 shrink-0 place-items-center rounded-full border border-transparent bg-surface-strong/65 p-1 shadow-dashboard-control min-[721px]:size-[58px]">
           <div class="grid size-9 place-items-center overflow-hidden rounded-full bg-brand-100 text-[0.82rem] font-black text-brand-800 min-[721px]:size-[42px]">
             <img v-if="userImage" class="size-full object-cover" :src="userImage" :alt="userName">
             <span v-else aria-hidden="true">{{ initials }}</span>

@@ -47,7 +47,7 @@ const navigation = computed<AppNavigationItem[]>(() => {
   if (!isMounted.value) return []
 
   return (sidebarResponse.value?.data || [])
-    .filter(item => item.enabled)
+    .filter(item => item.enabled && item.path !== '/dashboard')
     .sort((a, b) => a.position - b.position)
     .map(item => ({
       label: item.label,
