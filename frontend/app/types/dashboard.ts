@@ -7,6 +7,30 @@ export interface AppNavigationItem {
   badge?: number | string
   disabled?: boolean
   exact?: boolean
+  target?: '_self' | '_blank'
+}
+
+export interface WordPressSidebarLink {
+  id: number
+  key: string
+  label: string
+  path: string
+  icon: string
+  roles: string[]
+  parent_id: number | null
+  position: number
+  enabled: boolean
+  target: '_self' | '_blank'
+}
+
+export interface WordPressSidebarResponse {
+  data: WordPressSidebarLink[]
+  meta: {
+    total: number
+    role: string | null
+    tree: boolean
+    include_disabled: boolean
+  }
 }
 
 export type TableAlignment = 'start' | 'center' | 'end'

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { dashboardNavigation, dashboardNavigationForRoles } from '~/data/school'
-import type { AppNavigationItem } from '~/types/dashboard'
+import type { AppNavigationItem, WordPressSidebarResponse } from '~/types/dashboard'
 
 const route = useRoute()
 const sidebarOpen = useState<boolean>('dashboard-sidebar-open', () => false)
@@ -11,21 +10,40 @@ const { user, roles, logout } = useAuth()
 const { uploadUrl } = useApi()
 const toast = useToast()
 
-const activeSlug = computed(() => {
-  const value = route.params.view
-  if (Array.isArray(value)) return value[0] || 'dashboard'
-  return value || 'dashboard'
+const { data: sidebarResponse } = await useFetch<WordPressSidebarResponse>('/api/sidebar-links', {
+  key: 'wordpress-sidebar-links',
+  default: () => ({
+    data: [],
+    meta: { total: 0, role: null, tree: false, include_disabled: false },
+  }),
 })
 
-const activeLabel = computed(() => dashboardNavigation.find(item => item.slug === activeSlug.value)?.label || 'Painel')
+if (import.meta.client) {
+  watch(sidebarResponse, response => {
+    console.log('[School Dashboard] Sidebar API response:', response)
+  }, { immediate: true })
+}
 
-const navigation = computed<AppNavigationItem[]>(() => dashboardNavigationForRoles(roles.value).map(item => ({
-  label: item.label,
-  icon: item.icon,
-  to: item.slug === 'dashboard' ? '/dashboard' : `/dashboard/${item.slug}`,
-  exact: item.slug === 'dashboard',
-  disabled: item.slug !== 'dashboard',
-})))
+const navigation = computed<AppNavigationItem[]>(() => {
+  const allowedRoles = new Set(roles.value.map(role => role.toLowerCase()))
+  if (allowedRoles.has('platform_admin')) allowedRoles.add('admin')
+
+  return sidebarResponse.value.data
+    .filter(item => item.enabled)
+    .filter(item => !item.roles.length || item.roles.some(role => allowedRoles.has(role.toLowerCase())))
+    .sort((a, b) => a.position - b.position)
+    .map(item => ({
+      label: item.label,
+      icon: item.icon,
+      to: item.path,
+      exact: item.path === '/dashboard',
+      target: item.target,
+    }))
+})
+
+const activeLabel = computed(() => navigation.value.find(item => (
+  item.exact ? route.path === item.to : route.path === item.to || route.path.startsWith(`${item.to}/`)
+))?.label || 'Painel')
 
 const formattedDate = new Intl.DateTimeFormat('pt-PT', {
   day: '2-digit',
@@ -96,7 +114,7 @@ const handleNotifications = () => {
         @open-notifications="handleNotifications"
       />
 
-      <main class="mx-auto min-h-0 w-full max-w-[1500px] p-[clamp(1rem,2.5vw,2rem)] print:p-0">
+      <main class="mx-auto min-h-0 w-full max-w-375 p-[clamp(1rem,2.5vw,2rem)] print:p-0">
         <slot />
       </main>
     </div>

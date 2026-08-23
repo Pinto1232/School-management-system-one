@@ -115,6 +115,7 @@ watch(() => route.fullPath, close)
           ]"
           :data-collapsed="collapsed"
           :to="item.to"
+          :target="item.target"
           :title="collapsed ? item.label : undefined"
           :aria-current="isActive(item) ? 'page' : undefined"
           @click="close"

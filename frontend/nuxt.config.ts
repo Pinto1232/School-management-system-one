@@ -10,13 +10,14 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
   runtimeConfig: {
+    wordpressSidebarUrl: '',
     public: {
-      apiBase: 'http://localhost:3001/api',
-      backendUrl: 'http://localhost:3001',
-      keycloakUrl: 'http://localhost:8081',
-      keycloakRealm: 'school-system',
-      keycloakClientId: 'school-system-frontend',
-      keycloakAudience: 'school-system-api',
+      apiBase: '',
+      backendUrl: '',
+      keycloakUrl: '',
+      keycloakRealm: '',
+      keycloakClientId: '',
+      keycloakAudience: '',
     },
   },
   app: {
