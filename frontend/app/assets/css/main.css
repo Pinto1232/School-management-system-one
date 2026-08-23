@@ -218,13 +218,25 @@
   }
 
   .brand-logo {
-    @apply relative block size-11 shrink-0 overflow-hidden rounded-lg bg-white;
+    @apply relative block size-11 shrink-0 overflow-hidden rounded-lg;
   }
 
   .brand-logo img {
     @apply absolute h-[120px] w-[120px] max-w-none;
     top: -26px;
     left: -39px;
+  }
+
+  .brand-logo__image--dark {
+    @apply hidden;
+  }
+
+  :root[data-theme='dark'] .brand-logo__image--light {
+    @apply hidden;
+  }
+
+  :root[data-theme='dark'] .brand-logo__image--dark {
+    @apply block;
   }
 
   .header-search,
@@ -364,6 +376,14 @@
     @apply h-[131px] w-[131px];
     top: -29px;
     left: -43px;
+  }
+
+  .footer-brand .brand-logo__image--light {
+    @apply hidden;
+  }
+
+  .footer-brand .brand-logo__image--dark {
+    @apply block;
   }
 
   .site-footer__about p {

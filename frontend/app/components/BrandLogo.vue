@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import logoUrl from '~/assets/logo.webp'
+import logoDarkUrl from '~/assets/logo-transparent-dark.png'
+import logoLightUrl from '~/assets/logo-transparent.png'
 </script>
 
 <template>
   <span class="brand-logo" aria-hidden="true">
-    <img :src="logoUrl" alt="">
+    <img class="brand-logo__image brand-logo__image--light" :src="logoLightUrl" alt="">
+    <img class="brand-logo__image brand-logo__image--dark" :src="logoDarkUrl" alt="">
   </span>
 </template>
