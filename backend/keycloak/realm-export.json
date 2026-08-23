@@ -1,8 +1,14 @@
 {
   "realm": "school-system",
-  "displayName": "Lusivo School System",
+  "displayName": "Sistema Escolar Lusivo",
+  "displayNameHtml": "Lusivo",
   "loginTheme": "lusivo",
   "enabled": true,
+  "internationalizationEnabled": true,
+  "supportedLocales": [
+    "pt"
+  ],
+  "defaultLocale": "pt",
   "registrationAllowed": true,
   "registrationEmailAsUsername": false,
   "rememberMe": true,

@@ -1,67 +1,74 @@
 <script setup lang="ts">
-const { authError, initialiseAuth, isAuthenticated, login, ready } = useAuth()
+const { authError, isAuthenticated, login } = useAuth()
 const route = useRoute()
-const submitting = ref(false)
+const redirecting = ref(route.query.retry !== 'false')
 const message = ref('')
-const notice = computed(() => route.query.subscription === 'test-complete'
-  ? 'A subscrição de teste foi concluída. Inicie sessão para continuar.'
-  : '')
 
-const submit = async () => {
-  submitting.value = true
+const redirectPath = computed(() => {
+  const redirect = Array.isArray(route.query.redirect)
+    ? route.query.redirect[0]
+    : route.query.redirect
+
+  return typeof redirect === 'string' && redirect.startsWith('/') && !redirect.startsWith('//')
+    ? redirect
+    : '/dashboard'
+})
+
+const startLogin = async () => {
+  redirecting.value = true
   message.value = ''
+
   try {
-    await login('/dashboard')
+    if (isAuthenticated.value) {
+      await navigateTo(redirectPath.value)
+      return
+    }
+
+    await login(redirectPath.value)
   } catch {
     message.value = 'Não foi possível abrir o início de sessão do Keycloak.'
-    submitting.value = false
+    redirecting.value = false
   }
 }
 
-onMounted(async () => {
-  await initialiseAuth()
-  if (isAuthenticated.value) await navigateTo('/dashboard')
+onMounted(() => {
+  if (route.query.retry === 'false') {
+    message.value = 'Não foi possível ligar ao Keycloak. Tente novamente.'
+    return
+  }
+
+  void startLogin()
 })
 
 useSeoMeta({ title: 'Iniciar sessão', robots: 'noindex' })
 </script>
 
 <template>
-  <section class="auth-shell login-shell" aria-labelledby="login-title">
-    <div class="auth-shell__form login-shell__form">
-      <div class="login-panel">
-        <NuxtLink class="login-panel__back" to="/">
-          <Icon name="ph:arrow-left" size="18" aria-hidden="true" />
-          Voltar à página inicial
-        </NuxtLink>
+  <section class="section" aria-labelledby="login-title">
+    <div class="container--narrow" style="max-width: 480px">
+      <div class="panel auth-card" style="padding: clamp(1.5rem, 5vw, 2.5rem)">
+        <div class="auth-card__header">
+          <h1 id="login-title">A abrir o início de sessão seguro</h1>
+          <p v-if="redirecting">Está a ser encaminhado para o Keycloak.</p>
+          <p v-else>Não foi possível iniciar o encaminhamento automático.</p>
+        </div>
 
-        <div class="auth-card login-card">
-          <span class="login-card__icon" aria-hidden="true">
-            <Icon name="ph:shield-check" size="25" />
-          </span>
+        <div class="form-stack" aria-live="polite">
+          <AppAlert v-if="authError || message" type="error" :message="message || authError" />
 
-          <div class="auth-card__header">
-            <h1 id="login-title">Iniciar sessão na sua escola</h1>
-            <p>Utilize a conta associada à sua escola para aceder ao painel de gestão.</p>
+          <div v-if="redirecting" class="button button--primary" role="status">
+            <Icon class="login-card__spinner" name="ph:circle-notch" size="19" aria-hidden="true" />
+            A abrir o Keycloak...
           </div>
 
-          <div class="form-stack">
-            <AppAlert v-if="notice" type="success" :message="notice" />
-            <AppAlert v-if="authError || message" type="error" :message="message || authError" />
+          <button v-else class="button button--primary" type="button" @click="startLogin">
+            <Icon name="ph:sign-in" size="20" aria-hidden="true" />
+            Tentar novamente
+          </button>
 
-            <button class="button button--primary login-card__submit" type="button" :disabled="!ready || submitting" @click="submit">
-              <Icon v-if="submitting || !ready" class="login-card__spinner" name="ph:circle-notch" size="19" aria-hidden="true" />
-              <Icon v-else name="ph:sign-in" size="20" aria-hidden="true" />
-              {{ submitting ? 'A abrir o Keycloak...' : ready ? 'Continuar para iniciar sessão' : 'A ligar ao Keycloak...' }}
-            </button>
-
-            <div class="login-card__security-note">
-              <Icon name="ph:lock-key" size="20" aria-hidden="true" />
-              <p>As credenciais são introduzidas diretamente no Keycloak. Depois de entrar, regressará ao painel da sua escola.</p>
-            </div>
-          </div>
-
-          <p class="auth-card__footer">Ainda não utiliza a Lusivo? <NuxtLink class="text-link" to="/#plans">Escolha um pacote</NuxtLink></p>
+          <NuxtLink v-if="!redirecting" class="button button--secondary" to="/">
+            Voltar à página inicial
+          </NuxtLink>
         </div>
       </div>
     </div>

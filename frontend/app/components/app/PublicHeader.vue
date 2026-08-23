@@ -6,9 +6,10 @@ const menuOpen = ref(false)
 const searchQuery = ref('')
 const searchMessage = ref('')
 const { theme, toggleTheme } = useTheme()
-const { user, isAuthenticated, roles } = useAuth()
+const { user, isAuthenticated, login, roles } = useAuth()
 const { uploadUrl } = useApi()
 const { cartItem, initialiseCart } = useSchoolCart()
+const loginPending = ref(false)
 
 const cartRoute = computed(() => cartItem.value ? '/cart' : '/#plans')
 const cartLabel = computed(() => cartItem.value
@@ -85,6 +86,20 @@ const submitSearch = async () => {
   searchQuery.value = ''
   menuOpen.value = false
   await navigateTo(match.to)
+}
+
+const startLogin = async () => {
+  if (loginPending.value) return
+
+  loginPending.value = true
+  menuOpen.value = false
+
+  try {
+    await login('/dashboard')
+  } catch {
+    loginPending.value = false
+    await navigateTo('/login?retry=false')
+  }
 }
 
 watch(() => route.fullPath, () => {
@@ -169,7 +184,15 @@ onMounted(initialiseCart)
           </NuxtLink>
 
           <template v-else>
-            <NuxtLink class="button button--secondary header-auth-button" to="/login">Iniciar sessão</NuxtLink>
+            <button
+              class="button button--secondary header-auth-button"
+              type="button"
+              :disabled="loginPending"
+              :aria-busy="loginPending"
+              @click="startLogin"
+            >
+              {{ loginPending ? 'A abrir...' : 'Iniciar sessão' }}
+            </button>
             <NuxtLink class="button button--primary header-auth-button" to="/register">Criar conta</NuxtLink>
           </template>
 
@@ -228,7 +251,15 @@ onMounted(initialiseCart)
           Abrir painel
         </NuxtLink>
         <template v-else>
-          <NuxtLink class="button button--secondary" to="/login">Iniciar sessão</NuxtLink>
+          <button
+            class="button button--secondary"
+            type="button"
+            :disabled="loginPending"
+            :aria-busy="loginPending"
+            @click="startLogin"
+          >
+            {{ loginPending ? 'A abrir...' : 'Iniciar sessão' }}
+          </button>
           <NuxtLink class="button button--primary" to="/register">Criar conta</NuxtLink>
         </template>
       </div>

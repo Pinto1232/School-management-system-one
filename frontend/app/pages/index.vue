@@ -1,27 +1,26 @@
 <script setup lang="ts">
 import { fallbackPlans } from '~/data/school'
-import type { PackageFeedback, PackagePlan } from '~/types'
+import type { PackagePlan } from '~/types'
 
-const { request } = useApi()
-
-const { data: plansResponse } = await useLazyAsyncData(
-  'package-plans',
-  () => request<PackagePlan[]>('/packages', { timeout: 2500, retry: 0 }),
-  {
-    server: false,
-    default: () => fallbackPlans,
-  },
+const plansQuery = usePackagePlansQuery()
+const plans = computed(() => (
+  plansQuery.data.value?.length ? plansQuery.data.value : fallbackPlans
+).map(localisePackagePlan))
+const { isAuthenticated, initialiseAuth, login, user } = useAuth()
+const {
+  feedbackQuery,
+  favourites: favouritePlans,
+  pendingPlanKeys,
+  updateFeedback,
+} = usePackageFeedback(
+  computed(() => user.value?.id),
+  isAuthenticated,
 )
-
-const plans = computed(() => (plansResponse.value?.length ? plansResponse.value : fallbackPlans).map(localisePackagePlan))
-const { isAuthenticated, initialiseAuth, login } = useAuth()
 const { cartItem, initialiseCart, addToCart, clearCart } = useSchoolCart()
 const heroSearch = ref('')
 const heroSearchMessage = ref('')
 const selectedPlan = ref<PackagePlan | null>(null)
 const planDrawerOpen = ref(false)
-const favouritePlans = ref<Record<string, boolean>>({})
-const feedbackPending = ref<Record<string, boolean>>({})
 const feedbackMessage = ref('')
 
 const classroomRoute = computed(() => isAuthenticated.value ? '/dashboard/streaming' : '/login')
@@ -63,19 +62,6 @@ const isPlanInCart = (plan: PackagePlan | null) => Boolean(
 )
 const isPlanLiked = (plan: PackagePlan) => Boolean(favouritePlans.value[planIdentity(plan)])
 
-const loadPackageFeedback = async () => {
-  if (!isAuthenticated.value) return
-
-  try {
-    const response = await request<{ feedback: PackageFeedback[] }>('/packages/feedback')
-    favouritePlans.value = Object.fromEntries(
-      response.feedback.map(feedback => [feedback.planKey, feedback.liked]),
-    )
-  } catch {
-    feedbackMessage.value = 'Não foi possível carregar os seus favoritos.'
-  }
-}
-
 const togglePlanFavourite = async (plan: PackagePlan) => {
   const authenticated = isAuthenticated.value || await initialiseAuth()
   if (!authenticated) {
@@ -84,30 +70,17 @@ const togglePlanFavourite = async (plan: PackagePlan) => {
   }
 
   const planKey = planIdentity(plan)
-  if (!planKey || feedbackPending.value[planKey]) return
+  if (!planKey || pendingPlanKeys.value.has(planKey)) return
 
-  const previousValue = Boolean(favouritePlans.value[planKey])
-  const liked = !previousValue
-  feedbackPending.value = { ...feedbackPending.value, [planKey]: true }
-  favouritePlans.value = { ...favouritePlans.value, [planKey]: liked }
+  const liked = !favouritePlans.value[planKey]
   feedbackMessage.value = liked
     ? `${plan.name} foi adicionado aos favoritos.`
     : `${plan.name} foi removido dos favoritos.`
 
   try {
-    const response = await request<{ feedback: PackageFeedback }>(
-      `/packages/${encodeURIComponent(planKey)}/feedback`,
-      { method: 'PUT', body: { liked } },
-    )
-    favouritePlans.value = {
-      ...favouritePlans.value,
-      [planKey]: response.feedback.liked,
-    }
+    await updateFeedback.mutateAsync({ planKey, liked })
   } catch {
-    favouritePlans.value = { ...favouritePlans.value, [planKey]: previousValue }
     feedbackMessage.value = 'Não foi possível guardar o favorito. Tente novamente.'
-  } finally {
-    feedbackPending.value = { ...feedbackPending.value, [planKey]: false }
   }
 }
 
@@ -132,7 +105,18 @@ const removeSelectedPlanFromCart = () => {
 onMounted(async () => {
   initialiseCart()
   await initialiseAuth()
-  await loadPackageFeedback()
+})
+
+onServerPrefetch(async () => {
+  try {
+    await plansQuery.suspense()
+  } catch {
+    // The page deliberately renders local plans when the public API is unavailable.
+  }
+})
+
+watch(() => feedbackQuery.error.value, (error) => {
+  if (error) feedbackMessage.value = 'Não foi possível carregar os seus favoritos.'
 })
 
 useSeoMeta({
@@ -274,7 +258,7 @@ useSeoMeta({
             :featured="index === 1"
             :in-cart="isPlanInCart(plan)"
             :liked="isPlanLiked(plan)"
-            :feedback-pending="Boolean(feedbackPending[planIdentity(plan)])"
+            :feedback-pending="pendingPlanKeys.has(planIdentity(plan))"
             :variant="isPlanInCart(plan) ? 'docked' : 'inline'"
             @view="openPlanDetails"
             @favourite="togglePlanFavourite"

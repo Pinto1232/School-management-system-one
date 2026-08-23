@@ -97,7 +97,7 @@ export const useAuth = () => {
         keycloak.onAuthRefreshSuccess = applyKeycloakSession
         keycloak.onAuthLogout = () => {
           clearAuth()
-          void navigateTo('/login')
+          void navigateTo('/')
         }
         keycloak.onAuthRefreshError = clearAuth
         keycloak.onTokenExpired = () => {
@@ -135,13 +135,13 @@ export const useAuth = () => {
   const login = async (redirectPath = '/dashboard') => {
     await initialiseAuth()
     if (!keycloak) throw new Error('Keycloak is not available')
-    await keycloak.login({ redirectUri: redirectUrl(redirectPath) })
+    await keycloak.login({ redirectUri: redirectUrl(redirectPath), locale: 'pt' })
   }
 
   const register = async (redirectPath = '/dashboard') => {
     await initialiseAuth()
     if (!keycloak) throw new Error('Keycloak is not available')
-    await keycloak.register({ redirectUri: redirectUrl(redirectPath) })
+    await keycloak.register({ redirectUri: redirectUrl(redirectPath), locale: 'pt' })
   }
 
   const logout = async (redirectPath = '/') => {

@@ -53,7 +53,7 @@ export const useApi = () => {
       const apiError = error as ApiErrorShape
       const status = apiError?.statusCode || apiError?.status
       if (status === 401 && import.meta.client) {
-        await logout('/login')
+        await logout('/')
       }
       throw error
     }

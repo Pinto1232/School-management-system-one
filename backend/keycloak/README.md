@@ -70,6 +70,6 @@ The Compose stack uses Keycloak development mode and must not be exposed as a pr
 
 ## Login theme
 
-The `school-system` realm uses the `lusivo` login theme. Docker mounts the theme from `keycloak/themes/lusivo` and exposes `frontend/app/assets` as the theme's image resources, with `banner.png` used for the sign-in background. The CSS selector is scoped to Keycloak's `login-login` page, so registration and the Nuxt application are unaffected.
+The `school-system` realm uses the `lusivo` login theme. Docker mounts the theme from `keycloak/themes/lusivo` and exposes `frontend/app/assets` as the theme's image resources, with `banner.png` used for the sign-in background. The realm defaults to Portuguese, and both authentication forms use the theme's reusable spinner macro while submitting. The branded background remains scoped to Keycloak's `login-login` page, so registration and the Nuxt application are unaffected.
 
 For a realm that already exists in the persistent Keycloak database, select **Lusivo** under **Realm settings -> Themes -> Login theme**, or restart the development stack and update the realm with the Keycloak Admin CLI. Realm imports only apply automatically when the realm is first created.

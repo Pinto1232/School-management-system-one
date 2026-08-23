@@ -40,6 +40,37 @@
   box-shadow: 0 24px 64px rgb(0 27 81 / 0.18);
 }
 
+.login-pf body#keycloak-bg .lusivo-login-button__pending {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+}
+
+.login-pf body#keycloak-bg .lusivo-login-button.is-loading .lusivo-login-button__idle {
+  display: none;
+}
+
+.login-pf body#keycloak-bg .lusivo-login-button.is-loading .lusivo-login-button__pending {
+  display: inline-flex;
+}
+
+.login-pf body#keycloak-bg .lusivo-spinner {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex: 0 0 auto;
+  border: 2px solid rgb(255 255 255 / 0.42);
+  border-top-color: currentcolor;
+  border-radius: 50%;
+  animation: lusivo-spinner-rotate 0.7s linear infinite;
+}
+
+@keyframes lusivo-spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media (max-width: 767px) {
   .login-pf body#keycloak-bg[data-page-id="login-login"] {
     background-position: 58% center;
@@ -68,5 +99,11 @@
 @media (prefers-reduced-transparency: reduce) {
   .login-pf body#keycloak-bg[data-page-id="login-login"] .pf-v5-c-login__main {
     background-color: #ffffff;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-pf body#keycloak-bg .lusivo-spinner {
+    animation: none;
   }
 }
