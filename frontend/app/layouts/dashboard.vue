@@ -1,36 +1,53 @@
 <script setup lang="ts">
-import type { AppNavigationItem, WordPressSidebarResponse } from '~/types/dashboard'
+import type { AppNavigationItem } from '~/types/dashboard'
 
 const route = useRoute()
 const sidebarOpen = useState<boolean>('dashboard-sidebar-open', () => false)
 const sidebarCollapsed = useState<boolean>('dashboard-sidebar-collapsed', () => false)
 const search = ref('')
 const { theme, toggleTheme } = useTheme()
-const { user, roles, logout } = useAuth()
+const { user, logout } = useAuth()
 const { uploadUrl } = useApi()
 const toast = useToast()
+const nuxtApp = useNuxtApp()
+const isMounted = ref(false)
+const isLoggingOut = ref(false)
 
-const { data: sidebarResponse } = await useFetch<WordPressSidebarResponse>('/api/sidebar-links', {
-  key: 'wordpress-sidebar-links',
-  default: () => ({
-    data: [],
-    meta: { total: 0, role: null, tree: false, include_disabled: false },
-  }),
+onMounted(() => {
+  isMounted.value = true
 })
 
-if (import.meta.client) {
+const sidebarQuery = useSidebarLinksQuery(computed(() => isMounted.value && !isLoggingOut.value))
+const sidebarResponse = sidebarQuery.data
+
+if (import.meta.client && import.meta.dev) {
   watch(sidebarResponse, response => {
-    console.log('[School Dashboard] Sidebar API response:', response)
+    if (!response) return
+    const linksSnapshot = response.data.map(link => ({
+      ...link,
+      roles: [...link.roles],
+    }))
+    console.log('[School Dashboard] Sidebar links data:', linksSnapshot)
+  }, { immediate: true })
+
+  watch(sidebarQuery.error, error => {
+    if (!error) return
+    console.error('[School Dashboard] Sidebar API error:', error)
   }, { immediate: true })
 }
 
-const navigation = computed<AppNavigationItem[]>(() => {
-  const allowedRoles = new Set(roles.value.map(role => role.toLowerCase()))
-  if (allowedRoles.has('platform_admin')) allowedRoles.add('admin')
+// In Vue Query, a disabled query is still `pending`; `isLoading` additionally
+// requires an active fetch and therefore cannot leave the skeleton stuck.
+const sidebarLoading = computed(() => !isMounted.value || sidebarQuery.isLoading.value)
+const sidebarErrorMessage = computed(() => sidebarQuery.isError.value
+  ? getApiErrorMessage(sidebarQuery.error.value, 'Não foi possível carregar a navegação.')
+  : '')
 
-  return sidebarResponse.value.data
+const navigation = computed<AppNavigationItem[]>(() => {
+  if (!isMounted.value) return []
+
+  return (sidebarResponse.value?.data || [])
     .filter(item => item.enabled)
-    .filter(item => !item.roles.length || item.roles.some(role => allowedRoles.has(role.toLowerCase())))
     .sort((a, b) => a.position - b.position)
     .map(item => ({
       label: item.label,
@@ -45,13 +62,16 @@ const activeLabel = computed(() => navigation.value.find(item => (
   item.exact ? route.path === item.to : route.path === item.to || route.path.startsWith(`${item.to}/`)
 ))?.label || 'Painel')
 
-const formattedDate = new Intl.DateTimeFormat('pt-PT', {
+const dateFormatter = new Intl.DateTimeFormat('pt-PT', {
   day: '2-digit',
   month: 'long',
   year: 'numeric',
-}).format(new Date())
+})
+const formattedDate = computed(() => isMounted.value ? dateFormatter.format(new Date()) : '')
 
 const userName = computed(() => {
+  if (!isMounted.value) return 'Utilizador da escola'
+
   const name = `${user.value?.firstName || ''} ${user.value?.lastName || ''}`.trim()
   return name || user.value?.email || 'Utilizador da escola'
 })
@@ -65,11 +85,26 @@ const roleLabels: Record<string, string> = {
   student: 'Aluno',
 }
 
-const roleLabel = computed(() => roleLabels[user.value?.role || ''] || 'Conta escolar')
-const userImage = computed(() => user.value?.image ? uploadUrl(user.value.image) : '')
+const roleLabel = computed(() => isMounted.value
+  ? roleLabels[user.value?.role || ''] || 'Conta escolar'
+  : 'Conta escolar')
+const userImage = computed(() => isMounted.value && user.value?.image ? uploadUrl(user.value.image) : '')
 
 const handleLogout = async () => {
-  await logout('/')
+  isLoggingOut.value = true
+
+  try {
+    await nuxtApp.$queryClient.cancelQueries()
+    nuxtApp.$queryClient.clear()
+    await logout('/')
+  }
+  finally {
+    isLoggingOut.value = false
+  }
+}
+
+const handleSidebarRetry = () => {
+  void sidebarQuery.refetch()
 }
 
 const handleSearch = (query: string) => {
@@ -95,8 +130,11 @@ const handleNotifications = () => {
       v-model:open="sidebarOpen"
       v-model:collapsed="sidebarCollapsed"
       :items="navigation"
+      :loading="sidebarLoading"
+      :error-message="sidebarErrorMessage"
       :show-settings="false"
       @logout="handleLogout"
+      @retry="handleSidebarRetry"
     />
 
     <div class="grid min-w-0 grid-rows-[auto_1fr]">

@@ -9,6 +9,8 @@ interface SchoolToken extends KeycloakTokenParsed {
   picture?: string
   preferred_username?: string
   school_id?: string
+  sid?: string
+  session_state?: string
   realm_access?: { roles: string[] }
   resource_access?: Record<string, { roles: string[] }>
 }
@@ -16,6 +18,34 @@ interface SchoolToken extends KeycloakTokenParsed {
 const SCHOOL_ROLES = ['platform_admin', 'admin', 'teacher', 'staff', 'parent', 'student'] as const
 let keycloak: Keycloak | null = null
 let initialisePromise: Promise<boolean> | null = null
+
+const withTimeout = async <T>(promise: Promise<T>, timeoutMs: number): Promise<T> => {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined
+  const timeout = new Promise<never>((_, reject) => {
+    timeoutId = setTimeout(
+      () => reject(new Error('Keycloak token refresh timed out.')),
+      timeoutMs,
+    )
+  })
+
+  try {
+    return await Promise.race([promise, timeout])
+  }
+  finally {
+    if (timeoutId !== undefined) clearTimeout(timeoutId)
+  }
+}
+
+const currentValidAccessToken = () => {
+  if (!keycloak?.authenticated || !keycloak.token) return null
+
+  try {
+    return keycloak.isTokenExpired(0) ? null : keycloak.token
+  }
+  catch {
+    return null
+  }
+}
 
 const redirectUrl = (path: string) => {
   if (/^https?:\/\//.test(path)) return path
@@ -56,10 +86,25 @@ export const useAuth = () => {
       return
     }
 
-    const parsed = keycloak.tokenParsed as SchoolToken
-    const realmRoles = parsed.realm_access?.roles || []
-    const clientRoles = parsed.resource_access?.[config.public.keycloakAudience]?.roles || []
-    const schoolRoles = [...new Set([...realmRoles, ...clientRoles])]
+    const accessClaims = keycloak.tokenParsed as SchoolToken
+    const identityClaims = keycloak.idTokenParsed as SchoolToken | undefined
+    const subject = accessClaims.sub || identityClaims?.sub
+    // Keycloak lightweight access tokens may omit identity claims such as
+    // `sub`. The standard-flow ID token is the correct client-side fallback.
+    // A session identifier keeps query caches isolated if both tokens omit it.
+    const sessionIdentity = subject
+      || accessClaims.sid
+      || accessClaims.session_state
+      || identityClaims?.sid
+      || identityClaims?.session_state
+      || accessClaims.preferred_username
+      || identityClaims?.preferred_username
+      || accessClaims.email
+      || identityClaims?.email
+    const realmRoles = accessClaims.realm_access?.roles || []
+    const apiRoles = accessClaims.resource_access?.[config.public.keycloakAudience]?.roles || []
+    const frontendRoles = accessClaims.resource_access?.[config.public.keycloakClientId]?.roles || []
+    const schoolRoles = [...new Set([...realmRoles, ...apiRoles, ...frontendRoles])]
       .map(role => role.toLowerCase())
       .filter(role => SCHOOL_ROLES.includes(role as typeof SCHOOL_ROLES[number]))
     const primaryRole = SCHOOL_ROLES.find(role => schoolRoles.includes(role)) || 'unassigned'
@@ -67,15 +112,23 @@ export const useAuth = () => {
     token.value = keycloak.token
     roles.value = schoolRoles
     user.value = {
-      id: parsed.sub,
-      keycloakId: parsed.sub,
-      schoolId: parsed.school_id || parsed.sub,
-      email: parsed.email || parsed.preferred_username || '',
-      firstName: parsed.given_name || parsed.preferred_username || '',
-      lastName: parsed.family_name || '',
+      id: sessionIdentity,
+      keycloakId: subject,
+      schoolId: accessClaims.school_id || identityClaims?.school_id || subject,
+      email: accessClaims.email
+        || identityClaims?.email
+        || accessClaims.preferred_username
+        || identityClaims?.preferred_username
+        || '',
+      firstName: accessClaims.given_name
+        || identityClaims?.given_name
+        || accessClaims.preferred_username
+        || identityClaims?.preferred_username
+        || '',
+      lastName: accessClaims.family_name || identityClaims?.family_name || '',
       role: primaryRole,
       roles: schoolRoles,
-      image: parsed.picture,
+      image: accessClaims.picture || identityClaims?.picture,
     }
   }
 
@@ -99,16 +152,29 @@ export const useAuth = () => {
           clearAuth()
           void navigateTo('/')
         }
-        keycloak.onAuthRefreshError = clearAuth
+        keycloak.onAuthRefreshError = () => {
+          // Keycloak clears its authenticated state for a rejected refresh
+          // token. A temporary network failure must not erase a valid session.
+          if (!keycloak?.authenticated) clearAuth()
+        }
         keycloak.onTokenExpired = () => {
-          void keycloak?.updateToken(30).then(applyKeycloakSession).catch(clearAuth)
+          if (!keycloak) return
+
+          void withTimeout(keycloak.updateToken(30), 10_000)
+            .then(applyKeycloakSession)
+            .catch(() => {
+              if (!keycloak?.authenticated) clearAuth()
+            })
         }
 
         await keycloak.init({
           onLoad: 'check-sso',
           flow: 'standard',
           pkceMethod: 'S256',
-          checkLoginIframe: true,
+          // The adapter waits indefinitely when Chrome or an extension blocks
+          // the hidden Keycloak status iframe response. Token expiry callbacks
+          // and server-side JWT verification still protect the session.
+          checkLoginIframe: false,
           silentCheckSsoRedirectUri: `${window.location.origin}/silent-check-sso.html`,
           silentCheckSsoFallback: false,
           messageReceiveTimeout: 3000,
@@ -151,16 +217,19 @@ export const useAuth = () => {
     if (keycloak) await keycloak.logout({ redirectUri: redirectUrl(redirectPath) })
   }
 
-  const getAccessToken = async () => {
+  const getAccessToken = async (forceRefresh = false) => {
     await initialiseAuth()
     if (!keycloak?.authenticated) return null
 
     try {
-      await keycloak.updateToken(30)
+      await withTimeout(keycloak.updateToken(forceRefresh ? -1 : 30), 10_000)
       applyKeycloakSession()
       return keycloak.token || null
     } catch {
-      clearAuth()
+      const fallbackToken = currentValidAccessToken()
+      if (fallbackToken) return fallbackToken
+
+      if (!keycloak?.authenticated) clearAuth()
       return null
     }
   }

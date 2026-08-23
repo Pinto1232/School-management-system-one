@@ -8,16 +8,21 @@ const props = withDefaults(defineProps<{
   settingsTo?: string
   showSettings?: boolean
   showLogout?: boolean
+  loading?: boolean
+  errorMessage?: string
 }>(), {
   brandName: 'Lusivo',
   homeTo: '/dashboard',
   settingsTo: '/dashboard/settings',
   showSettings: true,
   showLogout: true,
+  loading: false,
+  errorMessage: '',
 })
 
 const emit = defineEmits<{
   logout: []
+  retry: []
 }>()
 
 const open = defineModel<boolean>('open', { default: false })
@@ -93,37 +98,67 @@ watch(() => route.fullPath, close)
       :class="['grid gap-1.5 overflow-y-auto px-3 py-4 [scrollbar-color:color-mix(in_srgb,var(--color-brand-500)_35%,transparent)_transparent] [scrollbar-width:thin]', collapsed && 'lg:px-2']"
       aria-label="Navegação principal do painel"
     >
-      <template v-for="item in items" :key="item.to">
-        <button
-          v-if="item.disabled"
-          :class="navigationItemClass"
-          :data-collapsed="collapsed"
-          type="button"
-          disabled
-          :title="collapsed ? item.label : undefined"
+      <div v-if="loading" class="grid gap-2" role="status" aria-label="A carregar navegação">
+        <div
+          v-for="index in 4"
+          :key="index"
+          :class="['flex min-h-11 items-center gap-3 rounded-xl px-3.5 py-2.5', collapsed && 'lg:justify-center lg:px-2']"
         >
-          <Icon class="size-5 shrink-0" :name="item.icon" aria-hidden="true" />
-          <span :class="['min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', collapsed && 'lg:hidden']">{{ item.label }}</span>
-          <span v-if="item.badge !== undefined" :class="['rounded-full bg-surface-muted px-2 py-0.5 text-xs font-bold text-ink-soft', collapsed && 'lg:hidden']">{{ item.badge }}</span>
-        </button>
+          <span class="size-6 shrink-0 animate-pulse rounded-md bg-surface-muted" />
+          <span :class="['h-3.5 flex-1 animate-pulse rounded-full bg-surface-muted', collapsed && 'lg:hidden']" />
+        </div>
+        <span class="sr-only">A carregar as ligações do painel…</span>
+      </div>
 
-        <NuxtLink
-          v-else
-          :class="[
-            navigationItemClass,
-            isActive(item) && 'border-brand-200 bg-brand-500/10 text-nav-accent hover:bg-brand-500/10 hover:text-nav-accent',
-          ]"
-          :data-collapsed="collapsed"
-          :to="item.to"
-          :target="item.target"
-          :title="collapsed ? item.label : undefined"
-          :aria-current="isActive(item) ? 'page' : undefined"
-          @click="close"
-        >
-          <Icon class="size-5 shrink-0" :name="item.icon" aria-hidden="true" />
-          <span :class="['min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', collapsed && 'lg:hidden']">{{ item.label }}</span>
-          <span v-if="item.badge !== undefined" :class="['rounded-full bg-brand-100 px-2 py-0.5 text-xs font-black text-brand-800', collapsed && 'lg:hidden']">{{ item.badge }}</span>
-        </NuxtLink>
+      <button
+        v-else-if="errorMessage"
+        :class="navigationItemClass"
+        :data-collapsed="collapsed"
+        type="button"
+        :title="errorMessage"
+        @click="emit('retry')"
+      >
+        <Icon class="size-6 shrink-0" name="ph:arrow-clockwise" aria-hidden="true" />
+        <span :class="['min-w-0 flex-1', collapsed && 'lg:hidden']">
+          <span class="block">Tentar novamente</span>
+          <span class="mt-0.5 block overflow-hidden text-xs font-normal text-ellipsis whitespace-nowrap">{{ errorMessage }}</span>
+        </span>
+      </button>
+
+      <template v-else>
+        <template v-for="item in items" :key="item.to">
+          <button
+            v-if="item.disabled"
+            :class="navigationItemClass"
+            :data-collapsed="collapsed"
+            type="button"
+            disabled
+            :title="collapsed ? item.label : undefined"
+          >
+            <Icon class="shrink-0" :name="item.icon" size="24" aria-hidden="true" />
+            <span :class="['min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-[0.92rem]', collapsed && 'lg:hidden']">{{ item.label }}</span>
+            <span v-if="item.badge !== undefined" :class="['rounded-full bg-surface-muted px-2 py-0.5 text-xs font-bold text-ink-soft', collapsed && 'lg:hidden']">{{ item.badge }}</span>
+          </button>
+
+          <NuxtLink
+            v-else
+            :class="[
+              navigationItemClass,
+              isActive(item) && 'border-brand-200 bg-brand-500/10 text-nav-accent hover:bg-brand-500/10 hover:text-nav-accent',
+            ]"
+            :data-collapsed="collapsed"
+            :to="item.to"
+            :target="item.target"
+            :rel="item.target === '_blank' ? 'noopener noreferrer' : undefined"
+            :title="collapsed ? item.label : undefined"
+            :aria-current="isActive(item) ? 'page' : undefined"
+            @click="close"
+          >
+            <Icon class="shrink-0" :name="item.icon" size="24" aria-hidden="true" />
+            <span :class="['min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-[0.92rem]', collapsed && 'lg:hidden']">{{ item.label }}</span>
+            <span v-if="item.badge !== undefined" :class="['rounded-full bg-brand-100 px-2 py-0.5 text-xs font-black text-brand-800', collapsed && 'lg:hidden']">{{ item.badge }}</span>
+          </NuxtLink>
+        </template>
       </template>
     </nav>
 
@@ -136,8 +171,8 @@ watch(() => route.fullPath, close)
           :to="settingsTo"
           :title="collapsed ? 'Definições' : undefined"
         >
-          <Icon class="size-5 shrink-0" name="ph:gear" aria-hidden="true" />
-          <span :class="collapsed && 'lg:hidden'">Definições</span>
+          <Icon class="shrink-0" name="ph:gear" size="24" aria-hidden="true" />
+          <span :class="['text-[0.92rem]', collapsed && 'lg:hidden']">Definições</span>
         </NuxtLink>
         <button
           v-if="showLogout"
@@ -147,8 +182,8 @@ watch(() => route.fullPath, close)
           :title="collapsed ? 'Terminar sessão' : undefined"
           @click="emit('logout')"
         >
-          <Icon class="size-5 shrink-0" name="ph:sign-out" aria-hidden="true" />
-          <span :class="collapsed && 'lg:hidden'">Terminar sessão</span>
+          <Icon class="shrink-0" name="ph:sign-out" size="24" aria-hidden="true" />
+          <span :class="['text-[0.92rem]', collapsed && 'lg:hidden']">Terminar sessão</span>
         </button>
       </slot>
     </div>

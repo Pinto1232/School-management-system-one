@@ -44,4 +44,8 @@ export default defineNuxtPlugin((nuxtApp) => {
   if (import.meta.client) {
     hydrate(queryClient, vueQueryState.value)
   }
+
+  return {
+    provide: { queryClient },
+  }
 })
