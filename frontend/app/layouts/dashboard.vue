@@ -142,6 +142,7 @@ const handleNotifications = () => {
         v-model:search="search"
         :title="activeLabel"
         :subtitle="formattedDate"
+        :search-expanded="sidebarCollapsed"
         :theme="theme"
         :user-name="userName"
         :user-role="roleLabel"
@@ -153,9 +154,42 @@ const handleNotifications = () => {
       />
 
       <main class="mx-auto min-h-0 w-full max-w-375 p-[clamp(1rem,2.5vw,2rem)] print:p-0">
-        <slot />
+        <div class="dashboard-main-content">
+          <slot />
+        </div>
       </main>
     </div>
 
   </div>
 </template>
+
+<style scoped>
+.dashboard-main-content {
+  min-width: 0;
+  width: 100%;
+}
+
+@media (min-width: 64rem) and (max-width: 79.999rem) {
+  .dashboard-main-content {
+    zoom: 0.88;
+  }
+}
+
+@media (min-width: 80rem) and (max-width: 99.999rem) {
+  .dashboard-main-content {
+    zoom: 0.78;
+  }
+}
+
+@media (min-width: 100rem) {
+  .dashboard-main-content {
+    zoom: 0.76;
+  }
+}
+
+@media print {
+  .dashboard-main-content {
+    zoom: 1;
+  }
+}
+</style>

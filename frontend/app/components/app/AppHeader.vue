@@ -6,6 +6,7 @@ const props = withDefaults(defineProps<{
   subtitle?: string
   searchPlaceholder?: string
   showSearch?: boolean
+  searchExpanded?: boolean
   userName?: string
   userRole?: string
   userImage?: string
@@ -15,6 +16,7 @@ const props = withDefaults(defineProps<{
   subtitle: '',
   searchPlaceholder: 'Pesquisar no painel',
   showSearch: true,
+  searchExpanded: false,
   userName: 'Utilizador da escola',
   userRole: '',
   userImage: '',
@@ -44,7 +46,14 @@ const submitSearch = () => emit('submitSearch', search.value.trim())
 </script>
 
 <template>
-  <header class="sticky top-0 z-30 grid min-h-20 grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-b border-transparent bg-canvas px-1 print:hidden min-[721px]:min-h-[92px] min-[721px]:gap-5 min-[721px]:px-[clamp(0.25rem,1.6vw,1.5rem)] lg:min-h-[110px] lg:grid-cols-[minmax(180px,240px)_minmax(280px,540px)_minmax(0,1fr)]">
+  <header
+    :class="[
+      'sticky top-0 z-30 grid min-h-20 grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-b border-transparent bg-canvas px-1 print:hidden min-[721px]:min-h-[92px] min-[721px]:gap-5 min-[721px]:px-[clamp(0.25rem,1.6vw,1.5rem)] lg:min-h-[110px]',
+      searchExpanded
+        ? 'lg:grid-cols-[minmax(180px,240px)_minmax(280px,1fr)_auto]'
+        : 'lg:grid-cols-[minmax(180px,240px)_minmax(280px,540px)_minmax(0,1fr)]',
+    ]"
+  >
     <div class="flex min-w-0 items-center gap-2 min-[721px]:gap-3">
       <button
         class="inline-grid size-11 min-w-11 place-items-center rounded-control border border-line bg-surface-strong text-ink transition duration-150 hover:border-brand-400 hover:bg-brand-50 active:translate-y-px lg:hidden"
@@ -67,7 +76,7 @@ const submitSearch = () => emit('submitSearch', search.value.trim())
 
     <form
       v-if="showSearch"
-      class="hidden min-w-0 items-center gap-3 rounded-full border border-transparent bg-surface-strong/65 px-5 shadow-dashboard-control transition focus-within:border-brand-400 focus-within:ring-3 focus-within:ring-brand-400/15 min-[901px]:flex"
+      class="hidden w-full min-w-0 items-center gap-3 rounded-full border border-transparent bg-surface-strong/65 px-5 shadow-dashboard-control transition focus-within:border-brand-400 focus-within:ring-3 focus-within:ring-brand-400/15 min-[901px]:flex"
       role="search"
       @submit.prevent="submitSearch"
     >

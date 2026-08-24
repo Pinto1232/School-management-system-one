@@ -74,6 +74,32 @@ export interface TimetableEntry {
 
 export type ToastTone = 'info' | 'success' | 'warning' | 'error'
 
+export type DashboardEventTone = 'navy' | 'brand'
+
+export interface DashboardEvent {
+  id: string
+  date: string
+  month: string
+  day: string
+  category: string
+  title: string
+  time: string
+  location: string
+  tone?: DashboardEventTone
+}
+
+export type DashboardAlertTone = 'brand' | 'neutral'
+
+export interface DashboardAlert {
+  id: string
+  title: string
+  description: string
+  icon: string
+  unread?: boolean
+  actionLabel?: string
+  tone?: DashboardAlertTone
+}
+
 export interface ToastMessage {
   id: string
   title: string

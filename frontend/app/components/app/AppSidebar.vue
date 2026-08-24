@@ -70,7 +70,7 @@ onBeforeUnmount(() => {
 
   <aside
     :class="[
-      'fixed top-3 left-3 z-[70] flex h-[calc(100dvh-1.5rem)] w-[min(300px,calc(100vw-1.5rem))] min-w-0 flex-col overflow-hidden rounded-[1.4rem] border border-line bg-surface-strong shadow-panel transition-transform duration-300 ease-out print:hidden lg:sticky lg:top-4 lg:z-auto lg:h-[calc(100dvh-2rem)] lg:w-auto lg:translate-x-0 lg:rounded-none lg:border-0 lg:bg-transparent lg:shadow-none',
+      'dashboard-sidebar fixed top-3 left-3 z-[70] flex h-[calc(100dvh-1.5rem)] w-[min(300px,calc(100vw-1.5rem))] min-w-0 flex-col overflow-hidden rounded-[1.4rem] border border-line bg-surface-strong shadow-panel transition-transform duration-300 ease-out print:hidden lg:sticky lg:top-4 lg:z-auto lg:h-[calc(100dvh-2rem)] lg:w-auto lg:translate-x-0 lg:rounded-none lg:border-0 lg:bg-transparent lg:shadow-none',
       open ? 'translate-x-0' : '-translate-x-[calc(100%+1.5rem)]',
     ]"
     aria-label="Barra lateral do painel"
@@ -98,7 +98,7 @@ onBeforeUnmount(() => {
         :aria-label="collapsed ? 'Expandir navegação' : 'Recolher navegação'"
         @click="collapsed = !collapsed"
       >
-        <Icon :name="collapsed ? 'ph:caret-right' : 'ph:caret-left'" size="20" aria-hidden="true" />
+        <Icon :class="collapsed && 'text-brand-500 lg:size-7'" :name="collapsed ? 'ph:caret-right' : 'ph:caret-left'" size="20" aria-hidden="true" />
       </button>
 
       <button
@@ -137,9 +137,9 @@ onBeforeUnmount(() => {
         :aria-label="collapsed ? 'Tentar novamente' : undefined"
         @click="emit('retry')"
       >
-        <Icon class="size-6 shrink-0" name="ph:arrow-clockwise" aria-hidden="true" />
+        <Icon :class="['size-6 shrink-0 text-ink-soft', collapsed && 'lg:size-8 lg:text-brand-500']" name="ph:arrow-clockwise" aria-hidden="true" />
         <span :class="['min-w-0 flex-1', collapsed && 'lg:hidden']">
-          <span class="block">Tentar novamente</span>
+          <span class="block text-nav-accent">Tentar novamente</span>
           <span class="mt-0.5 block overflow-hidden text-xs font-normal text-ellipsis whitespace-nowrap">{{ errorMessage }}</span>
         </span>
       </button>
@@ -155,8 +155,8 @@ onBeforeUnmount(() => {
             :title="collapsed ? item.label : undefined"
             :aria-label="collapsed ? item.label : undefined"
           >
-            <Icon class="shrink-0" :name="item.icon" size="24" aria-hidden="true" />
-            <span :class="['min-w-0 flex-1 overflow-hidden text-base text-ellipsis whitespace-nowrap', collapsed && 'lg:hidden']">{{ item.label }}</span>
+            <Icon :class="['shrink-0 text-ink-soft', collapsed && 'lg:size-8 lg:text-brand-500']" :name="item.icon" size="24" aria-hidden="true" />
+            <span :class="['min-w-0 flex-1 overflow-hidden text-base text-ellipsis whitespace-nowrap text-nav-accent', collapsed && 'lg:hidden']">{{ item.label }}</span>
             <span v-if="item.badge !== undefined" :class="['rounded-full bg-surface-muted px-2 py-0.5 text-xs font-bold text-ink-soft', collapsed && 'lg:hidden']">{{ item.badge }}</span>
           </button>
 
@@ -175,8 +175,8 @@ onBeforeUnmount(() => {
             :aria-current="isActive(item) ? 'page' : undefined"
             @click="close"
           >
-            <Icon class="shrink-0" :name="item.icon" size="24" aria-hidden="true" />
-            <span :class="['min-w-0 flex-1 overflow-hidden text-base text-ellipsis whitespace-nowrap', collapsed && 'lg:hidden']">{{ item.label }}</span>
+            <Icon :class="['shrink-0 text-ink-soft', collapsed && 'lg:size-8 lg:text-brand-500']" :name="item.icon" size="24" aria-hidden="true" />
+            <span :class="['min-w-0 flex-1 overflow-hidden text-base text-ellipsis whitespace-nowrap text-nav-accent', collapsed && 'lg:hidden']">{{ item.label }}</span>
             <span v-if="item.badge !== undefined" :class="['rounded-full bg-brand-100 px-2 py-0.5 text-xs font-black text-brand-800', collapsed && 'lg:hidden']">{{ item.badge }}</span>
           </NuxtLink>
         </template>
@@ -193,8 +193,8 @@ onBeforeUnmount(() => {
           :title="collapsed ? 'Definições' : undefined"
           :aria-label="collapsed ? 'Definições' : undefined"
         >
-          <Icon class="shrink-0" name="ph:gear" size="24" aria-hidden="true" />
-          <span :class="['text-base', collapsed && 'lg:hidden']">Definições</span>
+          <Icon :class="['shrink-0 text-ink-soft', collapsed && 'lg:size-8 lg:text-brand-500']" name="ph:gear" size="24" aria-hidden="true" />
+          <span :class="['text-base text-nav-accent', collapsed && 'lg:hidden']">Definições</span>
         </NuxtLink>
         <button
           v-if="showLogout"
@@ -205,8 +205,8 @@ onBeforeUnmount(() => {
           :aria-label="collapsed ? 'Terminar sessão' : undefined"
           @click="emit('logout')"
         >
-          <Icon class="shrink-0" name="ph:sign-out" size="24" aria-hidden="true" />
-          <span :class="['text-base', collapsed && 'lg:hidden']">Terminar sessão</span>
+          <Icon :class="['shrink-0 text-ink-soft', collapsed && 'lg:size-8 lg:text-brand-500']" name="ph:sign-out" size="24" aria-hidden="true" />
+          <span :class="['text-base text-nav-accent', collapsed && 'lg:hidden']">Terminar sessão</span>
         </button>
       </slot>
     </div>
@@ -220,10 +220,11 @@ onBeforeUnmount(() => {
   scrollbar-width: thin;
 }
 
+.dashboard-sidebar:hover .sidebar-navigation,
 .sidebar-navigation:hover,
 .sidebar-navigation:focus-within,
 .sidebar-navigation.is-scrolling {
-  scrollbar-color: color-mix(in srgb, var(--color-brand-500) 42%, transparent) transparent;
+  scrollbar-color: color-mix(in srgb, var(--color-brand-500) 55%, transparent) transparent;
 }
 
 .sidebar-navigation::-webkit-scrollbar {
@@ -239,10 +240,11 @@ onBeforeUnmount(() => {
   background: transparent;
 }
 
+.dashboard-sidebar:hover .sidebar-navigation::-webkit-scrollbar-thumb,
 .sidebar-navigation:hover::-webkit-scrollbar-thumb,
 .sidebar-navigation:focus-within::-webkit-scrollbar-thumb,
 .sidebar-navigation.is-scrolling::-webkit-scrollbar-thumb {
-  background: color-mix(in srgb, var(--color-brand-500) 42%, transparent);
+  background: color-mix(in srgb, var(--color-brand-500) 55%, transparent);
 }
 
 @media (min-width: 64rem) {
