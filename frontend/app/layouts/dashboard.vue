@@ -12,6 +12,10 @@ const toast = useToast()
 const nuxtApp = useNuxtApp()
 const isMounted = ref(false)
 const isLoggingOut = ref(false)
+const isAttendancePage = computed(() => (
+  route.path === '/dashboard/attendance'
+  || route.path === '/dashboard/presencas'
+))
 
 onMounted(() => {
   isMounted.value = true
@@ -53,14 +57,11 @@ const navigation = computed<AppNavigationItem[]>(() => {
       label: item.label,
       icon: item.icon,
       to: item.path,
+      actionOnly: item.label.trim().toLocaleLowerCase('pt-PT') === 'alunos',
       exact: item.path === '/dashboard',
       target: item.target,
     }))
 })
-
-const activeLabel = computed(() => navigation.value.find(item => (
-  item.exact ? route.path === item.to : route.path === item.to || route.path.startsWith(`${item.to}/`)
-))?.label || 'Painel')
 
 const dateFormatter = new Intl.DateTimeFormat('pt-PT', {
   day: '2-digit',
@@ -115,6 +116,11 @@ const handleSearch = (query: string) => {
 const handleNotifications = () => {
   toast.info('Sem novas notificações', 'Os avisos da escola aparecerão aqui quando estiverem disponíveis.')
 }
+
+const handleSidebarAction = (item: AppNavigationItem) => {
+  if (!item.actionOnly) return
+  toast.info(item.label, 'Utilize a ação “Matricular aluno” no painel para iniciar uma nova matrícula.')
+}
 </script>
 
 <template>
@@ -135,12 +141,12 @@ const handleNotifications = () => {
       :show-settings="false"
       @logout="handleLogout"
       @retry="handleSidebarRetry"
+      @select="handleSidebarAction"
     />
 
     <div class="grid min-w-0 grid-rows-[auto_1fr]">
       <AppHeader
         v-model:search="search"
-        :title="activeLabel"
         :subtitle="formattedDate"
         :search-expanded="sidebarCollapsed"
         :theme="theme"
@@ -153,7 +159,12 @@ const handleNotifications = () => {
         @open-notifications="handleNotifications"
       />
 
-      <main class="mx-auto min-h-0 w-full max-w-375 p-[clamp(1rem,2.5vw,2rem)] print:p-0">
+      <main
+        :class="[
+          'mx-auto min-h-0 w-full max-w-375 px-[clamp(1rem,2.5vw,2rem)] pb-[clamp(1rem,2.5vw,2rem)] print:p-0',
+          isAttendancePage ? 'pt-0' : 'pt-[clamp(1rem,2.5vw,2rem)]',
+        ]"
+      >
         <div class="dashboard-main-content">
           <slot />
         </div>

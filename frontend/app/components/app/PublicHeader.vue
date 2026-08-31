@@ -10,6 +10,74 @@ const { user, isAuthenticated, login, roles } = useAuth()
 const { uploadUrl } = useApi()
 const { cartItem, initialiseCart } = useSchoolCart()
 const loginPending = ref(false)
+const categoryNavHidden = ref(false)
+const scrollIntentThreshold = 18
+let lastTouchY: number | null = null
+let lastScrollPosition = 0
+let scrollIntent = 0
+let scrollDirection = 0
+
+const setCategoryNavForDirection = (delta: number, immediate = false) => {
+  if (Math.abs(delta) < 4) return
+
+  const direction = Math.sign(delta)
+  if (direction !== scrollDirection) {
+    scrollDirection = direction
+    scrollIntent = 0
+  }
+
+  scrollIntent += Math.abs(delta)
+  if (!immediate && scrollIntent < scrollIntentThreshold) return
+
+  const shouldHide = direction > 0 && window.scrollY > 8
+  if (categoryNavHidden.value !== shouldHide) {
+    categoryNavHidden.value = shouldHide
+  }
+
+  scrollIntent = 0
+}
+
+const handleWheel = (event: WheelEvent) => {
+  setCategoryNavForDirection(event.deltaY)
+}
+
+const handleTouchStart = (event: TouchEvent) => {
+  lastTouchY = event.touches[0]?.clientY ?? null
+}
+
+const handleTouchMove = (event: TouchEvent) => {
+  const currentTouchY = event.touches[0]?.clientY
+  if (lastTouchY === null || currentTouchY === undefined) return
+
+  setCategoryNavForDirection(lastTouchY - currentTouchY)
+  lastTouchY = currentTouchY
+}
+
+const handleScrollEnd = () => {
+  const currentScrollPosition = window.scrollY
+
+  if (currentScrollPosition <= 4) {
+    categoryNavHidden.value = false
+    scrollIntent = 0
+  }
+  else {
+    setCategoryNavForDirection(currentScrollPosition - lastScrollPosition)
+  }
+
+  lastScrollPosition = currentScrollPosition
+}
+
+const handleScrollKey = (event: KeyboardEvent) => {
+  const target = event.target as HTMLElement | null
+  if (target?.matches('input, textarea, select, [contenteditable="true"]')) return
+
+  if (['ArrowDown', 'PageDown', 'End'].includes(event.key) || (event.key === ' ' && !event.shiftKey)) {
+    setCategoryNavForDirection(18, true)
+  }
+  else if (['ArrowUp', 'PageUp', 'Home'].includes(event.key) || (event.key === ' ' && event.shiftKey)) {
+    setCategoryNavForDirection(-18, true)
+  }
+}
 
 const cartRoute = computed(() => cartItem.value ? '/cart' : '/#plans')
 const cartLabel = computed(() => cartItem.value
@@ -24,6 +92,12 @@ const categoryNavigation = [
   { label: 'Finanças', to: '/#financas' },
   { label: 'Relatórios', to: '/#relatorios' },
 ]
+
+const publicContact = {
+  phone: '+258 84 123 4567',
+  phoneHref: 'tel:+258841234567',
+  email: 'apoio@lusivo.test',
+}
 
 const isCurrentCategory = (to: string) => {
   const [path, hash] = to.split('#')
@@ -107,11 +181,27 @@ watch(() => route.fullPath, () => {
   searchMessage.value = ''
 })
 
-onMounted(initialiseCart)
+onMounted(() => {
+  initialiseCart()
+  lastScrollPosition = window.scrollY
+  window.addEventListener('wheel', handleWheel, { passive: true })
+  window.addEventListener('touchstart', handleTouchStart, { passive: true })
+  window.addEventListener('touchmove', handleTouchMove, { passive: true })
+  window.addEventListener('scrollend', handleScrollEnd, { passive: true })
+  window.addEventListener('keydown', handleScrollKey)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('wheel', handleWheel)
+  window.removeEventListener('touchstart', handleTouchStart)
+  window.removeEventListener('touchmove', handleTouchMove)
+  window.removeEventListener('scrollend', handleScrollEnd)
+  window.removeEventListener('keydown', handleScrollKey)
+})
 </script>
 
 <template>
-  <header class="app-header">
+  <header class="app-header" :class="{ 'is-category-hidden': categoryNavHidden }">
     <div class="app-header__main">
       <div class="container app-header__inner">
         <NuxtLink class="brand" to="/" aria-label="Página inicial da Lusivo">
@@ -210,17 +300,36 @@ onMounted(initialiseCart)
       </div>
     </div>
 
-    <nav class="category-nav container" aria-label="Áreas da plataforma">
-      <NuxtLink
-        v-for="item in categoryNavigation"
-        :key="item.to"
-        :to="item.to"
-        :class="{ 'is-current': isCurrentCategory(item.to) }"
-        :aria-current="isCurrentCategory(item.to) ? 'page' : undefined"
-      >
-        <span>{{ item.label }}</span>
-      </NuxtLink>
-    </nav>
+    <div
+      class="category-nav-shell"
+      :aria-hidden="categoryNavHidden"
+      :inert="categoryNavHidden"
+    >
+      <div class="category-nav-bar container">
+        <nav class="category-nav" aria-label="Áreas da plataforma">
+          <NuxtLink
+            v-for="item in categoryNavigation"
+            :key="item.to"
+            :to="item.to"
+            :class="{ 'is-current': isCurrentCategory(item.to) }"
+            :aria-current="isCurrentCategory(item.to) ? 'page' : undefined"
+          >
+            <span>{{ item.label }}</span>
+          </NuxtLink>
+        </nav>
+
+        <div class="category-contact" aria-label="Contactos da Lusivo">
+          <a :href="publicContact.phoneHref">
+            <Icon name="ph:phone" size="17" aria-hidden="true" />
+            <span>{{ publicContact.phone }}</span>
+          </a>
+          <a :href="`mailto:${publicContact.email}`">
+            <Icon name="ph:envelope-simple" size="17" aria-hidden="true" />
+            <span>{{ publicContact.email }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
 
     <div id="mobile-navigation" class="mobile-nav" :class="{ 'is-open': menuOpen }">
       <form class="mobile-nav__search" role="search" @submit.prevent="submitSearch">
@@ -245,6 +354,17 @@ onMounted(initialiseCart)
           {{ item.label }}
         </NuxtLink>
       </nav>
+
+      <div class="mobile-nav__contacts" aria-label="Contactos da Lusivo">
+        <a :href="publicContact.phoneHref">
+          <Icon name="ph:phone" size="18" aria-hidden="true" />
+          <span>{{ publicContact.phone }}</span>
+        </a>
+        <a :href="`mailto:${publicContact.email}`">
+          <Icon name="ph:envelope-simple" size="18" aria-hidden="true" />
+          <span>{{ publicContact.email }}</span>
+        </a>
+      </div>
 
       <div class="mobile-nav__account">
         <NuxtLink v-if="isAuthenticated" class="button button--primary" to="/dashboard">

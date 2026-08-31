@@ -129,6 +129,14 @@ const recentAlerts = ref<DashboardAlert[]>([
 ])
 
 const handleQuickAction = (label: string) => {
+  if (label === 'Matricular aluno') {
+    return navigateTo('/dashboard/students')
+  }
+
+  if (label === 'Registar presença') {
+    return navigateTo('/dashboard/attendance')
+  }
+
   toast.info(label, 'Esta ação será ligada ao respetivo módulo do painel.')
 }
 
@@ -137,7 +145,7 @@ const handleEventsMenu = () => {
 }
 
 const handleCalendar = () => {
-  toast.info('Calendário completo', 'O módulo de calendário será aberto aqui quando estiver disponível.')
+  return navigateTo('/dashboard/events')
 }
 
 const handleAlertAction = (id: string) => {

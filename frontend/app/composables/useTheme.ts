@@ -15,10 +15,7 @@ export const useTheme = () => {
   const initialiseTheme = () => {
     if (!import.meta.client) return
     const saved = localStorage.getItem('school-theme') as ThemeMode | null
-    const preferred: ThemeMode = window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light'
-    applyTheme(saved || preferred)
+    applyTheme(saved || 'light')
   }
 
   const toggleTheme = () => applyTheme(theme.value === 'light' ? 'dark' : 'light')

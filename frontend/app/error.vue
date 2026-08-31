@@ -12,7 +12,14 @@ const description = computed(() => isNotFound.value
   ? 'A página que procura não existe ou foi movida.'
   : 'Ocorreu um problema inesperado. Pode voltar ao início e tentar novamente.')
 
-const returnHome = () => clearError({ redirect: '/' })
+const handleReturn = () => {
+  if (isNotFound.value && import.meta.client && window.history.length > 1) {
+    window.history.back()
+    return
+  }
+
+  return clearError({ redirect: '/' })
+}
 
 useSeoMeta({
   title: () => title.value,
@@ -31,7 +38,7 @@ useHead({ htmlAttrs: { lang: 'pt' } })
           <span class="eyebrow">Erro {{ error.statusCode || 500 }}</span>
           <h1>{{ title }}</h1>
           <p>{{ description }}</p>
-          <button class="button button--primary" type="button" @click="returnHome">
+          <button class="button button--primary" type="button" @click="handleReturn">
             Voltar ao início
           </button>
         </div>

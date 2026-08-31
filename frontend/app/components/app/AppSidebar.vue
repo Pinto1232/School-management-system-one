@@ -23,6 +23,7 @@ const props = withDefaults(defineProps<{
 const emit = defineEmits<{
   logout: []
   retry: []
+  select: [item: AppNavigationItem]
 }>()
 
 const open = defineModel<boolean>('open', { default: false })
@@ -70,7 +71,7 @@ onBeforeUnmount(() => {
 
   <aside
     :class="[
-      'dashboard-sidebar fixed top-3 left-3 z-[70] flex h-[calc(100dvh-1.5rem)] w-[min(300px,calc(100vw-1.5rem))] min-w-0 flex-col overflow-hidden rounded-[1.4rem] border border-line bg-surface-strong shadow-panel transition-transform duration-300 ease-out print:hidden lg:sticky lg:top-4 lg:z-auto lg:h-[calc(100dvh-2rem)] lg:w-auto lg:translate-x-0 lg:rounded-none lg:border-0 lg:bg-transparent lg:shadow-none',
+      'dashboard-sidebar fixed top-3 left-3 z-[70] flex h-[calc(100dvh-1.5rem)] w-[min(300px,calc(100vw-1.5rem))] min-w-0 flex-col overflow-hidden rounded-[1.4rem] border border-line bg-surface-strong shadow-panel transition-transform duration-300 ease-out print:hidden lg:sticky lg:top-4 lg:z-auto lg:h-[calc(100dvh-2rem)] lg:w-auto lg:translate-x-0 lg:rounded-none lg:border-0 lg:border-r lg:border-surface-muted lg:bg-transparent lg:shadow-none',
       open ? 'translate-x-0' : '-translate-x-[calc(100%+1.5rem)]',
     ]"
     aria-label="Barra lateral do painel"
@@ -147,7 +148,25 @@ onBeforeUnmount(() => {
       <template v-else>
         <template v-for="item in items" :key="item.to">
           <button
-            v-if="item.disabled"
+            v-if="item.actionOnly"
+            :class="[
+              navigationItemClass,
+              isActive(item) && 'border-brand-200 bg-brand-500/10 text-nav-accent hover:bg-brand-500/10 hover:text-nav-accent',
+            ]"
+            :data-collapsed="collapsed"
+            type="button"
+            :title="collapsed ? item.label : undefined"
+            :aria-label="collapsed ? item.label : undefined"
+            :aria-current="isActive(item) ? 'page' : undefined"
+            @click="emit('select', item); close()"
+          >
+            <Icon :class="['shrink-0 text-ink-soft', collapsed && 'lg:size-8 lg:text-brand-500']" :name="item.icon" size="24" aria-hidden="true" />
+            <span :class="['min-w-0 flex-1 overflow-hidden text-base text-ellipsis whitespace-nowrap text-nav-accent', collapsed && 'lg:hidden']">{{ item.label }}</span>
+            <span v-if="item.badge !== undefined" :class="['rounded-full bg-brand-100 px-2 py-0.5 text-xs font-black text-brand-800', collapsed && 'lg:hidden']">{{ item.badge }}</span>
+          </button>
+
+          <button
+            v-else-if="item.disabled"
             :class="navigationItemClass"
             :data-collapsed="collapsed"
             type="button"

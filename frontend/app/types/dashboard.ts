@@ -5,6 +5,7 @@ export interface AppNavigationItem {
   to: string
   icon: string
   badge?: number | string
+  actionOnly?: boolean
   disabled?: boolean
   exact?: boolean
   target?: '_self' | '_blank'
@@ -86,6 +87,23 @@ export interface DashboardEvent {
   time: string
   location: string
   tone?: DashboardEventTone
+}
+
+export type CalendarView = 'month' | 'week'
+export type CalendarEventTone = 'navy' | 'brand' | 'danger'
+
+export interface CalendarEvent {
+  id: string
+  date: string
+  category: string
+  department: string
+  title: string
+  startTime?: string
+  endTime?: string
+  allDay?: boolean
+  location?: string
+  description?: string
+  tone: CalendarEventTone
 }
 
 export type DashboardAlertTone = 'brand' | 'neutral'

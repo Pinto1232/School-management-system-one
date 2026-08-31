@@ -31,7 +31,7 @@ withDefaults(defineProps<{
       <slot name="meta" />
     </div>
 
-    <div v-if="$slots.actions" class="flex shrink-0 flex-wrap items-center gap-2.5">
+    <div v-if="$slots.actions" class="flex w-full min-w-0 flex-wrap items-center gap-2.5 min-[721px]:w-auto min-[721px]:shrink-0">
       <slot name="actions" />
     </div>
   </header>

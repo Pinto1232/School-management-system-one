@@ -2,7 +2,6 @@
 import { useId } from 'vue'
 
 const props = withDefaults(defineProps<{
-  title: string
   subtitle?: string
   searchPlaceholder?: string
   showSearch?: boolean
@@ -64,14 +63,9 @@ const submitSearch = () => emit('submitSearch', search.value.trim())
         <Icon name="ph:list" size="22" aria-hidden="true" />
       </button>
 
-      <div class="min-w-0">
-        <h1 class="m-0 overflow-hidden text-lg font-extrabold text-ellipsis whitespace-nowrap min-[721px]:text-[1.45rem]">
-          {{ title }}
-        </h1>
-        <p v-if="subtitle" class="mt-1 mb-0 overflow-hidden text-xs text-ellipsis whitespace-nowrap text-ink-soft min-[721px]:text-sm lg:text-base">
-          {{ subtitle }}
-        </p>
-      </div>
+      <p v-if="subtitle" class="m-0 overflow-hidden text-xs text-ellipsis whitespace-nowrap text-ink-soft min-[721px]:text-sm lg:text-base">
+        {{ subtitle }}
+      </p>
     </div>
 
     <form
