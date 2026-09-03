@@ -11,7 +11,7 @@ export interface AppNavigationItem {
   target?: '_self' | '_blank'
 }
 
-export interface WordPressSidebarLink {
+export interface SidebarNavigationLink {
   id: number
   key: string
   label: string
@@ -24,8 +24,8 @@ export interface WordPressSidebarLink {
   target: '_self' | '_blank'
 }
 
-export interface WordPressSidebarResponse {
-  data: WordPressSidebarLink[]
+export interface SidebarNavigationResponse {
+  data: SidebarNavigationLink[]
   meta: {
     total: number
     role: string | null

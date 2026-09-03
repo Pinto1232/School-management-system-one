@@ -1,9 +1,9 @@
 import type { MaybeRefOrGetter } from 'vue'
-import type { WordPressSidebarResponse } from '~/types/dashboard'
+import type { SidebarNavigationResponse } from '~/types/dashboard'
 import { queryOptions, useQuery } from '@tanstack/vue-query'
 
 export const sidebarLinkKeys = {
-  all: ['wordpress-sidebar-links'] as const,
+  all: ['sidebar-navigation'] as const,
   forUser: (userId: string) => [...sidebarLinkKeys.all, userId] as const,
 }
 
@@ -16,7 +16,7 @@ type FetchErrorShape = {
 }
 
 const requestSidebarLinks = (accessToken: string, signal?: AbortSignal) => (
-  $fetch<WordPressSidebarResponse>('/api/sidebar-links', {
+  $fetch<SidebarNavigationResponse>('/api/sidebar-links', {
     signal,
     timeout: 20_000,
     headers: { Authorization: `Bearer ${accessToken}` },
@@ -54,7 +54,7 @@ export const sidebarLinkQueries = {
     queryFn: ({ signal }) => fetchSidebarLinks(getAccessToken, signal),
     staleTime: 60_000,
     gcTime: import.meta.server ? Infinity : 10 * 60_000,
-    // The Nitro proxy already retries WordPress once; avoid stacking client
+    // The Nitro proxy already retries the backend once; avoid stacking client
     // retries and leaving the initial navigation loader visible for too long.
     retry: false,
   }),

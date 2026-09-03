@@ -2,6 +2,8 @@ const assert = require('node:assert/strict');
 const test = require('node:test');
 const app = require('../src/app');
 const authenticate = require('../src/middlewares/authenticate');
+const authenticateAccessToken = require('../src/middlewares/authenticateAccessToken');
+const authenticateFeedback = authenticateAccessToken.withTenantIdentity;
 const packageRoutes = require('../src/routes/packages');
 const contentRoutes = require('../src/routes/contents/contentRoutes');
 
@@ -28,6 +30,13 @@ test('every sensitive route family is mounted behind authentication', () => {
   }
 });
 
+test('navigation uses verified access-token authentication without profile synchronization', () => {
+  const authenticationLayer = app._router.stack.find(layer => layer.handle === authenticateAccessToken);
+
+  assert.ok(authenticationLayer);
+  assert.equal(authenticationLayer.regexp.test('/api/v1/navigation/sidebar'), true);
+});
+
 test('public package and content routers authenticate their mutations', () => {
   const mutationIsProtected = (router, method, path) => router.stack.some(layer =>
     layer.route?.path === path
@@ -35,7 +44,15 @@ test('public package and content routers authenticate their mutations', () => {
     && layer.route.stack.some(handler => handler.handle === authenticate));
 
   assert.equal(mutationIsProtected(packageRoutes, 'post', '/'), true);
-  assert.equal(mutationIsProtected(packageRoutes, 'get', '/feedback'), true);
-  assert.equal(mutationIsProtected(packageRoutes, 'put', '/:planKey/feedback'), true);
+  assert.equal(packageRoutes.stack.some(layer => (
+    layer.route?.path === '/feedback'
+    && layer.route.methods.get
+    && layer.route.stack.some(handler => handler.handle === authenticateFeedback)
+  )), true);
+  assert.equal(packageRoutes.stack.some(layer => (
+    layer.route?.path === '/:planKey/feedback'
+    && layer.route.methods.put
+    && layer.route.stack.some(handler => handler.handle === authenticateFeedback)
+  )), true);
   assert.equal(mutationIsProtected(contentRoutes, 'post', '/content'), true);
 });

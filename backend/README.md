@@ -25,6 +25,12 @@ npm run dev
 
 Authenticated Keycloak identities are synchronized into MongoDB as application profiles on their first API request. Passwords, login sessions, password resets, and role assignments are not managed by MongoDB.
 
+## Sidebar navigation API
+
+`GET /api/v1/navigation/sidebar` returns the authenticated user's role-filtered dashboard links in stable position order. Send the Keycloak access token as `Authorization: Bearer <token>`. The versioned endpoint uses the common `{ data, meta }` response envelope and is documented in Swagger at `/api-docs`.
+
+The backend owns the navigation catalogue and authorization rules. Clients must render only the returned links and must still rely on protected page and resource endpoints for authorization; hidden navigation is not a substitute for server-side access control.
+
 All non-public API models are automatically scoped to the signed `school_id` claim. When the claim is absent, the identity is isolated to its Keycloak subject rather than receiving access to unscoped data. Only package and public-site content reads are anonymous; their mutations require the non-default `platform_admin` role.
 
 For a single-school legacy database, back up MongoDB and run the one-time migration with the school administrator's `schoolId`:

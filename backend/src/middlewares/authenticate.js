@@ -19,6 +19,7 @@ const getVerifier = async () => {
         issuer: keycloakIssuer,
         audience: keycloakAudience,
         algorithms: ['RS256'],
+        clockTolerance: 5,
       });
     });
   }
@@ -61,6 +62,13 @@ const schoolIdFromToken = (payload) => {
   const claim = payload.school_id || payload.schoolId;
   const schoolId = String(claim || payload.sub || '').trim();
 
+  if (!schoolId) {
+    const error = new Error('The access token must include a stable identity claim.');
+    error.statusCode = 401;
+    error.code = 'IDENTITY_CLAIMS_REQUIRED';
+    throw error;
+  }
+
   if (!/^[a-zA-Z0-9][a-zA-Z0-9._:-]{0,127}$/.test(schoolId)) {
     const error = new Error('The access token has an invalid school identifier.');
     error.statusCode = 403;
@@ -81,9 +89,9 @@ const profileConflict = (message) => {
 const syncUser = async (payload, roles, schoolId) => {
   const email = String(payload.email || '').trim().toLowerCase();
   if (!email) {
-    const error = new Error('The Keycloak account must have an email address.');
-    error.statusCode = 403;
-    error.code = 'EMAIL_REQUIRED';
+    const error = new Error('The access token must include the account email address.');
+    error.statusCode = 401;
+    error.code = 'IDENTITY_CLAIMS_REQUIRED';
     throw error;
   }
 
@@ -141,6 +149,7 @@ module.exports = asyncHandler(async (req, res, next) => {
   const authHeader = req.header('Authorization');
 
   if (!authHeader?.startsWith('Bearer ')) {
+    res.set('WWW-Authenticate', 'Bearer');
     return res.status(401).json({ message: 'Missing bearer token.' });
   }
 
@@ -155,6 +164,7 @@ module.exports = asyncHandler(async (req, res, next) => {
       return res.status(500).json({ message: 'Keycloak authentication is not configured.' });
     }
 
+    res.set('WWW-Authenticate', 'Bearer error="invalid_token"');
     return res.status(401).json({ message: 'Invalid or expired access token.' });
   }
 

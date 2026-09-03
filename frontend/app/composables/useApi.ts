@@ -37,24 +37,40 @@ export const useApi = () => {
   const { getAccessToken, isAuthenticated, logout } = useAuth()
 
   const request = async <T>(path: string, options: Parameters<typeof $fetch<T>>[1] = {}) => {
-    try {
-      const accessToken = isAuthenticated.value ? await getAccessToken() : null
-      return await $fetch<T>(path, {
-        baseURL: config.public.apiBase,
-        timeout: 8000,
-        retry: 0,
-        ...options,
-        headers: {
-          ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
-          ...(options.headers || {}),
-        },
-      })
-    } catch (error) {
+    const execute = (accessToken: string | null) => $fetch<T>(path, {
+      baseURL: config.public.apiBase,
+      timeout: 8000,
+      retry: 0,
+      ...options,
+      headers: {
+        ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+        ...(options.headers || {}),
+      },
+    })
+
+    const statusFrom = (error: unknown) => {
       const apiError = error as ApiErrorShape
-      const status = apiError?.statusCode || apiError?.status
-      if (status === 401 && import.meta.client) {
-        await logout('/')
+      return apiError?.statusCode || apiError?.status
+    }
+
+    const accessToken = isAuthenticated.value ? await getAccessToken() : null
+    try {
+      return await execute(accessToken)
+    } catch (error) {
+      if (statusFrom(error) !== 401 || !accessToken || !import.meta.client) throw error
+
+      // The API can reject a still-unexpired token after identity or role
+      // claim configuration changes. Force one refresh and retry exactly once.
+      const refreshedAccessToken = await getAccessToken(true)
+      if (refreshedAccessToken && refreshedAccessToken !== accessToken) {
+        try {
+          return await execute(refreshedAccessToken)
+        } catch (retryError) {
+          if (statusFrom(retryError) !== 401) throw retryError
+        }
       }
+
+      await logout('/')
       throw error
     }
   }

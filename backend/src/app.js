@@ -8,6 +8,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('../swaggerConfig');
 const { allowedOrigins } = require('./config/env');
 const authenticate = require('./middlewares/authenticate');
+const authenticateAccessToken = require('./middlewares/authenticateAccessToken');
 
 const attendanceRoutes = require('./routes/attendance');
 const userRoutes = require('./routes/users');
@@ -32,6 +33,7 @@ const subscriptionRoutes = require('./routes/subscription');
 const contentRoutes = require('./routes/contents/contentRoutes');
 const packagesRoutes = require('./routes/packages');
 const iconsRoutes = require('./routes/icons');
+const navigationRoutes = require('./routes/navigation');
 
 const app = express();
 const protectedRoutes = [
@@ -77,6 +79,10 @@ for (const [mountPath, router] of protectedRoutes) {
   app.use(mountPath, authenticate, router);
 }
 
+// Navigation authorization depends only on verified token roles. It must not
+// require a MongoDB profile sync or identity claims that the resource does not use.
+app.use('/api/v1/navigation', authenticateAccessToken, navigationRoutes);
+
 // Package and marketing content reads are public. Their routers protect every mutation.
 app.use('/api/packages', packagesRoutes);
 app.use('/api', contentRoutes);
@@ -88,6 +94,9 @@ app.use((error, req, res, next) => {
   if (res.headersSent) return next(error);
 
   const statusCode = Number.isInteger(error.statusCode) ? error.statusCode : 500;
+  if (statusCode === 401 && !res.get('WWW-Authenticate')) {
+    res.set('WWW-Authenticate', 'Bearer error="invalid_token"');
+  }
   if (statusCode >= 500) console.error(error);
   return res.status(statusCode).json({
     message: statusCode >= 500 ? 'An unexpected server error occurred.' : error.message,

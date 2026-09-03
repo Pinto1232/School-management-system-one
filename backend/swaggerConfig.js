@@ -1,4 +1,5 @@
 // URL access http://localhost:3001/api-docs
+const path = require('path');
 const swaggerJSDoc = require('swagger-jsdoc');
 
 const options = {
@@ -9,8 +10,17 @@ const options = {
       version: '1.0.0',
       description: '',
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
   },
-  apis: ['./src/routes/*.js'],
+  apis: [path.join(__dirname, 'src/routes/*.js')],
 };
 
 const swaggerSpec = swaggerJSDoc(options);

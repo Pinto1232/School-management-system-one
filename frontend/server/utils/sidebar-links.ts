@@ -1,4 +1,4 @@
-import type { WordPressSidebarLink, WordPressSidebarResponse } from '~~/app/types/dashboard'
+import type { SidebarNavigationLink, SidebarNavigationResponse } from '~~/app/types/dashboard'
 
 type UnknownRecord = Record<string, unknown>
 
@@ -9,11 +9,11 @@ const isRecord = (value: unknown): value is UnknownRecord => (
 )
 
 const invalidResponse = (detail: string): never => {
-  console.error('[sidebar-links] Invalid WordPress response:', detail)
+  console.error('[sidebar-links] Invalid navigation API response:', detail)
 
   throw createError({
     statusCode: 502,
-    statusMessage: 'WordPress returned an invalid sidebar response.',
+    statusMessage: 'The navigation service returned an invalid response.',
   })
 }
 
@@ -28,7 +28,7 @@ const isDashboardPath = (path: string) => (
   && !/[\u0000-\u001f]/.test(path)
 )
 
-const parseLink = (value: unknown, index: number): WordPressSidebarLink => {
+const parseLink = (value: unknown, index: number): SidebarNavigationLink => {
   if (!isRecord(value)) return invalidResponse(`Sidebar item ${index} must be an object.`)
 
   const { id, key, label, path, icon, roles, parent_id: parentId, position, enabled, target } = value
@@ -62,12 +62,12 @@ const parseLink = (value: unknown, index: number): WordPressSidebarLink => {
   }
 }
 
-export const parseWordPressSidebarResponse = (value: unknown): WordPressSidebarResponse => {
+export const parseSidebarNavigationResponse = (value: unknown): SidebarNavigationResponse => {
   if (!isRecord(value)) return invalidResponse('The sidebar response must be an object.')
   if (!Array.isArray(value.data)) return invalidResponse('The sidebar response must contain a data array.')
   if (value.data.length > MAX_SIDEBAR_LINKS) return invalidResponse(`The sidebar response exceeds ${MAX_SIDEBAR_LINKS} items.`)
 
-  const data: WordPressSidebarLink[] = value.data.map(parseLink)
+  const data: SidebarNavigationLink[] = value.data.map(parseLink)
   const ids = new Set<number>()
   const keys = new Set<string>()
   const paths = new Set<string>()
@@ -82,13 +82,21 @@ export const parseWordPressSidebarResponse = (value: unknown): WordPressSidebarR
     paths.add(link.path)
   }
 
+  if (!isRecord(value.meta)) return invalidResponse('The sidebar response must contain metadata.')
+
+  const { total, role, tree, include_disabled: includeDisabled } = value.meta
+  if (!Number.isInteger(total) || total !== data.length) invalidResponse('The sidebar response has an invalid total.')
+  if (role !== null && (typeof role !== 'string' || !/^[a-z0-9_-]{1,64}$/i.test(role))) invalidResponse('The sidebar response has an invalid role.')
+  if (typeof tree !== 'boolean') invalidResponse('The sidebar response has an invalid tree value.')
+  if (typeof includeDisabled !== 'boolean') invalidResponse('The sidebar response has an invalid include_disabled value.')
+
   return {
     data,
     meta: {
-      total: data.length,
-      role: null,
-      tree: false,
-      include_disabled: data.some(link => !link.enabled),
+      total: total as number,
+      role: role as string | null,
+      tree: tree as boolean,
+      include_disabled: includeDisabled as boolean,
     },
   }
 }

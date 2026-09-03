@@ -56,8 +56,7 @@ const navigation = computed<AppNavigationItem[]>(() => {
     .map(item => ({
       label: item.label,
       icon: item.icon,
-      to: item.path,
-      actionOnly: item.label.trim().toLocaleLowerCase('pt-PT') === 'alunos',
+      to: item.path === '/dashboard/teachers' ? '/dashboard/teachers/new' : item.path,
       exact: item.path === '/dashboard',
       target: item.target,
     }))
@@ -117,10 +116,6 @@ const handleNotifications = () => {
   toast.info('Sem novas notificações', 'Os avisos da escola aparecerão aqui quando estiverem disponíveis.')
 }
 
-const handleSidebarAction = (item: AppNavigationItem) => {
-  if (!item.actionOnly) return
-  toast.info(item.label, 'Utilize a ação “Matricular aluno” no painel para iniciar uma nova matrícula.')
-}
 </script>
 
 <template>
@@ -141,7 +136,6 @@ const handleSidebarAction = (item: AppNavigationItem) => {
       :show-settings="false"
       @logout="handleLogout"
       @retry="handleSidebarRetry"
-      @select="handleSidebarAction"
     />
 
     <div class="grid min-w-0 grid-rows-[auto_1fr]">

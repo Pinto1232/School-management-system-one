@@ -10,7 +10,6 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
   runtimeConfig: {
-    wordpressSidebarUrl: '',
     public: {
       apiBase: '',
       backendUrl: '',

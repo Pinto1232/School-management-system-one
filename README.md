@@ -5,7 +5,7 @@ School System is a full-stack platform for school administration, teaching, lear
 ## Features
 
 - Keycloak-backed registration, login, logout, password administration, and SSO
-- Role-aware dashboard navigation
+- Role-aware dashboard navigation served by a versioned first-party API
 - Student, teacher, staff, and parent workspaces
 - Courses, lesson planning, assignments, attendance, and grading
 - Admissions, fees, events, announcements, reports, tasks, and timetables
