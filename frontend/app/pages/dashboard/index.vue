@@ -60,6 +60,8 @@ const weeklyAttendance = [
   { label: 'Qua', value: 80 },
   { label: 'Qui', value: 95, current: true },
   { label: 'Sex', value: 70 },
+  { label: 'Sáb', value: 65 },
+  { label: 'Dom', value: 75 },
 ]
 
 const levelDistribution = [

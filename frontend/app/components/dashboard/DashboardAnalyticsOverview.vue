@@ -26,6 +26,8 @@ const chartTicks = [100, 75, 50, 25, 0]
 
 const barHeight = (value: number) => `${Math.min(100, Math.max(0, value))}%`
 
+const attendanceColumns = computed(() => `repeat(${Math.max(1, props.attendance.length)}, minmax(0, 1fr))`)
+
 const donutGradient = computed(() => {
   let start = 0
   const segments = props.levels.map(item => {
@@ -86,7 +88,10 @@ const levelSummary = computed(() => props.levels
             aria-hidden="true"
           />
 
-          <div class="absolute inset-0 grid grid-cols-5 items-end gap-[clamp(0.4rem,1.5vw,1.5rem)] px-[clamp(0.25rem,1vw,1rem)]">
+          <div
+            class="absolute inset-0 grid items-end gap-[clamp(0.4rem,1.5vw,1.5rem)] px-[clamp(0.25rem,1vw,1rem)]"
+            :style="{ gridTemplateColumns: attendanceColumns }"
+          >
             <span
               v-for="point in attendance"
               :key="point.label"
@@ -100,7 +105,10 @@ const levelSummary = computed(() => props.levels
           </div>
         </div>
 
-        <div class="col-start-2 row-start-2 grid grid-cols-5 gap-[clamp(0.25rem,1.5vw,1.5rem)] px-[clamp(0.125rem,1vw,1rem)] pt-3 text-center text-xs text-ink min-[480px]:text-sm">
+        <div
+          class="col-start-2 row-start-2 grid gap-[clamp(0.25rem,1.5vw,1.5rem)] px-[clamp(0.125rem,1vw,1rem)] pt-3 text-center text-xs text-ink min-[480px]:text-sm"
+          :style="{ gridTemplateColumns: attendanceColumns }"
+        >
           <span
             v-for="point in attendance"
             :key="point.label"
